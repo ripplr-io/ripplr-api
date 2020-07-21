@@ -11,14 +11,24 @@ docker-compose up
 
 ## Useful commands
 
-Better logs
+Run tests
 ```bash
-docker-compose up -d # Sart services in daemon mode
-docker-compose logs -f web # View logs for a specific service (e.g. web, db, redis)
-docker-compose stop # Stop the dameon services
+docker-compose run --rm web rspec
+```
+
+Run rubocop
+```bash
+docker-compose run --rm web rubocop
 ```
 
 Generate the ERD
 ```bash
 docker-compose run --rm web rake erd filename='doc/erd'
+```
+
+Better logs
+```bash
+docker-compose up -d # Sart services in daemon mode
+docker-compose logs -f web # View logs for a specific service (e.g. web, db, redis)
+docker-compose stop # Stop the dameon services
 ```
