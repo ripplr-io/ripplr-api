@@ -1,7 +1,7 @@
 ## Setup the api
 ```bash
 docker-compose build
-docker-compose run web rake db:setup
+docker-compose run run --rm web rake db:setup
 ```
 
 ## Run the api
