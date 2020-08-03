@@ -14,5 +14,10 @@ Rails.application.routes.draw do
       sessions: :sessions,
       registrations: :registrations
     }
+
+    scope :auth do
+      get :user, to: 'users#legacy_show'
+      resources :users
+    end
   end
 end
