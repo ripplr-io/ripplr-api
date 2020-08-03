@@ -19,5 +19,7 @@ Rails.application.routes.draw do
       get :user, to: 'users#legacy_show'
       resources :users
     end
+
+    resources :levels, only: :index
   end
 end
