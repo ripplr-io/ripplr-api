@@ -5,5 +5,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :jwt_authenticatable, jwt_revocation_strategy: Devise::JWT::RevocationStrategies::Null
 
-  has_many :posts, foreign_key: :author_id
+  has_many :posts, inverse_of: :author, foreign_key: :author_id
 end
