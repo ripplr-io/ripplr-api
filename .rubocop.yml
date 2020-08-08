@@ -11,3 +11,18 @@ AllCops:
     - tmp/**/*
     - Gemfile
     - Rakefile
+
+# Configured cops
+Naming/MethodName:
+  Exclude:
+    - app/serializers/**/*
+
+# Disabled cops
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/BlockComments:
+  Enabled: false

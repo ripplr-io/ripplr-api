@@ -1,8 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
 
-  def index
-  end
+  def index; end
 
   def legacy_show
     redirect_to "/auth/users/#{current_user.id}"
@@ -10,11 +9,11 @@ class UsersController < ApplicationController
 
   def show
     user = User.first
-    render json: {data: {
+    render json: { data: {
       id: user.id,
-      slug: "ggraca",
-      name: "Guilherme Graca",
-      avatar: "https://ripplr.ams3.digitaloceanspaces.com/user/048758bd-51fd-4ad5-9615-ccefd0ba7205/d1ebef2c-f576-40da-ab8f-39c075772621.jpg",
+      slug: 'ggraca',
+      name: 'Guilherme Graca',
+      avatar: 'https://ripplr.ams3.digitaloceanspaces.com/user/048758bd-51fd-4ad5-9615-ccefd0ba7205/d1ebef2c-f576-40da-ab8f-39c075772621.jpg',
       bio: nil,
       supporter: 0,
       pointsSum: 0,
@@ -32,21 +31,18 @@ class UsersController < ApplicationController
         segments: 0
       },
       accountInfo: {
-        email: "guilherme@ripplr.io",
+        email: 'guilherme@ripplr.io',
         country: nil,
-        timezone: "Europe/Lisbon",
+        timezone: 'Europe/Lisbon',
         password_updated_at: user.created_at,
         postsToday: 0
       }
-    }}
+    } }
   end
 
-  def create
-  end
+  def create; end
 
-  def update
-  end
+  def update; end
 
-  def destroy
-  end
+  def destroy; end
 end
