@@ -4,3 +4,4 @@ def load_seed(name)
 end
 
 load_seed :levels
+load_seed :topics

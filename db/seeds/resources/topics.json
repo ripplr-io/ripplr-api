@@ -1,0 +1,89 @@
+{
+  "data": [
+    {
+      "name": "Art",
+      "avatar": "ri-palette-line",
+      "description": null
+    },
+    {
+      "name": "Business",
+      "avatar": "ri-hand-coin-line",
+      "description": null
+    },
+    {
+      "name": "Design",
+      "avatar": "ri-pencil-ruler-line",
+      "description": null
+    },
+    {
+      "name": "Fashion",
+      "avatar": "ri-t-shirt-line",
+      "description": null
+    },
+    {
+      "name": "Finance",
+      "avatar": "ri-coins-line",
+      "description": null
+    },
+    {
+      "name": "Food",
+      "avatar": "ri-restaurant-fill",
+      "description": null
+    },
+    {
+      "name": "Gaming",
+      "avatar": "ri-game-line",
+      "description": null
+    },
+    {
+      "name": "Health",
+      "avatar": "ri-heart-line",
+      "description": null
+    },
+    {
+      "name": "Miscellaneous",
+      "avatar": "ri-apps-line",
+      "description": null
+    },
+    {
+      "name": "Music",
+      "avatar": "ri-music-2-line",
+      "description": null
+    },
+    {
+      "name": "Nature",
+      "avatar": "ri-plant-line",
+      "description": null
+    },
+    {
+      "name": "Politics",
+      "avatar": "ri-open-arm-line",
+      "description": null
+    },
+    {
+      "name": "Programming",
+      "avatar": "ri-code-line",
+      "description": null
+    },
+    {
+      "name": "Science",
+      "avatar": "ri-flask-line",
+      "description": null
+    },
+    {
+      "name": "Sports",
+      "avatar": "ri-football-line",
+      "description": null
+    },
+    {
+      "name": "Technology",
+      "avatar": "ri-macbook-line",
+      "description": null
+    },
+    {
+      "name": "Travel",
+      "avatar": "ri-suitcase-3-line",
+      "description": null
+    }
+  ]
+}
