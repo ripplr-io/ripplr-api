@@ -22,5 +22,6 @@ Rails.application.routes.draw do
 
     resources :levels, only: :index
     resources :topics, only: :index
+    resources :posts
   end
 end
