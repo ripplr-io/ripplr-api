@@ -4,9 +4,9 @@ class Topic < ApplicationRecord
 
   has_many :posts
 
-  friendly_id :name, use: :slugged
-
   validates :name, presence: true
   validates :avatar, presence: true
   validates :slug, presence: true, uniqueness: true
+
+  friendly_id :name, use: :slugged
 end
