@@ -1,13 +1,9 @@
-class LevelsController < ApplicationController
+class PostsController < ApplicationController
   wrap_parameters :post
 
   def index
-    data = ActiveModelSerializers::SerializableResource.new(Posts.all).as_json
-    render json: { data: data }
-  end
-
-  def show
-    data = ActiveModelSerializers::SerializableResource.new(Post.find(id)).as_json
+    @user = User.friendly.find(params[:id])
+    data = ActiveModelSerializers::SerializableResource.new(@user.posts).as_json
     render json: { data: data }
   end
 

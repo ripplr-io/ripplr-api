@@ -22,6 +22,11 @@ Rails.application.routes.draw do
 
     resources :levels, only: :index
     resources :topics, only: :index
-    resources :posts
+    resources :users, only: [] do
+      member do
+        resources :posts, only: :index
+      end
+    end
+    resources :posts, only: [:create, :update, :destroy]
   end
 end
