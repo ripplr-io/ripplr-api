@@ -2,8 +2,7 @@ class PostsController < ApplicationController
   wrap_parameters :post
 
   def index
-    @user = User.friendly.find(params[:id])
-    data = ActiveModelSerializers::SerializableResource.new(@user.posts).as_json
+    data = ActiveModelSerializers::SerializableResource.new(find_posts).as_json
     render json: { data: data }
   end
 
@@ -21,6 +20,11 @@ class PostsController < ApplicationController
   end
 
   private
+
+  def find_posts
+    return User.friendly.find(params[:user_id]).posts if params[:user_id].present?
+    return Topic.friendly.find(params[:topic_id]).posts if params[:topic_id].present?
+  end
 
   def post_params
     params.require(:post).permit(:title, :body, :image, :url)
