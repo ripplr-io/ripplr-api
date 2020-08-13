@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_13_202650) do
+ActiveRecord::Schema.define(version: 2020_08_13_231851) do
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "body", null: false
@@ -24,6 +24,13 @@ ActiveRecord::Schema.define(version: 2020_08_13_202650) do
     t.index ["post_id"], name: "index_comments_on_post_id"
   end
 
+  create_table "hashtags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_hashtags_on_name", unique: true
+  end
+
   create_table "levels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.integer "from", null: false
@@ -33,6 +40,13 @@ ActiveRecord::Schema.define(version: 2020_08_13_202650) do
     t.integer "subscriptions", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "post_hashtags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "post_id"
+    t.bigint "hashtag_id"
+    t.index ["hashtag_id"], name: "index_post_hashtags_on_hashtag_id"
+    t.index ["post_id"], name: "index_post_hashtags_on_post_id"
   end
 
   create_table "posts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|

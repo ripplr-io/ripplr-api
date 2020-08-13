@@ -13,6 +13,6 @@ class Comment < ApplicationRecord
   private
 
   def copy_parent_post
-    post = comment.post
+    self.post = comment.post
   end
 end
