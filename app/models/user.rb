@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_many :comments, inverse_of: :author, foreign_key: :author_id
   has_many :posts, inverse_of: :author, foreign_key: :author_id
   has_many :ratings
+  has_many :received_ratings, through: :posts, source: :ratings
 
   validates :name, presence: true
   validates :slug, presence: true, uniqueness: true
