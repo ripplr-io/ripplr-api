@@ -3,11 +3,6 @@ class CommentSerializer < ActiveModel::Serializer
 
   belongs_to :author
 
-  # TODO: Implement these methods
-  def comment_id
-    object.parent_id
-  end
-
   def repliesCount
     object.comments.count
   end

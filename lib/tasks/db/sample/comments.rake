@@ -18,7 +18,7 @@ namespace 'db:sample' do
 
     comments = Comment.all.to_a
     20.times do
-      create(:reply, author: users.sample, parent: comments.sample)
+      create(:reply, author: users.sample, comment: comments.sample)
     end
   end
 end

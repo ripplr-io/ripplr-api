@@ -2,12 +2,12 @@ FactoryBot.define do
   factory :comment do
     author factory: :user
     post
-    parent { nil }
+    comment { nil }
 
     body { Faker::Lorem.paragraph }
   end
 
   factory :reply, parent: :comment do
-    parent factory: :comment
+    comment
   end
 end
