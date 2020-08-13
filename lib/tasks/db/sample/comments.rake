@@ -7,11 +7,18 @@ namespace 'db:sample' do
 
     puts 'Creating comments 💬💬💬'
 
-    users = User.all
-    posts = Post.all
+    users = User.all.to_a
+    posts = Post.all.to_a
 
     20.times do
       create(:comment, author: users.sample, post: posts.sample)
+    end
+
+    puts 'Creating replies 🗯🗯🗯'
+
+    comments = Comment.all.to_a
+    20.times do
+      create(:reply, author: users.sample, parent: comments.sample)
     end
   end
 end

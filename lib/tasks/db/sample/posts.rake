@@ -7,8 +7,8 @@ namespace 'db:sample' do
 
     puts 'Creating posts 📜📜📜'
 
-    users = User.all
-    topics = Topic.all
+    users = User.all.to_a
+    topics = Topic.all.to_a
 
     20.times do
       create(:post, author: users.sample, topic: topics.sample)

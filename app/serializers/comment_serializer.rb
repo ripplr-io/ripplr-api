@@ -5,10 +5,10 @@ class CommentSerializer < ActiveModel::Serializer
 
   # TODO: Implement these methods
   def comment_id
-    nil
+    object.parent_id
   end
 
   def repliesCount
-    0
+    object.comments.count
   end
 end
