@@ -2,6 +2,7 @@ class User < ApplicationRecord
   extend FriendlyId
 
   has_many :posts, inverse_of: :author, foreign_key: :author_id
+  has_many :comments, inverse_of: :author, foreign_key: :author_id
 
   validates :name, presence: true
   validates :slug, presence: true, uniqueness: true

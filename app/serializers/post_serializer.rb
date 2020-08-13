@@ -15,7 +15,7 @@ class PostSerializer < ActiveModel::Serializer
   end
 
   def commentsCount
-    0
+    object.comments.count
   end
 
   def bookmarked

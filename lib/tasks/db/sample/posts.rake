@@ -1,11 +1,11 @@
-require "factory_bot"
+require 'factory_bot'
 
 namespace 'db:sample' do
-  desc "Setup and populate the database with sample data"
+  desc 'Populate the database with sample posts'
   task posts: :environment do
     include FactoryBot::Syntax::Methods
 
-    puts "Creating posts 📜📜📜"
+    puts 'Creating posts 📜📜📜'
 
     users = User.all
     topics = Topic.all
