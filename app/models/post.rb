@@ -1,7 +1,9 @@
 class Post < ApplicationRecord
   belongs_to :topic
   belongs_to :author, class_name: :User
+
   has_many :comments
+  has_many :ratings, as: :ratable
 
   validates :title, presence: true
   validates :url, presence: true

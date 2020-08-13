@@ -4,6 +4,9 @@ class Comment < ApplicationRecord
   belongs_to :comment, optional: true
 
   has_many :comments
+  has_many :ratings, as: :ratable
+
+  validates :body, presence: true
 
   before_save :copy_parent_post, if: :comment_id?
 
