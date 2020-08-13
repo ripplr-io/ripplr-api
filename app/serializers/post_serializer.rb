@@ -7,7 +7,7 @@ class PostSerializer < ActiveModel::Serializer
 
   # TODO: Implement these methods
   def rateSum
-    0
+    object.ratings.sum(:points)
   end
 
   def rateUser

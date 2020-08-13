@@ -15,7 +15,7 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   def postsCount
-    0
+    object.posts.count
   end
 
   def followersCount
