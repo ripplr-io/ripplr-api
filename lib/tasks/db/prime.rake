@@ -8,7 +8,8 @@ if Rails.env.development?
     task sample: [
       :users,
       :posts,
-      :comments
+      :comments,
+      :ratings
     ].map { |task| "db:sample:#{task}" }
   end
 end
