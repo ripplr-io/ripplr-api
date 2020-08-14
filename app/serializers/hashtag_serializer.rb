@@ -6,6 +6,6 @@ class HashtagSerializer < ActiveModel::Serializer
   end
 
   def followersCount
-    0
+    object.followers.count
   end
 end

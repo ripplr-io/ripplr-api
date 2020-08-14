@@ -19,10 +19,10 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   def followersCount
-    0
+    object.followers.count
   end
 
   def followingCount
-    0
+    object.following_users.count
   end
 end

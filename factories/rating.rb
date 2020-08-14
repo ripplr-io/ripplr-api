@@ -1,16 +1,19 @@
 FactoryBot.define do
-  factory :rating, aliases: [:post_rating] do
+  factory :rating do
+    for_post
     user
-    ratable factory: :post
-
     points { [1, 2, 3, 5, 8].sample }
-  end
 
-  factory :comment_rating, parent: :rating do
-    ratable factory: :comment
-  end
+    trait :for_post do
+      ratable factory: :post
+    end
 
-  factory :reply_rating, parent: :rating do
-    ratable factory: :reply
+    trait :for_comment do
+      ratable factory: :comment
+    end
+
+    trait :for_reply do
+      ratable factory: :reply
+    end
   end
 end

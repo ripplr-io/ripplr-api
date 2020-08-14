@@ -5,8 +5,7 @@ class TopicSerializer < ActiveModel::Serializer
     object.posts.count
   end
 
-  # TODO: Replace these methods once relashionships are in place
   def followersCount
-    0
+    object.followers.count
   end
 end
