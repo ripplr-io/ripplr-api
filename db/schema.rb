@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_13_231851) do
+ActiveRecord::Schema.define(version: 2020_08_14_104059) do
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "body", null: false
@@ -22,6 +22,16 @@ ActiveRecord::Schema.define(version: 2020_08_13_231851) do
     t.index ["author_id"], name: "index_comments_on_author_id"
     t.index ["comment_id"], name: "index_comments_on_comment_id"
     t.index ["post_id"], name: "index_comments_on_post_id"
+  end
+
+  create_table "follows", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "followable_type"
+    t.bigint "followable_id"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["followable_type", "followable_id"], name: "index_follows_on_followable_type_and_followable_id"
+    t.index ["user_id"], name: "index_follows_on_user_id"
   end
 
   create_table "hashtags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
