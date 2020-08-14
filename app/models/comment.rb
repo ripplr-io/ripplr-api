@@ -8,11 +8,11 @@ class Comment < ApplicationRecord
 
   validates :body, presence: true
 
-  before_save :copy_parent_post, if: :comment_id?
+  before_validation :copy_parent_post
 
   private
 
   def copy_parent_post
-    self.post = comment.post
+    self.post = comment.post if comment.present?
   end
 end

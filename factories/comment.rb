@@ -9,5 +9,6 @@ FactoryBot.define do
 
   factory :reply, parent: :comment do
     comment
+    post { nil }
   end
 end
