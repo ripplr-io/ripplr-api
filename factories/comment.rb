@@ -4,7 +4,7 @@ FactoryBot.define do
     post
     comment { nil }
 
-    body { Faker::Lorem.paragraph }
+    body { Faker::Hipster.paragraph }
   end
 
   factory :reply, parent: :comment do

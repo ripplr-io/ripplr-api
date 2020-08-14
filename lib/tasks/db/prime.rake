@@ -9,7 +9,8 @@ if Rails.env.development?
       :users,
       :posts,
       :comments,
-      :ratings
+      :ratings,
+      :hashtags
     ].map { |task| "db:sample:#{task}" }
   end
 end
