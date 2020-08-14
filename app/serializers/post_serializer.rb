@@ -4,6 +4,7 @@ class PostSerializer < ActiveModel::Serializer
 
   belongs_to :topic
   belongs_to :author
+  has_many :hashtags
 
   # TODO: Implement these methods
   def rateSum
@@ -20,9 +21,5 @@ class PostSerializer < ActiveModel::Serializer
 
   def bookmarked
     false
-  end
-
-  def hashtags
-    []
   end
 end
