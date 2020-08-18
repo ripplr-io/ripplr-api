@@ -20,18 +20,25 @@ Rails.application.routes.draw do
       resources :users
     end
 
+    resources :follows, only: [:index, :create]
+
+    resources :hashtags, only: :show do
+      resources :posts, only: :index
+    end
+
     resources :levels, only: :index
+
+    resources :posts, only: [:create, :update, :destroy] do
+      resources :comments, only: [:index, :show, :create]
+      resources :ratings, only: [:create], path: :rate
+    end
+
     resources :topics, only: :index do
       resources :posts, only: :index
     end
 
     resources :users, only: :show do
       resources :posts, only: :index
-    end
-
-    resources :posts, only: [:create, :update, :destroy] do
-      resources :comments, only: [:index, :show, :create]
-      resources :ratings, only: [:create], path: :rate
     end
   end
 end

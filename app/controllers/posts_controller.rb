@@ -24,6 +24,7 @@ class PostsController < ApplicationController
   def find_posts
     return User.friendly.find(params[:user_id]).posts if params[:user_id].present?
     return Topic.friendly.find(params[:topic_id]).posts if params[:topic_id].present?
+    return Hashtag.find_by(name: params[:hashtag_id]).posts if params[:hashtag_id].present?
   end
 
   def post_params
