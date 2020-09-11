@@ -33,6 +33,8 @@ Rails.application.routes.draw do
       resources :ratings, only: [:create], path: :rate
     end
 
+    resource :feed, only: :show
+
     resources :topics, only: :index do
       resources :posts, only: :index
     end
