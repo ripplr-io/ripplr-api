@@ -1,6 +1,7 @@
 class FeedsController < ApplicationController
   def show
-    data = ActiveModelSerializers::SerializableResource.new(current_user.following_posts).as_json
+    posts = current_user.following_posts.page(params[:page]).per(params[:per_page])
+    data = ActiveModelSerializers::SerializableResource.new(posts).as_json
     render json: { data: data }
   end
 end

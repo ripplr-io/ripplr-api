@@ -24,6 +24,7 @@ gem 'bcrypt'
 gem 'devise'
 gem 'devise-jwt'
 gem 'friendly_id'
+gem 'kaminari'
 gem 'rack-cors'
 gem 'sidekiq'
 
