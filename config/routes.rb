@@ -28,6 +28,11 @@ Rails.application.routes.draw do
 
     resources :levels, only: :index
 
+    resources :notifications, only: :index do
+      put :read, on: :member
+      post :read, on: :collection, to: 'notifications#read_all'
+    end
+
     resources :posts, only: [:create, :update, :destroy] do
       resources :comments, only: [:index, :show, :create]
       resources :ratings, only: [:create], path: :rate
