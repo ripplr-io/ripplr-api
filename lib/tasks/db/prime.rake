@@ -12,7 +12,8 @@ if Rails.env.development?
       :ratings,
       :hashtags,
       :follows,
-      :notifications
+      :notifications,
+      :devices
     ].map { |task| "db:sample:#{task}" }
   end
 end
