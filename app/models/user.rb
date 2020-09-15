@@ -2,6 +2,7 @@ class User < ApplicationRecord
   extend FriendlyId
 
   has_many :comments, inverse_of: :author, foreign_key: :author_id
+  has_many :devices
   has_many :notifications
   has_many :posts, inverse_of: :author, foreign_key: :author_id
   has_many :ratings
