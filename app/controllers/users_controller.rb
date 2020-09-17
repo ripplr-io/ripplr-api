@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    data = ActiveModelSerializers::SerializableResource.new(User.first).as_json
+    data = ActiveModelSerializers::SerializableResource.new(find_user).as_json
     render json: { data: data }
   end
 
@@ -17,4 +17,10 @@ class UsersController < ApplicationController
   def update; end
 
   def destroy; end
+
+  private
+
+  def find_user
+    User.friendly.find(params[:id])
+  end
 end

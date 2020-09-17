@@ -41,6 +41,8 @@ Rails.application.routes.draw do
 
     resource :feed, only: :show
 
+    resources :subscriptions, only: [:index, :create, :update, :destroy]
+
     resources :topics, only: :index do
       resources :posts, only: :index
     end
