@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_19_092625) do
+ActiveRecord::Schema.define(version: 2020_09_19_095649) do
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "body", null: false
@@ -91,6 +91,22 @@ ActiveRecord::Schema.define(version: 2020_09_19_092625) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["author_id"], name: "index_posts_on_author_id"
     t.index ["topic_id"], name: "index_posts_on_topic_id"
+  end
+
+  create_table "push_notifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "device_id"
+    t.bigint "subscription_id"
+    t.bigint "post_id"
+    t.string "title", null: false
+    t.text "body", null: false
+    t.string "thumbnail", null: false
+    t.datetime "scheduled_to"
+    t.datetime "delivered_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["device_id"], name: "index_push_notifications_on_device_id"
+    t.index ["post_id"], name: "index_push_notifications_on_post_id"
+    t.index ["subscription_id"], name: "index_push_notifications_on_subscription_id"
   end
 
   create_table "ratings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
