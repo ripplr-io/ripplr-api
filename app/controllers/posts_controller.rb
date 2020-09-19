@@ -6,17 +6,31 @@ class PostsController < ApplicationController
     render json: { data: data }
   end
 
-  # TODO: Implement answers and error handling
   def create
-    Post.create(post_params)
+    current_user.posts.create!(post_params)
   end
 
   def update
-    Post.find(params[:id]).update(post_params)
+    current_user.posts.find(params[:id]).update(post_params)
   end
 
   def destroy
-    Post.find(params[:id]).destroy
+    current_user.posts.find(params[:id]).destroy
+  end
+
+  def preview
+    page = MetaInspector.new(params[:url])
+    return render json: { status: 404 } if page.response.status != 200
+
+    render json: {
+      status: "success",
+      data: {
+        title: page.best_title,
+        body: page.best_description,
+        image: page.images.best,
+        url: page.url
+      }
+    }
   end
 
   private
@@ -32,6 +46,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :body, :image, :url)
+    params.require(:post).permit(:title, :body, :image, :url, :topic_id)
   end
 end

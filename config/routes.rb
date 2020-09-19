@@ -37,6 +37,8 @@ Rails.application.routes.draw do
     resources :posts, only: [:create, :update, :destroy] do
       resources :comments, only: [:index, :show, :create]
       resources :ratings, only: [:create], path: :rate
+
+      post :preview, on: :collection
     end
 
     resource :feed, only: :show

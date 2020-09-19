@@ -1,10 +1,11 @@
 class Comment < ApplicationRecord
+  include Ratable
+
   belongs_to :author, class_name: :User
   belongs_to :post
   belongs_to :comment, optional: true
 
   has_many :comments
-  has_many :ratings, as: :ratable
 
   validates :body, presence: true
 
