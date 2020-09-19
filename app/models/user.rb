@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   extend FriendlyId
+  include Followable
+  include Subscribable
 
   has_many :comments, inverse_of: :author, foreign_key: :author_id
   has_many :devices
@@ -12,7 +14,6 @@ class User < ApplicationRecord
   has_many :received_ratings, through: :posts, source: :ratings
 
   # Follows
-  has_many :followers, class_name: :Follow, as: :followable
   has_many :follows
   has_many :following_hashtags, through: :follows, source: :followable, source_type: :Hashtag
   has_many :following_topics, through: :follows, source: :followable, source_type: :Topic
@@ -22,8 +23,8 @@ class User < ApplicationRecord
   has_many :following_user_posts, through: :following_users, source: :posts
 
   # Subscriptions
-  has_many :subscribers, class_name: :Subscription, as: :ratable
   has_many :subscriptions
+  has_many :subscribing_users, through: :subscriptions, source: :user
 
   validates :name, presence: true
   validates :slug, presence: true, uniqueness: true

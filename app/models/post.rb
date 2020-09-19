@@ -7,9 +7,17 @@ class Post < ApplicationRecord
   has_many :post_hashtags
   has_many :hashtags, through: :post_hashtags
   has_many :push_notifications, dependent: :destroy
+  has_many :subscribers, through: :author
 
   validates :title, presence: true
   validates :url, presence: true
   validates :body, presence: true
   validates :image, presence: true
+
+  after_create_commit :generate_push_notifications
+
+  private
+
+  def generate_push_notifications
+  end
 end
