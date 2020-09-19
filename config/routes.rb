@@ -40,8 +40,8 @@ Rails.application.routes.draw do
     end
 
     resource :feed, only: :show
-
     resources :subscriptions, only: [:index, :create, :update, :destroy]
+    resources :tickets, only: :create
 
     resources :topics, only: :index do
       resources :posts, only: :index

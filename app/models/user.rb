@@ -5,6 +5,7 @@ class User < ApplicationRecord
   has_many :devices
   has_many :notifications
   has_many :posts, inverse_of: :author, foreign_key: :author_id
+  has_many :tickets
 
   # Ratings
   has_many :ratings

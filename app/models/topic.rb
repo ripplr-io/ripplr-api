@@ -1,4 +1,3 @@
-# TODO: Add post relashionship
 class Topic < ApplicationRecord
   extend FriendlyId
 
