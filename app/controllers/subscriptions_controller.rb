@@ -11,12 +11,17 @@ class SubscriptionsController < ApplicationController
     current_user.subscriptions.create(
       subscribable_id: params[:subscribable_id],
       subscribable_type: params[:subscribable_type].capitalize,
-      settings: params[:settings]
+      settings: JSON.parse(params[:settings])
     )
   end
 
   def update
-    @subscription.update(subscription_params)
+    # TODO: replace with strong params
+    @subscription.update(
+      subscribable_id: params[:subscribable_id],
+      subscribable_type: params[:subscribable_type].capitalize,
+      settings: JSON.parse(params[:settings])
+    )
   end
 
   def destroy

@@ -4,8 +4,4 @@ class DeviceSerializer < ActiveModel::Serializer
   def type
     object.device_type
   end
-
-  def settings
-    JSON.parse object.settings
-  end
 end

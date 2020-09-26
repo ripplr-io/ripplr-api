@@ -5,11 +5,23 @@ class DevicesController < ApplicationController
   end
 
   def create
-    current_user.devices.create(device_params)
+    # TODO: Replace with strong params
+    current_user.devices.create(
+      name: params[:name],
+      settings: JSON.parse(params[:settings]),
+      onesignal_id: params[:onesignal_id],
+      device_type: params[:type],
+    )
   end
 
   def update
-    current_user.devices.find(params[:id]).update(device_params)
+    # TODO: Replace with strong params
+    current_user.devices.find(params[:id]).update(
+      name: params[:name],
+      settings: JSON.parse(params[:settings]),
+      onesignal_id: params[:onesignal_id],
+      device_type: params[:type]
+    )
   end
 
   def destroy
@@ -19,6 +31,6 @@ class DevicesController < ApplicationController
   private
 
   def device_params
-    params.device(:follow).permit(:name, :settings, :onesignal_id, :type)
+    params.device(:device).permit(:name, :settings, :onesignal_id, :type)
   end
 end

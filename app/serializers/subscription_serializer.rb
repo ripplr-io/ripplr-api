@@ -4,8 +4,4 @@ class SubscriptionSerializer < ActiveModel::Serializer
   def subscribable_type
     object.subscribable_type.downcase
   end
-
-  def settings
-    JSON.parse object.settings
-  end
 end

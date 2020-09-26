@@ -8,7 +8,7 @@ class Post < ApplicationRecord
   has_many :post_hashtags
   has_many :hashtags, through: :post_hashtags
   has_many :push_notifications, dependent: :destroy
-  has_many :subscribers, through: :author
+  has_many :received_subscriptions, through: :author
 
   validates :title, presence: true
   validates :url, presence: true
@@ -20,5 +20,6 @@ class Post < ApplicationRecord
   private
 
   def generate_push_notifications
+    Posts::GeneratePushNotificationsWorker.perform_async(id)
   end
 end
