@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :notifications
   has_many :posts, inverse_of: :author, foreign_key: :author_id
   has_many :tickets
+  has_many :bookmark_folders
 
   # Ratings
   has_many :ratings
@@ -29,6 +30,8 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :slug, presence: true, uniqueness: true
 
+  after_create_commit :create_root_bookmark_folder
+
   friendly_id :name, use: :slugged
 
   # Include default devise modules. Others available are:
@@ -40,5 +43,11 @@ class User < ApplicationRecord
   def following_posts
     all_posts = following_hashtag_posts.union(following_topic_posts).union(following_user_posts)
     all_posts.distinct.order(created_at: :desc)
+  end
+
+  private
+
+  def create_root_bookmark_folder
+    self.bookmark_folders.create!(name: "Root")
   end
 end
