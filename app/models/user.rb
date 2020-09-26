@@ -8,7 +8,6 @@ class User < ApplicationRecord
   has_many :notifications
   has_many :posts, inverse_of: :author, foreign_key: :author_id
   has_many :tickets
-  has_many :bookmark_folders
 
   # Ratings
   has_many :ratings
@@ -26,6 +25,11 @@ class User < ApplicationRecord
   # Subscriptions
   has_many :subscriptions
   has_many :subscribing_users, through: :subscriptions, source: :user
+
+  # Bookmarks
+  has_many :bookmark_folders
+  has_many :bookmarks, through: :bookmark_folders, source: :bookmarks
+
 
   validates :name, presence: true
   validates :slug, presence: true, uniqueness: true
