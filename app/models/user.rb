@@ -45,9 +45,13 @@ class User < ApplicationRecord
     all_posts.distinct.order(created_at: :desc)
   end
 
+  def root_bookmark_folder
+    bookmark_folders.find_by(name: "Root")
+  end
+
   private
 
   def create_root_bookmark_folder
-    self.bookmark_folders.create!(name: "Root")
+    bookmark_folders.create!(name: "Root")
   end
 end

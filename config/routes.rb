@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       resources :users
     end
 
+    resources :bookmarks, only: :index
     resources :devices, only: [:index, :create, :update, :destroy]
     resources :follows, only: [:index, :create]
 
