@@ -1,12 +1,12 @@
 class TicketsController < ApplicationController
   def create
-    # TODO: Replace with ticket params
-    current_user.tickets.create!(title: params[:title], body: params[:body])
+    current_user.tickets.create!(ticket_params)
   end
 
   private
 
   def ticket_params
-    params.require(:ticket).permit(:title, :body)
+    screenshots = (params[:screenshots] || {}).values
+    params.require(:ticket).permit(:title, :body).merge!(screenshots: screenshots)
   end
 end
