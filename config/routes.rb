@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     scope :auth do
       get :user, to: 'users#legacy_show'
       resources :users
+      resource :profile, only: [:update]
     end
 
     resources :bookmarks, only: [:index, :create, :update, :destroy]
