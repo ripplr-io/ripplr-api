@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_26_191435) do
+ActiveRecord::Schema.define(version: 2020_09_27_193345) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -160,6 +160,18 @@ ActiveRecord::Schema.define(version: 2020_09_26_191435) do
     t.index ["user_id"], name: "index_ratings_on_user_id"
   end
 
+  create_table "referrals", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "inviter_id"
+    t.bigint "invitee_id"
+    t.string "name", null: false
+    t.string "email", null: false
+    t.datetime "accepted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["invitee_id"], name: "index_referrals_on_invitee_id"
+    t.index ["inviter_id"], name: "index_referrals_on_inviter_id"
+  end
+
   create_table "subscriptions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id"
     t.string "subscribable_type"
@@ -210,4 +222,6 @@ ActiveRecord::Schema.define(version: 2020_09_26_191435) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "users", column: "author_id"
   add_foreign_key "posts", "users", column: "author_id"
+  add_foreign_key "referrals", "users", column: "invitee_id"
+  add_foreign_key "referrals", "users", column: "inviter_id"
 end

@@ -18,19 +18,22 @@ Rails.application.routes.draw do
     scope :auth do
       get :user, to: 'users#legacy_show'
       resources :users
-      resource :profile, only: [:update]
+      resource :profile, only: :update
     end
 
     resources :bookmarks, only: [:index, :create, :update, :destroy]
     resources :bookmark_folders, path: :folders, only: [:create, :update, :destroy]
     resources :devices, only: [:index, :create, :update, :destroy]
+    resource :feed, only: :show
     resources :follows, only: [:index, :create]
+    resources :levels, only: :index
+    resources :referrals, only: :create
+    resources :subscriptions, only: [:index, :create, :update, :destroy]
+    resources :tickets, only: :create
 
     resources :hashtags, only: :show do
       resources :posts, only: :index
     end
-
-    resources :levels, only: :index
 
     resources :notifications, only: :index do
       put :read, on: :member
@@ -43,10 +46,6 @@ Rails.application.routes.draw do
 
       post :preview, on: :collection
     end
-
-    resource :feed, only: :show
-    resources :subscriptions, only: [:index, :create, :update, :destroy]
-    resources :tickets, only: :create
 
     resources :topics, only: :index do
       resources :posts, only: :index

@@ -16,7 +16,8 @@ if Rails.env.development?
       :devices,
       :subscriptions,
       :tickets,
-      :bookmarks
+      :bookmarks,
+      :referrals
     ].map { |task| "db:sample:#{task}" }
   end
 end

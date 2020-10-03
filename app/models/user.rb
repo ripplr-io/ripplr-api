@@ -30,6 +30,11 @@ class User < ApplicationRecord
   has_many :bookmark_folders
   has_many :bookmarks, through: :bookmark_folders, source: :bookmarks
 
+  #Referrals
+  has_many :referrals, inverse_of: :inviter, foreign_key: :inviter_id
+  has_many :referred_users, through: :referrals, source: :invitee
+  has_one :referral, inverse_of: :invitee, foreign_key: :invitee_id
+  has_one :referee, through: :referral, source: :inviter
 
   validates :name, presence: true
   validates :slug, presence: true, uniqueness: true

@@ -1,5 +1,6 @@
 class ProfilesController < ApplicationController
   wrap_parameters User
+
   def update
     current_user.update!(profile_params)
   end
