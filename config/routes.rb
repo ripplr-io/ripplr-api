@@ -27,7 +27,7 @@ Rails.application.routes.draw do
     resource :feed, only: :show
     resources :follows, only: [:index, :create]
     resources :levels, only: :index
-    resources :referrals, only: :create
+    resources :referrals, only: [:index, :create, :destroy]
     resources :subscriptions, only: [:index, :create, :update, :destroy]
     resources :tickets, only: :create
 
