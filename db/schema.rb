@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_27_193345) do
+ActiveRecord::Schema.define(version: 2020_10_03_182836) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -131,6 +131,19 @@ ActiveRecord::Schema.define(version: 2020_09_27_193345) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["author_id"], name: "index_posts_on_author_id"
     t.index ["topic_id"], name: "index_posts_on_topic_id"
+  end
+
+  create_table "prizes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "ratable_type"
+    t.bigint "ratable_id"
+    t.integer "points", null: false
+    t.string "name", null: false
+    t.datetime "given_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["ratable_type", "ratable_id"], name: "index_prizes_on_ratable_type_and_ratable_id"
+    t.index ["user_id"], name: "index_prizes_on_user_id"
   end
 
   create_table "push_notifications", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|

@@ -1,6 +1,10 @@
 class Referral < ApplicationRecord
+  include Prizable
+
   belongs_to :inviter, class_name: :User
   belongs_to :invitee, class_name: :User, optional: true
+
+  has_one :
 
   validates :name, presence: true
   validates :email, presence: true
