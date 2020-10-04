@@ -1,0 +1,8 @@
+name: Ruby Tests
+on: [push,pull_request]
+
+jobs:
+  rubocop:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: gimenete/rubocop-action@1.0
