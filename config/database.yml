@@ -1,19 +1,16 @@
 default: &default
-  adapter: mysql2
-  encoding: utf8mb4
+  adapter: postgresql
+  encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: root
-  password: root
-  host: db
 
 development:
   <<: *default
-  database: ripplr_api_development
+  url: <%= ENV['POSTGRES_URL'] + '/ripplr_development' %>
 
 test:
   <<: *default
-  database: ripplr_api_test
+  url: <%= ENV['POSTGRES_URL'] + '/ripplr_test' %>
 
 production:
   <<: *default
-  database: ripplr_api_production
+  url: <%= ENV['DATABASE_URL'] %>

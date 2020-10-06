@@ -2,7 +2,7 @@
 if Rails.env.development?
   namespace :db do
     desc 'Setup and populate the database with sample data'
-    task prime: ['db:setup', 'db:sample']
+    task prime: ['db:prepare', 'db:sample']
 
     desc 'Populate the database with sample data'
     task sample: [

@@ -2,13 +2,14 @@ require:
   - rubocop-rails
 
 AllCops:
-  TargetRubyVersion: 2.5
+  TargetRubyVersion: 2.7
   Exclude:
     - bin/**/*
     - config/**/*
     - db/**/*
     - test/**/*
     - tmp/**/*
+    - vendor/**/*
     - Gemfile
     - Rakefile
 

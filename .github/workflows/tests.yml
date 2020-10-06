@@ -1,0 +1,59 @@
+name: Tests
+on: [pull_request]
+
+jobs:
+  rspec:
+    name: Rspec
+    runs-on: ubuntu-latest
+
+    services:
+      db:
+        image: postgres:13.0
+        ports: ['5432:5432']
+        env:
+          POSTGRES_PASSWORD: password
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      redis:
+        image: redis
+        ports: ['6379:6379']
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup ruby
+        uses: ruby/setup-ruby@v1
+
+      - name: Cache gems
+        uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+
+      - name: Bundle install
+        run: bundle check || bundle install --path vendor/bundle --jobs 4 --retry 3
+
+      - name: Setup the Database
+        env:
+          RAILS_ENV: test
+          POSTGRES_URL: postgres://postgres:password@localhost:5432
+        run: bin/rails db:create; bin/rails db:migrate
+
+      - name: Rspec
+        env:
+          RAILS_ENV: test
+          POSTGRES_URL: postgres://postgres:password@localhost:5432
+          REDIS_URL: redis://localhost:6379/0
+        run: bundle exec rspec
