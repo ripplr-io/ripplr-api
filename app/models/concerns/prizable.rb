@@ -1,7 +1,7 @@
-module Ratable
+module Prizable
   extend ActiveSupport::Concern
 
   included do
-    has_many :ratings, as: :ratable
+    has_many :prizes, as: :prizable
   end
 end

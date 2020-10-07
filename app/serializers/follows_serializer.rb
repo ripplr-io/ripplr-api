@@ -1,4 +1,4 @@
-class FollowSerializer < ActiveModel::Serializer
+class FollowsSerializer < ActiveModel::Serializer
   attributes :id, :followable_type, :followable_id, :created_at
 
   def followable_type

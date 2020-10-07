@@ -5,11 +5,11 @@ default: &default
 
 development:
   <<: *default
-  url: <%= ENV['POSTGRES_URL'] + '/ripplr_development' %>
+  url: <%= ENV.fetch('POSTGRES_URL') { '' } + '/ripplr_development' %>
 
 test:
   <<: *default
-  url: <%= ENV['POSTGRES_URL'] + '/ripplr_test' %>
+  url: <%= ENV.fetch('POSTGRES_URL') { '' } + '/ripplr_test' %>
 
 production:
   <<: *default
