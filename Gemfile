@@ -10,12 +10,15 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 gem 'active_model_serializers'
 gem 'active_record_union'
+gem "aws-sdk-s3", require: false
 gem 'bcrypt'
 gem 'devise'
 gem 'devise-jwt'
 gem 'friendly_id'
 gem 'kaminari'
-gem 'metainspector'
+gem 'mailgun-ruby', '~> 1.1.6'
+gem 'metainspector', '~> 5.9.0'
+gem 'onesignal-ruby', github: 'mikamai/onesignal-ruby', branch: 'develop'
 gem 'rack-cors'
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
@@ -29,6 +32,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'letter_opener_web', '~> 1.0'
   gem 'listen', '~> 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
