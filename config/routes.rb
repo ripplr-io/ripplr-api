@@ -7,17 +7,16 @@ Rails.application.routes.draw do
 
   # API
   defaults format: :json do
-    devise_for :users, path: 'auth', path_names: {
-      sign_in: :login,
-      sign_out: :logout,
-      registration: :signup
-    }, controllers: {
-      sessions: :sessions,
-      registrations: :registrations
-    }
-
     scope :auth do
+      devise_for :users, path: '', module: "accounts", sign_out_via: :post, path_names: {
+        sign_in: :login,
+        sign_out: :logout,
+        registration: :signup,
+        password: 'password/reset'
+      }
+
       get :user, to: 'users#legacy_show'
+      resource :account, only: :delete
       resources :users
       resource :profile, only: :update
     end
