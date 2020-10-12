@@ -4,7 +4,7 @@ RUN apt-get update -qq
 RUN apt-get install -y build-essential
 
 # Only required in development
-RUN apt-get install -y graphviz nano
+RUN apt-get install -y graphviz nano cmake
 
 ENV APP_HOME=/app
 RUN mkdir $APP_HOME
