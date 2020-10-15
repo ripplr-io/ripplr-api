@@ -5,6 +5,12 @@ namespace 'db:sample' do
   task devices: :environment do
     include FactoryBot::Syntax::Methods
 
-    puts 'TODO: Creating devices 💻💻💻'
+    puts 'Creating devices 💻💻💻'
+
+    users = User.all.to_a
+
+    5.times do
+      create(:device, user: users.sample)
+    end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_03_182836) do
+ActiveRecord::Schema.define(version: 2020_10_14_171307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -138,14 +138,14 @@ ActiveRecord::Schema.define(version: 2020_10_03_182836) do
 
   create_table "prizes", force: :cascade do |t|
     t.bigint "user_id"
-    t.string "ratable_type"
-    t.bigint "ratable_id"
+    t.string "prizable_type"
+    t.bigint "prizable_id"
     t.integer "points", null: false
     t.string "name", null: false
     t.datetime "given_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["ratable_type", "ratable_id"], name: "index_prizes_on_ratable_type_and_ratable_id"
+    t.index ["prizable_type", "prizable_id"], name: "index_prizes_on_prizable_type_and_prizable_id"
     t.index ["user_id"], name: "index_prizes_on_user_id"
   end
 
@@ -229,7 +229,7 @@ ActiveRecord::Schema.define(version: 2020_10_03_182836) do
     t.string "name", null: false
     t.text "bio"
     t.string "avatar"
-    t.string "slug"
+    t.string "slug", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_users_on_slug", unique: true

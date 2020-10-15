@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :hashtag do
-    name { Faker::Hipster.word }
+    sequence(:name) { |n| [Faker::Lorem.word, n].join }
   end
 end

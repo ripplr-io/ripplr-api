@@ -5,6 +5,12 @@ namespace 'db:sample' do
   task tickets: :environment do
     include FactoryBot::Syntax::Methods
 
-    puts 'TODO: Creating tickets 💻💻💻'
+    puts 'Creating tickets 🎟🎟🎟'
+
+    users = User.all.to_a
+
+    5.times do
+      create(:ticket, user: users.sample)
+    end
   end
 end

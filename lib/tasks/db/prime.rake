@@ -11,12 +11,11 @@ if Rails.env.development?
       :comments,
       :ratings,
       :hashtags,
-      :follows,
-      :notifications,
       :devices,
+      :follows,
       :subscriptions,
-      :tickets,
       :bookmarks,
+      :tickets,
       :referrals,
       :prizes
     ].map { |task| "db:sample:#{task}" }

@@ -5,6 +5,12 @@ namespace 'db:sample' do
   task subscriptions: :environment do
     include FactoryBot::Syntax::Methods
 
-    puts 'TODO: Creating subscriptions 💻💻💻'
+    puts 'Creating subscriptions 📅📅📅'
+
+    users = User.all.to_a
+
+    5.times do
+      create(:subscription, user: users.sample, subscribable: users.sample)
+    end
   end
 end

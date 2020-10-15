@@ -5,6 +5,12 @@ namespace 'db:sample' do
   task prizes: :environment do
     include FactoryBot::Syntax::Methods
 
-    puts 'TODO: Creating prizes 💻💻💻'
+    puts 'Creating prizes 🎁🎁🎁'
+
+    referrals = Referral.where.not(invitee: nil)
+
+    referrals.each do |referral|
+      create(:prize, prizable: referral)
+    end
   end
 end

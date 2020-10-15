@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :rating do
     for_post
     user
-    points { [1, 2, 3, 5, 8].sample }
+    points { [0, 1, 3, 5, 8].sample }
 
     trait :for_post do
       ratable factory: :post

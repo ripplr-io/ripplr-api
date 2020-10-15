@@ -9,7 +9,7 @@ class Post < ApplicationRecord
   has_many :hashtags, through: :post_hashtags
   has_many :push_notifications, dependent: :destroy
   has_many :received_subscriptions, through: :author
-  has_many :bookmark_folders
+  has_many :bookmarks
 
   validates :title, presence: true
   validates :url, presence: true
