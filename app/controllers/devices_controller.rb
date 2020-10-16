@@ -10,7 +10,7 @@ class DevicesController < ApplicationController
       name: params[:name],
       settings: JSON.parse(params[:settings]),
       onesignal_id: params[:onesignal_id],
-      device_type: params[:type],
+      device_type: params[:type]
     )
   end
 

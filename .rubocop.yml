@@ -18,6 +18,15 @@ Naming/MethodName:
   Exclude:
     - app/serializers/**/*
 
+Style/SymbolArray:
+  EnforcedStyle: brackets
+
+Rails/FilePath:
+  EnforcedStyle: arguments
+
+Metrics/BlockLength:
+  ExcludedMethods: ['describe', 'context']
+
 # Disabled cops
 Style/Documentation:
   Enabled: false
@@ -27,6 +36,3 @@ Style/FrozenStringLiteralComment:
 
 Style/BlockComments:
   Enabled: false
-
-Rails/FilePath:
-  EnforcedStyle: arguments

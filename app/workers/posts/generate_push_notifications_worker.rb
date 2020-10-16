@@ -26,7 +26,7 @@ module Posts
             subscription: subscription,
             title: "#{post.author.name} has shared a new post",
             body: post.body,
-            thumbnail: "https://ripplr.ams3.digitaloceanspaces.com/brand/logo-black.png",
+            thumbnail: 'https://ripplr.ams3.digitaloceanspaces.com/brand/logo-black.png',
             scheduled_to: schedule_time
           )
         end
@@ -71,7 +71,7 @@ module Posts
     end
 
     def filter_availability(settings)
-      options = (0..23).map{ |h| "#{h}:00".rjust(5, '0') }
+      options = (0..23).map { |h| "#{h}:00".rjust(5, '0') }
 
       case settings['value']
       when 'all'
@@ -87,7 +87,7 @@ module Posts
 
     def find_next_available_slot(slots)
       # Slots are originally in the format '10:00'
-      hours_of_day = slots.map{ |h| h[0,2].to_i.hours }.sort
+      hours_of_day = slots.map { |h| h[0, 2].to_i.hours }.sort
 
       # Slots today
       hours_of_day.each do |hour|

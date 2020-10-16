@@ -30,7 +30,7 @@ class User < ApplicationRecord
   has_many :bookmark_folders
   has_many :bookmarks, through: :bookmark_folders, source: :bookmarks
 
-  #Referrals
+  # Referrals
   has_many :referrals, inverse_of: :inviter, foreign_key: :inviter_id
   has_many :referred_users, through: :referrals, source: :invitee
   has_one :referral, inverse_of: :invitee, foreign_key: :invitee_id
@@ -55,12 +55,12 @@ class User < ApplicationRecord
   end
 
   def root_bookmark_folder
-    bookmark_folders.find_by(name: "Root")
+    bookmark_folders.find_by(name: 'Root')
   end
 
   private
 
   def create_root_bookmark_folder
-    bookmark_folders.create!(name: "Root")
+    bookmark_folders.create!(name: 'Root')
   end
 end

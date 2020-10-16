@@ -23,7 +23,7 @@ class PostsController < ApplicationController
     return render json: { status: 404 } if page.response.status != 200
 
     render json: {
-      status: "success",
+      status: 'success',
       data: {
         title: page.best_title,
         body: page.best_description,
@@ -36,9 +36,13 @@ class PostsController < ApplicationController
   private
 
   def find_posts
-    return User.friendly.find(params[:user_id]).posts if params[:user_id].present?
-    return Topic.friendly.find(params[:topic_id]).posts if params[:topic_id].present?
-    return Hashtag.find_by(name: params[:hashtag_id]).posts if params[:hashtag_id].present?
+    if params[:user_id].present?
+      User.friendly.find(params[:user_id]).posts
+    elsif params[:topic_id].present?
+      Topic.friendly.find(params[:topic_id]).posts
+    elsif params[:hashtag_id].present?
+      Hashtag.find_by(name: params[:hashtag_id]).posts
+    end
   end
 
   def find_paginated_posts
