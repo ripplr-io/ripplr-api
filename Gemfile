@@ -22,6 +22,8 @@ gem 'onesignal-ruby', github: 'mikamai/onesignal-ruby', branch: 'develop'
 gem 'rack-cors'
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
+gem 'skylight'
+gem 'sentry-raven'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

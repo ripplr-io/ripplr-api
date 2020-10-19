@@ -165,9 +165,6 @@ GEM
       concurrent-ruby (~> 1.0)
     jmespath (1.4.0)
     jsonapi-renderer (0.2.2)
-    jsonapi-rspec (0.0.10)
-      rspec-core
-      rspec-expectations
     jwt (2.2.1)
     kaminari (1.2.1)
       activesupport (>= 4.1.0)
@@ -323,6 +320,8 @@ GEM
     ruby-progressbar (1.10.1)
     rufus-scheduler (3.6.0)
       fugit (~> 1.1, >= 1.1.6)
+    sentry-raven (2.13.0)
+      faraday (>= 0.7.6, < 1.0)
     shoulda-matchers (4.4.1)
       activesupport (>= 4.2.0)
     sidekiq (6.1.0)
@@ -341,6 +340,10 @@ GEM
       docile (~> 1.1)
       simplecov-html (~> 0.11)
     simplecov-html (0.12.3)
+    skylight (4.3.1)
+      skylight-core (= 4.3.1)
+    skylight-core (4.3.1)
+      activesupport (>= 4.2.0)
     spring (2.1.0)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -390,7 +393,6 @@ DEPENDENCIES
   factory_bot_rails
   faker
   friendly_id
-  jsonapi-rspec
   kaminari
   letter_opener_web (~> 1.0)
   listen (~> 3.2)
@@ -404,10 +406,12 @@ DEPENDENCIES
   rails-erd
   rspec-rails (~> 4.0)
   rubocop-rails
+  sentry-raven
   shoulda-matchers
   sidekiq
   sidekiq-scheduler
   simplecov
+  skylight
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
