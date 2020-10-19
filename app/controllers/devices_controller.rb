@@ -1,36 +1,37 @@
 class DevicesController < ApplicationController
+  include Crudable
+
+  before_action :authenticate_user!
+  before_action :find_device, only: [:update, :destroy]
+
   def index
-    data = ActiveModelSerializers::SerializableResource.new(current_user.devices).as_json
-    render json: { data: data }
+    render json: current_user.devices
   end
 
   def create
-    # TODO: Replace with strong params
-    current_user.devices.create(
-      name: params[:name],
-      settings: JSON.parse(params[:settings]),
-      onesignal_id: params[:onesignal_id],
-      device_type: params[:type]
-    )
+    @device = current_user.devices.new(device_params)
+    create_resource(@device)
   end
 
   def update
-    # TODO: Replace with strong params
-    current_user.devices.find(params[:id]).update(
-      name: params[:name],
-      settings: JSON.parse(params[:settings]),
-      onesignal_id: params[:onesignal_id],
-      device_type: params[:type]
-    )
+    @device.assign_attributes(device_params)
+    update_resource(@device)
   end
 
   def destroy
-    current_user.devices.find(params[:id]).destroy
+    destroy_resource(@device)
   end
 
   private
 
+  def find_device
+    @device = current_user.devices.find(params[:id])
+  end
+
   def device_params
-    params.device(:device).permit(:name, :settings, :onesignal_id, :type)
+    params.permit(:name, :onesignal_id).merge!(
+      settings: JSON.parse(params[:settings] || '{}'),
+      device_type: params[:type]
+    )
   end
 end

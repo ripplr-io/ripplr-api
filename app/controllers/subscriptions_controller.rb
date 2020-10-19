@@ -1,31 +1,25 @@
 class SubscriptionsController < ApplicationController
+  include Crudable
+
+  before_action :authenticate_user!
   before_action :find_subscription, only: [:update, :destroy]
 
   def index
-    data = ActiveModelSerializers::SerializableResource.new(current_user.subscriptions).as_json
-    render json: { data: data }
+    render json: current_user.subscriptions
   end
 
   def create
-    # TODO: replace with strong params
-    current_user.subscriptions.create(
-      subscribable_id: params[:subscribable_id],
-      subscribable_type: params[:subscribable_type].capitalize,
-      settings: JSON.parse(params[:settings])
-    )
+    @subscription = current_user.subscriptions.new(subscription_params)
+    create_resource(@subscription)
   end
 
   def update
-    # TODO: replace with strong params
-    @subscription.update(
-      subscribable_id: params[:subscribable_id],
-      subscribable_type: params[:subscribable_type].capitalize,
-      settings: JSON.parse(params[:settings])
-    )
+    @subscription.assign_attributes(subscription_params)
+    update_resource(@subscription)
   end
 
   def destroy
-    @subscription.destroy
+    destroy_resource(@subscription)
   end
 
   private
@@ -35,6 +29,9 @@ class SubscriptionsController < ApplicationController
   end
 
   def subscription_params
-    params.require(:subscription).permit(:subscribable_id, :subscribable_type, :settings)
+    params.permit(:subscribable_id).merge!(
+      settings: JSON.parse(params[:settings] || '{}'),
+      subscribable_type: params[:subscribable_type]&.capitalize
+    )
   end
 end

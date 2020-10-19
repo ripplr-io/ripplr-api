@@ -1,8 +1,9 @@
 class NotificationsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     notifications = current_user.notifications.order(created_at: :desc)
-    data = ActiveModelSerializers::SerializableResource.new(notifications).as_json
-    render json: { data: data }
+    render json: notifications, include: :user
   end
 
   def read

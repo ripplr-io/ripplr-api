@@ -1,24 +1,10 @@
 class ApplicationController < ActionController::API
   respond_to :json
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found
 
-  def render_resource(resource)
-    if resource.errors.empty?
-      render json: resource
-    else
-      validation_error(resource)
-    end
-  end
+  private
 
-  def validation_error(resource)
-    render json: {
-      errors: [
-        {
-          status: '400',
-          title: 'Bad Request',
-          detail: resource.errors,
-          code: '100'
-        }
-      ]
-    }, status: :bad_request
+  def not_found
+    head :not_found
   end
 end

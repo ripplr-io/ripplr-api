@@ -1,27 +1,26 @@
 class CommentsController < ApplicationController
+  include Crudable
+
+  before_action :authenticate_user!, only: :create
+
   def index
-    data = ActiveModelSerializers::SerializableResource.new(find_comments).as_json
-    render json: { data: data }
+    @comments = Post.find(params[:post_id]).comments
+    render json: @comments, includes: [:author]
   end
 
   def show
-    data = ActiveModelSerializers::SerializableResource.new(find_comments).as_json
-    render json: { data: data }
+    @comments = Comment.find(params[:id]).comments
+    render json: @comments, includes: [:author]
   end
 
-  # TODO: Improve responses
   def create
-    current_user.comments.create!(comment_params)
+    @comment = current_user.comments.new(comment_params)
+    create_resource(@comment)
   end
 
   private
 
-  def find_comments
-    return Comment.find(params[:id]).comments if params[:id].present?
-    return Post.find(params[:post_id]).comments if params[:post_id].present?
-  end
-
   def comment_params
-    params.require(:comment).permit(:body, :post_id, :comment_id)
+    params.permit(:body, :post_id, :comment_id)
   end
 end

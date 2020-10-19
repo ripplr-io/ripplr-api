@@ -1,6 +1,5 @@
 class TopicsController < ApplicationController
   def index
-    data = ActiveModelSerializers::SerializableResource.new(Topic.all).as_json
-    render json: { data: data }
+    render json: Topic.all
   end
 end

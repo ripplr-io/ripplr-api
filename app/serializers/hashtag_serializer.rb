@@ -1,5 +1,5 @@
 class HashtagSerializer < ActiveModel::Serializer
-  attributes :id, :name, :created_at, :postsCount, :followersCount
+  attributes :name, :created_at, :postsCount, :followersCount
 
   def postsCount
     object.posts.count

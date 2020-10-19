@@ -14,18 +14,24 @@ AllCops:
     - Rakefile
 
 # Configured cops
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent
+
+Metrics/BlockLength:
+  ExcludedMethods: ['describe', 'context']
+
+Naming/MemoizedInstanceVariableName:
+  EnforcedStyleForLeadingUnderscores: required
+
 Naming/MethodName:
   Exclude:
     - app/serializers/**/*
 
-Style/SymbolArray:
-  EnforcedStyle: brackets
-
 Rails/FilePath:
   EnforcedStyle: arguments
 
-Metrics/BlockLength:
-  ExcludedMethods: ['describe', 'context']
+Style/SymbolArray:
+  EnforcedStyle: brackets
 
 # Disabled cops
 Style/Documentation:

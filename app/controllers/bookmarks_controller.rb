@@ -1,16 +1,20 @@
 class BookmarksController < ApplicationController
+  include Crudable
+
+  before_action :authenticate_user!
+
   def index
-    data = ActiveModelSerializers::SerializableResource.new(current_user.root_bookmark_folder).as_json
-    render json: { data: data }
+    render json: current_user.root_bookmark_folder, include: [:bookmarks, 'bookmarks.post']
   end
 
   def create
-    current_user.bookmark_folders.find(params[:bookmark_folder_id]).bookmarks.create!(bookmark_params)
+    @bookmark = current_user.bookmark_folders.find(params[:bookmark_folder_id]).bookmarks.new(bookmark_params)
+    create_resource(@bookmark)
   end
 
   private
 
   def bookmark_params
-    params.require(:bookmark).permit(:post_id, :bookmark_folder_id)
+    params.permit(:post_id, :bookmark_folder_id)
   end
 end

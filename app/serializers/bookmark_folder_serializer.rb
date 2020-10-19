@@ -1,17 +1,9 @@
 class BookmarkFolderSerializer < ActiveModel::Serializer
-  attributes :id, :name, :bookmark_folder_id, :created_at, :stats, :bookmarks, :folders
+  attributes :name, :bookmark_folder_id, :created_at, :stats
 
-  def bookmarks
-    object.bookmarks.map do |bookmark|
-      BookmarkSerializer.new(bookmark)
-    end
-  end
-
-  def folders
-    object.bookmark_folders.map do |folder|
-      BookmarkFolderSerializer.new(folder)
-    end
-  end
+  belongs_to :bookmark_folder
+  has_many :bookmarks
+  has_many :bookmark_folders, key: :folders
 
   def stats
     {

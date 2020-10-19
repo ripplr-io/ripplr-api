@@ -1,5 +1,7 @@
 class NotificationSerializer < ActiveModel::Serializer
-  attributes :id, :type, :data, :user, :read_at, :created_at
+  attributes :type, :data, :read_at, :created_at
+
+  belongs_to :user
 
   def type
     object.notification_type

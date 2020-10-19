@@ -1,6 +1,19 @@
 class RatingsController < ApplicationController
-  # TODO: Make this Restful
+  include Crudable
+
+  before_action :authenticate_user!
+
   def create
-    current_user.ratings.create!(ratable: Post.find(params[:post_id]), points: params[:rate])
+    @rating = current_user.ratings.new(rating_params)
+    create_resource(@rating)
+  end
+
+  private
+
+  def rating_params
+    params.permit(:points).merge!(
+      ratable_id: params[:post_id],
+      ratable_type: 'Post'
+    )
   end
 end

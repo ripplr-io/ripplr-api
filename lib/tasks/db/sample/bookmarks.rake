@@ -10,7 +10,7 @@ namespace 'db:sample' do
     root_bookmark_folder = User.first.root_bookmark_folder
     posts = Post.all.to_a
 
-    folders = create_list(:bookmark_folder, 4, bookmark_folder: root_bookmark_folder)
+    folders = create_list(:bookmark_folder, 4, bookmark_folder: root_bookmark_folder, user: root_bookmark_folder.user)
 
     2.times do
       create(:bookmark, post: posts.sample, bookmark_folder: root_bookmark_folder)

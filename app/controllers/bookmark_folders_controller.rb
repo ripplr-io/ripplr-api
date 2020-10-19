@@ -1,19 +1,30 @@
 class BookmarkFoldersController < ApplicationController
+  include Crudable
+
+  before_action :authenticate_user!
+  before_action :find_bookmark_folder, only: [:update, :destroy]
+
   def create
-    current_user.bookmark_folders.create!(folder_params)
+    bookmark_folder = current_user.bookmark_folders.new(folder_params)
+    create_resource(bookmark_folder)
   end
 
   def update
-    current_user.bookmark_folders.find(params[:id]).update!(folder_params)
+    @bookmark_folder.assign_attributes(folder_params)
+    update_resource(@bookmark_folder)
   end
 
   def destroy
-    current_user.bookmark_folders.find(params[:id]).destroy!
+    destroy_resource(@bookmark_folder)
   end
 
   private
 
+  def find_bookmark_folder
+    @bookmark_folder = current_user.bookmark_folders.find(params[:id])
+  end
+
   def folder_params
-    params.require(:bookmark_folder).permit(:name, :bookmark_folder_id)
+    params.permit(:name, :bookmark_folder_id)
   end
 end

@@ -15,10 +15,10 @@ Rails.application.routes.draw do
         password: 'password/reset'
       }
 
-      get :user, to: 'users#legacy_show'
-      resource :account, only: :delete
-      resources :users
+      resource :account, only: :destroy
+      resources :users, only: :show
       resource :profile, only: :update
+      get :user, to: 'profiles#show'
     end
 
     resources :bookmarks, only: [:index, :create, :update, :destroy]

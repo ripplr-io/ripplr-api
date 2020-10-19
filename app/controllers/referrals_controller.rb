@@ -1,9 +1,11 @@
 class ReferralsController < ApplicationController
+  include Crudable
+
   def index
-    data = ActiveModelSerializers::SerializableResource.new(current_user.referrals).as_json
-    render json: { data: data }
+    render json: current_user.referrals
   end
 
+  # TODO: Make this restful
   def create
     referral_params[:referrals].each do |data|
       current_user.referrals.create!(data)
@@ -11,7 +13,8 @@ class ReferralsController < ApplicationController
   end
 
   def destroy
-    current_user.referrals.find(params[:id]).destroy!
+    @referral = current_user.referrals.find(params[:id])
+    destroy_resource(@referral)
   end
 
   private

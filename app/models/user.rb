@@ -55,7 +55,11 @@ class User < ApplicationRecord
   end
 
   def root_bookmark_folder
-    bookmark_folders.find_by(name: 'Root')
+    if bookmark_folders.empty?
+      create_root_bookmark_folder
+    else
+      bookmark_folders.find_by(name: 'Root')
+    end
   end
 
   private

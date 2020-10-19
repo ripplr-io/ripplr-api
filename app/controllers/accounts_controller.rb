@@ -1,12 +1,11 @@
 class AccountsController < ApplicationController
+  include Crudable
+
+  before_action :authenticate_user!
+
   def destroy
-    # TODO: verify password again
-    # TODO: improve responses
-    if current_user.destroy!
+    destroy_resource(current_user) do
       SupportMailer.with(user: current_user, comment: params[:comments]).account_deleted.deliver_later
-      render json: { status: 200 }
-    else
-      render json: { status: 400 }
     end
   end
 end

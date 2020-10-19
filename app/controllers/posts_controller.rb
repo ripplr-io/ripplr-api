@@ -1,21 +1,25 @@
 class PostsController < ApplicationController
-  wrap_parameters :post
+  include Crudable
+
+  before_action :authenticate_user!, except: :index
+  before_action :find_post, only: [:update, :destroy]
 
   def index
-    data = ActiveModelSerializers::SerializableResource.new(find_paginated_posts).as_json
-    render json: { data: data }
+    render json: find_paginated_posts, include: [:author, :topic, :hashtags]
   end
 
   def create
-    current_user.posts.create!(post_params)
+    @post = current_user.posts.new(post_params)
+    create_resource(@post)
   end
 
   def update
-    current_user.posts.find(params[:id]).update(post_params)
+    @post.assign_attributes(post_params)
+    update_resource(@post)
   end
 
   def destroy
-    current_user.posts.find(params[:id]).destroy
+    destroy_resource(@post)
   end
 
   def preview
@@ -49,7 +53,11 @@ class PostsController < ApplicationController
     find_posts.page(params[:page]).per(params[:per_page])
   end
 
+  def find_post
+    @post = current_user.posts.find(params[:id])
+  end
+
   def post_params
-    params.require(:post).permit(:title, :body, :image, :url, :topic_id)
+    params.permit(:title, :body, :image, :url, :topic_id)
   end
 end

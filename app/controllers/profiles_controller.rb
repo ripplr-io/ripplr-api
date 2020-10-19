@@ -1,13 +1,20 @@
 class ProfilesController < ApplicationController
-  wrap_parameters User
+  include Crudable
+
+  before_action :authenticate_user!
+
+  def show
+    render json: current_user
+  end
 
   def update
-    current_user.update!(profile_params)
+    current_user.assign_attributes(profile_params)
+    update_resource(current_user)
   end
 
   private
 
   def profile_params
-    params.require(:user).permit(:name, :slug, :bio, :avatar)
+    params.permit(:name, :slug, :bio, :avatar)
   end
 end

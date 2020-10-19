@@ -1,18 +1,17 @@
 class PostSerializer < ActiveModel::Serializer
-  attributes :id, :title, :body, :image, :url, :created_at,
-             :rateSum, :rateUser, :commentsCount, :bookmarked
+  attributes :title, :body, :image, :url, :created_at,
+             :rateSum, :rateUser, :commentsCount, :bookmarked, :author, :topic, :hashtags
 
   belongs_to :topic
   belongs_to :author
   has_many :hashtags
 
-  # TODO: Implement these methods
   def rateSum
     object.ratings.sum(:points)
   end
 
   def rateUser
-    nil
+    nil # TODO
   end
 
   def commentsCount
@@ -20,6 +19,6 @@ class PostSerializer < ActiveModel::Serializer
   end
 
   def bookmarked
-    false # scope.bookmarks.find_by(post_id: object.id).present?
+    false # TODO: scope.bookmarks.find_by(post_id: object.id).present?
   end
 end

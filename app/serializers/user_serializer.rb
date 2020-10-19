@@ -1,13 +1,13 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :slug, :name, :avatar, :bio, :supporter, :pointsSum, :followersCount, :followingCount, :postsCount, :level
+  attributes :slug, :name, :avatar, :bio, :supporter, :pointsSum,
+             :followersCount, :followingCount, :postsCount, :level, :onboarded_at
 
-  # TODO: Implement these methods
   def level
-    Level.first
+    Level.first # TODO
   end
 
   def supporter
-    0
+    0 # TODO
   end
 
   def pointsSum
@@ -24,5 +24,9 @@ class UserSerializer < ActiveModel::Serializer
 
   def followingCount
     object.following_users.count
+  end
+
+  def onboarded_at
+    DateTime.now # TODO
   end
 end
