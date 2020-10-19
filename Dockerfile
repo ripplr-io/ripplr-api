@@ -7,9 +7,9 @@ ENV APP_HOME=/app
 RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
-COPY Gemfile Gemfile.lock $APP_HOME/
-RUN bundle install
+COPY Gemfile Gemfile.lock ./
+RUN bundle install --without development test
 
-COPY . $APP_HOME
+COPY . .
 
 EXPOSE 3000
