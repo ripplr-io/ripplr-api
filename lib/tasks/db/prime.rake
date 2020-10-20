@@ -1,4 +1,3 @@
-# TODO: Make this available in staging and review apps
 if Rails.env.development?
   namespace :db do
     desc 'Setup and populate the database with sample data'
