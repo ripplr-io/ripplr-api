@@ -100,7 +100,7 @@ Rails.application.configure do
     end
   end
 
-  config.lograge.logger = LogStashLogger.new(
+  config.logger = LogStashLogger.new(
     type: :multi_delegator,
     outputs: [
       { type: :tcp, host: 'listener-nl.logz.io', port:5050 },
