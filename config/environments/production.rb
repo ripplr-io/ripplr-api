@@ -93,9 +93,8 @@ Rails.application.configure do
   config.log_level = :debug
   config.log_tags = [ :request_id ]
   config.lograge.enabled = true
-  config.logger = RemoteSyslogLogger.new(
+  config.lograge.logger = RemoteSyslogLogger.new(
     Rails.application.credentials.dig(:papertrail, :domain),
-    Rails.application.credentials.dig(:papertrail, :port),
-    whinyerrors: true
+    Rails.application.credentials.dig(:papertrail, :port)
   )
 end
