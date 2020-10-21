@@ -95,6 +95,7 @@ Rails.application.configure do
   config.lograge.enabled = true
   config.logger = RemoteSyslogLogger.new(
     Rails.application.credentials.dig(:papertrail, :domain),
-    Rails.application.credentials.dig(:papertrail, :port)
+    Rails.application.credentials.dig(:papertrail, :port),
+    whinyerrors: true
   )
 end
