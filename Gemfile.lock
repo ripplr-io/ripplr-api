@@ -293,6 +293,7 @@ GEM
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
     rexml (3.2.4)
+    rorvswild (1.5.8)
     rspec-core (3.9.3)
       rspec-support (~> 3.9.3)
     rspec-expectations (3.9.2)
@@ -350,10 +351,6 @@ GEM
       docile (~> 1.1)
       simplecov-html (~> 0.11)
     simplecov-html (0.12.3)
-    skylight (4.3.1)
-      skylight-core (= 4.3.1)
-    skylight-core (4.3.1)
-      activesupport (>= 4.2.0)
     spring (2.1.0)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -416,6 +413,7 @@ DEPENDENCIES
   rack-cors
   rails (~> 6.0.3, >= 6.0.3.2)
   rails-erd
+  rorvswild
   rspec-rails (~> 4.0)
   rubocop-rails
   sentry-raven
@@ -423,7 +421,6 @@ DEPENDENCIES
   sidekiq
   sidekiq-scheduler
   simplecov
-  skylight
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data

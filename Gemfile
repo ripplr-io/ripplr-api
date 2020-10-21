@@ -22,9 +22,9 @@ gem 'mailgun-ruby', '~> 1.1.6'
 gem 'metainspector', '~> 5.9.0'
 gem 'onesignal-ruby', github: 'mikamai/onesignal-ruby', branch: 'develop'
 gem 'rack-cors'
+gem "rorvswild"
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
-gem 'skylight'
 gem 'sentry-raven'
 
 gem 'factory_bot_rails'
