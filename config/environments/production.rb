@@ -90,11 +90,15 @@ Rails.application.configure do
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
   # Logs
-  config.log_level = :debug
+  config.log_level = :info
   config.log_tags = [ :request_id ]
   config.lograge.enabled = true
-  config.lograge.logger = RemoteSyslogLogger.new(
-    Rails.application.credentials.dig(:papertrail, :domain),
-    Rails.application.credentials.dig(:papertrail, :port)
-  )
+
+  LogStashLogger.configure do |config|
+    config.customize_event do |event|
+      event["token"] = Rails.application.credentials.dig(:logzio_token)
+    end
+  end
+
+  config.logger = LogStashLogger.new(type: :tcp, host:'listener-nl.logz.io', port:5050)
 end
