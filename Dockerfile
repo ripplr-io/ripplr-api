@@ -12,4 +12,6 @@ RUN bundle install --without development test
 
 COPY . .
 
+ENV RAILS_ENV=production
+
 EXPOSE 3000

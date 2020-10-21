@@ -23,16 +23,16 @@ gem 'metainspector', '~> 5.9.0'
 gem 'onesignal-ruby', github: 'mikamai/onesignal-ruby', branch: 'develop'
 gem 'rack-cors'
 gem "rorvswild"
+gem 'sentry-raven'
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
-gem 'sentry-raven'
-
-gem 'factory_bot_rails'
-gem 'faker'
+gem 'skylight'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'factory_bot_rails'
+  gem 'faker'
   gem 'rubocop-rails', require: false
 end
 
