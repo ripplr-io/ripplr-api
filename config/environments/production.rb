@@ -103,7 +103,7 @@ Rails.application.configure do
   config.logger = LogStashLogger.new(
     type: :multi_delegator,
     outputs: [
-      { type: :udp, host: 'listener-nl.logz.io', port:5050 },
+      { type: :tcp, host: 'listener-nl.logz.io', port:5050 },
       { type: :stdout }
     ]
   )
