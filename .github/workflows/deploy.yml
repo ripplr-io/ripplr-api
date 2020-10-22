@@ -7,15 +7,15 @@ on:
     branches: [ master ]
 
 jobs:
-  upload_image:
+  upload-image:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      
+
       - name: Build image
         run: docker build . --file Dockerfile --tag ripplr-api
-      
+
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
         with:
@@ -26,3 +26,24 @@ jobs:
           doctl registry login
           docker tag ripplr-api registry.digitalocean.com/ripplr/ripplr-api
           docker push registry.digitalocean.com/ripplr/ripplr-api
+
+  deploy:
+    needs: upload-image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+            token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Save DigitalOcean kubeconfig
+        run: doctl kubernetes cluster kubeconfig save testing-cluster
+
+      - name:
+        run: |
+          kubectl rollout restart deployment/ripplr-api
+          kubectl rollout restart deployment/sidekiq
+          kubectl rollout restart deployment/terminal
+
+      - name: Verify deployment
+        run: kubectl rollout status deployment/ripplr-api
