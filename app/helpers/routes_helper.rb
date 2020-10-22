@@ -1,6 +1,6 @@
 module RoutesHelper
   def web_app_route
-    Rails.application.credentials.dig(:web_app_route)
+    Rails.application.credentials[:web_app_route]
   end
 
   def password_reset_route(token)

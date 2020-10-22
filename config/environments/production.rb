@@ -49,7 +49,7 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
   config.action_mailer.delivery_method = :mailgun
   config.action_mailer.mailgun_settings = {
-    api_key: Rails.application.credentials.dig(:mailgun_api_key),
+    api_key: Rails.application.credentials[:mailgun_api_key],
     domain: 'ripplr.io',
     api_host: 'api.eu.mailgun.net'
   }

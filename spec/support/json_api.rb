@@ -4,11 +4,11 @@ module JsonApiResponseHelpers
   end
 
   def response_data
-    @_response_data ||= response_body.dig(:data)
+    @_response_data ||= response_body[:data]
   end
 
   def response_errors
-    @_response_errors ||= response_body.dig(:errors)
+    @_response_errors ||= response_body[:errors]
   end
 end
 

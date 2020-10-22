@@ -1,1 +1,1 @@
-authentication: <%= Rails.application.credentials.dig(:skylight_token) %>
+authentication: <%= Rails.application.credentials[:skylight_token] %>

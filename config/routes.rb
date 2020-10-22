@@ -22,10 +22,11 @@ Rails.application.routes.draw do
     end
 
     resources :bookmarks, only: [:index, :create, :update, :destroy]
-    resources :bookmark_folders, path: :folders, only: [:create, :update, :destroy]
+    resources :bookmark_folders, only: [:create, :update, :destroy], path: :folders
     resources :devices, only: [:index, :create, :update, :destroy]
     resource :feed, only: :show
     resources :follows, only: [:index, :create]
+    resources :leads, only: :create, path: :subscribe
     resources :levels, only: :index
     resources :referrals, only: [:index, :create, :destroy]
     resources :subscriptions, only: [:index, :create, :update, :destroy]

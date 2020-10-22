@@ -10,13 +10,14 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 gem 'active_model_serializers'
 gem 'active_record_union'
-gem "aws-sdk-s3", require: false
+gem 'aws-sdk-s3', require: false
 gem 'bcrypt'
 gem 'devise'
 gem 'devise-jwt'
 gem 'friendly_id'
+gem 'gibbon'
 gem 'kaminari'
-gem "lograge"
+gem 'lograge'
 gem 'mailgun-ruby', '~> 1.1.6'
 gem 'metainspector', '~> 5.9.0'
 gem 'onesignal-ruby', github: 'mikamai/onesignal-ruby', branch: 'develop'
