@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ripplr-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ripplr-api
+  template:
+    metadata:
+      labels:
+        app: ripplr-api
+    spec:
+      containers:
+      - name: ripplr-api
+        image: registry.digitalocean.com/ripplr/ripplr-api:latest
+        command: ["bin/rails"]
+        args: ["server", "-b", "0.0.0.0"]
+        ports:
+        - containerPort: 3000
+        envFrom:
+          - configMapRef:
+              name: ripplr-config

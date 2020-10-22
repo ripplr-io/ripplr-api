@@ -93,18 +93,5 @@ Rails.application.configure do
   config.log_level = :info
   config.log_tags = [ :request_id ]
   config.lograge.enabled = true
-
-  LogStashLogger.configure do |config|
-    config.customize_event do |event|
-      event["token"] = Rails.application.credentials.dig(:logzio_token)
-    end
-  end
-
-  config.logger = LogStashLogger.new(
-    type: :multi_delegator,
-    outputs: [
-      { type: :tcp, host: 'listener-nl.logz.io', port:5050 },
-      { type: :stdout }
-    ]
-  )
+  config.logger = RemoteSyslogLogger.new('logs3.papertrailapp.com', 32001)
 end
