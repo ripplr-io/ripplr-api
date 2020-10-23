@@ -3,10 +3,9 @@ kind: Service
 metadata:
   name: ripplr-service
 spec:
-  type: LoadBalancer
-  ports:
-    - port: 80
-      targetPort: 3000
-      protocol: TCP
   selector:
     app: ripplr-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000

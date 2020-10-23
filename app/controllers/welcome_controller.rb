@@ -1,7 +1,11 @@
-class LeadsController < ApplicationController
+class WelcomeController < ApplicationController
   LIST_ID = '87154130ad'.freeze
 
-  def create
+  def status
+    head :ok
+  end
+
+  def subscribe
     gibbon = Gibbon::Request.new(api_key: Rails.application.credentials[:mailchimp_token])
 
     gibbon.lists(LIST_ID).members.create(body: {

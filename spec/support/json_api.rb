@@ -23,7 +23,7 @@ module JsonApiMatchers
       actual = [actual] unless actual.is_a?(Array)
 
       ids = actual.map { |resource| resource[:id] }.compact
-      ids.include? expected.id.to_s
+      ids.include? expected.id
     end
   end
 

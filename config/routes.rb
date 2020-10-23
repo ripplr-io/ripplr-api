@@ -7,6 +7,9 @@ Rails.application.routes.draw do
 
   # API
   defaults format: :json do
+    root to: 'welcome#status'
+    post :subscribe, to: 'welcome#subscribe'
+
     scope :auth do
       devise_for :users, path: '', module: "accounts", sign_out_via: :post, path_names: {
         sign_in: :login,
@@ -26,7 +29,6 @@ Rails.application.routes.draw do
     resources :devices, only: [:index, :create, :update, :destroy]
     resource :feed, only: :show
     resources :follows, only: [:index, :create]
-    resources :leads, only: :create, path: :subscribe
     resources :levels, only: :index
     resources :referrals, only: [:index, :create, :destroy]
     resources :subscriptions, only: [:index, :create, :update, :destroy]

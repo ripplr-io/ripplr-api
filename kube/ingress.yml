@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ripplr-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: ripplr-letsencrypt
+spec:
+  tls:
+  - hosts:
+    - api.ripplr.io
+    secretName: ripplr-api-tls
+  rules:
+  - host: api.ripplr.io
+    http:
+      paths:
+      - backend:
+          serviceName: ripplr-service
+          servicePort: 80

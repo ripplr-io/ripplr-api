@@ -10,22 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_14_171307) do
+ActiveRecord::Schema.define(version: 2020_10_03_182836) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
-  create_table "active_storage_attachments", force: :cascade do |t|
+  create_table "active_storage_attachments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.bigint "record_id", null: false
-    t.bigint "blob_id", null: false
+    t.uuid "record_id", null: false
+    t.uuid "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", force: :cascade do |t|
+  create_table "active_storage_blobs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
@@ -36,9 +37,9 @@ ActiveRecord::Schema.define(version: 2020_10_14_171307) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "bookmark_folders", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "bookmark_folder_id"
+  create_table "bookmark_folders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id"
+    t.uuid "bookmark_folder_id"
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -46,20 +47,20 @@ ActiveRecord::Schema.define(version: 2020_10_14_171307) do
     t.index ["user_id"], name: "index_bookmark_folders_on_user_id"
   end
 
-  create_table "bookmarks", force: :cascade do |t|
-    t.bigint "bookmark_folder_id"
-    t.bigint "post_id"
+  create_table "bookmarks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "bookmark_folder_id"
+    t.uuid "post_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["bookmark_folder_id"], name: "index_bookmarks_on_bookmark_folder_id"
     t.index ["post_id"], name: "index_bookmarks_on_post_id"
   end
 
-  create_table "comments", force: :cascade do |t|
+  create_table "comments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.text "body", null: false
-    t.bigint "post_id"
-    t.bigint "comment_id"
-    t.bigint "author_id"
+    t.uuid "post_id"
+    t.uuid "comment_id"
+    t.uuid "author_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["author_id"], name: "index_comments_on_author_id"
@@ -67,8 +68,8 @@ ActiveRecord::Schema.define(version: 2020_10_14_171307) do
     t.index ["post_id"], name: "index_comments_on_post_id"
   end
 
-  create_table "devices", force: :cascade do |t|
-    t.bigint "user_id"
+  create_table "devices", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id"
     t.string "name", null: false
     t.string "device_type", null: false
     t.string "onesignal_id", null: false
@@ -78,24 +79,24 @@ ActiveRecord::Schema.define(version: 2020_10_14_171307) do
     t.index ["user_id"], name: "index_devices_on_user_id"
   end
 
-  create_table "follows", force: :cascade do |t|
+  create_table "follows", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "followable_type"
-    t.bigint "followable_id"
-    t.bigint "user_id"
+    t.uuid "followable_id"
+    t.uuid "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["followable_type", "followable_id"], name: "index_follows_on_followable_type_and_followable_id"
     t.index ["user_id"], name: "index_follows_on_user_id"
   end
 
-  create_table "hashtags", force: :cascade do |t|
+  create_table "hashtags", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_hashtags_on_name", unique: true
   end
 
-  create_table "levels", force: :cascade do |t|
+  create_table "levels", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.integer "from", null: false
     t.integer "to", null: false
@@ -106,8 +107,8 @@ ActiveRecord::Schema.define(version: 2020_10_14_171307) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "notifications", force: :cascade do |t|
-    t.bigint "user_id"
+  create_table "notifications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id"
     t.string "notification_type", null: false
     t.json "data", null: false
     t.datetime "read_at"
@@ -116,30 +117,32 @@ ActiveRecord::Schema.define(version: 2020_10_14_171307) do
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
-  create_table "post_hashtags", force: :cascade do |t|
-    t.bigint "post_id"
-    t.bigint "hashtag_id"
+  create_table "post_hashtags", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "post_id"
+    t.uuid "hashtag_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["hashtag_id"], name: "index_post_hashtags_on_hashtag_id"
     t.index ["post_id"], name: "index_post_hashtags_on_post_id"
   end
 
-  create_table "posts", force: :cascade do |t|
+  create_table "posts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "title", null: false
     t.string "url", null: false
     t.string "body", null: false
     t.string "image", null: false
-    t.bigint "topic_id"
-    t.bigint "author_id"
+    t.uuid "topic_id"
+    t.uuid "author_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["author_id"], name: "index_posts_on_author_id"
     t.index ["topic_id"], name: "index_posts_on_topic_id"
   end
 
-  create_table "prizes", force: :cascade do |t|
-    t.bigint "user_id"
+  create_table "prizes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id"
     t.string "prizable_type"
-    t.bigint "prizable_id"
+    t.uuid "prizable_id"
     t.integer "points", null: false
     t.string "name", null: false
     t.datetime "given_at"
@@ -149,10 +152,10 @@ ActiveRecord::Schema.define(version: 2020_10_14_171307) do
     t.index ["user_id"], name: "index_prizes_on_user_id"
   end
 
-  create_table "push_notifications", force: :cascade do |t|
-    t.bigint "device_id"
-    t.bigint "subscription_id"
-    t.bigint "post_id"
+  create_table "push_notifications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "device_id"
+    t.uuid "subscription_id"
+    t.uuid "post_id"
     t.string "title", null: false
     t.text "body", null: false
     t.string "thumbnail", null: false
@@ -165,20 +168,20 @@ ActiveRecord::Schema.define(version: 2020_10_14_171307) do
     t.index ["subscription_id"], name: "index_push_notifications_on_subscription_id"
   end
 
-  create_table "ratings", force: :cascade do |t|
+  create_table "ratings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.integer "points", default: 0, null: false
     t.string "ratable_type"
-    t.bigint "ratable_id"
-    t.bigint "user_id"
+    t.uuid "ratable_id"
+    t.uuid "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["ratable_type", "ratable_id"], name: "index_ratings_on_ratable_type_and_ratable_id"
     t.index ["user_id"], name: "index_ratings_on_user_id"
   end
 
-  create_table "referrals", force: :cascade do |t|
-    t.bigint "inviter_id"
-    t.bigint "invitee_id"
+  create_table "referrals", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "inviter_id"
+    t.uuid "invitee_id"
     t.string "name", null: false
     t.string "email", null: false
     t.datetime "accepted_at"
@@ -188,10 +191,10 @@ ActiveRecord::Schema.define(version: 2020_10_14_171307) do
     t.index ["inviter_id"], name: "index_referrals_on_inviter_id"
   end
 
-  create_table "subscriptions", force: :cascade do |t|
-    t.bigint "user_id"
+  create_table "subscriptions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id"
     t.string "subscribable_type"
-    t.bigint "subscribable_id"
+    t.uuid "subscribable_id"
     t.json "settings", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -199,8 +202,8 @@ ActiveRecord::Schema.define(version: 2020_10_14_171307) do
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
-  create_table "tickets", force: :cascade do |t|
-    t.bigint "user_id"
+  create_table "tickets", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id"
     t.string "title", null: false
     t.text "body", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -208,7 +211,7 @@ ActiveRecord::Schema.define(version: 2020_10_14_171307) do
     t.index ["user_id"], name: "index_tickets_on_user_id"
   end
 
-  create_table "topics", force: :cascade do |t|
+  create_table "topics", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
     t.string "avatar", null: false
@@ -218,7 +221,7 @@ ActiveRecord::Schema.define(version: 2020_10_14_171307) do
     t.index ["slug"], name: "index_topics_on_slug", unique: true
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
