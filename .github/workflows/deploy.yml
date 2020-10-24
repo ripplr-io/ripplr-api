@@ -66,8 +66,8 @@ jobs:
       - name: Deploy
         run: |
           kubectl set image deployment/ripplr-api ripplr-api=${IMAGE_URL}:${GITHUB_SHA:0:8}
-          kubectl set image deployment/sidekiq ripplr-api=${IMAGE_URL}:${GITHUB_SHA:0:8}
-          kubectl set image deployment/terminal ripplr-api=${IMAGE_URL}:${GITHUB_SHA:0:8}
+          kubectl set image deployment/sidekiq sidekiq=${IMAGE_URL}:${GITHUB_SHA:0:8}
+          kubectl set image deployment/terminal terminal=${IMAGE_URL}:${GITHUB_SHA:0:8}
 
       - name: Verify deployment
         run: kubectl rollout status deployment/ripplr-api
@@ -103,5 +103,3 @@ jobs:
           slack_webhook_url: ${{secrets.SLACK_DEPLOY_WEBHOOK}}
           name: 'API Deployment Failed!'
           icon_emoji: ':collision:'
-
-
