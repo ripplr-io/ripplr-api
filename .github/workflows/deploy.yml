@@ -55,6 +55,14 @@ jobs:
     runs-on: ubuntu-latest
     needs: run-migrations
     steps:
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Save DigitalOcean kubeconfig
+        run: doctl kubernetes cluster kubeconfig save ripplr
+
       - name: Deploy
         run: |
           kubectl set image deployment/ripplr-api ripplr-api=${IMAGE_URL}:${GITHUB_SHA:0:8}
