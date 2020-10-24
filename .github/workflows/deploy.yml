@@ -6,7 +6,9 @@ on:
 
 env:
   IMAGE_NAME: ripplr/ripplr-api
-  SHA7: ${GITHUB_SHA:7}
+  SHA7: ${{ env.GITHUB_SHA:7 }}
+  TAGGED_IMAGE: ${{ env.IMAGE_NAME }}:${{ env.SHA7 }}
+  LATEST_IMAGE: ${{ env.IMAGE_NAME }}:latest
 
 jobs:
   deploy:
@@ -24,10 +26,10 @@ jobs:
         run: doctl kubernetes cluster kubeconfig save ripplr
 
       - name: Build image
-        run: docker build --tag $IMAGE_NAME:$SHA7 .
+        run: docker build --tag ${{ env.TAGGED_IMAGE }} .
 
       - name: Upload image to registry
         run: |
           doctl registry login
-          docker tag $IMAGE_NAME:$SHA7 registry.digitalocean.com/$IMAGE_NAME:$SHA7
-          docker push registry.digitalocean.com/$IMAGE_NAME:$SHA7
+          docker tag ${{ env.TAGGED_IMAGE }} registry.digitalocean.com/${{ env.TAGGED_IMAGE }}
+          docker push registry.digitalocean.com/${{ env.TAGGED_IMAGE }}
