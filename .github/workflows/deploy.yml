@@ -64,8 +64,8 @@ jobs:
       - name: Verify deployment
         run: kubectl rollout status deployment/ripplr-api
 
-  slack-notifications:
-    if: always()
+  slack-notifications-success:
+    if: success()
     runs-on: ubuntu-latest
     needs:
       - upload-image
@@ -77,6 +77,23 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           slack_webhook_url: ${{secrets.SLACK_DEPLOY_WEBHOOK}}
-          name: 'Ripplr API Deployment'
+          name: 'API Deployed!'
           icon_emoji: ':rocket:'
+
+  slack-notifications-failure:
+    if: failure()
+    runs-on: ubuntu-latest
+    needs:
+      - upload-image
+      - run-migrations
+      - deploy
+    steps:
+      - name: Send slack notifications
+        uses: Gamesight/slack-workflow-status@master
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          slack_webhook_url: ${{secrets.SLACK_DEPLOY_WEBHOOK}}
+          name: 'API Deployment Failed!'
+          icon_emoji: ':collision:'
+
 
