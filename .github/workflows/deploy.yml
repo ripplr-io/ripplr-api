@@ -11,8 +11,8 @@ jobs:
     env:
       IMAGE_NAME: ripplr/ripplr-api
       SHA8: ${GITHUB_SHA::8}
-      TAGGED_IMAGE: ${{ env.IMAGE_NAME }}:${{ env.SHA8 }}
-      LATEST_IMAGE: ${{ env.IMAGE_NAME }}:latest
+      TAGGED_IMAGE: $IMAGE_NAME:$SHA8
+      LATEST_IMAGE: $IMAGE_NAME:latest
 
     steps:
       - name: Checkout code
@@ -27,10 +27,10 @@ jobs:
         run: doctl kubernetes cluster kubeconfig save ripplr
 
       - name: Build image
-        run: docker build --tag ${{ env.TAGGED_IMAGE }} .
+        run: docker build --tag $TAGGED_IMAGE .
 
       - name: Upload image to registry
         run: |
           doctl registry login
-          docker tag ${{ env.TAGGED_IMAGE }} registry.digitalocean.com/${{ env.TAGGED_IMAGE }}
-          docker push registry.digitalocean.com/${{ env.TAGGED_IMAGE }}
+          docker tag $TAGGED_IMAGE registry.digitalocean.com/$TAGGED_IMAGE
+          docker push registry.digitalocean.com/$TAGGED_IMAGE
