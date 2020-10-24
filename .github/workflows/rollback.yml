@@ -1,8 +1,11 @@
 name: Deploy
 
 on:
-  push:
-    branches: [ master ]
+  workflow_dispatch:
+    inputs:
+      sha8:
+        description: 'Sha8 (optional)'
+        required: false
 
 jobs:
   rollback:
