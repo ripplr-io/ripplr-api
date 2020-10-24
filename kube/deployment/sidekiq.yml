@@ -4,6 +4,7 @@ metadata:
   name: sidekiq
 spec:
   replicas: 2
+  progressDeadlineSeconds: 30
   selector:
     matchLabels:
       app: sidekiq
