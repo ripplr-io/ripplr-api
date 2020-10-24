@@ -25,7 +25,7 @@ jobs:
       - name: Upload image to registry
         run: |
           doctl registry login
-          docker push IMAGE_URL
+          docker push ${IMAGE_URL}
 
   run-migrations:
     runs-on: ubuntu-latest
@@ -57,9 +57,9 @@ jobs:
     steps:
       - name: Deploy
         run: |
-          kubectl rollout restart deployment/ripplr-api
-          kubectl rollout restart deployment/sidekiq
-          kubectl rollout restart deployment/terminal
+          kubectl set image deployment/ripplr-api ripplr-api=${IMAGE_URL}:${GITHUB_SHA:0:8}
+          kubectl set image deployment/sidekiq ripplr-api=${IMAGE_URL}:${GITHUB_SHA:0:8}
+          kubectl set image deployment/terminal ripplr-api=${IMAGE_URL}:${GITHUB_SHA:0:8}
 
       - name: Verify deployment
         run: kubectl rollout status deployment/ripplr-api
@@ -77,5 +77,6 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           slack_webhook_url: ${{secrets.SLACK_DEPLOY_WEBHOOK}}
-          name: 'Ripplr API'
+          name: 'Ripplr API Deployment'
+          icon_emoji: ':rocket:'
 
