@@ -4,6 +4,7 @@ metadata:
   name: ripplr-api
 spec:
   replicas: 2
+  minReadySeconds: 5
   selector:
     matchLabels:
       app: ripplr-api

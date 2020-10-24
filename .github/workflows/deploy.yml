@@ -4,31 +4,17 @@ on:
   push:
     branches: [ master ]
 
+env:
+  IMAGE_NAME: ripplr/ripplr-api
+  SHA7: ${GITHUB_SHA:7}
+
 jobs:
-  upload-image:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Build image
-        run: docker build . --file Dockerfile --tag ripplr-api
-
-      - name: Install doctl
-        uses: digitalocean/action-doctl@v2
-        with:
-            token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-
-      - name: Upload image to registry
-        run: |
-          doctl registry login
-          docker tag ripplr-api registry.digitalocean.com/ripplr/ripplr-api
-          docker push registry.digitalocean.com/ripplr/ripplr-api
-
-  deploy:
-    needs: upload-image
-    runs-on: ubuntu-latest
-    steps:
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
         with:
@@ -37,11 +23,11 @@ jobs:
       - name: Save DigitalOcean kubeconfig
         run: doctl kubernetes cluster kubeconfig save ripplr
 
-      - name:
-        run: |
-          kubectl rollout restart deployment/ripplr-api
-          kubectl rollout restart deployment/sidekiq
-          kubectl rollout restart deployment/terminal
+      - name: Build image
+        run: docker build --tag $IMAGE_NAME:$SHA7 .
 
-      - name: Verify deployment
-        run: kubectl rollout status deployment/ripplr-api
+      - name: Upload image to registry
+        run: |
+          doctl registry login
+          docker tag $IMAGE_NAME:$SHA7 registry.digitalocean.com/$IMAGE_NAME:$SHA7
+          docker push registry.digitalocean.com/$IMAGE_NAME:$SHA7
