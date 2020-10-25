@@ -27,6 +27,12 @@ jobs:
           doctl registry login
           docker push ${IMAGE_URL}
 
+      # TODO: Make this a github action
+      - name: Remove images older than the last 10 versions
+        run: |
+          OLDER_IMAGES=$(doctl registry repository lt ripplr-api --format Tag,UpdatedAt | tail -n +2 | sort -rk2 | awk '{print $1}' | tail -n +10 | tr '\n' ' ')
+          [[ -n $OLDER_IMAGES ]] && doctl registry repository dt ripplr-api $OLDER_IMAGES --force
+
   run-migrations:
     runs-on: ubuntu-latest
     needs: upload-image
