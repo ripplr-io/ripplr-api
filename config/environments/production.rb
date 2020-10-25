@@ -90,8 +90,12 @@ Rails.application.configure do
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
   # Logs
-  config.log_level = :info
-  config.log_tags = [ :request_id ]
-  config.lograge.enabled = true
-  config.logger = RemoteSyslogLogger.new('logs3.papertrailapp.com', 32001)
+  if ENV['RAILS_LOG_TO_STDOUT'].present?
+    config.log_level = :debug
+    config.logger = Logger.new(STDOUT)
+  else
+    config.log_level = :info
+    config.lograge.enabled = true
+    config.logger = RemoteSyslogLogger.new('logs3.papertrailapp.com', 32001)
+  end
 end
