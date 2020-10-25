@@ -31,7 +31,7 @@ jobs:
       - name: Remove images older than the last 10 versions
         run: |
           OLDER_IMAGES=$(doctl registry repository lt ripplr-api --format Tag,UpdatedAt | tail -n +2 | sort -rk2 | awk '{print $1}' | tail -n +10 | tr '\n' ' ')
-          [[ -n $OLDER_IMAGES ]] && doctl registry repository dt ripplr-api $OLDER_IMAGES --force
+          [[ -n $OLDER_IMAGES ]] && doctl registry repository dt ripplr-api $OLDER_IMAGES --force; true
 
   run-migrations:
     runs-on: ubuntu-latest
