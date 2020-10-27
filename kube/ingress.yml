@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: ripplr-ingress
+  name: ripplr-api-ingress
   annotations:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: ripplr-letsencrypt
@@ -15,5 +15,5 @@ spec:
     http:
       paths:
       - backend:
-          serviceName: ripplr-service
+          serviceName: ripplr-api-service
           servicePort: 80
