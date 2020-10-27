@@ -1,5 +1,6 @@
 class Post < ApplicationRecord
   include Ratable
+  include PgSearch::Model
 
   belongs_to :topic
   belongs_to :author, class_name: :User
@@ -17,6 +18,18 @@ class Post < ApplicationRecord
   validates :image, presence: true
 
   after_create_commit :generate_push_notifications
+
+  pg_search_scope :search,
+    using: { tsearch: { prefix: true, any_word: true } },
+    against: {
+      title: 'A',
+      body: 'B'
+    },
+    associated_against: {
+      author: :name,
+      topic: :name,
+      hashtags: :name
+    }
 
   private
 

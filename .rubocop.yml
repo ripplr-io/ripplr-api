@@ -14,6 +14,9 @@ AllCops:
     - Rakefile
 
 # Configured cops
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_fixed_indentation
+
 Layout/FirstArrayElementIndentation:
   EnforcedStyle: consistent
 

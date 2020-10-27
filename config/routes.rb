@@ -51,6 +51,8 @@ Rails.application.routes.draw do
       post :preview, on: :collection
     end
 
+    get :search, to: 'search#index'
+
     resources :topics, only: :index do
       resources :posts, only: :index
     end

@@ -3,15 +3,11 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.1'
 
-gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
-gem 'pg', '~> 0.18.4'
-gem 'puma', '~> 4.1'
-gem 'bootsnap', '>= 1.4.2', require: false
-
 gem 'active_model_serializers'
 gem 'active_record_union'
 gem 'aws-sdk-s3', require: false
 gem 'bcrypt'
+gem 'bootsnap', '>= 1.4.2', require: false
 gem 'devise'
 gem 'devise-jwt', '~> 0.7.0'
 gem 'friendly_id'
@@ -21,7 +17,11 @@ gem 'lograge'
 gem 'mailgun-ruby', '~> 1.1.6'
 gem 'metainspector', '~> 5.9.0'
 gem 'onesignal-ruby', github: 'mikamai/onesignal-ruby', branch: 'develop'
+gem 'pg', '~> 0.18.4'
+gem 'pg_search'
+gem 'puma', '~> 4.1'
 gem 'rack-cors'
+gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
 gem 'remote_syslog_logger'
 gem 'sentry-raven'
 gem 'sidekiq'

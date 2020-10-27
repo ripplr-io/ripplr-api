@@ -2,6 +2,7 @@ class User < ApplicationRecord
   extend FriendlyId
   include Followable
   include Subscribable
+  include PgSearch::Model
 
   has_many :comments, inverse_of: :author, foreign_key: :author_id
   has_many :devices
@@ -48,6 +49,14 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :jwt_authenticatable, jwt_revocation_strategy: Devise::JWT::RevocationStrategies::Null
+
+  pg_search_scope :search,
+    using: { tsearch: { prefix: true, any_word: true } },
+    against: {
+      slug: 'A',
+      name: 'B',
+      bio: 'C'
+    }
 
   def following_posts
     all_posts = following_hashtag_posts.union(following_topic_posts).union(following_user_posts)
