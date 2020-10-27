@@ -3,6 +3,7 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
   # TODO: Add authentication to sidekiq routes
   mount Sidekiq::Web, at: '/sidekiq'
+  mount ActionCable.server, at: "/cable"
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
   # API
@@ -28,7 +29,7 @@ Rails.application.routes.draw do
     resources :bookmark_folders, only: [:create, :update, :destroy], path: :folders
     resources :devices, only: [:index, :create, :update, :destroy]
     resource :feed, only: :show
-    resources :follows, only: [:index, :create]
+    resources :follows, only: [:index, :create, :destroy]
     resources :levels, only: :index
     resources :referrals, only: [:index, :create, :destroy]
     resources :subscriptions, only: [:index, :create, :update, :destroy]
@@ -43,7 +44,7 @@ Rails.application.routes.draw do
       post :read, on: :collection, to: 'notifications#read_all'
     end
 
-    resources :posts, only: [:create, :update, :destroy] do
+    resources :posts, only: [:show, :create, :update, :destroy] do
       resources :comments, only: [:index, :show, :create]
       resources :ratings, only: [:create], path: :rate
 

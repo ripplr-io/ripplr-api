@@ -12,6 +12,11 @@ class FollowsController < ApplicationController
     create_resource(@follow)
   end
 
+  def destroy
+    @follow = current_user.follows.find(params[:id])
+    destroy_resource(@follow)
+  end
+
   private
 
   def follow_params

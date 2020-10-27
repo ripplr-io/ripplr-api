@@ -12,12 +12,12 @@ module Support
       private
 
       def load_device_settings
-        filename = Rails.root.join('factories', 'resources', 'device_settings.json')
+        filename = Rails.root.join('spec', 'factories', 'resources', 'device_settings.json')
         JSON.parse(File.read(filename))
       end
 
       def load_subscription_settings
-        filename = Rails.root.join('factories', 'resources', 'subscription_settings.json')
+        filename = Rails.root.join('spec', 'factories', 'resources', 'subscription_settings.json')
         JSON.parse(File.read(filename))
       end
     end

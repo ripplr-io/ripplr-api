@@ -13,7 +13,7 @@ gem 'active_record_union'
 gem 'aws-sdk-s3', require: false
 gem 'bcrypt'
 gem 'devise'
-gem 'devise-jwt'
+gem 'devise-jwt', '~> 0.7.0'
 gem 'friendly_id'
 gem 'gibbon'
 gem 'kaminari'
@@ -27,13 +27,15 @@ gem 'sentry-raven'
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
 gem 'skylight'
+# TODO: Update when this is fixed: https://github.com/waiting-for-dev/warden-jwt_auth/issues/29
+gem 'warden-jwt_auth', '~> 0.4.2'
 
-gem 'factory_bot_rails'
-gem 'faker'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'factory_bot_rails'
+  gem 'faker'
   gem 'rubocop-rails', require: false
 end
 

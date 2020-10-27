@@ -12,8 +12,8 @@ RSpec.describe :notifications_index, type: :request do
     it 'responds with the user resources' do
       user = create(:user)
       sign_in user
-      user_notification = create(:notification, user: user)
-      other_notification = create(:notification)
+      user_notification = create(:new_comment, user: user)
+      other_notification = create(:new_comment)
 
       get notifications_path
 

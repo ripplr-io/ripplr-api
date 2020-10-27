@@ -8,6 +8,11 @@ class PostsController < ApplicationController
     render json: find_paginated_posts, include: [:author, :topic, :hashtags]
   end
 
+  def show
+    @post = Post.find(params[:id])
+    render json: @post, include: [:author, :topic, :hashtags]
+  end
+
   def create
     @post = current_user.posts.new(post_params)
     create_resource(@post)
