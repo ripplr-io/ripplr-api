@@ -8,6 +8,6 @@ class Notification < ApplicationRecord
   private
 
   def broadcast
-    ActionCable.server.broadcast "notifications_#{user.id}", as_json
+    ActionCable.server.broadcast "notifications_#{user.id}", ActiveModelSerializers::SerializableResource.new(self)
   end
 end
