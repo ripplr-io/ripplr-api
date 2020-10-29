@@ -32,7 +32,7 @@ jobs:
         run: |
           IMAGES=$(doctl registry repository lt ripplr-api --format Tag,UpdatedAt | tail -n +2 | sort -rk2 | awk '{print $1}')
           ALL_IMAGES=$(echo $IMAGES | tr '\n' ' ')
-          OLD_IMAGES=$(echo $IMAGES | tail -n +10 | tr '\n' ' ')
+          OLD_IMAGES=$(echo $IMAGES | tail -n +10 | tr 'latest\n' '' | tr '\n' ' ')
           echo All Images: $ALL_IMAGES
           echo Old Images: $OLD_IMAGES
           [[ -n $OLD_IMAGES ]] && doctl registry repository dt ripplr-api $OLD_IMAGES --force; true
