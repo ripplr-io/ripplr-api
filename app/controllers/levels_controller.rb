@@ -1,5 +1,7 @@
 class LevelsController < ApplicationController
+  include Crudable
+
   def index
-    render json: Level.all
+    read_resource(Level.all)
   end
 end

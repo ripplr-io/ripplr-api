@@ -4,7 +4,7 @@ class ProfilesController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    render json: current_user
+    read_resource(current_user)
   end
 
   def update

@@ -5,7 +5,7 @@ class DevicesController < ApplicationController
   before_action :find_device, only: [:update, :destroy]
 
   def index
-    render json: current_user.devices
+    read_resource(current_user.devices)
   end
 
   def create

@@ -1,8 +1,10 @@
 class ReferralsController < ApplicationController
   include Crudable
 
+  before_action :authenticate_user!
+
   def index
-    render json: current_user.referrals
+    read_resource(current_user.referrals)
   end
 
   # TODO: Make this restful

@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
+  include Crudable
+
   def show
-    render json: find_user
+    read_resource(find_user)
   end
 
   private

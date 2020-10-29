@@ -4,7 +4,7 @@ FactoryBot.define do
     password { Faker::Internet.password }
     name { Faker::Name.name }
     bio { Faker::GreekPhilosophers.quote }
-    avatar { "https:\/\/ripplr.ams3.digitaloceanspaces.com\/user\/048758bd-51fd-4ad5-9615-ccefd0ba7205\/d1ebef2c-f576-40da-ab8f-39c075772621.jpg" }
+    avatar { 'https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png' }
     slug { name.parameterize }
   end
 end

@@ -102,6 +102,7 @@ GEM
     choice (0.2.0)
     concurrent-ruby (1.1.7)
     connection_pool (2.2.3)
+    crack (0.4.4)
     crass (1.0.6)
     devise (4.7.2)
       bcrypt (~> 3.0)
@@ -160,6 +161,7 @@ GEM
       multi_json (>= 1.11.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    hashdiff (1.0.1)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (1.8.5)
@@ -388,6 +390,10 @@ GEM
       dry-configurable (~> 0.9, < 0.11)
       jwt (~> 2.1)
       warden (~> 1.2)
+    webmock (3.9.3)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff (>= 0.4.0, < 2.0.0)
     websocket-driver (0.7.2)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -435,6 +441,7 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
   warden-jwt_auth (~> 0.4.2)
+  webmock
 
 RUBY VERSION
    ruby 2.7.1p83

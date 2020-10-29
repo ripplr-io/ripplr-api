@@ -5,7 +5,7 @@ class SubscriptionsController < ApplicationController
   before_action :find_subscription, only: [:update, :destroy]
 
   def index
-    render json: current_user.subscriptions
+    read_resource(current_user.subscriptions)
   end
 
   def create

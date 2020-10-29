@@ -17,8 +17,6 @@ class Post < ApplicationRecord
   validates :body, presence: true
   validates :image, presence: true
 
-  after_create_commit :generate_push_notifications
-
   pg_search_scope :search,
     using: { tsearch: { prefix: true, any_word: true } },
     against: {
@@ -30,10 +28,4 @@ class Post < ApplicationRecord
       topic: :name,
       hashtags: :name
     }
-
-  private
-
-  def generate_push_notifications
-    Posts::GeneratePushNotificationsWorker.perform_async(id)
-  end
 end

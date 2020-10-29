@@ -1,6 +1,6 @@
 class PostSerializer < ActiveModel::Serializer
-  attributes :title, :body, :image, :url, :created_at,
-             :rateSum, :rateUser, :commentsCount, :bookmarked
+  attributes :title, :body, :image, :url, :created_at, :rateSum, :rateUser,
+    :commentsCount, :bookmarked, :author, :topic, :hashtags
 
   belongs_to :topic
   belongs_to :author

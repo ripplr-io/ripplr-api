@@ -23,6 +23,14 @@ Layout/FirstArrayElementIndentation:
 Layout/FirstHashElementIndentation:
   EnforcedStyle: consistent
 
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+# https://github.com/rubocop-hq/rubocop/issues/4222
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - "spec/**/*"
+
 Metrics/BlockLength:
   ExcludedMethods: ['describe', 'context']
 
@@ -40,6 +48,9 @@ Style/SymbolArray:
   EnforcedStyle: brackets
 
 # Disabled cops
+Rails/SkipsModelValidations:
+  Enabled: false
+
 Style/Documentation:
   Enabled: false
 

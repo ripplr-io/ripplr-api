@@ -19,4 +19,6 @@ RUN bundle install
 
 COPY . .
 
+ENV EDITOR=nano
+
 EXPOSE 3000

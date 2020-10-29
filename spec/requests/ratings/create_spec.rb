@@ -23,7 +23,7 @@ RSpec.describe :ratings_create, type: :request do
     end
 
     xit 'responds with errors' do
-      # TODO: fix this scenario
+      # TODO: Improve this case
       user = create(:user)
       sign_in user
       ratable = create(:post)

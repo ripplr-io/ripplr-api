@@ -1,5 +1,7 @@
 class TopicsController < ApplicationController
+  include Crudable
+
   def index
-    render json: Topic.all
+    read_resource(Topic.all)
   end
 end

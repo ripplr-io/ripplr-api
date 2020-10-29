@@ -5,16 +5,16 @@ class PostsController < ApplicationController
   before_action :find_post, only: [:update, :destroy]
 
   def index
-    render json: find_paginated_posts, include: [:author, :topic, :hashtags]
+    read_resource(find_paginated_posts, included_associations: [:author, :topic, :hashtags])
   end
 
   def show
     @post = Post.find(params[:id])
-    render json: @post, include: [:author, :topic, :hashtags]
+    read_resource(@post, included_associations: [:author, :topic, :hashtags])
   end
 
   def create
-    @post = current_user.posts.new(post_params)
+    @post = Posts::CreateService.new(post_params.merge!(author: current_user))
     create_resource(@post)
   end
 

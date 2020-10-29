@@ -16,8 +16,6 @@ RSpec.describe :accounts_destroy, type: :request do
       delete account_path
 
       expect(response).to have_http_status(:no_content)
-      # TODO: Specify exactly what email was expected
-      expect(ActionMailer::MailDeliveryJob).to have_been_enqueued
     end
   end
 end

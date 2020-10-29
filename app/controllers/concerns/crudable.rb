@@ -1,28 +1,29 @@
+# TODO: improve this to work better with services
 module Crudable
   extend ActiveSupport::Concern
 
   private
 
+  def read_resource(resource, included_associations: [])
+    render json: resource, include: included_associations, status: :ok
+  end
+
   def create_resource(resource, included_associations: [])
     return render_errors(resource) unless resource.save
 
-    yield if block_given?
-
+    resource = resource.resource if resource.is_a?(Resources::BaseService)
     render json: resource, include: included_associations, status: :created
   end
 
   def update_resource(resource, included_associations: [])
     return render_errors(resource) unless resource.save
 
-    yield if block_given?
-
+    resource = resource.resource if resource.is_a?(Resources::BaseService)
     render json: resource, include: included_associations, status: :ok
   end
 
   def destroy_resource(resource)
     return render_errors(resource) unless resource.destroy
-
-    yield if block_given?
 
     head :no_content
   end

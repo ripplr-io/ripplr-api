@@ -3,9 +3,9 @@ class AccountsController < ApplicationController
 
   before_action :authenticate_user!
 
+  # TODO: Move to registrations#destroy?
   def destroy
-    destroy_resource(current_user) do
-      SupportMailer.with(user: current_user, comment: params[:comments]).account_deleted.deliver_later
-    end
+    resource = Accounts::DestroyService.new(current_user, params[:comments])
+    destroy_resource(resource)
   end
 end

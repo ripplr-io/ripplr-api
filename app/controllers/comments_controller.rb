@@ -5,16 +5,16 @@ class CommentsController < ApplicationController
 
   def index
     @comments = Post.find(params[:post_id]).comments
-    render json: @comments, include: [:author]
+    read_resource(@comments, included_associations: [:author])
   end
 
   def show
     @comments = Comment.find(params[:id]).comments
-    render json: @comments, include: [:author]
+    read_resource(@comments, included_associations: [:author])
   end
 
   def create
-    @comment = current_user.comments.new(comment_params)
+    @comment = Comments::CreateService.new(comment_params.merge!(author: current_user))
     create_resource(@comment, included_associations: [:author])
   end
 
