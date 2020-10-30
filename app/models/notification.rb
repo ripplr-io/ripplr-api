@@ -8,6 +8,9 @@ class Notification < ApplicationRecord
   private
 
   def broadcast
-    ActionCable.server.broadcast "notifications_#{user.id}", ActiveModelSerializers::SerializableResource.new(self)
+    UserChannel.broadcast_to(user, {
+      type: :new_notification,
+      payload: ActiveModelSerializers::SerializableResource.new(self)
+    })
   end
 end
