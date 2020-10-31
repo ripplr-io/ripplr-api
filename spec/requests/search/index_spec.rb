@@ -47,11 +47,9 @@ RSpec.describe :search_index, type: :request do
       user = create(:user)
       sign_in user
 
-      expect_any_instance_of(Search::SearchService).to receive(:add_post_filters).and_call_original
+      expect_any_instance_of(Search::SearchService).to receive(:add_posts_filter).twice.and_call_original
 
       get search_path(user: 'following', topic: 'following')
-
-      expect(controller.send(:post_filters).size).to be(2)
     end
 
     it 'gets the grouped_results' do

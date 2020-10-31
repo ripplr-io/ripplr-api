@@ -51,6 +51,7 @@ end
 
 group :test do
   gem 'rspec-rails', '~> 4.0'
+  gem 'rspec-sidekiq'
   gem 'shoulda-matchers'
   gem 'simplecov'
 end

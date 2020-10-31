@@ -6,7 +6,10 @@ module Posts
 
     def save
       success = @resource.save
-      Posts::GeneratePushNotificationsWorker.perform_async(@resource.id) if success
+      if success
+        Posts::PushNotifications::GenerateWorker.perform_async(@resource.id)
+        Posts::BroadcastCreationWorker.perform_async(@resource.id)
+      end
       success
     end
   end

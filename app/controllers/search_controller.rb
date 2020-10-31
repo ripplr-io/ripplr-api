@@ -3,7 +3,9 @@ class SearchController < ApplicationController
 
   def index
     search = Search::SearchService.new(params[:query], params[:page], params[:per_page])
-    search.add_post_filters post_filters
+    search.add_posts_filter(current_user.following_user_post_ids) if filter_by?('user')
+    search.add_posts_filter(current_user.following_topic_post_ids) if filter_by?('topic')
+    search.add_posts_filter(current_user.following_hashtag_post_ids) if filter_by?('hashtag')
 
     results =
       if params[:vertical] == 'everything'
@@ -16,14 +18,6 @@ class SearchController < ApplicationController
   end
 
   private
-
-  def post_filters
-    filters = []
-    filters << current_user.following_user_posts if filter_by?('user')
-    filters << current_user.following_topic_posts if filter_by?('topic')
-    filters << current_user.following_hashtag_posts if filter_by?('hashtag')
-    filters
-  end
 
   def filter_by?(record_type)
     params[record_type] == 'following'

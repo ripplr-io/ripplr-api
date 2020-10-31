@@ -1,6 +1,6 @@
 class UserSerializer < ActiveModel::Serializer
   attributes :slug, :name, :avatar, :bio, :supporter, :pointsSum,
-             :followersCount, :followingCount, :postsCount, :level, :onboarded_at
+    :followersCount, :followingCount, :postsCount, :level, :onboarded_at
 
   def level
     Level.first # TODO

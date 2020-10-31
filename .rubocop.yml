@@ -34,6 +34,9 @@ Lint/AmbiguousBlockAssociation:
 Metrics/BlockLength:
   ExcludedMethods: ['describe', 'context']
 
+Metrics/MethodLength:
+  Max: 15
+
 Naming/MemoizedInstanceVariableName:
   EnforcedStyleForLeadingUnderscores: required
 

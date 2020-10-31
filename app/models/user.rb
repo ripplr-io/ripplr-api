@@ -46,9 +46,9 @@ class User < ApplicationRecord
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable,
-         :jwt_authenticatable, jwt_revocation_strategy: Devise::JWT::RevocationStrategies::Null
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable,
+    :validatable, :jwt_authenticatable,
+    jwt_revocation_strategy: Devise::JWT::RevocationStrategies::Null
 
   pg_search_scope :search,
     using: { tsearch: { prefix: true, any_word: true } },
@@ -64,11 +64,7 @@ class User < ApplicationRecord
   end
 
   def root_bookmark_folder
-    if bookmark_folders.empty?
-      create_root_bookmark_folder
-    else
-      bookmark_folders.find_by(name: 'Root')
-    end
+    bookmark_folders.find_by(name: 'Root')
   end
 
   private

@@ -7,8 +7,8 @@ module Search
       @post_filters = []
     end
 
-    def add_post_filters(filters)
-      @post_filters = filters
+    def add_posts_filter(filter)
+      @post_filters << filter
     end
 
     def grouped_results
@@ -46,7 +46,7 @@ module Search
     def post_results
       posts = Post.search(@query)
       @post_filters.each do |filter|
-        posts = posts.where(id: filter.ids)
+        posts = posts.where(id: filter)
       end
       posts
     end
