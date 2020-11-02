@@ -1,13 +1,18 @@
 class ReferralsController < ApplicationController
   include Crudable
 
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: :show
 
   def index
     read_resource(current_user.referrals)
   end
 
-  # TODO: Make this restful
+  def show
+    @referral = Referral.find(params[:id])
+    read_resource(@referral)
+  end
+
+  # FIXME: Make this restful
   def create
     referral_params[:referrals].each do |data|
       current_user.referrals.create!(data)

@@ -6,5 +6,10 @@ FactoryBot.define do
     bio { Faker::GreekPhilosophers.quote }
     avatar { 'https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png' }
     slug { name.parameterize }
+    level
+
+    after :create do |user|
+      create :bookmark_folder, user: user, name: 'Root'
+    end
   end
 end

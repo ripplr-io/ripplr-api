@@ -95,7 +95,7 @@ RSpec.describe PushNotifications::SettingsService, type: :service do
 
   context '#topics_from_settings' do
     context 'all' do
-      it 'returns existing topics' do
+      it 'returns all existing topics' do
         create_list(:topic, 2)
         subscription = create(:subscription)
         settings = {
@@ -156,6 +156,19 @@ RSpec.describe PushNotifications::SettingsService, type: :service do
         expect(topics.pluck(:id)).to eq [Topic.first.id]
       end
     end
+
+    context 'invalid' do
+      it 'returns all existing topics' do
+        create_list(:topic, 2)
+        subscription = create(:subscription)
+        settings = {}.as_json
+
+        service = described_class.new(nil, subscription, nil)
+        topics = service.send(:topics_from_settings, settings)
+
+        expect(topics.pluck(:id)).to eq Topic.all.pluck(:id)
+      end
+    end
   end
 
   context '#slots_from_settings' do
@@ -197,6 +210,17 @@ RSpec.describe PushNotifications::SettingsService, type: :service do
         slots = service.send(:slots_from_settings, settings)
 
         expect(slots.size).to eq 22
+      end
+    end
+
+    context 'invalid' do
+      it 'returns all slots' do
+        settings = {}.as_json
+
+        service = described_class.new(nil, nil, nil)
+        slots = service.send(:slots_from_settings, settings)
+
+        expect(slots.size).to eq 24
       end
     end
   end

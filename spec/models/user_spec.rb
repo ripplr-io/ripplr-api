@@ -8,6 +8,8 @@ RSpec.describe User, type: :model do
   it_behaves_like :followable
   it_behaves_like :subscribable
 
+  it { is_expected.to belong_to(:level) }
+
   it { is_expected.to have_many(:comments).inverse_of(:author).with_foreign_key(:author_id) }
   it { is_expected.to have_many(:devices) }
   it { is_expected.to have_many(:notifications) }
@@ -24,6 +26,8 @@ RSpec.describe User, type: :model do
   it { is_expected.to have_many(:following_user_posts).through(:following_users).source(:posts) }
   it { is_expected.to have_many(:subscriptions) }
   it { is_expected.to have_many(:subscribing_users).through(:subscriptions).source(:user) }
+  it { is_expected.to have_many(:push_notifications).through(:subscriptions) }
+  it { is_expected.to have_many(:push_notification_posts).through(:push_notifications).source(:post) }
   it { is_expected.to have_many(:bookmark_folders) }
   it { is_expected.to have_many(:bookmarks).through(:bookmark_folders).source(:bookmarks) }
   it { is_expected.to have_many(:referrals).inverse_of(:inviter).with_foreign_key(:inviter_id) }
@@ -33,6 +37,7 @@ RSpec.describe User, type: :model do
   it { is_expected.to have_one(:referee).through(:referral).source(:inviter) }
 
   it { is_expected.to validate_presence_of(:name) }
+  it { is_expected.to validate_presence_of(:timezone) }
 
   it { is_expected.to validate_uniqueness_of(:slug) }
 end

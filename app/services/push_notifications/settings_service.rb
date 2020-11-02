@@ -15,7 +15,10 @@ module PushNotifications
     def next_available_slot
       settings = select_settings('availability')
       slots = slots_from_settings(settings)
-      SettingsSlotsService.new(slots).next_available_slot
+
+      Time.use_zone @subscription.user.timezone do
+        SettingsSlotsService.new(slots).next_available_slot
+      end
     end
 
     private

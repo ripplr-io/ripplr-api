@@ -1,4 +1,6 @@
 class Level < ApplicationRecord
+  has_many :users
+
   validates :from, presence: true
   validates :to, presence: true
   validates :posts, presence: true

@@ -27,7 +27,7 @@ gem 'sentry-raven'
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
 gem 'skylight'
-# TODO: Update when this is fixed: https://github.com/waiting-for-dev/warden-jwt_auth/issues/29
+# FIXME: Update gem when this is fixed: https://github.com/waiting-for-dev/warden-jwt_auth/issues/29
 gem 'warden-jwt_auth', '~> 0.4.2'
 
 

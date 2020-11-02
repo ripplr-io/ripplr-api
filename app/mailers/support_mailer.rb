@@ -1,4 +1,6 @@
 class SupportMailer < ApplicationMailer
+  SUPPORT_EMAIL = 'support@ripplr.io'.freeze
+
   def new_ticket
     @ticket = params[:ticket]
 
@@ -6,12 +8,12 @@ class SupportMailer < ApplicationMailer
       attachments[screenshot.filename.to_s] = screenshot.download
     end
 
-    mail(to: 'support@ripplr.io', subject: "New ticket: #{@ticket.title}")
+    mail(to: SUPPORT_EMAIL, subject: "New ticket: #{@ticket.title}")
   end
 
   def account_deleted
     @user = params[:user]
     @comment = params[:comment]
-    mail(to: 'support@ripplr.io', subject: "#{@user.email} canceled the account")
+    mail(to: SUPPORT_EMAIL, subject: "#{@user.name} canceled the account")
   end
 end

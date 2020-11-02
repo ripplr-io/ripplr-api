@@ -19,10 +19,11 @@ Rails.application.routes.draw do
         password: 'password/reset'
       }
 
-      resource :account, only: :destroy
+      resource :account, only: [:update, :destroy]
       resources :users, only: :show
       resource :profile, only: :update
       get :user, to: 'profiles#show'
+      post :onboard, to: 'accounts#onboard'
     end
 
     resources :bookmarks, only: [:index, :create, :update, :destroy]
@@ -30,8 +31,9 @@ Rails.application.routes.draw do
     resources :devices, only: [:index, :create, :update, :destroy]
     resource :feed, only: :show
     resources :follows, only: [:index, :create, :destroy]
+    resource :inbox, only: :show
     resources :levels, only: :index
-    resources :referrals, only: [:index, :create, :destroy]
+    resources :referrals, only: [:index, :show, :create, :destroy]
     resources :subscriptions, only: [:index, :create, :update, :destroy]
     resources :tickets, only: :create
 

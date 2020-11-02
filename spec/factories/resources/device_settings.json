@@ -1,22 +1,4 @@
 {
-  "topics":{
-    "name":"topics",
-    "only":[
-
-    ],
-    "value":"all",
-    "except":[
-
-    ]
-  },
-  "availability":{
-    "name":"availability",
-    "only":[
-
-    ],
-    "value":"all",
-    "except":[
-
-    ]
-  }
+  "topics": {},
+  "availability": {}
 }

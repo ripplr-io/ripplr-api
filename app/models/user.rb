@@ -4,6 +4,8 @@ class User < ApplicationRecord
   include Subscribable
   include PgSearch::Model
 
+  belongs_to :level
+
   has_many :comments, inverse_of: :author, foreign_key: :author_id
   has_many :devices
   has_many :notifications
@@ -26,6 +28,8 @@ class User < ApplicationRecord
   # Subscriptions
   has_many :subscriptions
   has_many :subscribing_users, through: :subscriptions, source: :user
+  has_many :push_notifications, through: :subscriptions
+  has_many :push_notification_posts, through: :push_notifications, source: :post
 
   # Bookmarks
   has_many :bookmark_folders
@@ -39,8 +43,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true
   validates :slug, presence: true, uniqueness: true
-
-  after_create_commit :create_root_bookmark_folder
+  validates :timezone, presence: true # TODO: Add inclusion
 
   friendly_id :name, use: :slugged
 
@@ -65,11 +68,5 @@ class User < ApplicationRecord
 
   def root_bookmark_folder
     bookmark_folders.find_by(name: 'Root')
-  end
-
-  private
-
-  def create_root_bookmark_folder
-    bookmark_folders.create!(name: 'Root')
   end
 end

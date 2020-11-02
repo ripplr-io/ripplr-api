@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe :accounts_sessions_create, type: :request do
+RSpec.describe :accounts_passwords_create, type: :request do
   it 'responds with the resource' do
     user = create(:user, password: '123456')
     token = user.send_reset_password_instructions

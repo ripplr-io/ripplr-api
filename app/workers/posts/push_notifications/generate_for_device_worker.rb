@@ -4,7 +4,7 @@ module Posts
       include Sidekiq::Worker
 
       def perform(post_id, subscription_id, device_id)
-        # TODO: Add index?
+        # FIXME: Add index?
         push_notification = PushNotification.find_by(
           post_id: post_id,
           subscription_id: subscription_id,

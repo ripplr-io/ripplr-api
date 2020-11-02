@@ -1,32 +1,5 @@
 {
-  "topics":{
-    "name":"topics",
-    "only":[
-
-    ],
-    "value":"devices",
-    "except":[
-
-    ]
-  },
-  "devices":{
-    "name":"devices",
-    "only":[
-
-    ],
-    "value":"all",
-    "except":[
-
-    ]
-  },
-  "availability":{
-    "name":"availability",
-    "only":[
-
-    ],
-    "value":"devices",
-    "except":[
-
-    ]
-  }
+  "topics": {},
+  "devices": {},
+  "availability": {}
 }
