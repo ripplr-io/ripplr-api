@@ -4,7 +4,7 @@ class TicketsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    @ticket = current_user.tickets.new(ticket_params)
+    @ticket = Tickets::CreateService.new(ticket_params.merge!(user: current_user))
     create_resource(@ticket)
   end
 

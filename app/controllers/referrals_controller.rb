@@ -15,7 +15,7 @@ class ReferralsController < ApplicationController
   # FIXME: Make this restful
   def create
     referral_params[:referrals].each do |data|
-      current_user.referrals.create!(data)
+      Referrals::CreateService.new(data.merge!(inviter: current_user)).save
     end
   end
 
