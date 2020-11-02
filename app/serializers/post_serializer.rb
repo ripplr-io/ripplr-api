@@ -19,6 +19,6 @@ class PostSerializer < ActiveModel::Serializer
   end
 
   def bookmarked
-    false # TODO: scope.bookmarks.find_by(post_id: object.id).present?
+    scope.bookmarks.find_by(post_id: object.id).present?
   end
 end

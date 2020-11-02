@@ -1,7 +1,6 @@
 class BookmarkFolderSerializer < ActiveModel::Serializer
   attributes :name, :bookmark_folder_id, :created_at, :stats
 
-  belongs_to :bookmark_folder
   has_many :bookmarks
   has_many :bookmark_folders, key: :folders
 

@@ -5,13 +5,19 @@ class BookmarksController < ApplicationController
 
   def index
     read_resource(current_user.root_bookmark_folder, included_associations: [
-      :bookmarks, 'bookmarks.post', 'bookmarks.post.author', 'bookmarks.post.topic', 'bookmarks.post.hashtags'
+      :bookmarks,
+      :folders,
+      'folders.folders',
+      'bookmarks.post',
+      'bookmarks.post.author',
+      'bookmarks.post.topic',
+      'bookmarks.post.hashtags',
     ])
   end
 
   def create
     @bookmark = current_user.bookmark_folders.find(params[:bookmark_folder_id]).bookmarks.new(bookmark_params)
-    create_resource(@bookmark)
+    create_resource(@bookmark, included_associations: [:post])
   end
 
   private
