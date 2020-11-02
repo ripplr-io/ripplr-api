@@ -51,7 +51,7 @@ Rails.application.configure do
   config.action_mailer.mailgun_settings = {
     api_key: Rails.application.credentials[:mailgun_api_key],
     domain: 'ripplr.io',
-    api_host: 'api.eu.mailgun.net'
+    api_host: 'https://api.eu.mailgun.net/v3'
   }
 
   # Ignore bad email addresses and do not raise email delivery errors.
