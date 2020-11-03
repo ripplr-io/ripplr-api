@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       resources :users, only: :show
       resource :profile, only: :update
       get :user, to: 'profiles#show'
+      get :refresh, to: 'accounts#refresh'
       post :onboard, to: 'accounts#onboard'
     end
 

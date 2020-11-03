@@ -3,6 +3,7 @@ class User < ApplicationRecord
   include Followable
   include Subscribable
   include PgSearch::Model
+  include Devise::JWT::RevocationStrategies::JTIMatcher
 
   belongs_to :level
 
@@ -50,8 +51,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
-    :validatable, :jwt_authenticatable,
-    jwt_revocation_strategy: Devise::JWT::RevocationStrategies::Null
+    :validatable, :jwt_authenticatable, jwt_revocation_strategy: self
 
   pg_search_scope :search,
     using: { tsearch: { prefix: true, any_word: true } },

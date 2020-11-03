@@ -10,10 +10,7 @@ module ApplicationCable
 
     def find_verified_user
       token = request.params['token']
-      return reject_unauthorized_connection if token.nil?
-
-      jwt = JWT.decode(token, Rails.application.credentials.secret_key_base)[0]
-      User.find_by(id: jwt['sub']) || reject_unauthorized_connection
+      Authentication::JwtDecodeService.new(token).user || reject_unauthorized_connection
     end
   end
 end
