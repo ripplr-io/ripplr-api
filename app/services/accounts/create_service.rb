@@ -19,7 +19,9 @@ module Accounts
       end
 
       true
-    rescue ActiveRecord::RecordInvalid
+    rescue ActiveRecord::RecordInvalid => e
+      Rails.logger.error "Create Account failed with error: #{e}"
+      Raven.capture_exception e
       false
     end
   end

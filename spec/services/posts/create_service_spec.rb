@@ -14,7 +14,7 @@ RSpec.describe Posts::CreateService, type: :service do
     expect { described_class.new(post_params).save }
       .to change { Post.count }.by(1)
 
-    expect(Posts::PushNotifications::GenerateWorker).to have_enqueued_sidekiq_job(anything)
-    expect(Posts::BroadcastCreationWorker).to have_enqueued_sidekiq_job(anything)
+    expect(Posts::PushNotifications::GenerateWorker.jobs.size).to eq(1)
+    expect(Posts::BroadcastCreationWorker.jobs.size).to eq(1)
   end
 end

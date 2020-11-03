@@ -27,7 +27,7 @@ module Posts
         next_slot = settings.next_available_slot
         return if next_slot.blank?
 
-        @device.push_notifications.create!(
+        push_notification = @device.push_notifications.create!(
           post: @post,
           subscription: @subscription,
           title: "#{@post.author.name} has shared a new post",
@@ -35,6 +35,8 @@ module Posts
           thumbnail: 'https://ripplr.ams3.digitaloceanspaces.com/brand/logo-black.png',
           scheduled_to: next_slot
         )
+
+        ::PushNotifications::DeliverWorker.perform_async(push_notification.id)
       end
     end
   end

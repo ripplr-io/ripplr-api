@@ -9,6 +9,8 @@ RSpec.describe Posts::PushNotifications::GenerateForDeviceWorker, type: :worker 
     # Default will be all topics / all slots
     expect { described_class.new.perform(post.id, subscription.id, device.id) }
       .to change { PushNotification.count }.by(1)
+
+    expect(PushNotifications::DeliverWorker.jobs.size).to eq(1)
   end
 
   it 'is idempotent' do

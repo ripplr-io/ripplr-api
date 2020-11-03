@@ -11,6 +11,6 @@ RSpec.describe Comments::CreateService, type: :service do
     expect { described_class.new(comment_params).save }
       .to change { Comment.count }.by(1)
 
-    expect(Comments::GenerateNotificationsWorker).to have_enqueued_sidekiq_job(anything)
+    expect(Comments::GenerateNotificationsWorker.jobs.size).to eq(1)
   end
 end
