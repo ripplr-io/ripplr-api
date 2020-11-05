@@ -4,7 +4,7 @@ module RoutesHelper
   end
 
   def password_reset_route(token)
-    "#{web_app_route}/auth/password-reset?token=#{token}"
+    "#{web_app_route}/auth/password-reset?reset_password_token=#{token}"
   end
 
   def sign_up_route(referral_id = nil)

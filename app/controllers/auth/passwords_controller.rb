@@ -1,13 +1,11 @@
-module Accounts
+module Auth
   class PasswordsController < Devise::PasswordsController
     wrap_parameters :user
 
-    before_action :rename_params
-
     # POST /resource/password
-    def create
-      update
-    end
+    # def create
+    #   super
+    # end
 
     # PUT /resource/password
     # def update
@@ -24,11 +22,5 @@ module Accounts
     # def after_sending_reset_password_instructions_path_for(resource_name)
     #   super(resource_name)
     # end
-
-    private
-
-    def rename_params
-      params[:user][:reset_password_token] = params[:token]
-    end
   end
 end

@@ -11,13 +11,12 @@ RSpec.describe :notifications_read_all, type: :request do
   context 'when the user is authenticated' do
     it 'responds with the resource' do
       user = create(:user)
-      sign_in user
 
       notification_a = create(:new_comment, user: user)
       notification_b = create(:new_comment, user: user)
       notification_other_user = create(:new_comment)
 
-      post read_notifications_path
+      post read_notifications_path, headers: auth_headers_for(user)
 
       expect(response).to have_http_status(:no_content)
       expect(notification_a.reload.read_at).not_to be(nil)

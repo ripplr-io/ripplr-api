@@ -1,7 +1,7 @@
 class NotificationsController < ApplicationController
   include Crudable
 
-  before_action :authenticate_user!
+  before_action :doorkeeper_authorize!
 
   def index
     notifications = current_user.notifications.order(created_at: :desc)

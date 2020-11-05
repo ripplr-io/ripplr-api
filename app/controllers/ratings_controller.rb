@@ -1,7 +1,7 @@
 class RatingsController < ApplicationController
   include Crudable
 
-  before_action :authenticate_user!
+  before_action :doorkeeper_authorize!
 
   def create
     @rating = current_user.ratings.new(rating_params)

@@ -1,5 +1,5 @@
 class SearchController < ApplicationController
-  before_action :authenticate_user!
+  before_action :doorkeeper_authorize!
 
   def index
     search = Search::SearchService.new(params[:query], params[:page], params[:per_page])

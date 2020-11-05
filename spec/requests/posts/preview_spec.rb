@@ -21,9 +21,8 @@ RSpec.describe :posts_preview, type: :request do
       ))
 
       user = create(:user)
-      sign_in user
 
-      post preview_posts_path(url: 'github.com')
+      post preview_posts_path(url: 'github.com'), headers: auth_headers_for(user)
 
       expect(response).to have_http_status(:ok)
       expect(response_data[:title]).to eq 'Github'
@@ -35,9 +34,8 @@ RSpec.describe :posts_preview, type: :request do
     it 'responds with not found' do
       stub_request(:get, /github.com/).to_return(status: 404)
       user = create(:user)
-      sign_in user
 
-      get preview_posts_path
+      get preview_posts_path, headers: auth_headers_for(user)
 
       expect(response).to have_http_status(:not_found)
     end

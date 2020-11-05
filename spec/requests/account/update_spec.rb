@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe :accounts_update, type: :request do
+RSpec.describe :account_update, type: :request do
   context 'when the user is not authenticated' do
     it 'responds with unauthorized' do
       patch account_path
@@ -11,9 +11,10 @@ RSpec.describe :accounts_update, type: :request do
   context 'when the user owns the resource' do
     it 'responds with the resource' do
       user = create(:user)
-      sign_in user
 
-      patch account_path, as: :json, params: user.as_json(only: [:country, :email, :timezone])
+      patch account_path,
+        params: user.as_json(only: [:country, :email, :timezone]),
+        headers: auth_headers_for(user)
 
       expect(response).to have_http_status(:ok)
       expect(response_data).to have_resource(user)
@@ -21,9 +22,8 @@ RSpec.describe :accounts_update, type: :request do
 
     it 'responds with errors' do
       user = create(:user)
-      sign_in user
 
-      patch account_path, as: :json, params: { timezone: nil }
+      patch account_path, params: { timezone: nil }, headers: auth_headers_for(user)
 
       expect(response).to have_http_status(:unprocessable_entity)
       expect(response_errors).to have_error(:timezone)

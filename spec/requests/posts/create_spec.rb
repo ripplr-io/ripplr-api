@@ -11,10 +11,11 @@ RSpec.describe :posts_create, type: :request do
   context 'when the user is authenticated' do
     it 'responds with the resource' do
       user = create(:user)
-      sign_in user
       mock_post = build(:post, topic: create(:topic))
 
-      post posts_path, as: :json, params: mock_post.as_json(only: [:title, :body, :image, :url, :topic_id])
+      post posts_path,
+        params: mock_post.as_json(only: [:title, :body, :image, :url, :topic_id]),
+        headers: auth_headers_for(user)
 
       expect(response).to have_http_status(:created)
       expect(response_data).to have_resource(Post.last)
@@ -22,9 +23,8 @@ RSpec.describe :posts_create, type: :request do
 
     it 'responds with errors' do
       user = create(:user)
-      sign_in user
 
-      post posts_path
+      post posts_path, headers: auth_headers_for(user)
 
       expect(response).to have_http_status(:unprocessable_entity)
       expect(response_errors).to have_error(:title)

@@ -1,19 +1,18 @@
 require 'rails_helper'
 
-RSpec.describe :profiles_show, type: :request do
+RSpec.describe :account_onboard_update, type: :request do
   context 'when the user is not authenticated' do
     it 'responds with unauthorized' do
-      get '/auth/user'
+      put account_onboard_path
       expect(response).to have_http_status(:unauthorized)
     end
   end
 
-  context 'when the user is authenticated' do
-    it 'responds with the user resource' do
+  context 'when the user owns the resource' do
+    it 'responds with the resource' do
       user = create(:user)
-      sign_in user
 
-      get '/auth/user'
+      put account_onboard_path, headers: auth_headers_for(user)
 
       expect(response).to have_http_status(:ok)
       expect(response_data).to have_resource(user)

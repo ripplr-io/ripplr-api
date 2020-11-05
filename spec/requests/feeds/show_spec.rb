@@ -11,7 +11,6 @@ RSpec.describe :feeds_show, type: :request do
   context 'when the user is authenticated' do
     it 'responds with the user resources' do
       user = create(:user)
-      sign_in user
 
       user_follow = create(:follow, :for_user, user: user)
       topic_follow = create(:follow, :for_topic, user: user)
@@ -24,7 +23,7 @@ RSpec.describe :feeds_show, type: :request do
       other_post_a = create(:post)
       other_post_b = create(:post)
 
-      get feed_path
+      get feed_path, headers: auth_headers_for(user)
 
       expect(response).to have_http_status(:ok)
       expect(response_data).to have_resource(followed_user_post)

@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   include Crudable
 
-  before_action :authenticate_user!, only: :create
+  before_action :doorkeeper_authorize!, only: :create
 
   def index
     @comments = Post.find(params[:post_id]).comments

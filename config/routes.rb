@@ -2,9 +2,9 @@ require 'sidekiq/web'
 require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
+  mount ActionCable.server, at: "/cable"
   # TODO: Add authentication to sidekiq routes
   mount Sidekiq::Web, at: '/sidekiq'
-  mount ActionCable.server, at: "/cable"
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
   # API
@@ -12,20 +12,24 @@ Rails.application.routes.draw do
     root to: 'welcome#status'
     post :subscribe, to: 'welcome#subscribe'
 
-    scope :auth do
-      devise_for :users, path: '', module: "accounts", sign_out_via: :post, path_names: {
-        sign_in: :login,
-        sign_out: :logout,
-        registration: :register,
-        password: 'password/reset'
-      }
+    use_doorkeeper do
+      skip_controllers :authorizations, :applications, :authorized_applications, :token_info
+    end
 
-      resource :account, only: [:update, :destroy]
-      resources :users, only: :show
-      resource :profile, only: :update
-      get :user, to: 'profiles#show'
-      get :refresh, to: 'accounts#refresh'
-      post :onboard, to: 'accounts#onboard'
+    devise_for :users, skip: :all
+    namespace :auth do
+      devise_scope :user do
+        post :register, to: 'registrations#create'
+        post :password, to: 'passwords#create'
+        put :password, to: 'passwords#update'
+      end
+    end
+
+    resource :account, only: [:show, :update, :destroy], controller: :account
+    namespace :account do
+      resource :password, only: :update, controller: :password
+      resource :profile, only: :update, controller: :profile
+      resource :onboard, only: :update, controller: :onboard
     end
 
     resources :bookmarks, only: [:index, :create, :update, :destroy]

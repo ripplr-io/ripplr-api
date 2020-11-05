@@ -11,10 +11,9 @@ RSpec.describe :posts_show, type: :request do
   context 'when the user is authenticated' do
     it 'responds with the resource' do
       user = create(:user)
-      sign_in user
       post = create(:post)
 
-      get post_path(post)
+      get post_path(post), headers: auth_headers_for(user)
 
       expect(response).to have_http_status(:ok)
       expect(response_data).to have_resource(post)
@@ -22,9 +21,8 @@ RSpec.describe :posts_show, type: :request do
 
     it 'responds with not found' do
       user = create(:user)
-      sign_in user
 
-      get post_path(0)
+      get post_path(0), headers: auth_headers_for(user)
 
       expect(response).to have_http_status(:not_found)
     end

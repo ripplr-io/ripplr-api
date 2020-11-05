@@ -1,7 +1,7 @@
 class ReferralsController < ApplicationController
   include Crudable
 
-  before_action :authenticate_user!, except: :show
+  before_action :doorkeeper_authorize!, except: :show
 
   def index
     read_resource(current_user.referrals)

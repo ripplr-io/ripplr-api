@@ -9,7 +9,8 @@ gem 'aws-sdk-s3', require: false
 gem 'bcrypt'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'devise'
-gem 'devise-jwt', '~> 0.7.0'
+# FIXME: https://github.com/doorkeeper-gem/doorkeeper/issues/1412
+gem 'doorkeeper', '~> 5.3.0'
 gem 'friendly_id'
 gem 'gibbon'
 gem 'kaminari'
@@ -27,8 +28,6 @@ gem 'sentry-raven'
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
 gem 'skylight'
-# FIXME: Update gem when this is fixed: https://github.com/waiting-for-dev/warden-jwt_auth/issues/29
-gem 'warden-jwt_auth', '~> 0.4.2'
 
 
 group :development, :test do

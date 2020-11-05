@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   include Crudable
 
-  before_action :authenticate_user!, except: :index
+  before_action :doorkeeper_authorize!, except: :index
   before_action :find_post, only: [:update, :destroy]
 
   def index

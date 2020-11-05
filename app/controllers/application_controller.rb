@@ -4,6 +4,10 @@ class ApplicationController < ActionController::API
 
   private
 
+  def current_user
+    @_current_user ||= User.find_by(id: doorkeeper_token&.resource_owner_id)
+  end
+
   def not_found
     head :not_found
   end

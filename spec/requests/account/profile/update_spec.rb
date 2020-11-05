@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe :profiles_update, type: :request do
+RSpec.describe :account_profile_update, type: :request do
   context 'when the user is not authenticated' do
     it 'responds with unauthorized' do
-      patch profile_path
+      patch account_profile_path
       expect(response).to have_http_status(:unauthorized)
     end
   end
@@ -11,9 +11,10 @@ RSpec.describe :profiles_update, type: :request do
   context 'when the user is authenticated' do
     it 'responds with the resource' do
       user = create(:user)
-      sign_in user
 
-      patch profile_path, as: :json, params: user.as_json(only: [:name, :slug, :bio, :avatar])
+      patch account_profile_path,
+        params: user.as_json(only: [:name, :slug, :bio, :avatar]),
+        headers: auth_headers_for(user)
 
       expect(response).to have_http_status(:ok)
       expect(response_data).to have_resource(user)
@@ -21,9 +22,8 @@ RSpec.describe :profiles_update, type: :request do
 
     it 'responds with errors' do
       user = create(:user)
-      sign_in user
 
-      patch profile_path, as: :json, params: { name: nil }
+      patch account_profile_path, params: { name: nil }, headers: auth_headers_for(user)
 
       expect(response).to have_http_status(:unprocessable_entity)
       expect(response_errors).to have_error(:name)

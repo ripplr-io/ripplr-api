@@ -1,7 +1,8 @@
-module Accounts
+module Auth
   class RegistrationsController < Devise::RegistrationsController
     include Crudable
 
+    respond_to :json
     wrap_parameters :user
 
     before_action :configure_sign_up_params, only: [:create]
@@ -10,9 +11,13 @@ module Accounts
     # POST /resource
     def create
       user = Accounts::CreateService.new(sign_up_params, referral_id: params[:referral_id])
-      create_resource(user) do
-        sign_up(:user, user.resource)
-      end
+      return render_errors(user) unless user.save
+
+      token = user.resource.access_tokens.create!(
+        use_refresh_token: true,
+        expires_in: Doorkeeper.configuration.access_token_expires_in
+      )
+      render json: Doorkeeper::OAuth::TokenResponse.new(token).body, status: :created
     end
 
     # PUT /resource

@@ -11,11 +11,10 @@ RSpec.describe :notifications_index, type: :request do
   context 'when the user is authenticated' do
     it 'responds with the user resources' do
       user = create(:user)
-      sign_in user
       user_notification = create(:new_comment, user: user)
       other_notification = create(:new_comment)
 
-      get notifications_path
+      get notifications_path, headers: auth_headers_for(user)
 
       expect(response).to have_http_status(:ok)
       expect(response_data).to have_resource(user_notification)

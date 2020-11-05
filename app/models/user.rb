@@ -3,7 +3,6 @@ class User < ApplicationRecord
   include Followable
   include Subscribable
   include PgSearch::Model
-  include Devise::JWT::RevocationStrategies::JTIMatcher
 
   belongs_to :level
 
@@ -12,6 +11,9 @@ class User < ApplicationRecord
   has_many :notifications
   has_many :posts, inverse_of: :author, foreign_key: :author_id
   has_many :tickets
+  has_many :access_tokens, foreign_key: :resource_owner_id, class_name: 'Doorkeeper::AccessToken',
+    dependent: :destroy
+
 
   # Ratings
   has_many :ratings
@@ -50,8 +52,7 @@ class User < ApplicationRecord
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable,
-    :validatable, :jwt_authenticatable, jwt_revocation_strategy: self
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
 
   pg_search_scope :search,
     using: { tsearch: { prefix: true, any_word: true } },

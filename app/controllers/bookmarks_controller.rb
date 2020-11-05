@@ -1,7 +1,7 @@
 class BookmarksController < ApplicationController
   include Crudable
 
-  before_action :authenticate_user!
+  before_action :doorkeeper_authorize!
 
   def index
     read_resource(current_user.root_bookmark_folder, included_associations: [

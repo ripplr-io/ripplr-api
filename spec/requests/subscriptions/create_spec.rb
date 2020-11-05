@@ -11,16 +11,15 @@ RSpec.describe :subscriptions_create, type: :request do
   context 'when the user is authenticated' do
     it 'responds with the resource' do
       user = create(:user)
-      sign_in user
       subscribable = create(:user)
       mock_subscription = build(:subscription, subscribable: subscribable)
 
-      post subscriptions_path, as: :json, params: mock_subscription.as_json(only: [
+      post subscriptions_path, params: mock_subscription.as_json(only: [
         :subscribable_id,
         :subscribable_type
       ]).merge!(
         settings: mock_subscription.settings.to_json
-      )
+      ), headers: auth_headers_for(user)
 
       expect(response).to have_http_status(:created)
       expect(response_data).to have_resource(Subscription.last)
@@ -28,9 +27,8 @@ RSpec.describe :subscriptions_create, type: :request do
 
     it 'responds with errors' do
       user = create(:user)
-      sign_in user
 
-      post subscriptions_path
+      post subscriptions_path, headers: auth_headers_for(user)
 
       expect(response).to have_http_status(:unprocessable_entity)
       expect(response_errors).to have_error(:subscribable)

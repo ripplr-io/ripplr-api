@@ -11,10 +11,9 @@ RSpec.describe :subscriptions_update, type: :request do
   context 'when the user does not own the resource' do
     it 'responds with not found' do
       user = create(:user)
-      sign_in user
       subscription = create(:subscription)
 
-      patch subscription_path(subscription)
+      patch subscription_path(subscription), headers: auth_headers_for(user)
 
       expect(response).to have_http_status(:not_found)
     end
@@ -23,15 +22,14 @@ RSpec.describe :subscriptions_update, type: :request do
   context 'when the user owns the resource' do
     it 'responds with the resource' do
       user = create(:user)
-      sign_in user
       subscription = create(:subscription, user: user)
 
-      patch subscription_path(subscription), as: :json, params: subscription.as_json(only: [
+      patch subscription_path(subscription), params: subscription.as_json(only: [
         :subscribable_id,
         :subscribable_type
       ]).merge!(
         settings: subscription.settings.to_json
-      )
+      ), headers: auth_headers_for(user)
 
       expect(response).to have_http_status(:ok)
       expect(response_data).to have_resource(subscription)
@@ -39,10 +37,11 @@ RSpec.describe :subscriptions_update, type: :request do
 
     it 'responds with errors' do
       user = create(:user)
-      sign_in user
       subscription = create(:subscription, user: user)
 
-      patch subscription_path(subscription), as: :json, params: { subscribable_id: nil }
+      patch subscription_path(subscription),
+        params: { subscribable_id: nil },
+        headers: auth_headers_for(user)
 
       expect(response).to have_http_status(:unprocessable_entity)
       expect(response_errors).to have_error(:subscribable)

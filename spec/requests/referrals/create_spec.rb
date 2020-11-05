@@ -11,16 +11,15 @@ RSpec.describe :subscriptions_create, type: :request do
   context 'when the user is authenticated' do
     it 'responds with the resource' do
       user = create(:user)
-      sign_in user
       mock_referral_a = build(:referral, inviter: user)
       mock_referral_b = build(:referral, inviter: user)
 
-      post referrals_path, as: :json, params: {
+      post referrals_path, params: {
         referrals: [
           mock_referral_a.as_json(only: [:name, :email]),
           mock_referral_b.as_json(only: [:name, :email])
         ]
-      }
+      }, headers: auth_headers_for(user)
 
       new_referrals = Referral.last(2)
       expect(new_referrals.size).to eq(2)

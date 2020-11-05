@@ -1,7 +1,7 @@
 class SubscriptionsController < ApplicationController
   include Crudable
 
-  before_action :authenticate_user!
+  before_action :doorkeeper_authorize!
   before_action :find_subscription, only: [:update, :destroy]
 
   def index

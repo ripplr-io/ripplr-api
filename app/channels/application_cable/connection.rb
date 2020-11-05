@@ -9,8 +9,9 @@ module ApplicationCable
     protected
 
     def find_verified_user
-      token = request.params['token']
-      Authentication::JwtDecodeService.new(token).user || reject_unauthorized_connection
+      access_token = Doorkeeper::AccessToken.by_token(request.params[:token])
+      user = User.find_by(id: access_token&.resource_owner_id)
+      user || reject_unauthorized_connection
     end
   end
 end

@@ -15,9 +15,7 @@ RSpec.describe :inboxes_show, type: :request do
       push_notification = create(:push_notification, subscription: subscription)
       other_push_notification = create(:push_notification)
 
-      sign_in user
-
-      get inbox_path
+      get inbox_path, headers: auth_headers_for(user)
 
       expect(response).to have_http_status(:ok)
       expect(response_data).to have_resource(push_notification.post)

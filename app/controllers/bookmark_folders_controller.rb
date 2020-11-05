@@ -1,7 +1,7 @@
 class BookmarkFoldersController < ApplicationController
   include Crudable
 
-  before_action :authenticate_user!
+  before_action :doorkeeper_authorize!
   before_action :find_bookmark_folder, only: [:update, :destroy]
 
   def create

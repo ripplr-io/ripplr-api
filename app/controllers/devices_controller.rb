@@ -1,7 +1,7 @@
 class DevicesController < ApplicationController
   include Crudable
 
-  before_action :authenticate_user!
+  before_action :doorkeeper_authorize!
   before_action :find_device, only: [:update, :destroy]
 
   def index
