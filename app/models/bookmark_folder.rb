@@ -6,4 +6,5 @@ class BookmarkFolder < ApplicationRecord
   has_many :bookmarks
 
   validates :name, presence: true
+  validates :name, uniqueness: { scope: [:bookmark_folder_id, :user_id] }
 end

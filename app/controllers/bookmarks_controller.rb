@@ -16,7 +16,7 @@ class BookmarksController < ApplicationController
   end
 
   def create
-    @bookmark = current_user.bookmark_folders.find(params[:bookmark_folder_id]).bookmarks.new(bookmark_params)
+    @bookmark = current_user.bookmarks.new(bookmark_params)
     create_resource(@bookmark, included_associations: [:post])
   end
 

@@ -29,7 +29,7 @@ RSpec.describe User, type: :model do
   it { is_expected.to have_many(:push_notifications).through(:subscriptions) }
   it { is_expected.to have_many(:push_notification_posts).through(:push_notifications).source(:post) }
   it { is_expected.to have_many(:bookmark_folders) }
-  it { is_expected.to have_many(:bookmarks).through(:bookmark_folders).source(:bookmarks) }
+  it { is_expected.to have_many(:bookmarks) }
   it { is_expected.to have_many(:referrals).inverse_of(:inviter).with_foreign_key(:inviter_id) }
   it { is_expected.to have_many(:referred_users).through(:referrals).source(:invitee) }
 

@@ -12,4 +12,5 @@ RSpec.describe BookmarkFolder, type: :model do
   it { is_expected.to have_many(:bookmarks) }
 
   it { is_expected.to validate_presence_of(:name) }
+  it { is_expected.to validate_uniqueness_of(:name).scoped_to([:bookmark_folder_id, :user_id]) }
 end

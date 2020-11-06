@@ -6,4 +6,6 @@ class PushNotification < ApplicationRecord
   validates :title, presence: true
   validates :body, presence: true
   validates :thumbnail, presence: true
+
+  validates :post_id, uniqueness: { scope: :device_id }
 end

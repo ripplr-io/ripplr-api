@@ -5,174 +5,132 @@ if Rails.env.development?
     include FactoryBot::Syntax::Methods
 
     def generate_all
-      users
-      posts
-      comments
-      ratings
-      hashtags
-      devices
-      follows
-      subscriptions
-      bookmarks
-      tickets
-      referrals
-      prizes
-    end
+      puts 'Creating admin user 👷'
+      user = create(:user, email: 'admin@ripplr.io', password: '123456')
 
-    def users
-      puts 'Creating users 🤷🤷🤷'
+      puts '- with devices 💻💻💻'
+      create_list(:device, 3, user: user)
 
-      create(:user, email: 'admin@ripplr.io', password: '123456')
-      create(:user, email: 'poster@ripplr.io', password: '123456')
+      puts '- with tickets 🎟🎟🎟'
+      create_list(:ticket, 3, user: user)
 
-      create_list(:user, 5)
-    end
+      puts '- with bookmark folders 📂📂📂'
+      create_list(:bookmark_folder, 3, user: user, bookmark_folder: user.root_bookmark_folder)
 
-    def posts
-      puts 'Creating posts 📜📜📜'
+      puts '- with pending referrals 🙅🙅🙅'
+      create_list(:referral, 3, inviter: user)
+
+      puts '- with accepted referrals 🙆🙆🙆'
+      create_list(:referral, 3, :with_invitee, inviter: user)
+
+      puts 'Creating other users 🤷🤷🤷'
+      create_list(:user, 10)
+
+      puts 'Creating hashtags #️⃣#️⃣#️⃣'
+      create_list(:hashtag, 10)
 
       users = User.all.to_a
       topics = Topic.all.to_a
-
-      20.times do
-        create(:post, author: users.sample, topic: topics.sample)
-      end
-    end
-
-    def comments
-      puts 'Creating comments 💬💬💬'
-
-      users = User.all.to_a
-      posts = Post.all.to_a
-
-      20.times do
-        create(:comment, author: users.sample, post: posts.sample)
-      end
-
-      puts 'Creating replies 🗯🗯🗯'
-
-      comments = Comment.all.to_a
-      20.times do
-        create(:reply, author: users.sample, comment: comments.sample)
-      end
-    end
-
-    def ratings
-      puts 'Creating ratings 🌟🌟🌟'
-
-      users = User.all.to_a
-
-      posts = Post.all.to_a
-      20.times do
-        create(:rating, user: users.sample, ratable: posts.sample)
-      end
-
-      comments = Comment.all.to_a
-      20.times do
-        create(:rating, user: users.sample, ratable: comments.sample)
-      end
-    end
-
-    def hashtags
-      puts 'Creating hashtags #️⃣#️⃣#️⃣'
-
-      create_list(:hashtag, 10)
-
-      posts = Post.all.to_a
       hashtags = Hashtag.all.to_a
 
-      hashtags.each do |hashtag|
-        repetitions = (0..3).to_a.sample
-        repetitions.times do
-          PostHashtag.create(hashtag: hashtag, post: posts.sample)
+      puts 'Creating follows 🔭🔭🔭'
+      create_follows(users, topics, hashtags)
+
+      puts 'Creating subscriptions 📅📅📅'
+      create_subscriptions(users)
+
+      puts 'Creating posts 📜📜📜'
+      create_posts(users, topics, hashtags)
+
+      posts = Post.all.to_a
+
+      puts 'Creating ratings 🌟🌟🌟'
+      create_ratings(users, posts)
+
+      puts 'Creating comments 💬💬💬'
+      create_comments(users, posts)
+
+      comments = Comment.all.to_a
+
+      puts 'Creating replies 🗯🗯🗯'
+      create_replies(users, comments)
+
+      puts 'Creating bookmarks 🔖🔖🔖'
+      create_bookmarks(users, posts)
+    end
+
+    private
+
+    def create_follows(users, topics, hashtags)
+      users.each do |user|
+        other_users = users.dup - [user]
+        rand(0..5).times do
+          create(:follow, user: user, followable: other_users.shuffle!.pop)
+        end
+
+        other_topics = topics.dup
+        rand(0..5).times do
+          create(:follow, user: user, followable: other_topics.shuffle!.pop)
+        end
+
+        other_hashtags = hashtags.dup
+        rand(0..5).times do
+          create(:follow, user: user, followable: other_hashtags.shuffle!.pop)
         end
       end
     end
 
-    def devices
-      puts 'Creating devices 💻💻💻'
-
-      users = User.all.to_a
-
-      5.times do
-        create(:device, user: users.sample)
-      end
-    end
-
-    def follows
-      puts 'Creating follows 🔭🔭🔭'
-
-      users = User.all.to_a
-      topics = Topic.all.to_a
-      hashtags = Hashtag.all.to_a
-
+    def create_subscriptions(users)
       users.each do |user|
-        create(:follow, :for_user, user: user, followable: users.sample)
-        create(:follow, :for_topic, user: user, followable: topics.sample)
-        create(:follow, :for_hashtag, user: user, followable: hashtags.sample)
+        other_users = users.dup - [user]
+        rand(0..5).times do
+          create(:subscription, user: user, subscribable: other_users.shuffle!.pop)
+        end
       end
     end
 
-    def subscriptions
-      puts 'Creating subscriptions 📅📅📅'
-
-      users = User.all.to_a
-
-      5.times do
-        create(:subscription, user: users.sample, subscribable: users.sample)
+    def create_posts(users, topics, hashtags)
+      users.each do |user|
+        rand(0..5).times do
+          create(:post, author: user, topic: topics.sample, hashtags: hashtags.sample(rand(0..4)))
+        end
       end
     end
 
-    def bookmarks
-      puts 'Creating bookmarks 🔖🔖🔖'
-
-      root_bookmark_folder = User.first.root_bookmark_folder
-      posts = Post.all.to_a
-
-      folders = create_list(:bookmark_folder, 4, bookmark_folder: root_bookmark_folder, user: root_bookmark_folder.user)
-
-      2.times do
-        create(:bookmark, post: posts.sample, bookmark_folder: root_bookmark_folder)
-      end
-
-      5.times do
-        create(:bookmark, post: posts.sample, bookmark_folder: folders.sample)
+    def create_ratings(users, posts)
+      users.each do |user|
+        other_posts = posts.dup
+        rand(0..5).times do
+          create(:rating, user: user, ratable: other_posts.shuffle!.pop)
+        end
       end
     end
 
-    def tickets
-      puts 'Creating tickets 🎟🎟🎟'
-
-      users = User.all.to_a
-
-      5.times do
-        create(:ticket, user: users.sample)
+    def create_comments(users, posts)
+      users.each do |user|
+        other_posts = posts.dup
+        rand(0..5).times do
+          create(:comment, author: user, post: other_posts.shuffle!.pop)
+        end
       end
     end
 
-    def referrals
-      puts 'Creating referrals 👥👥👥'
-
-      inviter = User.first
-      users = User.all.to_a.drop(1)
-
-      5.times do
-        create(:referral, inviter: inviter)
-      end
-
-      3.times do
-        invitee = users.sample
-        create(:referral, inviter: inviter, invitee: invitee, email: invitee, accepted_at: invitee.created_at)
+    def create_replies(users, comments)
+      users.each do |user|
+        other_comments = comments.dup
+        rand(0..5).times do
+          create(:reply, author: user, comment: other_comments.shuffle!.pop)
+        end
       end
     end
 
-    def prizes
-      puts 'Creating prizes 🎁🎁🎁'
-
-      referrals = Referral.where.not(invitee: nil)
-
-      referrals.each do |referral|
-        create(:prize, prizable: referral)
+    def create_bookmarks(users, posts)
+      users.each do |user|
+        other_posts = posts.dup
+        folders = user.bookmark_folders.to_a
+        rand(0..5).times do
+          create(:bookmark, user: user, bookmark_folder: folders.sample, post: other_posts.shuffle!.pop)
+        end
       end
     end
   end

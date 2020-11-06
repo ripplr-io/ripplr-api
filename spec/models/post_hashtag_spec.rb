@@ -7,4 +7,6 @@ RSpec.describe PostHashtag, type: :model do
 
   it { is_expected.to belong_to(:post) }
   it { is_expected.to belong_to(:hashtag) }
+
+  it { is_expected.to validate_uniqueness_of(:hashtag_id).scoped_to(:post_id).case_insensitive }
 end

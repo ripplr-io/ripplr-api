@@ -12,7 +12,8 @@ RSpec.describe Device, type: :model do
   it { is_expected.to have_many(:push_notifications) }
 
   it { is_expected.to validate_presence_of(:device_type) }
-  it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_presence_of(:onesignal_id) }
   it { is_expected.to validate_presence_of(:settings) }
+  it { is_expected.to validate_presence_of(:name) }
+  it { is_expected.to validate_uniqueness_of(:name).scoped_to(:user_id) }
 end

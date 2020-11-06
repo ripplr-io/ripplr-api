@@ -35,7 +35,7 @@ class User < ApplicationRecord
 
   # Bookmarks
   has_many :bookmark_folders
-  has_many :bookmarks, through: :bookmark_folders, source: :bookmarks
+  has_many :bookmarks
 
   # Referrals
   has_many :referrals, inverse_of: :inviter, foreign_key: :inviter_id

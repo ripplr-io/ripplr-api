@@ -12,4 +12,5 @@ RSpec.describe PushNotification, type: :model do
   it { is_expected.to validate_presence_of(:title) }
   it { is_expected.to validate_presence_of(:body) }
   it { is_expected.to validate_presence_of(:thumbnail) }
+  it { is_expected.to validate_uniqueness_of(:post_id).scoped_to(:device_id).case_insensitive }
 end

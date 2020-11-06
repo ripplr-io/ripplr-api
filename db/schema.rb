@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_04_184938) do
+ActiveRecord::Schema.define(version: 2020_11_06_152659) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 2020_11_04_184938) do
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["bookmark_folder_id", "user_id", "name"], name: "ux_bookmark_folders_bookmark_folder_user_name", unique: true
     t.index ["bookmark_folder_id"], name: "index_bookmark_folders_on_bookmark_folder_id"
     t.index ["user_id"], name: "index_bookmark_folders_on_user_id"
   end
@@ -52,8 +53,11 @@ ActiveRecord::Schema.define(version: 2020_11_04_184938) do
     t.uuid "post_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.uuid "user_id"
     t.index ["bookmark_folder_id"], name: "index_bookmarks_on_bookmark_folder_id"
     t.index ["post_id"], name: "index_bookmarks_on_post_id"
+    t.index ["user_id", "post_id"], name: "index_bookmarks_on_user_id_and_post_id", unique: true
+    t.index ["user_id"], name: "index_bookmarks_on_user_id"
   end
 
   create_table "comments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -76,6 +80,7 @@ ActiveRecord::Schema.define(version: 2020_11_04_184938) do
     t.json "settings", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id", "name"], name: "index_devices_on_user_id_and_name", unique: true
     t.index ["user_id"], name: "index_devices_on_user_id"
   end
 
@@ -86,6 +91,7 @@ ActiveRecord::Schema.define(version: 2020_11_04_184938) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["followable_type", "followable_id"], name: "index_follows_on_followable_type_and_followable_id"
+    t.index ["user_id", "followable_id", "followable_type"], name: "index_follows_on_user_id_and_followable_id_and_followable_type", unique: true
     t.index ["user_id"], name: "index_follows_on_user_id"
   end
 
@@ -137,6 +143,7 @@ ActiveRecord::Schema.define(version: 2020_11_04_184938) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["hashtag_id"], name: "index_post_hashtags_on_hashtag_id"
+    t.index ["post_id", "hashtag_id"], name: "index_post_hashtags_on_post_id_and_hashtag_id", unique: true
     t.index ["post_id"], name: "index_post_hashtags_on_post_id"
   end
 
@@ -178,6 +185,7 @@ ActiveRecord::Schema.define(version: 2020_11_04_184938) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["device_id"], name: "index_push_notifications_on_device_id"
+    t.index ["post_id", "device_id"], name: "index_push_notifications_on_post_id_and_device_id", unique: true
     t.index ["post_id"], name: "index_push_notifications_on_post_id"
     t.index ["subscription_id"], name: "index_push_notifications_on_subscription_id"
   end
@@ -190,6 +198,7 @@ ActiveRecord::Schema.define(version: 2020_11_04_184938) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["ratable_type", "ratable_id"], name: "index_ratings_on_ratable_type_and_ratable_id"
+    t.index ["user_id", "ratable_id", "ratable_type"], name: "index_ratings_on_user_id_and_ratable_id_and_ratable_type", unique: true
     t.index ["user_id"], name: "index_ratings_on_user_id"
   end
 
@@ -202,6 +211,8 @@ ActiveRecord::Schema.define(version: 2020_11_04_184938) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["invitee_id"], name: "index_referrals_on_invitee_id"
+    t.index ["inviter_id", "email"], name: "index_referrals_on_inviter_id_and_email", unique: true
+    t.index ["inviter_id", "invitee_id"], name: "index_referrals_on_inviter_id_and_invitee_id", unique: true, where: "(invitee_id IS NOT NULL)"
     t.index ["inviter_id"], name: "index_referrals_on_inviter_id"
   end
 
@@ -213,6 +224,7 @@ ActiveRecord::Schema.define(version: 2020_11_04_184938) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["subscribable_type", "subscribable_id"], name: "index_subscriptions_on_subscribable_type_and_subscribable_id"
+    t.index ["user_id", "subscribable_id", "subscribable_type"], name: "ux_subscriptions_user_subscribable", unique: true
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 

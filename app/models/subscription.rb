@@ -5,6 +5,7 @@ class Subscription < ApplicationRecord
   has_many :push_notifications, dependent: :destroy
 
   validates :settings, presence: true
+  validates :subscribable_id, uniqueness: { scope: [:subscribable_type, :user_id] }
 
   def devices
     device_settings = settings['devices']

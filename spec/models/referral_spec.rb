@@ -12,4 +12,6 @@ RSpec.describe Referral, type: :model do
 
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_presence_of(:email) }
+  it { is_expected.to validate_uniqueness_of(:email).scoped_to(:inviter_id) }
+  xit { is_expected.to validate_uniqueness_of(:invitee_id).scoped_to(:inviter_id) }
 end
