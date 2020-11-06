@@ -4,12 +4,12 @@ class CommentsController < ApplicationController
   before_action :doorkeeper_authorize!, only: :create
 
   def index
-    @comments = Post.find(params[:post_id]).comments
+    @comments = Post.find(params[:post_id]).comments.order(created_at: :desc).page(params[:page]).per(params[:per_page])
     read_resource(@comments, included_associations: [:author])
   end
 
   def show
-    @comments = Comment.find(params[:id]).comments
+    @comments = Comment.find(params[:id]).comments.order(created_at: :desc).page(params[:page]).per(params[:per_page])
     read_resource(@comments, included_associations: [:author])
   end
 

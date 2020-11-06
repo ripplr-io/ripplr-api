@@ -20,7 +20,7 @@ class PostSerializer < ActiveModel::Serializer
   end
 
   def commentsCount
-    object.comments.count
+    object.comments.where(comment: nil).count
   end
 
   def bookmarked

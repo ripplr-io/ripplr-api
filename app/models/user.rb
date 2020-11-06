@@ -62,8 +62,8 @@ class User < ApplicationRecord
     }
 
   def following_posts
-    all_posts = following_hashtag_posts.union(following_topic_posts).union(following_user_posts)
-    all_posts.distinct.order(created_at: :desc)
+    all_posts = following_hashtag_posts.union(following_topic_posts).union(following_user_posts).union(posts)
+    all_posts.distinct
   end
 
   def root_bookmark_folder

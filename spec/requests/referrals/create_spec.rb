@@ -24,6 +24,7 @@ RSpec.describe :subscriptions_create, type: :request do
       new_referrals = Referral.last(2)
       expect(new_referrals.size).to eq(2)
       expect(new_referrals - user.reload.referrals).to be_empty
+      expect(response_data).to have_resource(Referral.last)
     end
   end
 end

@@ -14,9 +14,11 @@ class ReferralsController < ApplicationController
 
   # FIXME: Make this restful
   def create
-    referral_params[:referrals].each do |data|
-      Referrals::CreateService.new(data.merge!(inviter: current_user)).save
+    new_referrals = referral_params[:referrals].map do |data|
+      service = Referrals::CreateService.new(data.merge!(inviter: current_user))
+      service.resource if service.save
     end
+    read_resource(new_referrals.compact)
   end
 
   def destroy

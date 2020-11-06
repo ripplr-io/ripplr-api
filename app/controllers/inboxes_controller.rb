@@ -4,7 +4,7 @@ class InboxesController < ApplicationController
   before_action :doorkeeper_authorize!
 
   def show
-    posts = current_user.push_notification_posts.page(params[:page]).per(params[:per_page])
+    posts = current_user.push_notification_posts.order(created_at: :desc).page(params[:page]).per(params[:per_page])
     read_resource(posts)
   end
 end

@@ -55,7 +55,7 @@ class PostsController < ApplicationController
   end
 
   def find_paginated_posts
-    find_posts.page(params[:page]).per(params[:per_page])
+    find_posts.order(created_at: :desc).page(params[:page]).per(params[:per_page])
   end
 
   def find_post
