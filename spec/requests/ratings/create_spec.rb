@@ -13,18 +13,16 @@ RSpec.describe :ratings_create, type: :request do
     it 'responds with the resource' do
       user = create(:user)
       ratable = create(:post)
-      mock_rating = build(:rating, ratable: ratable)
 
       post post_ratings_path(ratable),
-        params: mock_rating.as_json(only: [:points]),
+        params: { rate: 3 },
         headers: auth_headers_for(user)
 
       expect(response).to have_http_status(:created)
       expect(response_data).to have_resource(Rating.last)
     end
 
-    xit 'responds with errors' do
-      # TODO: Improve this case
+    it 'responds with errors' do
       user = create(:user)
       ratable = create(:post)
 

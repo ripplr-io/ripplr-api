@@ -14,7 +14,6 @@ class User < ApplicationRecord
   has_many :access_tokens, foreign_key: :resource_owner_id, class_name: 'Doorkeeper::AccessToken',
     dependent: :destroy
 
-
   # Ratings
   has_many :ratings
   has_many :received_ratings, through: :posts, source: :ratings

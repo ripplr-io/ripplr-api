@@ -63,6 +63,16 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.permit(:title, :body, :image, :url, :topic_id)
+    params.permit(:title, :body, :image, :url, :topic_id).merge!(hashtag_params)
+  end
+
+  def hashtag_params
+    return {} if params[:hashtags].nil?
+
+    hashtags = params[:hashtags].map do |value|
+      Hashtag.find_or_create_by(name: value)
+    end
+
+    { hashtags: hashtags }
   end
 end

@@ -11,7 +11,12 @@ class PostSerializer < ActiveModel::Serializer
   end
 
   def rateUser
-    nil # TODO
+    return nil if scope.blank?
+
+    rating = object.ratings.find_by(user: scope)
+    return nil if rating.nil?
+
+    { points: rating.points }
   end
 
   def commentsCount
@@ -19,6 +24,8 @@ class PostSerializer < ActiveModel::Serializer
   end
 
   def bookmarked
+    return nil if scope.blank?
+
     scope.bookmarks.find_by(post_id: object.id).present?
   end
 end

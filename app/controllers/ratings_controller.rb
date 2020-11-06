@@ -11,9 +11,10 @@ class RatingsController < ApplicationController
   private
 
   def rating_params
-    params.permit(:points).merge!(
+    {
       ratable_id: params[:post_id],
-      ratable_type: 'Post'
-    )
+      ratable_type: 'Post',
+      points: params[:rate]
+    }
   end
 end
