@@ -12,6 +12,6 @@ RSpec.describe Tickets::CreateService, type: :service do
       .to change { Ticket.count }.by(1)
 
     # FIXME: verify params
-    expect(Sidekiq::Worker.jobs.size).to eq 1
+    expect(Sidekiq::Queues['mailers'].size).to eq 1
   end
 end

@@ -10,7 +10,7 @@ module Notifications
       self.data = {
         type: type.split('::').last.underscore,
         id: user.id,
-        level: @user.level.as_json
+        level: user.level.as_json
       }
     end
   end

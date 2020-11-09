@@ -70,4 +70,9 @@ class User < ApplicationRecord
   def root_bookmark_folder
     bookmark_folders.find_by(name: 'Root')
   end
+
+  # FIXME: Move this to the queries or decorators folder
+  def total_points
+    received_ratings.sum(:points) + prizes.sum(:points)
+  end
 end

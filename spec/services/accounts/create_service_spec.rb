@@ -35,5 +35,6 @@ RSpec.describe Accounts::CreateService, type: :service do
     expect(User.last.level).to eq(level)
     expect(User.last.referral).to eq(referral)
     expect(referral.reload.invitee).to eq(User.last)
+    expect(Prizes::ReferralAcceptedWorker.jobs.size).to eq(1)
   end
 end

@@ -5,8 +5,10 @@ if Rails.env.development?
     include FactoryBot::Syntax::Methods
 
     def generate_all
+      level = Level.first
+
       puts 'Creating admin user 👷'
-      user = create(:user, email: 'admin@ripplr.io', password: '123456')
+      user = create(:user, email: 'admin@ripplr.io', password: '123456', level: level)
 
       puts '- with devices 💻💻💻'
       create_list(:device, 3, user: user)
@@ -21,10 +23,13 @@ if Rails.env.development?
       create_list(:referral, 3, inviter: user)
 
       puts '- with accepted referrals 🙆🙆🙆'
-      create_list(:referral, 3, :with_invitee, inviter: user)
+      create_list(:referral, 3, inviter: user) do |referral|
+        referral.invitee = create(:user, level: level)
+        referral.accepted_at = Time.current
+      end
 
       puts 'Creating other users 🤷🤷🤷'
-      create_list(:user, 10)
+      create_list(:user, 10, level: level)
 
       puts 'Creating hashtags #️⃣#️⃣#️⃣'
       create_list(:hashtag, 10)

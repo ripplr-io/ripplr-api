@@ -4,18 +4,8 @@ class RatingsController < ApplicationController
   before_action :doorkeeper_authorize!
 
   def create
-    @rating = current_user.ratings.find_or_initialize_by(rating_params)
-    @rating.points = params[:rate]
-
+    post = Post.find_by(id: params[:post_id])
+    @rating = Ratings::CreateService.new(current_user, post, params[:rate])
     create_resource(@rating)
-  end
-
-  private
-
-  def rating_params
-    {
-      ratable_id: params[:post_id],
-      ratable_type: 'Post'
-    }
   end
 end

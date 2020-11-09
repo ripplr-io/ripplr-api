@@ -14,8 +14,11 @@ module Accounts
         @resource.bookmark_folders.create!(name: 'Root')
       end
 
+      # FIXME: Move this to a ReferralAcceptWorker?
       if @resource.referral.present?
+        @resource.referral.touch(:accepted_at)
         Notifications::ReferralAccepted.create(user: @resource.referral.inviter, referral: @resource.referral)
+        Prizes::ReferralAcceptedWorker.perform_async(@resource.referral.id)
       end
 
       true
