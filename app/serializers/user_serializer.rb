@@ -7,7 +7,7 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   def pointsSum
-    object.received_ratings.sum(:points)
+    object.received_ratings.sum(:points) + object.prizes.sum(:points)
   end
 
   def postsCount

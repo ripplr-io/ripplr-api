@@ -222,6 +222,8 @@ GEM
       mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
     parallel (1.19.2)
+    paranoia (2.4.2)
+      activerecord (>= 4.0, < 6.1)
     parser (2.7.1.5)
       ast (~> 2.4.1)
     pg (0.18.4)
@@ -408,6 +410,7 @@ DEPENDENCIES
   mailgun-ruby (~> 1.1.6)
   metainspector (~> 5.9.0)
   onesignal-ruby!
+  paranoia
   pg (~> 0.18.4)
   pg_search
   puma (~> 4.1)

@@ -5,11 +5,13 @@ class Comment < ApplicationRecord
   belongs_to :post
   belongs_to :comment, optional: true
 
-  has_many :comments
+  has_many :comments, dependent: :destroy
 
   validates :body, presence: true
 
   before_validation :copy_parent_post
+
+  acts_as_paranoid
 
   private
 

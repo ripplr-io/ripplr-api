@@ -14,6 +14,7 @@ RSpec.describe User, type: :model do
   it { is_expected.to have_many(:devices) }
   it { is_expected.to have_many(:notifications) }
   it { is_expected.to have_many(:posts).inverse_of(:author).with_foreign_key(:author_id) }
+  it { is_expected.to have_many(:prizes) }
   it { is_expected.to have_many(:tickets) }
   it { is_expected.to have_many(:ratings) }
   it { is_expected.to have_many(:received_ratings).through(:posts).source(:ratings) }

@@ -4,7 +4,9 @@ class RatingsController < ApplicationController
   before_action :doorkeeper_authorize!
 
   def create
-    @rating = current_user.ratings.new(rating_params)
+    @rating = current_user.ratings.find_or_initialize_by(rating_params)
+    @rating.points = params[:rate]
+
     create_resource(@rating)
   end
 
@@ -13,8 +15,7 @@ class RatingsController < ApplicationController
   def rating_params
     {
       ratable_id: params[:post_id],
-      ratable_type: 'Post',
-      points: params[:rate]
+      ratable_type: 'Post'
     }
   end
 end

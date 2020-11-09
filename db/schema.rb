@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_06_152659) do
+ActiveRecord::Schema.define(version: 2020_11_09_110732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -67,8 +67,10 @@ ActiveRecord::Schema.define(version: 2020_11_06_152659) do
     t.uuid "author_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "deleted_at"
     t.index ["author_id"], name: "index_comments_on_author_id"
     t.index ["comment_id"], name: "index_comments_on_comment_id"
+    t.index ["deleted_at"], name: "index_comments_on_deleted_at"
     t.index ["post_id"], name: "index_comments_on_post_id"
   end
 
@@ -142,6 +144,8 @@ ActiveRecord::Schema.define(version: 2020_11_06_152659) do
     t.uuid "hashtag_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_post_hashtags_on_deleted_at"
     t.index ["hashtag_id"], name: "index_post_hashtags_on_hashtag_id"
     t.index ["post_id", "hashtag_id"], name: "index_post_hashtags_on_post_id_and_hashtag_id", unique: true
     t.index ["post_id"], name: "index_post_hashtags_on_post_id"
@@ -156,7 +160,9 @@ ActiveRecord::Schema.define(version: 2020_11_06_152659) do
     t.uuid "author_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "deleted_at"
     t.index ["author_id"], name: "index_posts_on_author_id"
+    t.index ["deleted_at"], name: "index_posts_on_deleted_at"
     t.index ["topic_id"], name: "index_posts_on_topic_id"
   end
 
@@ -197,6 +203,8 @@ ActiveRecord::Schema.define(version: 2020_11_06_152659) do
     t.uuid "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_ratings_on_deleted_at"
     t.index ["ratable_type", "ratable_id"], name: "index_ratings_on_ratable_type_and_ratable_id"
     t.index ["user_id", "ratable_id", "ratable_type"], name: "index_ratings_on_user_id_and_ratable_id_and_ratable_type", unique: true
     t.index ["user_id"], name: "index_ratings_on_user_id"

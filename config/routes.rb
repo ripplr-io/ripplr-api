@@ -43,7 +43,7 @@ Rails.application.routes.draw do
     resources :subscriptions, only: [:index, :create, :update, :destroy]
     resources :tickets, only: :create
 
-    resources :hashtags, only: :show do
+    resources :hashtags, only: [:index, :show] do
       resources :posts, only: :index
     end
 

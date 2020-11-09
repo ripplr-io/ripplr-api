@@ -11,7 +11,7 @@ class BookmarksController < ApplicationController
       'bookmarks.post',
       'bookmarks.post.author',
       'bookmarks.post.topic',
-      'bookmarks.post.hashtags',
+      'bookmarks.post.hashtags'
     ])
   end
 

@@ -3,7 +3,7 @@ class Topic < ApplicationRecord
   include Followable
   include PgSearch::Model
 
-  has_many :posts
+  has_many :posts, dependent: :restrict_with_error
 
   validates :name, presence: true
   validates :avatar, presence: true

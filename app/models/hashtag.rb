@@ -2,7 +2,7 @@ class Hashtag < ApplicationRecord
   include Followable
   include PgSearch::Model
 
-  has_many :post_hashtags
+  has_many :post_hashtags, dependent: :restrict_with_error
   has_many :posts, through: :post_hashtags
 
   validates :name, presence: true, uniqueness: true

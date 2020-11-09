@@ -5,17 +5,19 @@ class Post < ApplicationRecord
   belongs_to :topic
   belongs_to :author, class_name: :User
 
-  has_many :comments
-  has_many :post_hashtags
+  has_many :bookmarks, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :post_hashtags, dependent: :destroy
   has_many :hashtags, through: :post_hashtags
   has_many :push_notifications, dependent: :destroy
   has_many :received_subscriptions, through: :author
-  has_many :bookmarks
 
   validates :title, presence: true
   validates :url, presence: true
   validates :body, presence: true
   validates :image, presence: true
+
+  acts_as_paranoid
 
   pg_search_scope :search,
     using: { tsearch: { prefix: true, any_word: true } },
