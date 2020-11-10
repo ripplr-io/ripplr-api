@@ -10,9 +10,7 @@ module Subscriptions
         return false
       end
 
-      success = @resource.save
-      ReferralMailer.with(referral: @resource).invite.deliver_later if success
-      success
+      @resource.save
     end
 
     private
