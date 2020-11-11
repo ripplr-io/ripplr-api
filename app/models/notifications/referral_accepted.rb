@@ -15,8 +15,7 @@ module Notifications
         # FIXME: replace these in the frontend instead
         type: type.split('::').last.underscore,
         id: @referral.id,
-        author: @referral.invitee.as_json,
-        user_id: user_id
+        author_id: @referral.invitee_id
       }
     end
   end

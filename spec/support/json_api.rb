@@ -22,7 +22,7 @@ module JsonApiMatchers
 
       actual = [actual] unless actual.is_a?(Array)
 
-      ids = actual.map { |resource| resource[:id] }.compact
+      ids = actual.pluck(:id).compact
       ids.include? expected.id
     end
   end
@@ -32,7 +32,7 @@ module JsonApiMatchers
     match do |actual|
       return false if actual.nil?
 
-      attributes = actual.map { |resource| resource[:id] }.compact
+      attributes = actual.pluck(:id).compact
       attributes.include? expected.to_s
     end
   end

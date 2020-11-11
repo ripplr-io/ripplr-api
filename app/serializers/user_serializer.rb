@@ -2,10 +2,6 @@ class UserSerializer < ActiveModel::Serializer
   attributes :slug, :name, :avatar, :bio, :supporter, :pointsSum, :level,
     :followersCount, :followingCount, :postsCount, :onboarded_at, :accountInfo
 
-  def level
-    object.level
-  end
-
   def pointsSum
     object.total_points
   end
@@ -26,7 +22,8 @@ class UserSerializer < ActiveModel::Serializer
     {
       email: object.email,
       country: object.country,
-      timezone: object.timezone
+      timezone: object.timezone,
+      postsToday: object.posts_today
     }
   end
 end

@@ -11,7 +11,6 @@ RSpec.describe Referrals::CreateService, type: :service do
     expect { described_class.new(referral_params).save }
       .to change { Referral.count }.by(1)
 
-    # FIXME: verify params
     expect(Sidekiq::Queues['mailers'].size).to eq 1
     expect(Prizes::ReferralCreatedWorker.jobs.size).to eq(1)
   end

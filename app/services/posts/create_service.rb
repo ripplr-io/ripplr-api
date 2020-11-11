@@ -21,11 +21,7 @@ module Posts
     private
 
     def above_level_limit?
-      posts_today = @resource.author.posts.where(
-        created_at: Time.current.beginning_of_day..Time.current.end_of_day
-      ).count
-
-      posts_today >= @resource.author.level.subscriptions
+      @resource.author.posts_today >= @resource.author.level.subscriptions
     end
   end
 end

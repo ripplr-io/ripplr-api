@@ -14,8 +14,8 @@ RSpec.describe Accounts::DestroyService, type: :service do
 
     described_class.new(user, 'comment').destroy
 
-    expect(user.destroyed?).to be true
-    # FIXME: verify params
     expect(Sidekiq::Queues['mailers'].size).to eq 1
+    expect(Users::AnonymizeWorker.jobs.size).to eq(1)
+    expect(User.count).to eq 0
   end
 end

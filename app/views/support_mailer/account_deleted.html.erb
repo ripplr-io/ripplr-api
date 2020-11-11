@@ -10,20 +10,17 @@ A Ripplr account has just been canceled, here's the breakdown of it:
 <div class="bold">Posts</div>
 <div><%= @user.posts.count %></div>
 <br>
-<%# TODO: count points %>
 <div class="bold">Points</div>
-<div><%= 0 %></div>
+<div><%= @user.total_points %></div>
 <br>
 <div class="bold">Joined at</div>
 <div><%= @user.created_at %></div>
 <br>
-<%# TODO: count rates received %>
 <div class="bold">Rates received</div>
-<div><%= 0 %></div>
+<div><%= @user.received_ratings.count %></div>
 <br>
-<%# TODO: count rates given %>
 <div class="bold">Rates Given</div>
-<div><%= 0 %></div>
+<div><%= @user.ratings.count %></div>
 <br>
 <div class="bold">Followers</div>
 <div><%= @user.followers.count %></div>

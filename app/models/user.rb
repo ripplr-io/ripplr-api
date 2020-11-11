@@ -48,6 +48,7 @@ class User < ApplicationRecord
   validates :slug, presence: true, uniqueness: true
   validates :timezone, presence: true # TODO: Add inclusion
 
+  acts_as_paranoid
   friendly_id :name, use: :slugged
 
   # Include default devise modules. Others available are:
@@ -74,5 +75,12 @@ class User < ApplicationRecord
   # FIXME: Move this to the queries or decorators folder
   def total_points
     received_ratings.sum(:points) + prizes.sum(:points)
+  end
+
+  # FIXME: Move this to the queries or decorators folder
+  def posts_today
+    posts.where(
+      created_at: Time.current.beginning_of_day..Time.current.end_of_day
+    ).count
   end
 end

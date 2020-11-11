@@ -11,7 +11,7 @@ module Notifications
 
       self.data = {
         type: type.split('::').last.underscore,
-        user_id: @follower.id
+        author_id: @follower.id
       }
     end
   end

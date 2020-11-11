@@ -12,6 +12,7 @@ RSpec.describe :posts_show, type: :request do
     it 'responds with the resource' do
       user = create(:user)
       post = create(:post)
+      create(:rating, ratable: post, user: user)
 
       get post_path(post), headers: auth_headers_for(user)
 

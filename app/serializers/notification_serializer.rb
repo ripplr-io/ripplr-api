@@ -4,8 +4,8 @@ class NotificationSerializer < ActiveModel::Serializer
   belongs_to :user
 
   def author
-    return if object.data['user_id'].blank?
+    return if object.data['author_id'].blank?
 
-    User.find_by(id: object.data['user_id'])
+    User.find_by(id: object.data['author_id'])
   end
 end

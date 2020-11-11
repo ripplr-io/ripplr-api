@@ -12,6 +12,11 @@ class Post < ApplicationRecord
   has_many :push_notifications, dependent: :destroy
   has_many :received_subscriptions, through: :author
 
+  # Followers
+  has_many :topic_followers, through: :topic, source: :followers
+  has_many :author_followers, through: :author, source: :followers
+  has_many :hashtag_followers, through: :hashtags, source: :followers
+
   validates :title, presence: true
   validates :url, presence: true
   validates :body, presence: true
@@ -30,4 +35,9 @@ class Post < ApplicationRecord
       topic: :name,
       hashtags: :name
     }
+
+  def followers
+    authors = User.where(id: author_id)
+    topic_followers.union(author_followers).union(hashtag_followers).union(authors)
+  end
 end

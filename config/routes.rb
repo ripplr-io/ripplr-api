@@ -1,9 +1,5 @@
-require 'sidekiq/web'
-require 'sidekiq-scheduler/web'
-
 Rails.application.routes.draw do
   mount ActionCable.server, at: "/cable"
-  # TODO: Add authentication to sidekiq routes
   mount Sidekiq::Web, at: '/sidekiq'
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
