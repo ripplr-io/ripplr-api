@@ -24,8 +24,7 @@ jobs:
         with:
           registry_name: ripplr
           image_name: ripplr-api
-          tag_with_latest: 'true'
-          remove_images: 'true'
+          buffer_size: 10
 
   run_migrations:
     runs-on: ubuntu-latest
