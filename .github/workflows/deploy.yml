@@ -22,7 +22,7 @@ jobs:
         id: pubish_image
         uses: ripplr-io/docr-docker-publish@main
         with:
-          registry_name: ripplr-api
+          registry_name: ripplr
           image_name: ripplr-api
 
   run_migrations:
