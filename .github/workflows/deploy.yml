@@ -19,14 +19,10 @@ jobs:
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
-      - name: Build image
-        run: docker build . -t ${IMAGE_URL}:${GITHUB_SHA:0:8} -t ${IMAGE_URL}:latest
-
-      - name: Login to registry
-        run: doctl registry login --expiry-seconds 600
-
-      - name: Upload image to registry
-        run: docker push ${IMAGE_URL}
+      - name: Publish Image
+        uses: ripplr-io/docr-docker-publish@main
+        with:
+          image_path: ripplr/ripplr-api
 
       # TODO: Make this a github action
       - name: Remove images older than the last 10 versions

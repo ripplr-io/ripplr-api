@@ -7,11 +7,9 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    # TODO: specify origins based on environment
     origins '*'
     resource '*',
       headers: :any,
-      methods: :any,
-      expose: ['Authorization']
+      methods: :any
   end
 end
