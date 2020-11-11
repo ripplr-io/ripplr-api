@@ -24,7 +24,7 @@ jobs:
         with:
           registry_name: ripplr
           image_name: ripplr-api
-          buffer_size: 10
+          buffer_size: '10'
 
   run_migrations:
     runs-on: ubuntu-latest
