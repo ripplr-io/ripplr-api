@@ -21,8 +21,7 @@ RSpec.describe :bookmarks_create, type: :request do
       expect(response_data).to have_resource(Bookmark.last)
     end
 
-    xit 'responds with errors' do
-      # TODO: Improve this case
+    it 'responds with errors' do
       user = create(:user)
 
       post bookmarks_path, headers: auth_headers_for(user)
