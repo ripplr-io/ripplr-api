@@ -5,6 +5,7 @@ class User < ApplicationRecord
   include PgSearch::Model
 
   belongs_to :level
+  has_one_attached :avatar
 
   has_many :comments, inverse_of: :author, foreign_key: :author_id, dependent: :destroy
   has_many :devices, dependent: :destroy

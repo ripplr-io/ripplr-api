@@ -4,6 +4,7 @@ class Post < ApplicationRecord
 
   belongs_to :topic
   belongs_to :author, class_name: :User
+  has_one_attached :image
 
   has_many :bookmarks, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -20,7 +21,6 @@ class Post < ApplicationRecord
   validates :title, presence: true
   validates :url, presence: true
   validates :body, presence: true
-  validates :image, presence: true
 
   acts_as_paranoid
 

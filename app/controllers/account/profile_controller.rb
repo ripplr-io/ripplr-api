@@ -12,7 +12,8 @@ module Account
     private
 
     def profile_params
-      params.permit(:name, :slug, :bio, :avatar)
+      avatar_params = { avatar: params[:avatar_file] } if params[:avatar_file].present?
+      params.permit(:name, :slug, :bio).merge!(avatar_params)
     end
   end
 end

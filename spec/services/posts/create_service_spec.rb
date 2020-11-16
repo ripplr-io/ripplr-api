@@ -7,7 +7,6 @@ RSpec.describe Posts::CreateService, type: :service do
       topic: create(:topic),
       title: 'Title',
       body: 'Body',
-      image: 'Image',
       url: 'Url'
     }
 
@@ -16,6 +15,24 @@ RSpec.describe Posts::CreateService, type: :service do
 
     expect(Posts::PushNotifications::GenerateWorker.jobs.size).to eq(1)
     expect(Posts::BroadcastCreationWorker.jobs.size).to eq(1)
+  end
+
+  it 'creates the post with an image_url' do
+    file = File.open('spec/fixtures/logo.png')
+    allow_any_instance_of(URI::HTTPS).to receive(:open).and_return(file)
+
+    post_params = {
+      author: create(:user),
+      topic: create(:topic),
+      title: 'Title',
+      body: 'Body',
+      url: 'Url'
+    }
+
+    expect { described_class.new(post_params, image_url: 'https://ripplr.io/logo.png').save }
+      .to change { Post.count }.by(1)
+
+    expect(Post.last.image.attached?).to be true
   end
 
   context 'level limit reached' do
@@ -29,7 +46,6 @@ RSpec.describe Posts::CreateService, type: :service do
         topic: create(:topic),
         title: 'Title',
         body: 'Body',
-        image: 'Image',
         url: 'Url'
       }
 

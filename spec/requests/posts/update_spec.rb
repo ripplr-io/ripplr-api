@@ -25,11 +25,23 @@ RSpec.describe :posts_update, type: :request do
       mock_post = create(:post, author: user)
 
       patch post_path(mock_post),
-        params: mock_post.as_json(only: [:title, :body, :image, :url, :topic_id]),
+        params: mock_post.as_json(only: [:title, :body, :url, :topic_id]).merge!({ hashtags: ['hashtag'].to_json }),
         headers: auth_headers_for(user)
 
       expect(response).to have_http_status(:ok)
       expect(response_data).to have_resource(mock_post)
+    end
+
+    it 'updates the image' do
+      image = fixture_file_upload('logo.png', 'image/png')
+      user = create(:user)
+      mock_post = create(:post, author: user)
+
+      patch post_path(mock_post),
+        params: { image_file: image },
+        headers: auth_headers_for(user)
+
+      expect(mock_post.reload.image.present?).to eq true
     end
 
     it 'responds with errors' do

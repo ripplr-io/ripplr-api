@@ -1,4 +1,6 @@
 class UserSerializer < ActiveModel::Serializer
+  include Rails.application.routes.url_helpers
+
   attributes :slug, :name, :avatar, :bio, :supporter, :pointsSum, :level,
     :followersCount, :followingCount, :postsCount, :onboarded_at, :accountInfo
 
@@ -25,5 +27,9 @@ class UserSerializer < ActiveModel::Serializer
       timezone: object.timezone,
       postsToday: object.posts_today
     }
+  end
+
+  def avatar
+    url_for(object.avatar) if object.avatar.attached?
   end
 end

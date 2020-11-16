@@ -23,9 +23,9 @@ Rails.application.routes.draw do
 
     resource :account, only: [:show, :update, :destroy], controller: :account
     namespace :account do
+      resource :onboard, only: :update, controller: :onboard
       resource :password, only: :update, controller: :password
       resource :profile, only: :update, controller: :profile
-      resource :onboard, only: :update, controller: :onboard
     end
 
     resources :bookmarks, only: [:index, :create, :update, :destroy]
