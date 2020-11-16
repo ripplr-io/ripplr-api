@@ -4,7 +4,7 @@ module Account
     include PasswordValidatable
 
     before_action :doorkeeper_authorize!
-    before_action :validate_password
+    before_action :validate_password!
 
     def update
       current_user.assign_attributes(password_params)

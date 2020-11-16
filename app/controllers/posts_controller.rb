@@ -14,7 +14,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Posts::CreateService.new(post_params.merge!(author: current_user))
+    @post = Posts::CreateService.new(post_params.merge!(author: current_user), image_url: params[:image])
     create_resource(@post)
   end
 
@@ -63,16 +63,23 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.permit(:title, :body, :image, :url, :topic_id).merge!(hashtag_params)
+    params.permit(:title, :body, :url, :topic_id).merge!(hashtag_params).merge!(image_params)
   end
 
   def hashtag_params
-    return {} if params[:hashtags].nil?
+    return {} if params[:hashtags].blank?
 
-    hashtags = params[:hashtags].map do |value|
+    hashtags = JSON.parse(params[:hashtags]).map do |value|
       Hashtag.find_or_create_by(name: value)
     end
 
     { hashtags: hashtags }
+  end
+
+  def image_params
+    return {} if params[:image_file].blank?
+    return {} if params[:image_file] == 'undefined' # FIXME: in the frontend
+
+    { image: params[:image_file] }
   end
 end

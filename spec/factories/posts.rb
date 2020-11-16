@@ -6,8 +6,5 @@ FactoryBot.define do
     title { Faker::Games::LeagueOfLegends.quote }
     url { Faker::Internet.url }
     body { Faker::Lorem.paragraph }
-
-    # FIXME: Explore a source for random images
-    image { 'https://images.unsplash.com/photo-1596824893185-851980de8938?auto=format&fit=crop&w=1350&q=80' }
   end
 end

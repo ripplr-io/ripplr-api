@@ -12,7 +12,7 @@ Rails.application.configure do
   # Do not eager load code on boot. This avoids loading your whole application
   # just for the purpose of running a single test. If you are using a tool that
   # preloads Rails for running tests, you may have to set it to true.
-  # Changed because of:
+  # NOTE: Changed because of:
   # https://github.com/rails/rails/issues/28736
   # https://stackoverflow.com/questions/22075516/simple-cov-gem-missing-untested-files-in-rails
   config.eager_load = true
@@ -45,6 +45,8 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :test
   config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  Rails.application.routes.default_url_options = { host: 'localhost', port: 3000 }
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr

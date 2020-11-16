@@ -4,7 +4,6 @@ FactoryBot.define do
     password { Faker::Internet.password }
     name { Faker::Name.name }
     bio { Faker::GreekPhilosophers.quote }
-    avatar { nil }
     slug { name.parameterize }
     level
 

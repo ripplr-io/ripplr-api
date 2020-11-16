@@ -41,4 +41,6 @@ end
 RSpec.configure do |config|
   config.include JsonApiResponseHelpers, type: :request
   config.include JsonApiMatchers, type: :request
+
+  pp config.file_fixture_path
 end

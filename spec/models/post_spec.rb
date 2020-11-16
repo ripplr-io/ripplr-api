@@ -23,5 +23,4 @@ RSpec.describe Post, type: :model do
   it { is_expected.to validate_presence_of(:title) }
   it { is_expected.to validate_presence_of(:url) }
   it { is_expected.to validate_presence_of(:body) }
-  it { is_expected.to validate_presence_of(:image) }
 end

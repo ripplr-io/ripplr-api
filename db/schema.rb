@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_11_112320) do
+ActiveRecord::Schema.define(version: 2020_11_16_120159) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -155,7 +155,6 @@ ActiveRecord::Schema.define(version: 2020_11_11_112320) do
     t.string "title", null: false
     t.string "url", null: false
     t.string "body", null: false
-    t.string "image", null: false
     t.uuid "topic_id"
     t.uuid "author_id"
     t.datetime "created_at", precision: 6, null: false
@@ -265,7 +264,6 @@ ActiveRecord::Schema.define(version: 2020_11_11_112320) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "name", null: false
     t.text "bio"
-    t.string "avatar"
     t.string "slug", null: false
     t.string "timezone", default: "UTC", null: false
     t.string "country"
@@ -273,6 +271,7 @@ ActiveRecord::Schema.define(version: 2020_11_11_112320) do
     t.boolean "supporter", default: false, null: false
     t.uuid "level_id"
     t.datetime "deleted_at"
+    t.string "stripe_customer_id"
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["level_id"], name: "index_users_on_level_id"
