@@ -53,8 +53,8 @@ Rails.application.configure do
     domain: 'mg.ripplr.io',
     api_host: 'api.eu.mailgun.net'
   }
-  config.action_mailer.default_url_options[:host] = Rails.application.credentials[:host] || 'https://api.ripplr.io'
-  Rails.application.routes.default_url_options[:host] = Rails.application.credentials[:host] || 'https://api.ripplr.io'
+  config.action_mailer.default_url_options = { host: Rails.application.credentials[:host] }
+  Rails.application.routes.default_url_options = { host: Rails.application.credentials[:host] }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
