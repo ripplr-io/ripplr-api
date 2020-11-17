@@ -13,7 +13,8 @@ digitalocean:
   region: ams3
   bucket: ripplr
   endpoint: 'https://ams3.digitaloceanspaces.com'
-  public: true
+  upload:
+    acl: 'public-read'
 
 # Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:
