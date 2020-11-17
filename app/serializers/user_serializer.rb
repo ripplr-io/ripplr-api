@@ -30,6 +30,6 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   def avatar
-    url_for(object.avatar) if object.avatar.attached?
+    public_blob_url(object.avatar) if object.avatar.attached?
   end
 end

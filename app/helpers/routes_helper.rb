@@ -1,3 +1,4 @@
+# FIXME: Move this to a direct route https://guides.rubyonrails.org/routing.html#direct-routes
 module RoutesHelper
   def web_app_route
     Rails.application.credentials[:web_app_url]

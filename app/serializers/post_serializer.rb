@@ -34,6 +34,6 @@ class PostSerializer < ActiveModel::Serializer
   end
 
   def image
-    object.image.attached? ? url_for(object.image) : DEFAULT_POST_IMAGE
+    object.image.attached? ? public_blob_url(object.image) : DEFAULT_POST_IMAGE
   end
 end
