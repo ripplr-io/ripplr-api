@@ -8,7 +8,7 @@ class SupportMailer < ApplicationMailer
       attachments[screenshot.filename.to_s] = screenshot.download
     end
 
-    mail(to: SUPPORT_EMAIL, subject: "New ticket: #{@ticket.title}")
+    mail(to: SUPPORT_EMAIL, subject: "New ticket: #{@ticket.title}" reply_to: @ticket.user.email)
   end
 
   def account_deleted
