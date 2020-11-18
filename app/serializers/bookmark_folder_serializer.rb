@@ -1,10 +1,12 @@
-class BookmarkFolderSerializer < ActiveModel::Serializer
-  attributes :name, :bookmark_folder_id, :created_at, :stats
+class BookmarkFolderSerializer < ApplicationSerializer
+  attributes :name, :bookmark_folder_id, :created_at
 
   has_many :bookmarks
-  has_many :bookmark_folders, key: :folders
+  has_many :folders, serializer: :bookmark_folder,
+    object_method_name: :bookmark_folders,
+    id_method_name: :bookmark_folder_ids
 
-  def stats
+  attribute :stats do |object|
     {
       bookmarksCount: object.bookmarks.count,
       foldersCount: object.bookmark_folders.count

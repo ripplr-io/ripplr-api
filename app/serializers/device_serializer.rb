@@ -1,7 +1,7 @@
-class DeviceSerializer < ActiveModel::Serializer
-  attributes :type, :name, :settings, :onesignal_id, :created_at, :updated_at
+class DeviceSerializer < ApplicationSerializer
+  attributes :name, :settings, :onesignal_id, :created_at, :updated_at
 
-  def type
+  attribute :type do |object|
     object.device_type
   end
 end

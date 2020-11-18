@@ -8,7 +8,7 @@ module Posts
 
       data = {
         type: :new_post,
-        payload: ActiveModelSerializers::SerializableResource.new(post)
+        payload: PostSerializer.new(post, { include: [:author, :topic, :hashtags] })
       }
 
       TopicChannel.broadcast_to(post.topic, data)

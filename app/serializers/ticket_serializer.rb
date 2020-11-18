@@ -1,3 +1,3 @@
-class TicketSerializer < ActiveModel::Serializer
+class TicketSerializer < ApplicationSerializer
   attributes :title, :body
 end

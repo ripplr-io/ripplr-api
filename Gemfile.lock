@@ -47,11 +47,6 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
-    active_model_serializers (0.10.10)
-      actionpack (>= 4.1, < 6.1)
-      activemodel (>= 4.1, < 6.1)
-      case_transform (>= 0.2)
-      jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
     active_record_union (1.3.0)
       activerecord (>= 4.0)
     activejob (6.0.3.2)
@@ -97,8 +92,6 @@ GEM
       msgpack (~> 1.0)
     builder (3.2.4)
     byebug (11.1.3)
-    case_transform (0.2)
-      activesupport
     choice (0.2.0)
     concurrent-ruby (1.1.7)
     connection_pool (2.2.3)
@@ -159,7 +152,8 @@ GEM
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
     jmespath (1.4.0)
-    jsonapi-renderer (0.2.2)
+    jsonapi-serializer (2.1.0)
+      activesupport (>= 4.2)
     kaminari (1.2.1)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.2.1)
@@ -401,7 +395,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_model_serializers
   active_record_union
   aws-sdk-s3
   bcrypt
@@ -413,6 +406,7 @@ DEPENDENCIES
   faker
   friendly_id
   gibbon
+  jsonapi-serializer
   kaminari
   letter_opener_web (~> 1.0)
   listen (~> 3.2)

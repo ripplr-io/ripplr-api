@@ -1,9 +1,10 @@
-class SubscriptionSerializer < ActiveModel::Serializer
-  attributes :subscribable_type, :subscribable_id, :settings, :created_at, :updated_at
+class SubscriptionSerializer < ApplicationSerializer
+  attributes :subscribable_id, :settings, :created_at, :updated_at
 
-  belongs_to :subscribable
+  # TODO: Fix this - it's not polymorphic
+  belongs_to :subscribable, record_type: :user, serializer: :user
 
-  def subscribable_type
+  attribute :subscribable_type do |object|
     object.subscribable_type.downcase
   end
 end

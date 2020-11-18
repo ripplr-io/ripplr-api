@@ -1,11 +1,11 @@
-class HashtagSerializer < ActiveModel::Serializer
-  attributes :name, :created_at, :postsCount, :followersCount
+class HashtagSerializer < ApplicationSerializer
+  attributes :name, :created_at
 
-  def postsCount
+  attribute :postsCount do |object|
     object.posts.count
   end
 
-  def followersCount
+  attribute :followersCount do |object|
     object.followers.count
   end
 end

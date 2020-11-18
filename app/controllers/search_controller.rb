@@ -26,7 +26,12 @@ class SearchController < ApplicationController
   def serialize_results(data)
     data.transform_values do |value|
       (value || []).map do |object|
-        ActiveModelSerializers::SerializableResource.new(object)
+        options = {}
+
+        # FIXME: We should use named serializers if we want to specify included associations
+        options[:include] = [:author, :topic, :hashtags] if object.class.to_s == 'Post'
+
+        DynamicSerializer.new(object, options)
       end
     end
   end

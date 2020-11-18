@@ -1,26 +1,23 @@
-class UserSerializer < ActiveModel::Serializer
-  include Rails.application.routes.url_helpers
+class UserSerializer < ApplicationSerializer
+  attributes :slug, :name, :bio, :supporter, :level, :onboarded_at
 
-  attributes :slug, :name, :avatar, :bio, :supporter, :pointsSum, :level,
-    :followersCount, :followingCount, :postsCount, :onboarded_at, :accountInfo
-
-  def pointsSum
+  attribute :pointsSum do |object|
     object.total_points
   end
 
-  def postsCount
+  attribute :postsCount do |object|
     object.posts.count
   end
 
-  def followersCount
+  attribute :followersCount do |object|
     object.followers.count
   end
 
-  def followingCount
+  attribute :followingCount do |object|
     object.following_users.count
   end
 
-  def accountInfo
+  attribute :accountInfo do |object|
     {
       email: object.email,
       country: object.country,
@@ -29,7 +26,7 @@ class UserSerializer < ActiveModel::Serializer
     }
   end
 
-  def avatar
-    public_blob_url(object.avatar) if object.avatar.attached?
+  attribute :avatar do |object|
+    url_helpers.public_blob_url(object.avatar) if object.avatar.attached?
   end
 end

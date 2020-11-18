@@ -1,11 +1,11 @@
-class CommentSerializer < ActiveModel::Serializer
-  attributes :body, :repliesCount, :created_at, :post_id, :comment_id
+class CommentSerializer < ApplicationSerializer
+  attributes :body, :created_at, :post_id, :comment_id
 
-  belongs_to :author
+  belongs_to :author, serializer: :user
   belongs_to :post
   belongs_to :comment
 
-  def repliesCount
+  attribute :repliesCount do |object|
     object.comments.count
   end
 end

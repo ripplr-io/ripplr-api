@@ -10,7 +10,7 @@ class Notification < ApplicationRecord
   def broadcast
     UserChannel.broadcast_to(user, {
       type: :new_notification,
-      payload: ActiveModelSerializers::SerializableResource.new(self)
+      payload: NotificationSerializer.new(self, { include: [:user, :author]})
     })
   end
 end

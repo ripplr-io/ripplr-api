@@ -1,7 +1,7 @@
-class FollowSerializer < ActiveModel::Serializer
-  attributes :followable_type, :followable_id, :created_at
+class FollowSerializer < ApplicationSerializer
+  attributes :followable_id, :created_at
 
-  def followable_type
+  attribute :followable_type do |object|
     object.followable_type.downcase
   end
 end

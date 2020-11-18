@@ -3,7 +3,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.1'
 
-gem 'active_model_serializers'
 gem 'active_record_union'
 gem 'aws-sdk-s3', require: false
 gem 'bcrypt'
@@ -13,6 +12,7 @@ gem 'devise'
 gem 'doorkeeper', '~> 5.3.0'
 gem 'friendly_id'
 gem 'gibbon'
+gem 'jsonapi-serializer'
 gem 'kaminari'
 gem 'lograge'
 gem 'mailgun-ruby', '~> 1.1.6'
@@ -30,7 +30,6 @@ gem 'sentry-raven'
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
 gem 'skylight'
-
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

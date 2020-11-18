@@ -5,7 +5,7 @@ class NotificationsController < ApplicationController
 
   def index
     notifications = current_user.notifications.order(created_at: :desc)
-    read_resource(notifications, included_associations: [:user])
+    read_resource(notifications, included_associations: [:user, :author])
   end
 
   def read

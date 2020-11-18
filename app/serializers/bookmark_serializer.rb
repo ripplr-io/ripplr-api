@@ -1,4 +1,4 @@
-class BookmarkSerializer < ActiveModel::Serializer
+class BookmarkSerializer < ApplicationSerializer
   attributes :bookmark_folder_id
 
   belongs_to :post
