@@ -8,7 +8,7 @@ module Ratings
 
     def save
       success = @resource.save
-      Users::UpdateLevelWorker.perform_async(@resource.user.id) if success
+      Users::UpdateLevelWorker.perform_async(@resource.ratable.author.id) if success
       success
     end
   end
