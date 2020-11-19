@@ -75,4 +75,9 @@ Rails.application.routes.draw do
       File.join("https://cdn.ripplr.io", blob.key)
     end
   end
+
+  direct :app_post do |post|
+    base_url = Rails.application.credentials[:web_app_url]
+    "#{base_url}/p/#{post.id}"
+  end
 end

@@ -5,7 +5,7 @@ class UserSerializer < ApplicationSerializer
 
   attribute :postsCount, &:posts_count
   attribute :followersCount, &:followers_count
-  attribute :followingCount, &:following_count
+  attribute :followingCount, &:following_users_count
 
   attribute :pointsSum do |object|
     object.total_points
