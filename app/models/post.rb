@@ -23,6 +23,8 @@ class Post < ApplicationRecord
   validates :body, presence: true
 
   acts_as_paranoid
+  counter_culture :topic, touch: true
+  counter_culture :author, touch: true
 
   pg_search_scope :search,
     using: { tsearch: { prefix: true, any_word: true } },

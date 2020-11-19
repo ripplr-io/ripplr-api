@@ -1,4 +1,6 @@
 class NotificationSerializer < ApplicationSerializer
+  cache_options store: Rails.cache, namespace: 'jsonapi-serializer', expires_in: 10.minutes
+
   attributes :data, :read_at, :created_at
 
   belongs_to :user

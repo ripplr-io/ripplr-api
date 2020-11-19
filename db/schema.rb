@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_16_120159) do
+ActiveRecord::Schema.define(version: 2020_11_19_122243) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(version: 2020_11_16_120159) do
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "bookmarks_count", default: 0, null: false
+    t.integer "bookmark_folders_count", default: 0, null: false
     t.index ["bookmark_folder_id", "user_id", "name"], name: "ux_bookmark_folders_bookmark_folder_user_name", unique: true
     t.index ["bookmark_folder_id"], name: "index_bookmark_folders_on_bookmark_folder_id"
     t.index ["user_id"], name: "index_bookmark_folders_on_user_id"
@@ -68,6 +70,8 @@ ActiveRecord::Schema.define(version: 2020_11_16_120159) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "deleted_at"
+    t.integer "ratings_points_total", default: 0, null: false
+    t.integer "replies_count", default: 0, null: false
     t.index ["author_id"], name: "index_comments_on_author_id"
     t.index ["comment_id"], name: "index_comments_on_comment_id"
     t.index ["deleted_at"], name: "index_comments_on_deleted_at"
@@ -101,6 +105,8 @@ ActiveRecord::Schema.define(version: 2020_11_16_120159) do
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "posts_count", default: 0, null: false
+    t.integer "followers_count", default: 0, null: false
     t.index ["name"], name: "index_hashtags_on_name", unique: true
   end
 
@@ -160,6 +166,8 @@ ActiveRecord::Schema.define(version: 2020_11_16_120159) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "deleted_at"
+    t.integer "ratings_points_total", default: 0, null: false
+    t.integer "comments_count", default: 0, null: false
     t.index ["author_id"], name: "index_posts_on_author_id"
     t.index ["deleted_at"], name: "index_posts_on_deleted_at"
     t.index ["topic_id"], name: "index_posts_on_topic_id"
@@ -251,6 +259,8 @@ ActiveRecord::Schema.define(version: 2020_11_16_120159) do
     t.string "slug", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "posts_count", default: 0, null: false
+    t.integer "followers_count", default: 0, null: false
     t.index ["slug"], name: "index_topics_on_slug", unique: true
   end
 
@@ -272,6 +282,9 @@ ActiveRecord::Schema.define(version: 2020_11_16_120159) do
     t.uuid "level_id"
     t.datetime "deleted_at"
     t.string "stripe_customer_id"
+    t.integer "posts_count", default: 0, null: false
+    t.integer "followers_count", default: 0, null: false
+    t.integer "following_count", default: 0, null: false
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["level_id"], name: "index_users_on_level_id"

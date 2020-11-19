@@ -7,4 +7,6 @@ class BookmarkFolder < ApplicationRecord
 
   validates :name, presence: true
   validates :name, uniqueness: { scope: [:bookmark_folder_id, :user_id] }
+
+  counter_culture :bookmark_folder, touch: true
 end

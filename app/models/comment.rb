@@ -11,7 +11,16 @@ class Comment < ApplicationRecord
 
   before_validation :copy_parent_post
 
+  scope :root_comments, -> { where(comment: nil) }
+  scope :replies, -> { where.not(comment: nil) }
+
   acts_as_paranoid
+  counter_culture :comment, column_name: :replies_count, touch: true
+  counter_culture :post,
+    column_name: proc { |model| model.comment.present? ? :comments_count : nil },
+    column_names: {
+      Comment.root_comments => :comments_count
+    }
 
   private
 

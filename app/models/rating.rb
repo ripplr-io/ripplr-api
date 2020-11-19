@@ -6,4 +6,5 @@ class Rating < ApplicationRecord
   validates :ratable_id, uniqueness: { scope: [:ratable_type, :user_id] }
 
   acts_as_paranoid
+  counter_culture :ratable, column_name: :ratings_points_total, delta_column: :points, touch: true
 end

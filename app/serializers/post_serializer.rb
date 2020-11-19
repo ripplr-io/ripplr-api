@@ -1,4 +1,6 @@
 class PostSerializer < ApplicationSerializer
+  cache_options store: Rails.cache, namespace: 'jsonapi-serializer', expires_in: 10.minutes
+
   DEFAULT_POST_IMAGE = 'https://cdn.ripplr.io/brand/logo-black.png'.freeze
 
   attributes :title, :body, :image, :url, :created_at
@@ -7,9 +9,8 @@ class PostSerializer < ApplicationSerializer
   belongs_to :author, record_type: :user, serializer: :user
   has_many :hashtags
 
-  attribute :rateSum do |object|
-    object.ratings.sum(:points)
-  end
+  attribute :commentsCount, &:comments_count
+  attribute :rateSum, &:ratings_points_total
 
   attribute :rateUser do |object, params|
     current_user = params[:current_user]
@@ -19,10 +20,6 @@ class PostSerializer < ApplicationSerializer
     next nil if rating.nil?
 
     { points: rating.points }
-  end
-
-  attribute :commentsCount do |object|
-    object.comments.where(comment: nil).count
   end
 
   attribute :bookmarked do |object, params|

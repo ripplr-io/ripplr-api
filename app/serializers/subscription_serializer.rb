@@ -1,4 +1,6 @@
 class SubscriptionSerializer < ApplicationSerializer
+  cache_options store: Rails.cache, namespace: 'jsonapi-serializer', expires_in: 10.minutes
+
   attributes :subscribable_id, :settings, :created_at, :updated_at
 
   # TODO: Fix this - it's not polymorphic
