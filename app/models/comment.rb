@@ -14,7 +14,7 @@ class Comment < ApplicationRecord
   acts_as_paranoid
   counter_culture :comment, column_name: :replies_count, touch: true
   counter_culture :post, touch: true,
-    column_name: proc { |model| model.comment.present? ? :comments_count : nil },
+    column_name: proc { |model| model.comment.nil? ? :comments_count : nil },
     column_names: {
       Comment.where(comment: nil) => :comments_count
     }
