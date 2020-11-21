@@ -5,12 +5,12 @@ class PostsController < ApplicationController
   before_action :find_post, only: [:update, :destroy]
 
   def index
-    read_resource(find_paginated_posts, included_associations: [:author, :topic, :hashtags])
+    read_resource(find_paginated_posts, included_associations: [:author, :topic, :hashtags, :bookmark])
   end
 
   def show
     @post = Post.find(params[:id])
-    read_resource(@post, included_associations: [:author, :topic, :hashtags])
+    read_resource(@post, included_associations: [:author, :topic, :hashtags, :bookmark])
   end
 
   def create

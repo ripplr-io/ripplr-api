@@ -4,18 +4,6 @@ class BookmarksController < ApplicationController
   before_action :doorkeeper_authorize!
   before_action :find_bookmark, only: [:update, :destroy]
 
-  def index
-    read_resource(current_user.root_bookmark_folder, included_associations: [
-      :bookmarks,
-      :folders,
-      'folders.folders',
-      'bookmarks.post',
-      'bookmarks.post.author',
-      'bookmarks.post.topic',
-      'bookmarks.post.hashtags'
-    ])
-  end
-
   def create
     @bookmark = current_user.bookmarks.new(bookmark_params)
     create_resource(@bookmark)

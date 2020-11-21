@@ -2,7 +2,29 @@ class BookmarkFoldersController < ApplicationController
   include Crudable
 
   before_action :doorkeeper_authorize!
-  before_action :find_bookmark_folder, only: [:update, :destroy]
+  before_action :find_bookmark_folder, only: [:show, :update, :destroy]
+
+  def index
+    read_resource(current_user.root_bookmark_folder, included_associations: [
+      :folders,
+      :bookmarks,
+      'bookmarks.post',
+      'bookmarks.post.author',
+      'bookmarks.post.topic',
+      'bookmarks.post.hashtags'
+    ])
+  end
+
+  def show
+    read_resource(@bookmark_folder, included_associations: [
+      :folders,
+      :bookmarks,
+      'bookmarks.post',
+      'bookmarks.post.author',
+      'bookmarks.post.topic',
+      'bookmarks.post.hashtags'
+    ])
+  end
 
   def create
     bookmark_folder = current_user.bookmark_folders.new(folder_params)

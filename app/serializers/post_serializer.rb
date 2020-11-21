@@ -22,28 +22,28 @@ class PostSerializer < ApplicationSerializer
     { points: rating.points }
   end
 
-  attribute :bookmarked do |object, params|
+  belongs_to :bookmark do |object, params|
     current_user = params[:current_user]
     next nil if current_user.blank?
 
-    current_user.bookmarks.find_by(post_id: object.id).present?
+    current_user.bookmarks.find_by(post_id: object.id)
   end
 
   attribute :image do |object|
     object.image.attached? ? url_helpers.public_blob_url(object.image) : DEFAULT_POST_IMAGE
   end
 
-  # FIXME: Legacy author - remove
+  # FIXME: Legacy attribute - remove
   attributes :author do |object|
     object.author.as_json
   end
 
-  # FIXME: Legacy topic - remove
+  # FIXME: Legacy attribute - remove
   attributes :topic do |object|
     object.topic.as_json
   end
 
-  # FIXME: Legacy hashtags - remove
+  # FIXME: Legacy attribute - remove
   attributes :hashtags do |object|
     object.hashtags.as_json
   end

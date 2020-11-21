@@ -10,6 +10,6 @@ class FeedsController < ApplicationController
       .page(params[:page])
       .per(params[:per_page])
 
-    read_resource(posts, included_associations: [:author, :topic, :hashtags])
+    read_resource(posts, included_associations: [:author, :topic, :hashtags, :bookmark])
   end
 end

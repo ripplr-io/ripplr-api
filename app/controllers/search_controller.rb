@@ -29,7 +29,7 @@ class SearchController < ApplicationController
         options = {}
 
         # FIXME: We should use named serializers if we want to specify included associations
-        options[:include] = [:author, :topic, :hashtags] if object.class.to_s == 'Post'
+        options[:include] = [:author, :topic, :hashtags, :bookmark] if object.class.to_s == 'Post'
 
         DynamicSerializer.new(object, options)
       end

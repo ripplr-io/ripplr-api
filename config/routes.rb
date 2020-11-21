@@ -28,8 +28,8 @@ Rails.application.routes.draw do
       resource :profile, only: :update, controller: :profile
     end
 
-    resources :bookmarks, only: [:index, :create, :update, :destroy]
-    resources :bookmark_folders, only: [:create, :update, :destroy], path: :folders
+    resources :bookmarks, only: [:create, :update, :destroy]
+    resources :bookmark_folders, path: :folders
     resources :devices, only: [:index, :create, :update, :destroy]
     resource :feed, only: :show
     resources :follows, only: [:index, :create, :destroy]
