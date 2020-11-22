@@ -12,5 +12,6 @@ RSpec.describe Comments::CreateService, type: :service do
       .to change { Comment.count }.by(1)
 
     expect(Comments::GenerateNotificationsWorker.jobs.size).to eq(1)
+    expect(Mixpanel::TrackCommentCreatedWorker.jobs.size).to eq(1)
   end
 end

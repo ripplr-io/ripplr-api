@@ -1,7 +1,5 @@
 module Users
-  class AnonymizeWorker
-    include Sidekiq::Worker
-
+  class AnonymizeWorker < ApplicationWorker
     def perform(user_id)
       user = User.only_deleted.find_by(id: user_id)
       return if user.blank?

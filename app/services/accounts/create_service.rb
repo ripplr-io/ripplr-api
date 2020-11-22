@@ -21,6 +21,8 @@ module Accounts
         Prizes::ReferralAcceptedWorker.perform_async(@resource.referral.id)
       end
 
+      Mixpanel::TrackSignupWorker.perform_async(@resource.id)
+
       true
     rescue ActiveRecord::RecordInvalid => e
       Rails.logger.error "Create Account failed with error: #{e}"

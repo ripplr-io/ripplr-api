@@ -1,7 +1,5 @@
 module Users
-  class UpdateLevelWorker
-    include Sidekiq::Worker
-
+  class UpdateLevelWorker < ApplicationWorker
     def perform(user_id)
       user = User.find_by(id: user_id)
       return if user.blank?

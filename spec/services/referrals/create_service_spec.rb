@@ -13,6 +13,7 @@ RSpec.describe Referrals::CreateService, type: :service do
 
     expect(Sidekiq::Queues['mailers'].size).to eq 1
     expect(Prizes::ReferralCreatedWorker.jobs.size).to eq(1)
+    expect(Mixpanel::TrackReferralCreatedWorker.jobs.size).to eq(1)
   end
 
   context 'level limit reached' do

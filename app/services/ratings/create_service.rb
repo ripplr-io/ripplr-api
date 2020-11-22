@@ -8,7 +8,10 @@ module Ratings
 
     def save
       success = @resource.save
-      Users::UpdateLevelWorker.perform_async(@resource.ratable.author.id) if success
+      if success
+        Users::UpdateLevelWorker.perform_async(@resource.ratable.author.id)
+        Mixpanel::TrackRatingCreatedWorker.perform_async(@resource.id)
+      end
       success
     end
   end

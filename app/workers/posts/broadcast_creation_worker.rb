@@ -1,7 +1,5 @@
 module Posts
-  class BroadcastCreationWorker
-    include Sidekiq::Worker
-
+  class BroadcastCreationWorker < ApplicationWorker
     def perform(post_id)
       post = Post.find_by(id: post_id)
       return if post.blank?

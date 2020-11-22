@@ -6,7 +6,10 @@ module Follows
 
     def save
       success = @resource.save
-      generate_notification if success
+      if success
+        generate_notification
+        Mixpanel::TrackFollowCreatedWorker.perform_async(@resource.id)
+      end
       success
     end
 

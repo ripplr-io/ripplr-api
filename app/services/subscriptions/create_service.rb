@@ -10,7 +10,9 @@ module Subscriptions
         return false
       end
 
-      @resource.save
+      success = @resource.save
+      Mixpanel::TrackSubscriptionCreatedWorker.perform_async(@resource.id) if success
+      success
     end
 
     private

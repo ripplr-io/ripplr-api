@@ -1,7 +1,5 @@
 module PushNotifications
-  class HourlyDeliverWorker
-    include Sidekiq::Worker
-
+  class HourlyDeliverWorker < ApplicationWorker
     def perform
       notification_ids = PushNotification.where(
         scheduled_to: Time.current.beginning_of_hour..Time.current.end_of_hour,

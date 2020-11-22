@@ -15,6 +15,7 @@ RSpec.describe Accounts::CreateService, type: :service do
       .and change { BookmarkFolder.count }.by(1)
 
     expect(User.last.level).to eq(level)
+    expect(Mixpanel::TrackSignupWorker.jobs.size).to eq(1)
   end
 
   it 'creates a referral accepted notification' do

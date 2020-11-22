@@ -6,7 +6,10 @@ module Comments
 
     def save
       success = @resource.save
-      Comments::GenerateNotificationsWorker.perform_async(@resource.id) if success
+      if success
+        Comments::GenerateNotificationsWorker.perform_async(@resource.id)
+        Mixpanel::TrackCommentCreatedWorker.perform_async(@resource.id)
+      end
       success
     end
   end

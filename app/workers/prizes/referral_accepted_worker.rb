@@ -1,7 +1,5 @@
 module Prizes
-  class ReferralAcceptedWorker
-    include Sidekiq::Worker
-
+  class ReferralAcceptedWorker < ApplicationWorker
     PRIZE_NAME = 'Referral Accepted'.freeze
 
     def perform(referral_id)

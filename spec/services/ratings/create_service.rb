@@ -9,6 +9,7 @@ RSpec.describe Ratings::CreateService, type: :service do
       .to change { Rating.count }.by(1)
 
     expect(Users::UpdateLevelWorker.jobs.size).to eq(1)
+    expect(Mixpanel::TrackRatingCreatedWorker.jobs.size).to eq(1)
   end
 
   it 'updates the rating' do

@@ -1,8 +1,6 @@
 module Posts
   module PushNotifications
-    class GenerateWorker
-      include Sidekiq::Worker
-
+    class GenerateWorker < ApplicationWorker
       def perform(post_id)
         post = Post.find_by(id: post_id)
         return if post.blank?

@@ -9,7 +9,7 @@ class DevicesController < ApplicationController
   end
 
   def create
-    @device = current_user.devices.new(device_params)
+    @device = Devices::CreateService.new(device_params.merge!(user: current_user))
     create_resource(@device)
   end
 

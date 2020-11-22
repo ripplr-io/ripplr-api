@@ -1,7 +1,5 @@
 module Comments
-  class GenerateNotificationsWorker
-    include Sidekiq::Worker
-
+  class GenerateNotificationsWorker < ApplicationWorker
     def perform(comment_id)
       @comment = Comment.find_by(id: comment_id)
       return if @comment.blank?

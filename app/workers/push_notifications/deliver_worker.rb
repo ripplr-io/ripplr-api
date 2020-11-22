@@ -1,7 +1,5 @@
 module PushNotifications
-  class DeliverWorker
-    include Sidekiq::Worker
-
+  class DeliverWorker < ApplicationWorker
     def perform(push_notification_id)
       push_notification = PushNotification.find_by(id: push_notification_id)
       return if push_notification.blank? || push_notification.delivered_at?

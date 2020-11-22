@@ -13,6 +13,8 @@ RSpec.describe Subscriptions::CreateService, type: :service do
 
     expect { described_class.new(subscription_params).save }
       .to change { Subscription.count }.by(1)
+
+    expect(Mixpanel::TrackSubscriptionCreatedWorker.jobs.size).to eq(1)
   end
 
   context 'level limit reached' do

@@ -14,6 +14,7 @@ module Referrals
       if success
         ReferralMailer.with(referral: @resource).invite.deliver_later
         Prizes::ReferralCreatedWorker.perform_async(@resource.id)
+        Mixpanel::TrackReferralCreatedWorker.perform_async(@resource.id)
       end
       success
     end

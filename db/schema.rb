@@ -123,7 +123,7 @@ ActiveRecord::Schema.define(version: 2020_11_19_170302) do
 
   create_table "notifications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id"
-    t.string "type", null: false
+    t.string "type"
     t.json "data", null: false
     t.datetime "read_at"
     t.datetime "created_at", precision: 6, null: false
@@ -281,7 +281,6 @@ ActiveRecord::Schema.define(version: 2020_11_19_170302) do
     t.boolean "supporter", default: false, null: false
     t.uuid "level_id"
     t.datetime "deleted_at"
-    t.string "stripe_customer_id"
     t.integer "posts_count", default: 0, null: false
     t.integer "followers_count", default: 0, null: false
     t.integer "following_users_count", default: 0, null: false

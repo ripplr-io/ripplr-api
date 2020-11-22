@@ -1,8 +1,6 @@
 module Posts
   module PushNotifications
-    class GenerateForDeviceWorker
-      include Sidekiq::Worker
-
+    class GenerateForDeviceWorker < ApplicationWorker
       def perform(post_id, subscription_id, device_id)
         # FIXME: Add index?
         push_notification = PushNotification.find_by(

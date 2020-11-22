@@ -17,6 +17,7 @@ module Posts
       if success
         Posts::PushNotifications::GenerateWorker.perform_async(@resource.id)
         Posts::BroadcastCreationWorker.perform_async(@resource.id)
+        Mixpanel::TrackPostCreatedWorker.perform_async(@resource.id)
       end
       success
     end
