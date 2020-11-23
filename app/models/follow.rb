@@ -5,9 +5,17 @@ class Follow < ApplicationRecord
   validates :followable_id, uniqueness: { scope: [:followable_type, :user_id] }
 
   counter_culture :followable, column_name: :followers_count, touch: true
-  counter_culture :user, touch: true,
-    column_name: proc { |model| model.followable_type == :User ? :following_users_count : nil },
+  counter_culture(:user, touch: true,
     column_names: {
-      Follow.where(followable_type: :User) => :following_users_count
-    }
+      Follow.where(followable_type: :User) => :following_users_count,
+      Follow.where(followable_type: :Topic) => :following_topics_count,
+      Follow.where(followable_type: :Hashtag) => :following_hashtags_count
+    },
+    column_name: proc do |model|
+      next :following_users_count if model.followable_type == 'User'
+      next :following_topics_count if model.followable_type == 'Topic'
+      next :following_hashtags_count if model.followable_type == 'Hashtag'
+      nil
+    end
+  )
 end
