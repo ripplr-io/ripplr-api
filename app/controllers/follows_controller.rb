@@ -4,7 +4,7 @@ class FollowsController < ApplicationController
   before_action :doorkeeper_authorize!
 
   def index
-    read_resource(current_user.follows)
+    read_resource(current_user.follows, included_associations: [:followable])
   end
 
   def create

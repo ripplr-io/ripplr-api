@@ -2,6 +2,7 @@ class TopicsController < ApplicationController
   include Crudable
 
   def index
-    read_resource(Topic.all)
+    topics = Topic.all.order(name: :asc)
+    read_resource(topics)
   end
 end

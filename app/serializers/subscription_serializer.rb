@@ -1,11 +1,12 @@
 class SubscriptionSerializer < ApplicationSerializer
   cache_options store: Rails.cache, namespace: 'jsonapi-serializer', expires_in: 10.minutes
 
-  attributes :subscribable_id, :settings, :created_at, :updated_at
+  belongs_to :subscribable, polymorphic: true
 
-  # FIXME: this is not polymorphic
-  belongs_to :subscribable, record_type: :user, serializer: :user
+  attributes :settings, :created_at, :updated_at
 
+  # FIXME: Legacy attributes - remove
+  attribute :subscribable_id
   attribute :subscribable_type do |object|
     object.subscribable_type.downcase
   end

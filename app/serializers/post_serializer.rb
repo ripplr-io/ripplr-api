@@ -3,11 +3,11 @@ class PostSerializer < ApplicationSerializer
 
   DEFAULT_POST_IMAGE = 'https://cdn.ripplr.io/brand/logo-black.png'.freeze
 
-  attributes :title, :body, :image, :url, :created_at
-
   belongs_to :topic
   belongs_to :author, record_type: :user, serializer: :user
   has_many :hashtags
+
+  attributes :title, :body, :image, :url, :created_at
 
   attribute :commentsCount, &:comments_count
   attribute :rateSum, &:ratings_points_total
@@ -33,17 +33,13 @@ class PostSerializer < ApplicationSerializer
     object.image.attached? ? url_helpers.public_blob_url(object.image) : DEFAULT_POST_IMAGE
   end
 
-  # FIXME: Legacy attribute - remove
+  # FIXME: Legacy attributes - remove
   attributes :author do |object|
     object.author.as_json
   end
-
-  # FIXME: Legacy attribute - remove
   attributes :topic do |object|
     object.topic.as_json
   end
-
-  # FIXME: Legacy attribute - remove
   attributes :hashtags do |object|
     object.hashtags.as_json
   end

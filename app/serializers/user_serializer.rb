@@ -1,18 +1,14 @@
 class UserSerializer < ApplicationSerializer
   cache_options store: Rails.cache, namespace: 'jsonapi-serializer', expires_in: 10.minutes
 
-  attributes :slug, :name, :bio, :supporter, :onboarded_at
+  belongs_to :level
 
-  # FIXME: Legacy attribute - remove
-  attribute :level
+  attributes :slug, :name, :bio, :supporter, :onboarded_at
 
   attribute :postsCount, &:posts_count
   attribute :followersCount, &:followers_count
   attribute :followingCount, &:following_users_count
-
-  attribute :pointsSum do |object|
-    object.total_points
-  end
+  attribute :pointsSum, &:total_points
 
   attribute :accountInfo do |object|
     {
@@ -26,4 +22,7 @@ class UserSerializer < ApplicationSerializer
   attribute :avatar do |object|
     url_helpers.public_blob_url(object.avatar) if object.avatar.attached?
   end
+
+  # FIXME: Legacy attributes - remove
+  attribute :level
 end

@@ -1,5 +1,11 @@
 class RatingSerializer < ApplicationSerializer
   cache_options store: Rails.cache, namespace: 'jsonapi-serializer', expires_in: 10.minutes
 
-  attributes :points, :ratable_id, :ratable_type, :created_at
+  belongs_to :ratable, polymorphic: true
+
+  attributes :points, :created_at
+
+  # FIXME: Legacy attributes - remove
+  attribute :ratable_id
+  attribute :ratable_type
 end
