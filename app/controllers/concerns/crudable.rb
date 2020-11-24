@@ -4,22 +4,22 @@ module Crudable
 
   private
 
-  def read_resource(resource, included_associations: [])
-    render_resources(resource, included_associations)
+  def read_resource(resource, serializer_options = {})
+    render_resources(resource, serializer_options)
   end
 
-  def create_resource(resource, included_associations: [])
+  def create_resource(resource, serializer_options = {})
     return render_errors(resource) unless resource.save
 
     resource = resource.resource if resource.is_a?(Resources::BaseService)
-    render_resources(resource, included_associations, status: :created)
+    render_resources(resource, serializer_options, status: :created)
   end
 
-  def update_resource(resource, included_associations: [])
+  def update_resource(resource, serializer_options = {})
     return render_errors(resource) unless resource.save
 
     resource = resource.resource if resource.is_a?(Resources::BaseService)
-    render_resources(resource, included_associations)
+    render_resources(resource, serializer_options)
   end
 
   def destroy_resource(resource)
@@ -28,12 +28,13 @@ module Crudable
     head :no_content
   end
 
-  def render_resources(resource, included_associations, status: :ok)
+  def render_resources(resource, serializer_options, status: :ok)
     options = {}
-    options[:include] = included_associations
+    options[:include] = serializer_options[:included_associations]
     options[:params] = { current_user: current_user }
 
-    render json: DynamicSerializer.new(resource, options), status: status
+    serializer = serializer_options[:serializer] || DynamicSerializer
+    render json: serializer.new(resource, options), status: status
   end
 
   def render_errors(resource)
