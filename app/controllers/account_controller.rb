@@ -6,7 +6,7 @@ class AccountController < ApplicationController
   before_action :validate_password!, only: :destroy
 
   def show
-    read_resource(current_user, serializer: AccountSerializer)
+    read_resource(current_user, serializer: AccountSerializer, included_associations: [:level])
   end
 
   def update
