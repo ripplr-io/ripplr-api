@@ -9,7 +9,7 @@ class FollowsController < ApplicationController
 
   def create
     @follow = Follows::CreateService.new(follow_params.merge(user: current_user))
-    create_resource(@follow)
+    create_resource(@follow, included_associations: [:followable])
   end
 
   def destroy

@@ -50,7 +50,7 @@ Rails.application.routes.draw do
     end
 
     resources :posts, only: [:show, :create, :update, :destroy] do
-      resources :comments, only: [:index, :show, :create]
+      resources :comments
       resources :ratings, only: [:create], path: :rate
       resources :reports, only: :create
 
