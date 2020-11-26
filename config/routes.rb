@@ -32,7 +32,6 @@ Rails.application.routes.draw do
     resources :bookmark_folders, path: :folders
     resources :devices, only: [:index, :create, :update, :destroy]
     resource :feed, only: :show
-    resources :followers, only: :index
     resources :follows, only: [:index, :create, :destroy]
     resource :inbox, only: :show
     resources :levels, only: :index
@@ -64,6 +63,8 @@ Rails.application.routes.draw do
     end
 
     resources :users, only: :show do
+      resources :followers, only: :index
+      resources :follows, only: :index
       resources :posts, only: :index
     end
   end

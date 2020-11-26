@@ -4,6 +4,7 @@ class FollowersController < ApplicationController
   before_action :doorkeeper_authorize!
 
   def index
-    read_resource(current_user.followers)
+    user = User.friendly.find(params[:user_id])
+    read_resource(user.followers)
   end
 end
