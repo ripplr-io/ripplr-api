@@ -13,7 +13,7 @@ RSpec.describe :devices_create, type: :request do
       user = create(:user)
       mock_device = build(:device)
 
-      post devices_path, params: mock_device.as_json(only: [:name, :onesignal_id]).merge!(
+      post devices_path, params: mock_device.as_json(only: [:name, :onesignal_id]).merge(
         settings: mock_device.settings.to_json,
         type: mock_device.device_type
       ), headers: auth_headers_for(user)

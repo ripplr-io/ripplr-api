@@ -4,7 +4,7 @@ class TicketsController < ApplicationController
   before_action :doorkeeper_authorize!
 
   def create
-    @ticket = Tickets::CreateService.new(ticket_params.merge!(user: current_user))
+    @ticket = Tickets::CreateService.new(ticket_params.merge(user: current_user))
     create_resource(@ticket)
   end
 
@@ -12,6 +12,6 @@ class TicketsController < ApplicationController
 
   def ticket_params
     screenshots = (params[:screenshots] || {}).values
-    params.permit(:title, :body).merge!(screenshots: screenshots)
+    params.permit(:title, :body).merge(screenshots: screenshots)
   end
 end

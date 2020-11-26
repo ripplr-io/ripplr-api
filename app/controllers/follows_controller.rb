@@ -8,7 +8,7 @@ class FollowsController < ApplicationController
   end
 
   def create
-    @follow = Follows::CreateService.new(follow_params.merge!(user: current_user))
+    @follow = Follows::CreateService.new(follow_params.merge(user: current_user))
     create_resource(@follow)
   end
 
@@ -20,7 +20,7 @@ class FollowsController < ApplicationController
   private
 
   def follow_params
-    params.permit(:followable_id).merge!(
+    params.permit(:followable_id).merge(
       followable_type: params[:followable_type]&.capitalize
     )
   end

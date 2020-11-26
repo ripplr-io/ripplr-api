@@ -15,7 +15,6 @@ class Follow < ApplicationRecord
       next :following_users_count if model.followable_type == 'User'
       next :following_topics_count if model.followable_type == 'Topic'
       next :following_hashtags_count if model.followable_type == 'Hashtag'
-      nil
     end
   )
 end

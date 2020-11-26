@@ -27,7 +27,7 @@ RSpec.describe :subscriptions_update, type: :request do
       patch subscription_path(subscription), params: subscription.as_json(only: [
         :subscribable_id,
         :subscribable_type
-      ]).merge!(
+      ]).merge(
         settings: subscription.settings.to_json
       ), headers: auth_headers_for(user)
 

@@ -1,0 +1,31 @@
+<h1>New report</h1>
+Hey support team!
+<br>
+We have a new post report, here's the breakdown of it:
+<br>
+<br>
+<div class="bold">From</div>
+<%= @user.name %> <%= @user.email %>
+<br>
+<br>
+<div class="bold">Reported at</div>
+<%= Time.current %>
+<br>
+<br>
+<div class="bold">Reason</div>
+<%= @data[:reason] %>
+<br>
+<br>
+<div class="bold">Description</div>
+<%= @data[:body] %>
+<br>
+<br>
+Please take a look at this as soon as you can and let <%= @user.name %> know.
+<br>
+<br>
+<a href="<%= app_post_url(@post) %>" class="button button-primary">Check post</a>
+<br>
+<br>
+Thanks,
+<br>
+Ripplr

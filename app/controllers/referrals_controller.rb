@@ -15,7 +15,7 @@ class ReferralsController < ApplicationController
   # FIXME: Make this restful
   def create
     new_referral_ids = referral_params[:referrals].map do |data|
-      service = Referrals::CreateService.new(data.merge!(inviter: current_user))
+      service = Referrals::CreateService.new(data.merge(inviter: current_user))
       service.resource.id if service.save
     end.compact
 

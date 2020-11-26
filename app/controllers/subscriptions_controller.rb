@@ -9,7 +9,7 @@ class SubscriptionsController < ApplicationController
   end
 
   def create
-    @subscription = Subscriptions::CreateService.new(subscription_params.merge!(user: current_user))
+    @subscription = Subscriptions::CreateService.new(subscription_params.merge(user: current_user))
     create_resource(@subscription, included_associations: [:subscribable])
   end
 
@@ -29,7 +29,7 @@ class SubscriptionsController < ApplicationController
   end
 
   def subscription_params
-    params.permit(:subscribable_id).merge!(
+    params.permit(:subscribable_id).merge(
       settings: JSON.parse(params[:settings] || '{}'),
       subscribable_type: params[:subscribable_type]&.capitalize
     )

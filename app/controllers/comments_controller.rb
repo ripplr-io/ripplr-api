@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = Comments::CreateService.new(comment_params.merge!(author: current_user))
+    @comment = Comments::CreateService.new(comment_params.merge(author: current_user))
     create_resource(@comment, included_associations: [:author])
   end
 

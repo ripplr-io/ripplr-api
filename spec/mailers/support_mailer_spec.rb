@@ -4,7 +4,7 @@ RSpec.describe SupportMailer, type: :mailer do
   describe 'new_ticket' do
     it 'renders the email' do
       ticket = create(:ticket, :with_screenshots)
-      mail = SupportMailer.with(ticket: ticket).new_ticket
+      mail = SupportMailer.new_ticket(ticket)
 
       expect(mail.subject).to eq "New ticket: #{ticket.title}"
       expect(mail.to).to eq ['support@ripplr.io']
@@ -14,11 +14,25 @@ RSpec.describe SupportMailer, type: :mailer do
     end
   end
 
+  describe 'new_report' do
+    it 'renders the email' do
+      user = create(:user)
+      post = create(:post)
+      mail = SupportMailer.new_report(user, post, { reason: 'report_reason', body: 'report_body' })
+
+      expect(mail.subject).to eq 'A post has been reported'
+      expect(mail.to).to eq ['support@ripplr.io']
+      expect(mail.from).to eq ['support@ripplr.io']
+      expect(mail.body).to include 'report_body'
+      expect(mail.body).to include 'report_reason'
+    end
+  end
+
   describe 'account_deleted' do
     it 'renders the email' do
       user = create(:user)
       comment = 'Unique Comment'
-      mail = SupportMailer.with(user: user, comment: comment).account_deleted
+      mail = SupportMailer.account_deleted(user, comment)
 
       expect(mail.subject).to eq "#{user.name} canceled the account"
       expect(mail.to).to eq ['support@ripplr.io']

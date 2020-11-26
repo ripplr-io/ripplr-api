@@ -6,7 +6,7 @@ module Accounts
     end
 
     def destroy
-      SupportMailer.with(user: @resource, comment: @comment).account_deleted.deliver_later
+      SupportMailer.account_deleted(@resource, @comment).deliver_later
 
       success = @resource.destroy
       Users::AnonymizeWorker.perform_async(@resource.id) if success

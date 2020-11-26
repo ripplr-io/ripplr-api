@@ -17,7 +17,7 @@ RSpec.describe :subscriptions_create, type: :request do
       post subscriptions_path, params: mock_subscription.as_json(only: [
         :subscribable_id,
         :subscribable_type
-      ]).merge!(
+      ]).merge(
         settings: mock_subscription.settings.to_json
       ), headers: auth_headers_for(user)
 

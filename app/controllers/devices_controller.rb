@@ -9,7 +9,7 @@ class DevicesController < ApplicationController
   end
 
   def create
-    @device = Devices::CreateService.new(device_params.merge!(user: current_user))
+    @device = Devices::CreateService.new(device_params.merge(user: current_user))
     create_resource(@device)
   end
 
@@ -29,7 +29,7 @@ class DevicesController < ApplicationController
   end
 
   def device_params
-    params.permit(:name, :onesignal_id).merge!(
+    params.permit(:name, :onesignal_id).merge(
       settings: JSON.parse(params[:settings] || '{}'),
       device_type: params[:type]
     )

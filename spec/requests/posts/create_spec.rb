@@ -14,7 +14,7 @@ RSpec.describe :posts_create, type: :request do
       mock_post = build(:post, topic: create(:topic))
 
       post posts_path,
-        params: mock_post.as_json(only: [:title, :body, :url, :topic_id]).merge!({ hashtags: ['hashtag'].to_json }),
+        params: mock_post.as_json(only: [:title, :body, :url, :topic_id]).merge(hashtags: ['hashtag'].to_json),
         headers: auth_headers_for(user)
 
       expect(response).to have_http_status(:created)
@@ -27,7 +27,7 @@ RSpec.describe :posts_create, type: :request do
       mock_post = build(:post, topic: create(:topic))
 
       post posts_path,
-        params: mock_post.as_json(only: [:title, :body, :url, :topic_id]).merge!(image_file: image),
+        params: mock_post.as_json(only: [:title, :body, :url, :topic_id]).merge(image_file: image),
         headers: auth_headers_for(user)
 
       expect(Post.last.image.present?).to eq true

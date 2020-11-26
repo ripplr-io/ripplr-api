@@ -24,7 +24,7 @@ RSpec.describe :devices_update, type: :request do
       user = create(:user)
       device = create(:device, user: user)
 
-      patch device_path(device), params: device.as_json(only: [:name, :onesignal_id]).merge!(
+      patch device_path(device), params: device.as_json(only: [:name, :onesignal_id]).merge(
         settings: device.settings.to_json,
         type: device.device_type
       ), headers: auth_headers_for(user)

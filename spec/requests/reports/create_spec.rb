@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe :tickets_create, type: :request do
+RSpec.describe :reports_create, type: :request do
   context 'when the user is not authenticated' do
     it 'responds with unauthorized' do
-      post tickets_path
+      post post_reports_path(0)
       expect(response).to have_http_status(:unauthorized)
     end
   end
@@ -11,23 +11,22 @@ RSpec.describe :tickets_create, type: :request do
   context 'when the user is authenticated' do
     it 'responds with the resource' do
       user = create(:user)
-      mock_ticket = build(:ticket)
+      mock_post = create(:post)
 
-      post tickets_path, params: mock_ticket.as_json(only: [:title, :body]).merge(
-        screenshots: {}
-      ), headers: auth_headers_for(user)
+      post post_reports_path(mock_post), params: { reason: 'reason', body: 'body' }, headers: auth_headers_for(user)
 
-      expect(response).to have_http_status(:created)
-      expect(response_data).to have_resource(Ticket.last)
+      expect(response).to have_http_status(:no_content)
+      # FIXME: Add this expectation
+      # expect(Sidekiq::Queues['mailers'].size).to eq 1
     end
 
     it 'responds with errors' do
       user = create(:user)
 
-      post tickets_path, headers: auth_headers_for(user)
+      post post_reports_path(0), headers: auth_headers_for(user)
 
       expect(response).to have_http_status(:unprocessable_entity)
-      expect(response_errors).to have_error(:title)
+      expect(response_errors).to have_error(:reason)
       expect(response_errors).to have_error(:body)
     end
   end

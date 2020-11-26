@@ -6,7 +6,7 @@ module Tickets
 
     def save
       success = @resource.save
-      SupportMailer.with(ticket: @resource).new_ticket.deliver_later if success
+      SupportMailer.new_ticket(@resource).deliver_later if success
       success
     end
   end

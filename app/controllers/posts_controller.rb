@@ -14,7 +14,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Posts::CreateService.new(post_params.merge!(author: current_user), image_url: params[:image])
+    @post = Posts::CreateService.new(post_params.merge(author: current_user), image_url: params[:image])
     create_resource(@post)
   end
 
@@ -63,7 +63,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.permit(:title, :body, :url, :topic_id).merge!(hashtag_params).merge!(image_params)
+    params.permit(:title, :body, :url, :topic_id).merge(hashtag_params).merge(image_params)
   end
 
   def hashtag_params

@@ -5,7 +5,7 @@ class BookmarksController < ApplicationController
   before_action :find_bookmark, only: [:update, :destroy]
 
   def create
-    @bookmark = Bookmarks::CreateService.new(bookmark_params.merge!(user: current_user))
+    @bookmark = Bookmarks::CreateService.new(bookmark_params.merge(user: current_user))
     create_resource(@bookmark)
   end
 
