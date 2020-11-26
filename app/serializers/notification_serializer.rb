@@ -10,11 +10,4 @@ class NotificationSerializer < ApplicationSerializer
   end
 
   attributes :data, :read_at, :created_at
-
-  # FIXME: Legacy attributes - remove
-  attribute :author do |object|
-    next if object.data['author_id'].blank?
-
-    User.find_by(id: object.data['author_id']).as_json
-  end
 end

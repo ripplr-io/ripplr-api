@@ -10,6 +10,5 @@ class CommentSerializer < ApplicationSerializer
   attribute :repliesCount, &:replies_count
 
   # FIXME: Legacy attributes - remove
-  attribute :post_id
   attribute :comment_id
 end

@@ -32,15 +32,4 @@ class PostSerializer < ApplicationSerializer
   attribute :image do |object|
     object.image.attached? ? url_helpers.public_blob_url(object.image) : DEFAULT_POST_IMAGE
   end
-
-  # FIXME: Legacy attributes - remove
-  attributes :author do |object|
-    object.author.as_json
-  end
-  attributes :topic do |object|
-    object.topic.as_json
-  end
-  attributes :hashtags do |object|
-    object.hashtags.as_json
-  end
 end

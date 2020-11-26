@@ -4,10 +4,4 @@ class SubscriptionSerializer < ApplicationSerializer
   belongs_to :subscribable, polymorphic: true
 
   attributes :settings, :created_at, :updated_at
-
-  # FIXME: Legacy attributes - remove
-  attribute :subscribable_id
-  attribute :subscribable_type do |object|
-    object.subscribable_type.downcase
-  end
 end

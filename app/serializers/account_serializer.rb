@@ -14,7 +14,4 @@ class AccountSerializer < UserSerializer
       postsToday: object.posts_today
     }
   end
-
-  # FIXME: Legacy attributes - remove
-  attribute :level
 end

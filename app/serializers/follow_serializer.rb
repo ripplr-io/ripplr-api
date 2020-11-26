@@ -3,10 +3,4 @@ class FollowSerializer < ApplicationSerializer
 
   belongs_to :followable, polymorphic: true
   attributes :created_at
-
-  # FIXME: Legacy attributes - remove
-  attribute :followable_id
-  attribute :followable_type do |object|
-    object.followable_type.downcase
-  end
 end

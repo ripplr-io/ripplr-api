@@ -15,7 +15,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Posts::CreateService.new(post_params.merge(author: current_user), image_url: params[:image])
-    create_resource(@post)
+    create_resource(@post, included_associations: [:author, :topic, :hashtags, :bookmark])
   end
 
   def update
