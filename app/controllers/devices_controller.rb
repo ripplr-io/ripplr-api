@@ -1,13 +1,13 @@
 class DevicesController < ApplicationController
   include Crudable
 
-  before_action :doorkeeper_authorize!
-  before_action :find_device, only: [:update, :destroy]
+  load_and_authorize_resource
 
   def index
-    read_resource(current_user.devices)
+    read_resource(@devices)
   end
 
+  # TODO: Use cancancan
   def create
     @device = Devices::CreateService.new(device_params.merge(user: current_user))
     create_resource(@device)
@@ -23,10 +23,6 @@ class DevicesController < ApplicationController
   end
 
   private
-
-  def find_device
-    @device = current_user.devices.find(params[:id])
-  end
 
   def device_params
     params.permit(:name, :onesignal_id).merge(

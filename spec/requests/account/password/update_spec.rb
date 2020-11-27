@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe :account_password_update, type: :request do
   context 'when the user is not authenticated' do
-    it 'responds with unauthorized' do
+    it 'responds with not_found' do
       put account_password_path
-      expect(response).to have_http_status(:unauthorized)
+      expect(response).to have_http_status(:not_found)
     end
   end
 

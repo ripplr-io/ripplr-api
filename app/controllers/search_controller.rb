@@ -1,5 +1,5 @@
 class SearchController < ApplicationController
-  before_action :doorkeeper_authorize!
+  authorize_resource class: :search
 
   def index
     search = Search::SearchService.new(params[:query], params[:page], params[:per_page])

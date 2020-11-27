@@ -1,18 +1,18 @@
 class ReferralsController < ApplicationController
   include Crudable
 
-  before_action :doorkeeper_authorize!, except: :show
+  load_and_authorize_resource except: :create
+  authorize_resource only: :create
 
   def index
-    read_resource(current_user.referrals)
+    read_resource(@referrals)
   end
 
   def show
-    @referral = Referral.find(params[:id])
     read_resource(@referral)
   end
 
-  # FIXME: Make this restful
+  # FIXME: Make this restful & use cancancan
   def create
     new_referral_ids = referral_params[:referrals].map do |data|
       service = Referrals::CreateService.new(data.merge(inviter: current_user))
@@ -23,7 +23,6 @@ class ReferralsController < ApplicationController
   end
 
   def destroy
-    @referral = current_user.referrals.find(params[:id])
     destroy_resource(@referral)
   end
 

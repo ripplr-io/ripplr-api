@@ -1,8 +1,9 @@
 class FeedsController < ApplicationController
   include Crudable
 
-  before_action :doorkeeper_authorize!
+  authorize_resource class: :feed
 
+  # TODO: Use cancancan
   def show
     posts = current_user.following_posts
       .includes(:author, :hashtags, :topic)

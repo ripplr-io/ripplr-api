@@ -1,13 +1,13 @@
 class SubscriptionsController < ApplicationController
   include Crudable
 
-  before_action :doorkeeper_authorize!
-  before_action :find_subscription, only: [:update, :destroy]
+  load_and_authorize_resource
 
   def index
-    read_resource(current_user.subscriptions, included_associations: [:subscribable])
+    read_resource(@subscriptions, included_associations: [:subscribable])
   end
 
+  # TODO: Use cancancan
   def create
     @subscription = Subscriptions::CreateService.new(subscription_params.merge(user: current_user))
     create_resource(@subscription, included_associations: [:subscribable])
@@ -23,10 +23,6 @@ class SubscriptionsController < ApplicationController
   end
 
   private
-
-  def find_subscription
-    @subscription = current_user.subscriptions.find(params[:id])
-  end
 
   def subscription_params
     params.permit(:subscribable_id).merge(

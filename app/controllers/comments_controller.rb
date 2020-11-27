@@ -1,19 +1,26 @@
 class CommentsController < ApplicationController
   include Crudable
 
-  before_action :doorkeeper_authorize!, only: :create
-  before_action :find_comment, only: [:update, :destroy]
+  load_resource :post
+  load_and_authorize_resource through: [:post, :comment], shallow: true, except: :show
+  authorize_resource only: :show
 
   def index
-    @comments = Post.find(params[:post_id]).comments.order(created_at: :desc).page(params[:page]).per(params[:per_page])
+    @comments = @comments
+      .order(created_at: :desc)
+      .page(params[:page])
+      .per(params[:per_page])
+
     read_resource(@comments, included_associations: [:author])
   end
 
+  # TODO: Use cancancan
   def show
     @comments = Comment.find(params[:id]).comments.order(created_at: :desc).page(params[:page]).per(params[:per_page])
     read_resource(@comments, included_associations: [:author])
   end
 
+  # TODO: Use cancancan
   def create
     @comment = Comments::CreateService.new(comment_params.merge(author: current_user))
     create_resource(@comment, included_associations: [:author])
@@ -29,10 +36,6 @@ class CommentsController < ApplicationController
   end
 
   private
-
-  def find_comment
-    @comment = current_user.comments.find(params[:id])
-  end
 
   def comment_params
     params.permit(:body, :post_id, :comment_id)

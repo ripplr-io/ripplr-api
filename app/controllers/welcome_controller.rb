@@ -1,6 +1,8 @@
 class WelcomeController < ApplicationController
   LIST_ID = '87154130ad'.freeze
 
+  authorize_resource class: :welcome
+
   def status
     head :ok
   end

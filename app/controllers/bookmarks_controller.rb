@@ -1,10 +1,10 @@
 class BookmarksController < ApplicationController
   include Crudable
 
-  before_action :doorkeeper_authorize!
-  before_action :find_bookmark, only: [:update, :destroy]
+  load_and_authorize_resource
 
   def create
+    # TODO: Use cancancan
     @bookmark = Bookmarks::CreateService.new(bookmark_params.merge(user: current_user))
     create_resource(@bookmark)
   end
@@ -19,10 +19,6 @@ class BookmarksController < ApplicationController
   end
 
   private
-
-  def find_bookmark
-    @bookmark = current_user.bookmarks.find(params[:id])
-  end
 
   def bookmark_params
     params.permit(:post_id, :bookmark_folder_id)

@@ -2,7 +2,7 @@ class AccountController < ApplicationController
   include Crudable
   include PasswordValidatable
 
-  before_action :doorkeeper_authorize!
+  authorize_resource class: :account
   before_action :validate_password!, only: :destroy
 
   def show

@@ -1,18 +1,25 @@
 class PostsController < ApplicationController
   include Crudable
 
-  before_action :doorkeeper_authorize!, except: :index
-  before_action :find_post, only: [:update, :destroy]
+  load_resource :user
+  load_resource :topic
+  load_resource :hashtag, find_by: :name
+  load_and_authorize_resource through: [:user, :topic, :hashtag], shallow: true
 
   def index
-    read_resource(find_paginated_posts, included_associations: [:author, :topic, :hashtags, :bookmark])
+    @posts = @posts
+      .order(created_at: :desc)
+      .page(params[:page])
+      .per(params[:per_page])
+
+    read_resource(@posts, included_associations: [:author, :topic, :hashtags, :bookmark])
   end
 
   def show
-    @post = Post.find(params[:id])
     read_resource(@post, included_associations: [:author, :topic, :hashtags, :bookmark])
   end
 
+  # TODO: Use cancancan
   def create
     @post = Posts::CreateService.new(post_params.merge(author: current_user), image_url: params[:image])
     create_resource(@post, included_associations: [:author, :topic, :hashtags, :bookmark])
@@ -27,6 +34,7 @@ class PostsController < ApplicationController
     destroy_resource(@post)
   end
 
+  # TODO: Extract to its own controller
   def preview
     page = MetaInspector.new(params[:url])
     return render json: { status: 404 } if page.response.status != 200
@@ -43,24 +51,6 @@ class PostsController < ApplicationController
   end
 
   private
-
-  def find_posts
-    if params[:user_id].present?
-      User.friendly.find(params[:user_id]).posts
-    elsif params[:topic_id].present?
-      Topic.friendly.find(params[:topic_id]).posts
-    elsif params[:hashtag_id].present?
-      Hashtag.find_by(name: params[:hashtag_id]).posts
-    end
-  end
-
-  def find_paginated_posts
-    find_posts.order(created_at: :desc).page(params[:page]).per(params[:per_page])
-  end
-
-  def find_post
-    @post = current_user.posts.find(params[:id])
-  end
 
   def post_params
     params.permit(:title, :body, :url, :topic_id).merge(hashtag_params).merge(image_params)

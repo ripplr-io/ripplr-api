@@ -1,13 +1,9 @@
 class UsersController < ApplicationController
   include Crudable
 
+  load_and_authorize_resource
+
   def show
-    read_resource(find_user)
-  end
-
-  private
-
-  def find_user
-    User.friendly.find(params[:id])
+    read_resource(@user)
   end
 end

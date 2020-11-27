@@ -7,6 +7,7 @@ gem 'active_record_union'
 gem 'aws-sdk-s3', require: false
 gem 'bcrypt'
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'cancancan'
 gem 'counter_culture'
 gem 'devise'
 # FIXME: https://github.com/doorkeeper-gem/doorkeeper/issues/1412

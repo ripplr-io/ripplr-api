@@ -2,7 +2,7 @@ module Account
   class ProfileController < ApplicationController
     include Crudable
 
-    before_action :doorkeeper_authorize!
+    authorize_resource class: :account
 
     def update
       current_user.assign_attributes(profile_params)

@@ -1,9 +1,9 @@
 class BookmarkFoldersController < ApplicationController
   include Crudable
 
-  before_action :doorkeeper_authorize!
-  before_action :find_bookmark_folder, only: [:show, :update, :destroy]
+  load_and_authorize_resource
 
+  # TODO: Use cancancan
   def index
     read_resource(current_user.root_bookmark_folder, included_associations: [
       :folders,
@@ -27,12 +27,11 @@ class BookmarkFoldersController < ApplicationController
   end
 
   def create
-    bookmark_folder = current_user.bookmark_folders.new(folder_params)
-    create_resource(bookmark_folder)
+    create_resource(@bookmark_folder)
   end
 
   def update
-    @bookmark_folder.assign_attributes(folder_params)
+    @bookmark_folder.assign_attributes(bookmark_folder_params)
     update_resource(@bookmark_folder)
   end
 
@@ -42,11 +41,7 @@ class BookmarkFoldersController < ApplicationController
 
   private
 
-  def find_bookmark_folder
-    @bookmark_folder = current_user.bookmark_folders.find(params[:id])
-  end
-
-  def folder_params
+  def bookmark_folder_params
     params.permit(:name, :bookmark_folder_id)
   end
 end

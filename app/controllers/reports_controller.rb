@@ -1,7 +1,7 @@
 class ReportsController < ApplicationController
   include Crudable
 
-  before_action :doorkeeper_authorize!
+  authorize_resource class: :report
 
   def create
     report = ReportForm.new(report_params)
