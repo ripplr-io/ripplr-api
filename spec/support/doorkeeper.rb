@@ -8,6 +8,10 @@ module AuthenticationHelpers
       Authorization: "Bearer #{token_for(user)}"
     }
   end
+
+  def auth_headers_for_new_user
+    auth_headers_for(create(:user))
+  end
 end
 
 RSpec.configure do |config|

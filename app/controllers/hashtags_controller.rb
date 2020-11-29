@@ -1,8 +1,8 @@
 class HashtagsController < ApplicationController
   include Crudable
 
-  authorize_resource only: :index
-  load_and_authorize_resource only: :show, find_by: :name
+  load_and_authorize_resource find_by: :name
+  skip_load_resource only: :index
 
   def index
     @hashtags = Hashtag.search(params[:query])

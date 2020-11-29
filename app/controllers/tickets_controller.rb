@@ -3,9 +3,8 @@ class TicketsController < ApplicationController
 
   load_and_authorize_resource
 
-  # TODO: Use cancancan
   def create
-    @ticket = Tickets::CreateService.new(ticket_params.merge(user: current_user))
+    @ticket = Tickets::CreateService.new(@ticket)
     create_resource(@ticket)
   end
 

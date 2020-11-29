@@ -1,22 +1,24 @@
 require 'rails_helper'
 
 RSpec.describe :bookmark_folders_show, type: :request do
-  context 'when the user is not authenticated' do
-    it 'responds with not_found' do
-      get bookmark_folder_path(0)
-      expect(response).to have_http_status(:not_found)
+  it_behaves_like :unauthenticated_request do
+    let(:subject) { get bookmark_folder_path(0) }
+  end
+
+  it_behaves_like :forbidden_request do
+    let(:subject) do
+      bookmark_folder = create(:bookmark_folder)
+      get bookmark_folder_path(bookmark_folder), headers: auth_headers_for_new_user
     end
   end
 
-  context 'when the user is authenticated' do
-    it 'responds with the root_bookmark_folder' do
-      user = create(:user)
-      folder = create(:bookmark_folder, bookmark_folder: user.root_bookmark_folder, user: user)
+  it 'responds with the resource' do
+    user = create(:user)
+    bookmark_folder = create(:bookmark_folder, bookmark_folder: user.root_bookmark_folder, user: user)
 
-      get bookmark_folder_path(folder), headers: auth_headers_for(user)
+    get bookmark_folder_path(bookmark_folder), headers: auth_headers_for(user)
 
-      expect(response).to have_http_status(:ok)
-      expect(response_data).to have_resource(folder)
-    end
+    expect(response).to have_http_status(:ok)
+    expect(response_data).to have_resource(bookmark_folder)
   end
 end

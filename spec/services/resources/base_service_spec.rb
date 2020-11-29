@@ -18,4 +18,20 @@ RSpec.describe Resources::BaseService, type: :service do
     expect(topic.errors.size).to eq(1)
     expect(service.errors).to eq(topic.errors)
   end
+
+  it 'raises NotImplementedError on save' do
+    topic = build(:topic)
+
+    service = described_class.new(topic)
+
+    expect { service.save }.to raise_error(NotImplementedError)
+  end
+
+  it 'raises NotImplementedError on destroy' do
+    topic = build(:topic)
+
+    service = described_class.new(topic)
+
+    expect { service.destroy }.to raise_error(NotImplementedError)
+  end
 end

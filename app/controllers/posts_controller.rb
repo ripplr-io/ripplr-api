@@ -19,9 +19,8 @@ class PostsController < ApplicationController
     read_resource(@post, included_associations: [:author, :topic, :hashtags, :bookmark])
   end
 
-  # TODO: Use cancancan
   def create
-    @post = Posts::CreateService.new(post_params.merge(author: current_user), image_url: params[:image])
+    @post = Posts::CreateService.new(@post, image_url: params[:image])
     create_resource(@post, included_associations: [:author, :topic, :hashtags, :bookmark])
   end
 

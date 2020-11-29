@@ -1,9 +1,5 @@
 module Follows
-  class CreateService < Resources::CreateService
-    def initialize(attributes)
-      super(Follow.new(attributes))
-    end
-
+  class CreateService < Resources::BaseService
     def save
       success = @resource.save
       if success

@@ -1,5 +1,5 @@
 module Accounts
-  class DestroyService < Resources::DestroyService
+  class DestroyService < Resources::BaseService
     def initialize(resource, comment)
       super(resource)
       @comment = comment

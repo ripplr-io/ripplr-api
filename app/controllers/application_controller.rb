@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
   respond_to :json
 
-  check_authorization unless: :devise_controller?
+  check_authorization
 
   rescue_from ActiveRecord::RecordNotFound, CanCan::AccessDenied do
     head :not_found

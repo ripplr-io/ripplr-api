@@ -1,33 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe :bookmark_folders_create, type: :request do
-  context 'when the user is not authenticated' do
-    it 'responds with not_found' do
-      post bookmark_folders_path
-      expect(response).to have_http_status(:not_found)
-    end
+  it_behaves_like :unauthenticated_request do
+    let(:subject) { post bookmark_folders_path }
   end
 
-  context 'when the user is authenticated' do
-    it 'responds with the resource' do
-      user = create(:user)
-      mock_bookmark_folder = build(:bookmark_folder)
+  it_behaves_like :unprocessable_request, [:name] do
+    let(:subject) { post bookmark_folders_path, headers: auth_headers_for_new_user }
+  end
 
-      post bookmark_folders_path,
-        params: mock_bookmark_folder.as_json(only: [:name, :bookmark_folder_id]),
-        headers: auth_headers_for(user)
+  it 'responds with the resource' do
+    user = create(:user)
+    mock_bookmark_folder = build(:bookmark_folder)
 
-      expect(response).to have_http_status(:created)
-      expect(response_data).to have_resource(BookmarkFolder.last)
-    end
+    post bookmark_folders_path,
+      params: mock_bookmark_folder.as_json(only: [:name, :bookmark_folder_id]),
+      headers: auth_headers_for(user)
 
-    it 'responds with errors' do
-      user = create(:user)
-
-      post bookmark_folders_path, headers: auth_headers_for(user)
-
-      expect(response).to have_http_status(:unprocessable_entity)
-      expect(response_errors).to have_error(:name)
-    end
+    expect(response).to have_http_status(:created)
+    expect(response_data).to have_resource(BookmarkFolder.last)
   end
 end

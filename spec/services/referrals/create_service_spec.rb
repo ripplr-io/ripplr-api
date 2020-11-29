@@ -2,13 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Referrals::CreateService, type: :service do
   it 'creates the referral' do
-    referral_params = {
-      name: 'Name',
-      email: 'example@ripplr.io',
-      inviter: create(:user)
-    }
+    referral = build(:referral)
 
-    expect { described_class.new(referral_params).save }
+    expect { described_class.new(referral).save }
       .to change { Referral.count }.by(1)
 
     expect(Sidekiq::Queues['mailers'].size).to eq 1
@@ -22,13 +18,9 @@ RSpec.describe Referrals::CreateService, type: :service do
       user = create(:user, level: level)
       create_list(:referral, 2, inviter: user)
 
-      referral_params = {
-        name: 'Name',
-        email: 'example@ripplr.io',
-        inviter: user
-      }
+      referral = build(:referral, inviter: user)
 
-      expect { described_class.new(referral_params).save }
+      expect { described_class.new(referral).save }
         .to change { Referral.count }.by(0)
     end
   end

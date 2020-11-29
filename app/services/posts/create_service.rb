@@ -1,10 +1,10 @@
 require 'open-uri'
 
 module Posts
-  class CreateService < Resources::CreateService
-    def initialize(attributes, image_url: nil)
-      super(Post.new(attributes))
-      attach_from_url(image_url)
+  class CreateService < Resources::BaseService
+    def initialize(resource, image_url: nil)
+      super(resource)
+      attach_from_url(image_url) if image_url.present?
     end
 
     def save
@@ -30,7 +30,6 @@ module Posts
 
     def attach_from_url(image_url)
       return if @resource.image.attached?
-      return if image_url.nil?
 
       uri = URI.parse(image_url)
       file = uri.open

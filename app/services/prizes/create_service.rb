@@ -1,9 +1,5 @@
 module Prizes
-  class CreateService < Resources::CreateService
-    def initialize(attributes)
-      super(Prize.new(attributes))
-    end
-
+  class CreateService < Resources::BaseService
     def save
       success = @resource.save
       Users::UpdateLevelWorker.perform_async(@resource.user.id) if success

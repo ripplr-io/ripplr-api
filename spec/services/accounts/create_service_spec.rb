@@ -3,14 +3,9 @@ require 'rails_helper'
 RSpec.describe Accounts::CreateService, type: :service do
   it 'creates the account' do
     level = create(:level)
+    user = build(:user)
 
-    account_params = {
-      name: 'Name',
-      email: 'example@ripplr.io',
-      password: 'password'
-    }
-
-    expect { described_class.new(account_params).save }
+    expect { described_class.new(user).save }
       .to change { User.count }.by(1)
       .and change { BookmarkFolder.count }.by(1)
 
@@ -21,14 +16,9 @@ RSpec.describe Accounts::CreateService, type: :service do
   it 'creates a referral accepted notification' do
     level = create(:level)
     referral = create(:referral)
+    user = build(:user)
 
-    account_params = {
-      name: 'Name',
-      email: 'example@ripplr.io',
-      password: 'password'
-    }
-
-    expect { described_class.new(account_params, referral_id: referral.id).save }
+    expect { described_class.new(user, referral_id: referral.id).save }
       .to change { User.count }.by(1)
       .and change { BookmarkFolder.count }.by(1)
       .and change { Notifications::ReferralAccepted.count }.by(1)

@@ -7,5 +7,13 @@ module Resources
     def initialize(resource)
       @resource = resource
     end
+
+    def save
+      raise NotImplementedError
+    end
+
+    def destroy
+      raise NotImplementedError
+    end
   end
 end

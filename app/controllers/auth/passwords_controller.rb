@@ -1,6 +1,7 @@
 module Auth
   class PasswordsController < Devise::PasswordsController
     wrap_parameters :user
+    skip_authorization_check
 
     # POST /resource/password
     # def create

@@ -1,7 +1,7 @@
 module Accounts
-  class CreateService < Resources::CreateService
-    def initialize(attributes, referral_id: nil)
-      super(User.new(attributes))
+  class CreateService < Resources::BaseService
+    def initialize(resource, referral_id: nil)
+      super(resource)
       @referral_id = referral_id
     end
 

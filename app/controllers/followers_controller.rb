@@ -1,11 +1,10 @@
 class FollowersController < ApplicationController
   include Crudable
 
-  load_and_authorize_resource class: :follower
+  load_resource :user
+  load_and_authorize_resource :user, parent: false, through: :user, through_association: :followers
 
-  # TODO: Use cancancan
   def index
-    user = User.friendly.find(params[:user_id])
-    read_resource(user.followers)
+    read_resource(@users)
   end
 end

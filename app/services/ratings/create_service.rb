@@ -1,8 +1,9 @@
 module Ratings
-  class CreateService < Resources::CreateService
-    def initialize(user, ratable, points)
-      rating = user.ratings.find_or_initialize_by(ratable: ratable)
-      rating.points = points
+  class CreateService < Resources::BaseService
+    def initialize(resource)
+      rating = Rating.find_by(user: resource.user, ratable: resource.ratable)
+      rating = resource if rating.blank?
+      rating.points = resource.points
       super(rating)
     end
 

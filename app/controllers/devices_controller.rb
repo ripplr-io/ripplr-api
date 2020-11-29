@@ -7,9 +7,8 @@ class DevicesController < ApplicationController
     read_resource(@devices)
   end
 
-  # TODO: Use cancancan
   def create
-    @device = Devices::CreateService.new(device_params.merge(user: current_user))
+    @device = Devices::CreateService.new(@device)
     create_resource(@device)
   end
 

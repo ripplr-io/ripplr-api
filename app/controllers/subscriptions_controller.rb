@@ -7,9 +7,8 @@ class SubscriptionsController < ApplicationController
     read_resource(@subscriptions, included_associations: [:subscribable])
   end
 
-  # TODO: Use cancancan
   def create
-    @subscription = Subscriptions::CreateService.new(subscription_params.merge(user: current_user))
+    @subscription = Subscriptions::CreateService.new(@subscription)
     create_resource(@subscription, included_associations: [:subscribable])
   end
 

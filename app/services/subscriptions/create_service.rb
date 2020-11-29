@@ -1,9 +1,5 @@
 module Subscriptions
-  class CreateService < Resources::CreateService
-    def initialize(attributes)
-      super(Subscription.new(attributes))
-    end
-
+  class CreateService < Resources::BaseService
     def save
       if above_level_limit?
         @resource.errors.add(:max_subscriptions, 'limit reached')

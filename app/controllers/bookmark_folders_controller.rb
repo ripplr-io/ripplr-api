@@ -2,8 +2,8 @@ class BookmarkFoldersController < ApplicationController
   include Crudable
 
   load_and_authorize_resource
+  skip_load_resource only: :index
 
-  # TODO: Use cancancan
   def index
     read_resource(current_user.root_bookmark_folder, included_associations: [
       :folders,

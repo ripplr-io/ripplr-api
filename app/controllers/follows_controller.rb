@@ -1,17 +1,16 @@
 class FollowsController < ApplicationController
   include Crudable
 
-  load_and_authorize_resource
+  load_resource :user
+  load_and_authorize_resource through: :user, shallow: true
 
-  # TODO: Use cancancan
   def index
-    user = User.find_by(id: params[:user_id]) || current_user
-    read_resource(user.follows, included_associations: [:followable])
+    @follows = current_user.follows if @user.blank?
+    read_resource(@follows, included_associations: [:followable])
   end
 
-  # TODO: Use cancancan
   def create
-    @follow = Follows::CreateService.new(follow_params.merge(user: current_user))
+    @follow = Follows::CreateService.new(@follow)
     create_resource(@follow, included_associations: [:followable])
   end
 

@@ -1,9 +1,5 @@
 module Comments
-  class CreateService < Resources::CreateService
-    def initialize(attributes)
-      super(Comment.new(attributes))
-    end
-
+  class CreateService < Resources::BaseService
     def save
       success = @resource.save
       if success

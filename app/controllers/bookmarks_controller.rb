@@ -4,8 +4,7 @@ class BookmarksController < ApplicationController
   load_and_authorize_resource
 
   def create
-    # TODO: Use cancancan
-    @bookmark = Bookmarks::CreateService.new(bookmark_params.merge(user: current_user))
+    @bookmark = Bookmarks::CreateService.new(@bookmark)
     create_resource(@bookmark)
   end
 

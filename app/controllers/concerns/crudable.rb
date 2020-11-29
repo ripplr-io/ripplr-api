@@ -11,14 +11,12 @@ module Crudable
   def create_resource(resource, serializer_options = {})
     return render_errors(resource) unless resource.save
 
-    resource = resource.resource if resource.is_a?(Resources::BaseService)
     render_resources(resource, serializer_options, status: :created)
   end
 
   def update_resource(resource, serializer_options = {})
     return render_errors(resource) unless resource.save
 
-    resource = resource.resource if resource.is_a?(Resources::BaseService)
     render_resources(resource, serializer_options)
   end
 
@@ -34,6 +32,8 @@ module Crudable
     options[:params] = { current_user: current_user }
 
     serializer = serializer_options[:serializer] || DynamicSerializer
+    resource = resource.resource if resource.is_a?(Resources::BaseService)
+
     render json: serializer.new(resource, options), status: status
   end
 

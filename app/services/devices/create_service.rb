@@ -1,9 +1,5 @@
 module Devices
-  class CreateService < Resources::CreateService
-    def initialize(attributes)
-      super(Device.new(attributes))
-    end
-
+  class CreateService < Resources::BaseService
     def save
       success = @resource.save
       Mixpanel::TrackDeviceCreatedWorker.perform_async(@resource.id) if success

@@ -14,4 +14,15 @@ class AccountSerializer < UserSerializer
       postsToday: object.posts_today
     }
   end
+
+  attribute :onboarding_prizes do |object|
+    data = {}
+    account_prizes = object.prizes.where(name: Prize.onboarding_prizes.values).pluck(:name)
+
+    Prize.onboarding_prizes.each do |key, value|
+      data[key] = account_prizes.include? value
+    end
+
+    data
+  end
 end

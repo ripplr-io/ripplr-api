@@ -5,15 +5,17 @@ module Auth
     respond_to :json
     wrap_parameters :user
 
+    skip_authorization_check
     before_action :configure_sign_up_params, only: [:create]
     # before_action :configure_account_update_params, only: [:update]
 
     # POST /resource
     def create
-      user = Accounts::CreateService.new(sign_up_params, referral_id: params[:referral_id])
-      return render_errors(user) unless user.save
+      user = User.new(sign_up_params)
+      service = Accounts::CreateService.new(user, referral_id: params[:referral_id])
+      return render_errors(service) unless service.save
 
-      token = user.resource.access_tokens.create!(
+      token = service.resource.access_tokens.create!(
         use_refresh_token: true,
         expires_in: Doorkeeper.configuration.access_token_expires_in
       )

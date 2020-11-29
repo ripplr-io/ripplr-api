@@ -2,8 +2,7 @@ class CommentsController < ApplicationController
   include Crudable
 
   load_resource :post
-  load_and_authorize_resource through: [:post, :comment], shallow: true, except: :show
-  authorize_resource only: :show
+  load_and_authorize_resource through: :post, shallow: true
 
   def index
     @comments = @comments
@@ -14,15 +13,17 @@ class CommentsController < ApplicationController
     read_resource(@comments, included_associations: [:author])
   end
 
-  # TODO: Use cancancan
   def show
-    @comments = Comment.find(params[:id]).comments.order(created_at: :desc).page(params[:page]).per(params[:per_page])
+    @comments = @comment.comments
+      .order(created_at: :desc)
+      .page(params[:page])
+      .per(params[:per_page])
+
     read_resource(@comments, included_associations: [:author])
   end
 
-  # TODO: Use cancancan
   def create
-    @comment = Comments::CreateService.new(comment_params.merge(author: current_user))
+    @comment = Comments::CreateService.new(@comment)
     create_resource(@comment, included_associations: [:author])
   end
 
@@ -38,6 +39,6 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    params.permit(:body, :post_id, :comment_id)
+    params.permit(:body, :comment_id)
   end
 end

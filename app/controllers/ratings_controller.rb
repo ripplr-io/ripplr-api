@@ -1,12 +1,15 @@
 class RatingsController < ApplicationController
   include Crudable
 
-  authorize_resource
+  load_resource :post
+  load_and_authorize_resource through: :post
 
-  # TODO: Use cancancan
   def create
-    post = Post.find_by(id: params[:post_id])
-    @rating = Ratings::CreateService.new(current_user, post, params[:rate])
+    @rating = Ratings::CreateService.new(@rating)
     create_resource(@rating)
+  end
+
+  def rating_params
+    { points: params[:rate] }
   end
 end

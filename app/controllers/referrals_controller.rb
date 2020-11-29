@@ -1,8 +1,8 @@
 class ReferralsController < ApplicationController
   include Crudable
 
-  load_and_authorize_resource except: :create
-  authorize_resource only: :create
+  load_and_authorize_resource
+  skip_load_resource only: :create
 
   def index
     read_resource(@referrals)
@@ -15,7 +15,8 @@ class ReferralsController < ApplicationController
   # FIXME: Make this restful & use cancancan
   def create
     new_referral_ids = referral_params[:referrals].map do |data|
-      service = Referrals::CreateService.new(data.merge(inviter: current_user))
+      referral = Referral.new(data.merge(inviter: current_user))
+      service = Referrals::CreateService.new(referral)
       service.resource.id if service.save
     end.compact
 

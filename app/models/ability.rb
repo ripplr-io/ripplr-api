@@ -23,23 +23,21 @@ class Ability
   end
 
   def authenticated_access(user)
+    can :read, Follow # TODO: Move this to public after removing /follows default to current_user
     can :manage, :account
-    can :manage, :feed
-    can :manage, :inbox
     can :manage, :report
     can :manage, :search
-    can :manage, :follower
 
-    can :manage, BookmarkFolder, user: user
-    can :manage, Bookmark, user: user
+    can :manage, BookmarkFolder, user_id: user.id
+    can :manage, Bookmark, user_id: user.id
     can :manage, Comment, author: user
-    can :manage, Device, user: user
-    can :manage, Follow, user: user
-    can :manage, Notification, user: user
+    can :manage, Device, user_id: user.id
+    can :manage, Follow, user_id: user.id
+    can :manage, Notification, user_id: user.id
     can :manage, Post, author: user
-    can :manage, Rating, user: user
+    can :manage, Rating, user_id: user.id
     can :manage, Referral, inviter: user
-    can :manage, Subscription, user: user
-    can :manage, Ticket, user: user
+    can :manage, Subscription, user_id: user.id
+    can :manage, Ticket, user_id: user.id
   end
 end
