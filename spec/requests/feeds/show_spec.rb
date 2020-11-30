@@ -28,4 +28,20 @@ RSpec.describe :feeds_show, type: :request do
     expect(response_data).not_to have_resource(other_post_a)
     expect(response_data).not_to have_resource(other_post_b)
   end
+
+  it 'reponds with included associations' do
+    user = create(:user)
+    follow = create(:follow, :for_hashtag, user: user)
+    post_hashtag = create(:post_hashtag, hashtag: follow.followable)
+    post = post_hashtag.post
+    bookmark = create(:bookmark, post: post, user: user)
+
+    get feed_path, headers: auth_headers_for(user)
+
+    expect(response).to have_http_status(:ok)
+    expect(response_included).to have_resource(post.author)
+    expect(response_included).to have_resource(post.topic)
+    expect(response_included).to have_resource(post.hashtags.first)
+    expect(response_included).to have_resource(bookmark)
+  end
 end

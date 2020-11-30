@@ -20,5 +20,6 @@ RSpec.describe :follows_create, type: :request do
 
     expect(response).to have_http_status(:created)
     expect(response_data).to have_resource(Follow.last)
+    expect(response_included).to have_resource(Follow.last.followable)
   end
 end

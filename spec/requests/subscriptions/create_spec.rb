@@ -23,5 +23,6 @@ RSpec.describe :subscriptions_create, type: :request do
 
     expect(response).to have_http_status(:created)
     expect(response_data).to have_resource(Subscription.last)
+    expect(response_included).to have_resource(Subscription.last.subscribable)
   end
 end

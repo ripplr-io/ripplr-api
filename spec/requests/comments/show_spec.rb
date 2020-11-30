@@ -11,6 +11,7 @@ RSpec.describe :comments_show, type: :request do
     expect(response).to have_http_status(:ok)
     expect(response_data).to have_resource(comment_reply)
     expect(response_data).not_to have_resource(other_reply)
+    expect(response_included).to have_resource(comment_reply.author)
   end
 
   it 'responds with not found' do

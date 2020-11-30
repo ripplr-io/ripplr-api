@@ -12,5 +12,6 @@ RSpec.describe :account_show, type: :request do
 
     expect(response).to have_http_status(:ok)
     expect(response_data).to have_resource(user)
+    expect(response_included).to have_resource(user.level)
   end
 end

@@ -15,5 +15,6 @@ RSpec.describe :subscriptions_index, type: :request do
     expect(response).to have_http_status(:ok)
     expect(response_data).to have_resource(user_subscription)
     expect(response_data).not_to have_resource(other_subscription)
+    expect(response_included).to have_resource(user_subscription.subscribable)
   end
 end

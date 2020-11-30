@@ -12,6 +12,6 @@ class Prize < ApplicationRecord
     post: 'First Post',
     subscription: 'First Subscription',
     referral: 'First Referral',
-    completed: 'Completed Onboarding Bonus',
+    completed: 'Completed Onboarding Bonus'
   }
 end

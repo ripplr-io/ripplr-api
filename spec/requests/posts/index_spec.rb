@@ -35,4 +35,19 @@ RSpec.describe :posts_index, type: :request do
     expect(response_data).to have_resource(post_hashtag.post)
     expect(response_data).not_to have_resource(other_post)
   end
+
+  it 'reponds with included associations' do
+    user = create(:user)
+    post_hashtag = create(:post_hashtag)
+    post = post_hashtag.post
+    bookmark = create(:bookmark, post: post, user: user)
+
+    get hashtag_posts_path(hashtag_id: post_hashtag.hashtag.name), headers: auth_headers_for(user)
+
+    expect(response).to have_http_status(:ok)
+    expect(response_included).to have_resource(post.author)
+    expect(response_included).to have_resource(post.topic)
+    expect(response_included).to have_resource(post.hashtags.first)
+    expect(response_included).to have_resource(bookmark)
+  end
 end

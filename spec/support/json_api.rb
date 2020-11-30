@@ -10,12 +10,16 @@ module JsonApiResponseHelpers
   def response_errors
     @_response_errors ||= response_body[:errors]
   end
+
+  def response_included
+    @_response_included ||= response_body[:included]
+  end
 end
 
 module JsonApiMatchers
   extend RSpec::Matchers::DSL
 
-  # variable actual is meant to be document[:data]
+  # NOTE: variable actual is meant to be document[:data] or document[:include]
   matcher :have_resource do |expected|
     match do |actual|
       return false if expected.nil? || actual.nil?
@@ -27,7 +31,7 @@ module JsonApiMatchers
     end
   end
 
-  # variable actual is meant to be document[:errors]
+  # NOTE: variable actual is meant to be document[:errors]
   matcher :have_error do |expected|
     match do |actual|
       return false if actual.nil?

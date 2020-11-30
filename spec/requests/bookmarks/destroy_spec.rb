@@ -12,12 +12,12 @@ RSpec.describe :bookmarks_destroy, type: :request do
     end
   end
 
-  it 'responds with not found' do
+  it 'responds with the resource' do
     user = create(:user)
-    bookmark = create(:bookmark)
+    bookmark = create(:bookmark, user: user)
 
     delete bookmark_path(bookmark), headers: auth_headers_for(user)
 
-    expect(response).to have_http_status(:not_found)
+    expect(response).to have_http_status(:no_content)
   end
 end
