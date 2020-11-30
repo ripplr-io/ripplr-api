@@ -24,6 +24,11 @@ jobs:
         with:
           image_path: ripplr/ripplr-api
 
+      - name: Cleanup Old Images
+        uses: ripplr-io/docr-image-remove@v1
+        with:
+          image_repository: ripplr-api
+
   run_migrations:
     runs-on: ubuntu-latest
     needs: upload_image
