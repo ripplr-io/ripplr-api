@@ -1,13 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe :account_destroy, type: :request do
-  context 'when the user is not authenticated' do
-    it 'responds with not_found' do
-      delete account_path
-      expect(response).to have_http_status(:not_found)
-    end
+  it_behaves_like :unauthenticated_request do
+    let(:subject) { delete account_path }
   end
 
+  # FIXME: Use shared example
   context 'when the user is authenticated but does not provide the current password' do
     it 'responds with unauthorized' do
       user = create(:user)

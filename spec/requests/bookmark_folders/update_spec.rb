@@ -22,18 +22,16 @@ RSpec.describe :bookmark_folders_update, type: :request do
     end
   end
 
-  context 'when the user owns the resource' do
-    it 'responds with the resource' do
-      user = create(:user)
-      bookmark_folder = create(:bookmark_folder, user: user)
+  it 'responds with the resource' do
+    user = create(:user)
+    bookmark_folder = create(:bookmark_folder, user: user)
 
-      patch bookmark_folder_path(bookmark_folder), params: bookmark_folder.as_json(only: [
-        :name,
-        :bookmark_folder_id
-      ]), headers: auth_headers_for(user)
+    patch bookmark_folder_path(bookmark_folder), params: bookmark_folder.as_json(only: [
+      :name,
+      :bookmark_folder_id
+    ]), headers: auth_headers_for(user)
 
-      expect(response).to have_http_status(:ok)
-      expect(response_data).to have_resource(bookmark_folder)
-    end
+    expect(response).to have_http_status(:ok)
+    expect(response_data).to have_resource(bookmark_folder)
   end
 end

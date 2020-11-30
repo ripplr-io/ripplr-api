@@ -1,35 +1,24 @@
 require 'rails_helper'
 
 RSpec.describe :devices_create, type: :request do
-  context 'when the user is not authenticated' do
-    it 'responds with not_found' do
-      post devices_path
-      expect(response).to have_http_status(:not_found)
-    end
+  it_behaves_like :unauthenticated_request do
+    let(:subject) { post devices_path }
   end
 
-  context 'when the user is authenticated' do
-    it 'responds with the resource' do
-      user = create(:user)
-      mock_device = build(:device)
+  it_behaves_like :unprocessable_request, [:name, :settings] do
+    let(:subject) { post devices_path, headers: auth_headers_for_new_user }
+  end
 
-      post devices_path, params: mock_device.as_json(only: [:name, :onesignal_id]).merge(
-        settings: mock_device.settings.to_json,
-        type: mock_device.device_type
-      ), headers: auth_headers_for(user)
+  it 'responds with the resource' do
+    user = create(:user)
+    mock_device = build(:device)
 
-      expect(response).to have_http_status(:created)
-      expect(response_data).to have_resource(Device.last)
-    end
+    post devices_path, params: mock_device.as_json(only: [:name, :onesignal_id]).merge(
+      settings: mock_device.settings.to_json,
+      type: mock_device.device_type
+    ), headers: auth_headers_for(user)
 
-    it 'responds with errors' do
-      user = create(:user)
-
-      post devices_path, headers: auth_headers_for(user)
-
-      expect(response).to have_http_status(:unprocessable_entity)
-      expect(response_errors).to have_error(:name)
-      expect(response_errors).to have_error(:settings)
-    end
+    expect(response).to have_http_status(:created)
+    expect(response_data).to have_resource(Device.last)
   end
 end

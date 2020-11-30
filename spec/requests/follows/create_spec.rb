@@ -1,34 +1,24 @@
 require 'rails_helper'
 
 RSpec.describe :follows_create, type: :request do
-  context 'when the user is not authenticated' do
-    it 'responds with not_found' do
-      post follows_path
-      expect(response).to have_http_status(:not_found)
-    end
+  it_behaves_like :unauthenticated_request do
+    let(:subject) { post follows_path }
   end
 
-  context 'when the user is authenticated' do
-    it 'responds with the resource' do
-      user = create(:user)
-      followable = create(:user)
-      mock_follow = build(:follow, followable: followable)
+  it_behaves_like :unprocessable_request, [:followable] do
+    let(:subject) { post follows_path, headers: auth_headers_for_new_user }
+  end
 
-      post follows_path,
-        params: mock_follow.as_json(only: [:followable_id, :followable_type]),
-        headers: auth_headers_for(user)
+  it 'responds with the resource' do
+    user = create(:user)
+    followable = create(:user)
+    mock_follow = build(:follow, followable: followable)
 
-      expect(response).to have_http_status(:created)
-      expect(response_data).to have_resource(Follow.last)
-    end
+    post follows_path,
+      params: mock_follow.as_json(only: [:followable_id, :followable_type]),
+      headers: auth_headers_for(user)
 
-    it 'responds with errors' do
-      user = create(:user)
-
-      post follows_path, headers: auth_headers_for(user)
-
-      expect(response).to have_http_status(:unprocessable_entity)
-      expect(response_errors).to have_error(:followable)
-    end
+    expect(response).to have_http_status(:created)
+    expect(response_data).to have_resource(Follow.last)
   end
 end
