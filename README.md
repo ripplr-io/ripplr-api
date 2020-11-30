@@ -32,6 +32,11 @@ Run rubocop
 dcrun rubocop
 ```
 
+Edit credentials
+```bash
+dcrun rails credentials:edit --environment=development
+```
+
 Generate the ERD
 ```bash
 dcrun rake erd filename='doc/erd'
