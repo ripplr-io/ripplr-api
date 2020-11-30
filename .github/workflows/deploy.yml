@@ -18,14 +18,8 @@ jobs:
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
-      - name: Publish Image
-        id: pubish_image
-        uses: ripplr-io/docr-docker-publish@v1
-        with:
-          image_path: ripplr/ripplr-api
-
       - name: Cleanup Old Images
-        uses: ripplr-io/docr-image-remove@v1
+        uses: ripplr-io/docr-image-remove@main
         with:
           image_repository: ripplr-api
 
