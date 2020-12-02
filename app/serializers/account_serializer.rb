@@ -16,11 +16,12 @@ class AccountSerializer < UserSerializer
   end
 
   attribute :onboarding_prizes do |object|
-    data = {}
-    account_prizes = object.prizes.where(name: Prize.onboarding_prizes.values).pluck(:name)
+    names = Prize::ONBOARDING_PRIZES.values.pluck(:name)
+    account_prizes = object.prizes.where(name: names).pluck(:name)
 
-    Prize.onboarding_prizes.each do |key, value|
-      data[key] = account_prizes.include? value
+    data = {}
+    Prize::ONBOARDING_PRIZES.each do |key, value|
+      data[key] = account_prizes.include? value[:name]
     end
 
     data

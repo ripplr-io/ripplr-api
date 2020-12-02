@@ -1,17 +1,22 @@
 class Prize < ApplicationRecord
-  belongs_to :prizable, polymorphic: true
+  belongs_to :prizable, polymorphic: true, optional: true
   belongs_to :user
 
   validates :name, presence: true
   validates :points, presence: true
 
-  enum onboarding_prizes: {
-    follow: 'First Follow',
-    rating: 'First Rating',
-    device: 'First Device',
-    post: 'First Post',
-    subscription: 'First Subscription',
-    referral: 'First Referral',
-    completed: 'Completed Onboarding Bonus'
-  }
+  REFERRAL_PRIZES = {
+    created: { name: 'Referral Created', points: 10 },
+    accepted: { name: 'Referral Accepted', points: 50 }
+  }.freeze
+
+  ONBOARDING_PRIZES = {
+    follow: { name: 'First Follow', points: 50 },
+    rating: { name: 'First Rating', points: 50 },
+    device: { name: 'First Device', points: 50 },
+    post: { name: 'First Post', points: 150 },
+    subscription: { name: 'First Subscription', points: 150 },
+    referral: { name: 'First Referral', points: 150 },
+    completed: { name: 'Onboarding Completed Bonus', points: 200 }
+  }.freeze
 end
