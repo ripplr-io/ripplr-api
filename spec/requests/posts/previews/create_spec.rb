@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe :posts_preview, type: :request do
+RSpec.describe :posts_previews_create, type: :request do
   it_behaves_like :unauthenticated_request do
-    let(:subject) { get preview_posts_path }
+    let(:subject) { post posts_previews_path }
   end
 
   it 'responds with data about the url' do
@@ -18,7 +18,7 @@ RSpec.describe :posts_preview, type: :request do
 
     user = create(:user)
 
-    post preview_posts_path(url: 'github.com'), headers: auth_headers_for(user)
+    post posts_previews_path(url: 'github.com'), headers: auth_headers_for(user)
 
     expect(response).to have_http_status(:ok)
     expect(response_data[:title]).to eq 'Github'
@@ -28,11 +28,11 @@ RSpec.describe :posts_preview, type: :request do
   end
 
   it 'responds with not found' do
-    stub_request(:get, /github.com/).to_return(status: 404)
     user = create(:user)
 
-    get preview_posts_path, headers: auth_headers_for(user)
+    post posts_previews_path(url: nil), headers: auth_headers_for(user)
 
-    expect(response).to have_http_status(:not_found)
+    expect(response).to have_http_status(:ok)
+    expect(response_data[:url]).to eq ''
   end
 end

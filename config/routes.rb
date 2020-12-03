@@ -53,7 +53,9 @@ Rails.application.routes.draw do
       resources :ratings, only: [:create], path: :rate
       resources :reports, only: :create
 
-      post :preview, on: :collection
+      collection do
+        resource :preview, only: :create, module: :posts, as: :posts_previews
+      end
     end
 
     get :search, to: 'search#index'

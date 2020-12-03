@@ -33,22 +33,6 @@ class PostsController < ApplicationController
     destroy_resource(@post)
   end
 
-  # TODO: Extract to its own controller
-  def preview
-    page = MetaInspector.new(params[:url])
-    return render json: { status: 404 } if page.response.status != 200
-
-    render json: {
-      status: 'success',
-      data: {
-        title: page.best_title,
-        body: page.best_description,
-        image: page.images.best,
-        url: page.url
-      }
-    }
-  end
-
   private
 
   def post_params
