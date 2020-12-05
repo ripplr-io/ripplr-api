@@ -4,7 +4,7 @@ module Mixpanel
 
     def perform(user_id)
       service = Mixpanel::BaseService.new(user_id)
-      service.sync_user
+      service.sync_user(ip: 0)
       service.track(EVENT_NAME)
     end
   end

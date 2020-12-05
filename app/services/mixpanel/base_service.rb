@@ -11,8 +11,7 @@ module Mixpanel
       @tracker.track(@user_id, event, options)
     end
 
-    # TODO: pass the original ip to get geo info for the user
-    def sync_user
+    def sync_user(ip: 0, browser_options: {})
       user = User.find_by(id: @user_id)
       return if user.blank?
 
@@ -20,9 +19,7 @@ module Mixpanel
         '$name' => user.name,
         '$email' => user.email,
         '$created' => user.created_at
-      }, 0, {
-        '$ignore_time' => 'true'
-      })
+      }.merge(browser_options), ip)
     end
 
     private
