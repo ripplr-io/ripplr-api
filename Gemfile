@@ -34,6 +34,7 @@ gem 'sendgrid-ruby'
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
 gem 'skylight'
+gem 'slack-notifier'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

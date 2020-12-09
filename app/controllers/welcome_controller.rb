@@ -13,6 +13,8 @@ class WelcomeController < ApplicationController
       contacts: [{ email: params[:email] }]
     })
 
+    Slack::NotifyService.new.subscriber(params[:email])
+
     render json: { status: :success }, status: :ok
   end
 end
