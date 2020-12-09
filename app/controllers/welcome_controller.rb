@@ -8,11 +8,9 @@ class WelcomeController < ApplicationController
   end
 
   def subscribe
-    gibbon = Gibbon::Request.new(api_key: Rails.application.credentials[:mailchimp_token])
-
-    gibbon.lists(LIST_ID).members.create(body: {
-      email_address: params[:email],
-      status: :subscribed
+    sg = SendGrid::API.new(api_key: Rails.application.credentials[:sendgrid_token])
+    response = sg.client.marketing.contacts.put(request_body: {
+      contacts: [{ email: params[:email] }]
     })
 
     render json: { status: :success }, status: :ok
