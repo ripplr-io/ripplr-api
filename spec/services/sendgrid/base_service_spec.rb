@@ -44,20 +44,20 @@ RSpec.describe Sendgrid::BaseService, type: :service do
 
   context '#unsubscribe' do
     it 'does not raise an error' do
-      stub_request(:delete, /api.sendgrid.com/).to_return(status: 204)
+      stub_request(:post, /api.sendgrid.com/).to_return(status: 201)
       described_class.new.send(:unsubscribe, 'email@example.com')
 
-      stub_request(:delete, /api.sendgrid.com/).to_return(status: 404)
+      stub_request(:post, /api.sendgrid.com/).to_return(status: 400)
       described_class.new.send(:unsubscribe, nil)
     end
   end
 
   context '#subscribe' do
     it 'does not raise an error' do
-      stub_request(:post, /api.sendgrid.com/).to_return(status: 201)
+      stub_request(:delete, /api.sendgrid.com/).to_return(status: 204)
       described_class.new.send(:subscribe, 'email@example.com')
 
-      stub_request(:post, /api.sendgrid.com/).to_return(status: 400)
+      stub_request(:delete, /api.sendgrid.com/).to_return(status: 404)
       described_class.new.send(:subscribe, nil)
     end
   end

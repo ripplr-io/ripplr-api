@@ -36,13 +36,13 @@ module Sendgrid
     end
 
     def unsubscribe(email)
-      @sg.client.asm.suppressions.global._(email).delete
-    end
-
-    def subscribe(email)
       @sg.client.asm.suppressions.global.post(request_body: {
         recipient_emails: [email]
       })
+    end
+
+    def subscribe(email)
+      @sg.client.asm.suppressions.global._(email).delete
     end
   end
 end
