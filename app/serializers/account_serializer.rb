@@ -4,7 +4,7 @@ class AccountSerializer < UserSerializer
 
   belongs_to :level
 
-  attribute :onboarded_at
+  attribute :onboarded_at, :subscribed_to_marketing
 
   attribute :accountInfo do |object|
     {

@@ -48,6 +48,7 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :slug, presence: true, uniqueness: true
   validates :timezone, presence: true # TODO: Add inclusion
+  validates :subscribed_to_marketing, inclusion: { in: [true, false] }
 
   acts_as_paranoid
   friendly_id :name, use: :slugged

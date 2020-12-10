@@ -11,6 +11,7 @@ RSpec.describe Accounts::CreateService, type: :service do
 
     expect(User.last.level).to eq(level)
     expect(Mixpanel::TrackSignupWorker.jobs.size).to eq(1)
+    expect(Sendgrid::SyncUserWorker.jobs.size).to eq(1)
   end
 
   it 'creates a referral accepted notification' do
@@ -27,5 +28,6 @@ RSpec.describe Accounts::CreateService, type: :service do
     expect(User.last.referral).to eq(referral)
     expect(referral.reload.invitee).to eq(User.last)
     expect(Prizes::ReferralAcceptedWorker.jobs.size).to eq(1)
+    expect(Alerts::ReferralAcceptedWorker.jobs.size).to eq(1)
   end
 end

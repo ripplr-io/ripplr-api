@@ -19,10 +19,11 @@ module Accounts
         @resource.referral.touch(:accepted_at)
         Notifications::ReferralAccepted.create(user: @resource.referral.inviter, referral: @resource.referral)
         Prizes::ReferralAcceptedWorker.perform_async(@resource.referral.id)
-        Slack::NotifyService.new.referral_accepted(@resource.referral)
+        Alerts::ReferralAcceptedWorker.perform_async(@resource.referral.id)
       end
 
       Mixpanel::TrackSignupWorker.perform_async(@resource.id)
+      Sendgrid::SyncUserWorker.perform_async(@resource.id)
 
       true
     rescue ActiveRecord::RecordInvalid => e

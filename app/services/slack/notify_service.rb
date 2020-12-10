@@ -11,18 +11,8 @@ module Slack
       end
     end
 
-    def subscriber(email)
-      @notifier.ping "New subscriber: #{email}.", channel: '#marketing'
-    end
-
-    def referral_created(referral)
-      message = "#{referral.inviter.name} invited #{referral.email} (#{referral.name})."
-      @notifier.ping message, channel: '#marketing'
-    end
-
-    def referral_accepted(referral)
-      message = "#{referral.invitee.name} accepted #{referral.inviter.name} invite."
-      @notifier.ping message, channel: '#marketing'
+    def ping(message, channel)
+      @notifier.ping message, channel: channel
     end
   end
 end

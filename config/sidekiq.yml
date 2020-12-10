@@ -4,6 +4,7 @@
   - active_storage_analysis
   - active_storage_purge
   - metrics
+  - alerts
 
 :schedule:
   hourly_push_notifications:

@@ -11,7 +11,7 @@ module Referrals
         ReferralMailer.with(referral: @resource).invite.deliver_later
         Prizes::ReferralCreatedWorker.perform_async(@resource.id)
         Mixpanel::TrackReferralCreatedWorker.perform_async(@resource.id)
-        Slack::NotifyService.new.referral_created(@resource)
+        Alerts::ReferralCreatedWorker.perform_async(@resource.id)
       end
       success
     end
