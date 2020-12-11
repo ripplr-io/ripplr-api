@@ -24,6 +24,7 @@ Rails.application.routes.draw do
 
     resource :account, only: [:show, :update, :destroy], controller: :account
     namespace :account do
+      resource :marketing, only: :update, controller: :marketing
       resource :onboard, only: :update, controller: :onboard
       resource :password, only: :update, controller: :password
       resource :profile, only: :update, controller: :profile
