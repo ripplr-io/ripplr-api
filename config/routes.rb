@@ -58,8 +58,6 @@ Rails.application.routes.draw do
       collection do
         resource :preview, only: :create, module: :posts, as: :posts_previews
       end
-
-      resource :proxy, only: :show, module: :posts
     end
 
     get :search, to: 'search#index'
@@ -67,6 +65,8 @@ Rails.application.routes.draw do
     resources :topics, only: :index do
       resources :posts, only: :index
     end
+
+    resource :track, only: :create, controller: :track
 
     resources :users, only: :show do
       resources :followers, only: :index

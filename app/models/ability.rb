@@ -27,6 +27,7 @@ class Ability
     can :manage, :account
     can :manage, :report
     can :manage, :search
+    can :manage, :tracking
 
     can :manage, BookmarkFolder, user_id: user.id
     can :manage, Bookmark, user_id: user.id
