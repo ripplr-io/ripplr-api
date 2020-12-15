@@ -9,6 +9,7 @@ RSpec.describe Posts::CreateService, type: :service do
     expect(Posts::PushNotifications::GenerateWorker.jobs.size).to eq(1)
     expect(Posts::BroadcastCreationWorker.jobs.size).to eq(1)
     expect(Mixpanel::TrackPostCreatedWorker.jobs.size).to eq(1)
+    expect(Prizes::Onboarding::FirstPostWorker.jobs.size).to eq(1)
   end
 
   it 'creates the post with an image_url' do

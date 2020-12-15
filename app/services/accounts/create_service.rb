@@ -20,6 +20,7 @@ module Accounts
         Notifications::ReferralAccepted.create(user: @resource.referral.inviter, referral: @resource.referral)
         Prizes::ReferralAcceptedWorker.perform_async(@resource.referral.id)
         Alerts::ReferralAcceptedWorker.perform_async(@resource.referral.id)
+        Prizes::Onboarding::FirstReferralWorker.perform_async(@resource.referral.inviter.id)
       end
 
       Mixpanel::TrackSignupWorker.perform_async(@resource.id)

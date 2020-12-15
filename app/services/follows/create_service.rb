@@ -5,6 +5,7 @@ module Follows
       if success
         generate_notification
         Mixpanel::TrackFollowCreatedWorker.perform_async(@resource.id)
+        Prizes::Onboarding::FirstFollowWorker.perform_async(@resource.user.id)
       end
       success
     end

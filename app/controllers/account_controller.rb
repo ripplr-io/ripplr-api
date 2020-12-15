@@ -11,7 +11,7 @@ class AccountController < ApplicationController
 
   def update
     current_user.assign_attributes(account_params)
-    update_resource(current_user)
+    update_resource(current_user, serializer: AccountSerializer, included_associations: [:level])
   end
 
   def destroy

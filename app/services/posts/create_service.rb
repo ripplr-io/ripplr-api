@@ -18,6 +18,7 @@ module Posts
         Posts::PushNotifications::GenerateWorker.perform_async(@resource.id)
         Posts::BroadcastCreationWorker.perform_async(@resource.id)
         Mixpanel::TrackPostCreatedWorker.perform_async(@resource.id)
+        Prizes::Onboarding::FirstPostWorker.perform_async(@resource.author.id)
       end
       success
     end

@@ -9,5 +9,6 @@ RSpec.describe Follows::CreateService, type: :service do
       .and change { Notifications::NewFollower.count }.by(1)
 
     expect(Mixpanel::TrackFollowCreatedWorker.jobs.size).to eq(1)
+    expect(Prizes::Onboarding::FirstFollowWorker.jobs.size).to eq(1)
   end
 end

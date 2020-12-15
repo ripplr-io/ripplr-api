@@ -36,6 +36,7 @@ RSpec.describe Prizes::Onboarding::CompletedBonusWorker, type: :worker do
       expect(new_prize.points).to eq(200)
       expect(new_prize.prizable).to eq(nil)
       expect(new_prize.user).to eq(user)
+      expect(Account::BroadcastChangesWorker.jobs.size).to eq(1)
     end
 
     it 'is idempotent' do

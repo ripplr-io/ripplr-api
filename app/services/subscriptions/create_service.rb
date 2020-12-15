@@ -7,7 +7,10 @@ module Subscriptions
       end
 
       success = @resource.save
-      Mixpanel::TrackSubscriptionCreatedWorker.perform_async(@resource.id) if success
+      if success
+        Mixpanel::TrackSubscriptionCreatedWorker.perform_async(@resource.id)
+        Prizes::Onboarding::FirstSubscriptionWorker.perform_async(@resource.user.id)
+      end
       success
     end
 
