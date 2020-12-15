@@ -14,6 +14,7 @@ module Prizes
         return if user.prizes.where(name: prize.name).present?
 
         Prizes::CreateService.new(prize).save
+        Account::BroadcastChangesWorker.perform_async(user.id)
       end
 
       private

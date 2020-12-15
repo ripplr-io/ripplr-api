@@ -12,6 +12,7 @@ module Ratings
       if success
         Users::UpdateLevelWorker.perform_async(@resource.ratable.author.id)
         Mixpanel::TrackRatingCreatedWorker.perform_async(@resource.id)
+        Prizes::Onboarding::FirstRatingWorker.perform_async(@resource.user.id)
       end
       success
     end

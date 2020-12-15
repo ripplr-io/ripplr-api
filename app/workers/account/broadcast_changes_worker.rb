@@ -6,7 +6,7 @@ module Account
 
       data = {
         type: :account_changes,
-        payload: AccountSerializer.new(user, { include: [:level] })
+        payload: AccountSerializer.new(user, { include: [:level] }).serializable_hash
       }
 
       UserChannel.broadcast_to(user, data)
