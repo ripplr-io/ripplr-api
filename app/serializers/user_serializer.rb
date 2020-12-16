@@ -1,6 +1,4 @@
 class UserSerializer < ApplicationSerializer
-  cache_options store: Rails.cache, namespace: 'jsonapi-serializer', expires_in: 10.minutes
-
   attributes :slug, :name, :bio, :supporter
 
   attribute :postsCount, &:posts_count

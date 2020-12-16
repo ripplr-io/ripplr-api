@@ -1,12 +1,14 @@
 module Account
   class OnboardController < ApplicationController
-    include Crudable
+    include JsonApi::Crudable
 
     authorize_resource class: :account
 
+    serializer class: AccountSerializer, include: [:level]
+
     def update
       params[:status] == 'finished' ? finish_onboarding : start_onboarding
-      update_resource(current_user, serializer: AccountSerializer, included_associations: [:level])
+      update_resource(current_user)
     end
 
     private

@@ -1,8 +1,10 @@
 class CommentsController < ApplicationController
-  include Crudable
+  include JsonApi::Crudable
 
   load_resource :post
   load_and_authorize_resource through: :post, shallow: true
+
+  serializer include: [:author]
 
   def index
     @comments = @comments
@@ -10,7 +12,7 @@ class CommentsController < ApplicationController
       .page(params[:page])
       .per(params[:per_page])
 
-    read_resource(@comments, included_associations: [:author])
+    read_resource(@comments)
   end
 
   def show
@@ -19,17 +21,17 @@ class CommentsController < ApplicationController
       .page(params[:page])
       .per(params[:per_page])
 
-    read_resource(@comments, included_associations: [:author])
+    read_resource(@comments)
   end
 
   def create
     @comment = Comments::CreateService.new(@comment)
-    create_resource(@comment, included_associations: [:author])
+    create_resource(@comment)
   end
 
   def update
     @comment.assign_attributes(comment_params)
-    update_resource(@comment, included_associations: [:author])
+    update_resource(@comment)
   end
 
   def destroy

@@ -1,10 +1,12 @@
 module Account
   class PasswordController < ApplicationController
-    include Crudable
+    include JsonApi::Crudable
     include PasswordValidatable
 
     authorize_resource class: :account
     before_action :validate_password!
+
+    serializer class: AccountSerializer, include: [:level]
 
     def update
       current_user.assign_attributes(password_params)

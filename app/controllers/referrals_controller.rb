@@ -1,5 +1,5 @@
 class ReferralsController < ApplicationController
-  include Crudable
+  include JsonApi::Crudable
 
   load_and_authorize_resource
   skip_load_resource only: :create

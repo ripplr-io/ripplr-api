@@ -1,11 +1,13 @@
 class NotificationsController < ApplicationController
-  include Crudable
+  include JsonApi::Crudable
 
   load_and_authorize_resource
 
+  serializer include: [:user, :author]
+
   def index
     @notifications = @notifications.order(created_at: :desc)
-    read_resource(@notifications, included_associations: [:user, :author])
+    read_resource(@notifications)
   end
 
   def read

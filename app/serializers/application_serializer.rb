@@ -1,6 +1,8 @@
 class ApplicationSerializer
   include JSONAPI::Serializer
 
+  cache_options store: Rails.cache, namespace: 'jsonapi-serializer', expires_in: 10.minutes
+
   class << self
     delegate :url_helpers, to: :'Rails.application.routes'
 

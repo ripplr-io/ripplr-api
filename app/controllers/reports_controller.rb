@@ -1,5 +1,5 @@
 class ReportsController < ApplicationController
-  include Crudable
+  include JsonApi::Crudable
 
   authorize_resource class: :report
 

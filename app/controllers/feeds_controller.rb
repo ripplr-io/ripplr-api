@@ -1,7 +1,9 @@
 class FeedsController < ApplicationController
-  include Crudable
+  include JsonApi::Crudable
 
   load_and_authorize_resource :post, parent: false, through: :current_user, through_association: :following_posts
+
+  serializer include: [:author, :topic, :hashtags, :bookmark]
 
   def show
     @posts = @posts
@@ -10,6 +12,6 @@ class FeedsController < ApplicationController
       .page(params[:page])
       .per(params[:per_page])
 
-    read_resource(@posts, included_associations: [:author, :topic, :hashtags, :bookmark])
+    read_resource(@posts)
   end
 end

@@ -1,5 +1,5 @@
 class TrackController < ApplicationController
-  include Crudable
+  include JsonApi::Crudable
 
   authorize_resource class: :tracking
 

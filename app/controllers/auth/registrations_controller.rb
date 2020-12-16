@@ -1,6 +1,6 @@
 module Auth
   class RegistrationsController < Devise::RegistrationsController
-    include Crudable
+    include JsonApi::Crudable
 
     respond_to :json
     wrap_parameters :user

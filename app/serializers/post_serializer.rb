@@ -1,6 +1,4 @@
 class PostSerializer < ApplicationSerializer
-  cache_options store: Rails.cache, namespace: 'jsonapi-serializer', expires_in: 10.minutes
-
   DEFAULT_POST_IMAGE = 'https://cdn.ripplr.io/brand/logo-black.png'.freeze
 
   belongs_to :topic

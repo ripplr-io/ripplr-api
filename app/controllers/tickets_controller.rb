@@ -1,5 +1,5 @@
 class TicketsController < ApplicationController
-  include Crudable
+  include JsonApi::Crudable
 
   load_and_authorize_resource
 

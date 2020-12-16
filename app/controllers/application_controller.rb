@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::API
+  include JsonApi::Renderable
+
   respond_to :json
 
   before_action :authenticate_user!

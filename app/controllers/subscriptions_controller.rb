@@ -1,20 +1,22 @@
 class SubscriptionsController < ApplicationController
-  include Crudable
+  include JsonApi::Crudable
 
   load_and_authorize_resource
 
+  serializer include: [:subscribable]
+
   def index
-    read_resource(@subscriptions, included_associations: [:subscribable])
+    read_resource(@subscriptions)
   end
 
   def create
     @subscription = Subscriptions::CreateService.new(@subscription)
-    create_resource(@subscription, included_associations: [:subscribable])
+    create_resource(@subscription)
   end
 
   def update
     @subscription.assign_attributes(subscription_params)
-    update_resource(@subscription, included_associations: [:subscribable])
+    update_resource(@subscription)
   end
 
   def destroy

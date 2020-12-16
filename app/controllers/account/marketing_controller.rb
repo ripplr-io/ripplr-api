@@ -1,8 +1,10 @@
 module Account
   class MarketingController < ApplicationController
-    include Crudable
+    include JsonApi::Crudable
 
     authorize_resource class: :account
+
+    serializer class: AccountSerializer, include: [:level]
 
     def update
       current_user.assign_attributes(marketing_params)

@@ -1,10 +1,12 @@
 class PostsController < ApplicationController
-  include Crudable
+  include JsonApi::Crudable
 
   load_resource :user
   load_resource :topic
   load_resource :hashtag, find_by: :name
   load_and_authorize_resource through: [:user, :topic, :hashtag], shallow: true
+
+  serializer include: [:author, :topic, :hashtags, :bookmark]
 
   def index
     @posts = @posts
@@ -12,16 +14,16 @@ class PostsController < ApplicationController
       .page(params[:page])
       .per(params[:per_page])
 
-    read_resource(@posts, included_associations: [:author, :topic, :hashtags, :bookmark])
+    read_resource(@posts)
   end
 
   def show
-    read_resource(@post, included_associations: [:author, :topic, :hashtags, :bookmark])
+    read_resource(@post)
   end
 
   def create
     @post = Posts::CreateService.new(@post, image_url: params[:image])
-    create_resource(@post, included_associations: [:author, :topic, :hashtags, :bookmark])
+    create_resource(@post)
   end
 
   def update
