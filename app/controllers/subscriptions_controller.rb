@@ -10,8 +10,7 @@ class SubscriptionsController < ApplicationController
   end
 
   def create
-    @subscription = Subscriptions::CreateService.new(@subscription)
-    create_resource(@subscription)
+    create_resource(@subscription, interactor: Subscriptions::Create)
   end
 
   def update

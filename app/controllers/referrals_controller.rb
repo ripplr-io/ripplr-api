@@ -16,8 +16,8 @@ class ReferralsController < ApplicationController
   def create
     new_referral_ids = referral_params[:referrals].map do |data|
       referral = Referral.new(data.merge(inviter: current_user))
-      service = Referrals::CreateService.new(referral)
-      service.resource.id if service.save
+      result = Referrals::Create.call(resource: referral)
+      result.resource.id if result.success?
     end.compact
 
     read_resource(current_user.referrals.where(id: new_referral_ids))

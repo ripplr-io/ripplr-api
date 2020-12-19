@@ -12,6 +12,7 @@ SimpleCov.start do
   add_group 'Controllers', 'app/controllers'
   add_group 'Factories', 'spec/factories'
   add_group 'Helpers', 'app/helpers'
+  add_group 'Interactors', 'app/interactors'
   add_group 'Mailers', 'app/mailers'
   add_group 'Models', 'app/models'
   add_group 'Serializers', 'app/serializers'

@@ -5,8 +5,7 @@ class RatingsController < ApplicationController
   load_and_authorize_resource through: :post
 
   def create
-    @rating = Ratings::CreateService.new(@rating)
-    create_resource(@rating)
+    create_resource(@rating, interactor: Ratings::Create)
   end
 
   def rating_params

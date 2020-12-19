@@ -25,8 +25,7 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = Comments::CreateService.new(@comment)
-    create_resource(@comment)
+    create_resource(@comment, interactor: Comments::Create)
   end
 
   def update

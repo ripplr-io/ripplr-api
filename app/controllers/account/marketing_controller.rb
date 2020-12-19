@@ -8,8 +8,7 @@ module Account
 
     def update
       current_user.assign_attributes(marketing_params)
-      service = Accounts::UpdateMarketingService.new(current_user)
-      update_resource(service)
+      update_resource(current_user, interactor: Accounts::UpdateMarketing)
     end
 
     def marketing_params

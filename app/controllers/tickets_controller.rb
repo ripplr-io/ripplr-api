@@ -4,8 +4,7 @@ class TicketsController < ApplicationController
   load_and_authorize_resource
 
   def create
-    @ticket = Tickets::CreateService.new(@ticket)
-    create_resource(@ticket)
+    create_resource(@ticket, interactor: Tickets::Create)
   end
 
   private

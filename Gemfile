@@ -14,6 +14,7 @@ gem 'devise'
 # FIXME: https://github.com/doorkeeper-gem/doorkeeper/issues/1412
 gem 'doorkeeper', '~> 5.3.0'
 gem 'friendly_id'
+gem 'interactor'
 gem 'jsonapi-serializer'
 gem 'kaminari'
 gem 'lograge'

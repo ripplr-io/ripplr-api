@@ -6,7 +6,7 @@ class ReportsController < ApplicationController
   def create
     report = ReportForm.new(report_params)
     report.post = Post.find_by(id: params[:post_id])
-    return render_errors(report) unless report.valid?
+    return render_errors(report.errors) unless report.valid?
 
     SupportMailer.new_report(current_user, report.post, report_params).deliver_later
     head :no_content

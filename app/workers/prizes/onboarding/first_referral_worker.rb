@@ -11,7 +11,7 @@ module Prizes
         prize = Prize.new({ user: user }.merge(TEMPLATE))
         return if user.prizes.where(name: prize.name).present?
 
-        Prizes::CreateService.new(prize).save
+        Prizes::Create.call(resource: prize).call
         Account::BroadcastChangesWorker.perform_async(user.id)
       end
     end

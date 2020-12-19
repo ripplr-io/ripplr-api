@@ -22,8 +22,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Posts::CreateService.new(@post, image_url: params[:image])
-    create_resource(@post)
+    create_resource(@post, interactor: Posts::Create, context: create_context)
   end
 
   def update
@@ -56,5 +55,9 @@ class PostsController < ApplicationController
     return {} if params[:image_file] == 'undefined' # FIXME: in the frontend
 
     { image: params[:image_file] }
+  end
+
+  def create_context
+    { image_url: params[:image] }
   end
 end

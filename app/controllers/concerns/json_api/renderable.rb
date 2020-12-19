@@ -25,8 +25,8 @@ module JsonApi
       render json: serializer.new(resource, options), status: status
     end
 
-    def render_errors(resource)
-      render json: ErrorSerializer.serialize(resource.errors), status: :unprocessable_entity
+    def render_errors(errors)
+      render json: ErrorSerializer.serialize(errors), status: :unprocessable_entity
     end
   end
 end

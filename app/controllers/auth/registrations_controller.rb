@@ -1,7 +1,5 @@
 module Auth
   class RegistrationsController < Devise::RegistrationsController
-    include JsonApi::Crudable
-
     respond_to :json
     wrap_parameters :user
 
@@ -12,10 +10,10 @@ module Auth
     # POST /resource
     def create
       user = User.new(sign_up_params)
-      service = Accounts::CreateService.new(user, referral_id: params[:referral_id])
-      return render_errors(service) unless service.save
+      result = Accounts::Create.call(resource: user, referral_id: params[:referral_id])
+      return render_errors(result.resource.errors) unless result.success?
 
-      token = service.resource.access_tokens.create!(
+      token = result.resource.access_tokens.create!(
         use_refresh_token: true,
         expires_in: Doorkeeper.configuration.access_token_expires_in
       )

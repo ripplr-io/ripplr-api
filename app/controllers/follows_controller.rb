@@ -12,8 +12,7 @@ class FollowsController < ApplicationController
   end
 
   def create
-    @follow = Follows::CreateService.new(@follow)
-    create_resource(@follow)
+    create_resource(@follow, interactor: Follows::Create)
   end
 
   def destroy

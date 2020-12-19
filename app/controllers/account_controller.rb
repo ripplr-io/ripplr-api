@@ -17,13 +17,16 @@ class AccountController < ApplicationController
   end
 
   def destroy
-    resource = Accounts::DestroyService.new(current_user, params[:comments])
-    destroy_resource(resource)
+    destroy_resource(current_user, interactor: Accounts::Destroy, context: destroy_context)
   end
 
   private
 
   def account_params
     params.permit(:email, :country, :timezone)
+  end
+
+  def destroy_context
+    { comment: params[:comments] }
   end
 end

@@ -8,8 +8,7 @@ class DevicesController < ApplicationController
   end
 
   def create
-    @device = Devices::CreateService.new(@device)
-    create_resource(@device)
+    create_resource(@device, interactor: Devices::Create)
   end
 
   def update

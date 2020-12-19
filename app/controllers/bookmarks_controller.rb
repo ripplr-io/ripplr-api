@@ -4,8 +4,7 @@ class BookmarksController < ApplicationController
   load_and_authorize_resource
 
   def create
-    @bookmark = Bookmarks::CreateService.new(@bookmark)
-    create_resource(@bookmark)
+    create_resource(@bookmark, interactor: Bookmarks::Create)
   end
 
   def update
