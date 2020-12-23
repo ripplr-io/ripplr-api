@@ -9,7 +9,7 @@ module Prizes
       prize = Prize.new({ user: referral.inviter, prizable: referral }.merge(TEMPLATE))
       return if referral.prizes.find_by(name: prize.name).present?
 
-      Prizes::Create.call(resource: prize).call
+      Prizes::Create.call(resource: prize)
     end
   end
 end
