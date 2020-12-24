@@ -5,6 +5,7 @@ FactoryBot.define do
     name { Faker::Name.name }
     bio { Faker::GreekPhilosophers.quote }
     slug { name.parameterize }
+    billing { association :billing, user: instance }
     level
 
     after :create do |user|

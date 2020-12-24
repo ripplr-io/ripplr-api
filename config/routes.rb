@@ -73,20 +73,15 @@ Rails.application.routes.draw do
       resources :follows, only: :index
       resources :posts, only: :index
     end
-  end
 
-  # FIXME: Rails will have a CDN proxy in a future version: https://github.com/rails/rails/pull/34477
-  # In the meantime we're using this solution: https://lipanski.com/posts/activestorage-cdn-rails-direct-route
-  direct :public_blob do |blob|
-    if Rails.env.development? || Rails.env.test?
-      route_for(:rails_blob, blob)
-    else
-      File.join("https://cdn.ripplr.io", blob.key)
+    namespace :stripe do
+      resource :checkout_session, only: :create
+      resource :customer_portal, only: :create
+      resource :webhook, only: :create
+      resources :plans, only: :index
     end
   end
 
-  direct :app_post do |post|
-    base_url = Rails.application.credentials[:web_app_url]
-    "#{base_url}/p/#{post.id}"
-  end
+  draw :app
+  draw :active_storage
 end

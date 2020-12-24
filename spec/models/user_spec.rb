@@ -9,6 +9,7 @@ RSpec.describe User, type: :model do
   it_behaves_like :subscribable
 
   it { is_expected.to belong_to(:level) }
+  it { is_expected.to have_one(:billing) }
 
   it { is_expected.to have_many(:comments).inverse_of(:author).with_foreign_key(:author_id) }
   it { is_expected.to have_many(:devices) }

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Resources::Destroy, type: :interactor do
-  it 'saves valid resources' do
+  it 'destroys valid resources' do
     topic = create(:topic)
 
     result = described_class.call(resource: topic)

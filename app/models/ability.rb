@@ -11,6 +11,7 @@ class Ability
   end
 
   def public_access
+    can :create, :webhook
     can :manage, :welcome
     can :show, Referral
 
@@ -28,6 +29,7 @@ class Ability
     can :manage, :report
     can :manage, :search
     can :manage, :tracking
+    can :manage, :stripe
 
     can :manage, BookmarkFolder, user_id: user.id
     can :manage, Bookmark, user_id: user.id

@@ -3,11 +3,10 @@ module Accounts
     def call
       context.resource.level = Level.first
       context.resource.referral = Referral.find_by(id: context.referral_id)
+      context.resource.build_billing
+      context.resource.bookmark_folders.build(name: 'Root')
 
-      ActiveRecord::Base.transaction do
-        context.resource.save!
-        context.resource.bookmark_folders.create!(name: 'Root')
-      end
+      context.fail! unless context.resource.save
 
       # FIXME: Move this to a ReferralAcceptWorker?
       if context.resource.referral.present?
@@ -20,10 +19,6 @@ module Accounts
 
       Mixpanel::TrackSignupWorker.perform_async(context.resource.id)
       Sendgrid::SyncUserWorker.perform_async(context.resource.id)
-    rescue ActiveRecord::RecordInvalid => e
-      Rails.logger.error "Create Account failed with error: #{e}"
-      Raven.capture_exception e
-      context.fail!
     end
   end
 end

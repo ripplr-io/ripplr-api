@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_14_151442) do
+ActiveRecord::Schema.define(version: 2020_12_19_145151) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -35,6 +35,19 @@ ActiveRecord::Schema.define(version: 2020_12_14_151442) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "billings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id"
+    t.string "status"
+    t.string "product"
+    t.string "stripe_customer_id"
+    t.datetime "end_at"
+    t.datetime "deleted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["deleted_at"], name: "index_billings_on_deleted_at"
+    t.index ["user_id"], name: "index_billings_on_user_id"
   end
 
   create_table "bookmark_folders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -284,7 +297,6 @@ ActiveRecord::Schema.define(version: 2020_12_14_151442) do
     t.integer "posts_count", default: 0, null: false
     t.integer "followers_count", default: 0, null: false
     t.integer "following_users_count", default: 0, null: false
-    t.string "stripe_customer_id"
     t.integer "following_topics_count", default: 0, null: false
     t.integer "following_hashtags_count", default: 0, null: false
     t.boolean "subscribed_to_marketing", default: false, null: false

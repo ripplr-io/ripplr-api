@@ -7,6 +7,7 @@ class User < ApplicationRecord
   belongs_to :level
   has_one_attached :avatar
 
+  has_one :billing, dependent: :destroy
   has_many :comments, inverse_of: :author, foreign_key: :author_id, dependent: :destroy
   has_many :devices, dependent: :destroy
   has_many :notifications, dependent: :destroy
