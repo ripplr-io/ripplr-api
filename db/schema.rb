@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_19_145151) do
+ActiveRecord::Schema.define(version: 2020_12_26_160628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -121,6 +121,15 @@ ActiveRecord::Schema.define(version: 2020_12_19_145151) do
     t.integer "posts_count", default: 0, null: false
     t.integer "followers_count", default: 0, null: false
     t.index ["name"], name: "index_hashtags_on_name", unique: true
+  end
+
+  create_table "inboxes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id"
+    t.string "name", null: false
+    t.json "settings", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_inboxes_on_user_id"
   end
 
   create_table "levels", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -242,6 +251,15 @@ ActiveRecord::Schema.define(version: 2020_12_19_145151) do
     t.index ["inviter_id", "email"], name: "index_referrals_on_inviter_id_and_email", unique: true
     t.index ["inviter_id", "invitee_id"], name: "index_referrals_on_inviter_id_and_invitee_id", unique: true, where: "(invitee_id IS NOT NULL)"
     t.index ["inviter_id"], name: "index_referrals_on_inviter_id"
+  end
+
+  create_table "subscription_inboxes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "subscription_id"
+    t.uuid "inbox_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["inbox_id"], name: "index_subscription_inboxes_on_inbox_id"
+    t.index ["subscription_id"], name: "index_subscription_inboxes_on_subscription_id"
   end
 
   create_table "subscriptions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

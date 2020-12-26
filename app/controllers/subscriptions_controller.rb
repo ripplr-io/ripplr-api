@@ -3,7 +3,7 @@ class SubscriptionsController < ApplicationController
 
   load_and_authorize_resource
 
-  serializer include: [:subscribable]
+  serializer include: [:subscribable, :inboxes]
 
   def index
     read_resource(@subscriptions)
@@ -25,7 +25,7 @@ class SubscriptionsController < ApplicationController
   private
 
   def subscription_params
-    params.permit(:subscribable_id).merge(
+    params.permit(:subscribable_id, :inbox_ids).merge(
       settings: JSON.parse(params[:settings] || '{}'),
       subscribable_type: params[:subscribable_type]&.capitalize
     )

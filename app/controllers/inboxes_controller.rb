@@ -1,17 +1,32 @@
 class InboxesController < ApplicationController
   include JsonApi::Crudable
 
-  load_and_authorize_resource :post, parent: false, through: :current_user,
-    through_association: :push_notification_posts
+  load_and_authorize_resource
 
-  serializer include: [:author, :topic, :hashtags, :bookmark]
+  def index
+    read_resource(@inboxes)
+  end
 
   def show
-    @posts = @posts
-      .order(created_at: :desc)
-      .page(params[:page])
-      .per(params[:per_page])
+    read_resource(@inbox)
+  end
 
-    read_resource(@posts)
+  def create
+    create_resource(@inbox)
+  end
+
+  def update
+    @inbox.assign_attributes(inbox_params)
+    update_resource(@inbox)
+  end
+
+  def destroy
+    destroy_resource(@inbox)
+  end
+
+  private
+
+  def inbox_params
+    params.permit(:name, :settings)
   end
 end

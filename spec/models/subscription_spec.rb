@@ -9,6 +9,8 @@ RSpec.describe Subscription, type: :model do
   it { is_expected.to belong_to(:subscribable) }
 
   it { is_expected.to have_many(:push_notifications) }
+  it { is_expected.to have_many(:subscription_inboxes) }
+  it { is_expected.to have_many(:inboxes).through(:subscription_inboxes) }
 
   it { is_expected.to validate_presence_of(:settings) }
   it do
