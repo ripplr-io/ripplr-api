@@ -25,7 +25,7 @@ RSpec.describe :account_profile_update, type: :request do
   end
 
   it 'updates the avatar' do
-    avatar = fixture_file_upload('logo.png', 'image/png')
+    avatar = Rack::Test::UploadedFile.new(file_fixture('logo.png'))
     user = create(:user)
 
     patch account_profile_path,

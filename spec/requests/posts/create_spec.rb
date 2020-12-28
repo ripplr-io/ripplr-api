@@ -22,7 +22,7 @@ RSpec.describe :posts_create, type: :request do
   end
 
   it 'sets the image from file' do
-    image = fixture_file_upload('logo.png', 'image/png')
+    image = Rack::Test::UploadedFile.new(file_fixture('logo.png'))
     user = create(:user)
     mock_post = build(:post, topic: create(:topic))
 

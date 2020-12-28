@@ -23,18 +23,19 @@ gem 'metainspector', '~> 5.9.0'
 gem 'mixpanel-ruby'
 gem 'onesignal-ruby', github: 'mikamai/onesignal-ruby', branch: 'develop'
 gem 'paranoia'
-gem 'pg', '~> 0.18.4'
+gem 'pg'
 gem 'pg_search'
 gem 'premailer-rails'
 gem 'puma', '~> 4.1'
 gem 'rack-cors'
-gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
+gem 'rails', '~> 6.1.0'
 gem 'remote_syslog_logger'
 gem 'sentry-raven'
 gem 'sendgrid-ruby'
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
-gem 'skylight'
+# FIXME: https://github.com/skylightio/skylight-ruby/issues/161
+gem 'skylight', '~> 5.0.0.beta4'
 gem 'slack-notifier'
 gem 'stripe'
 
@@ -47,7 +48,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'letter_opener_web', '~> 1.0'
+  gem 'letter_opener_web'
   gem 'listen', '~> 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
