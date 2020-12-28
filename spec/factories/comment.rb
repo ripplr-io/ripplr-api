@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :base_comment, class: :Comment do
+  factory :base_comment, class: 'Comment' do
     author factory: :user
     body { Faker::Hipster.paragraph }
   end

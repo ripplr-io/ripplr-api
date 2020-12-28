@@ -23,9 +23,9 @@ class User < ApplicationRecord
 
   # Follows
   has_many :follows, dependent: :destroy
-  has_many :following_hashtags, through: :follows, source: :followable, source_type: :Hashtag
-  has_many :following_topics, through: :follows, source: :followable, source_type: :Topic
-  has_many :following_users, through: :follows, source: :followable, source_type: :User
+  has_many :following_hashtags, through: :follows, source: :followable, source_type: 'Hashtag'
+  has_many :following_topics, through: :follows, source: :followable, source_type: 'Topic'
+  has_many :following_users, through: :follows, source: :followable, source_type: 'User'
   has_many :following_hashtag_posts, through: :following_hashtags, source: :posts
   has_many :following_topic_posts, through: :following_topics, source: :posts
   has_many :following_user_posts, through: :following_users, source: :posts

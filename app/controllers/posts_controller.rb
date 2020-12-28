@@ -4,7 +4,8 @@ class PostsController < ApplicationController
   load_resource :user
   load_resource :topic
   load_resource :hashtag, find_by: :name
-  load_and_authorize_resource through: [:user, :topic, :hashtag], shallow: true
+  load_resource :inbox
+  load_and_authorize_resource through: [:user, :topic, :hashtag, :inbox], shallow: true
 
   serializer include: [:author, :topic, :hashtags, :bookmark]
 

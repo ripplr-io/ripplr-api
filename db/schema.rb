@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_26_160628) do
+ActiveRecord::Schema.define(version: 2020_12_28_171837) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -121,6 +121,17 @@ ActiveRecord::Schema.define(version: 2020_12_26_160628) do
     t.integer "posts_count", default: 0, null: false
     t.integer "followers_count", default: 0, null: false
     t.index ["name"], name: "index_hashtags_on_name", unique: true
+  end
+
+  create_table "inbox_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "inbox_id"
+    t.string "inboxable_type"
+    t.uuid "inboxable_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["inbox_id", "inboxable_id", "inboxable_type"], name: "ux_inbox_items_inbox_inboxable", unique: true
+    t.index ["inbox_id"], name: "index_inbox_items_on_inbox_id"
+    t.index ["inboxable_type", "inboxable_id"], name: "index_inbox_items_on_inboxable_type_and_inboxable_id"
   end
 
   create_table "inboxes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

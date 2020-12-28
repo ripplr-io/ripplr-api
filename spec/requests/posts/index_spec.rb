@@ -36,6 +36,17 @@ RSpec.describe :posts_index, type: :request do
     expect(response_data).not_to have_resource(other_post)
   end
 
+  it 'responds with the inbox resources' do
+    inbox_item = create(:inbox_item, inboxable: create(:post))
+    other_post = create(:post)
+
+    get inbox_posts_path(inbox_id: inbox_item.inbox)
+
+    expect(response).to have_http_status(:ok)
+    expect(response_data).to have_resource(inbox_item.inboxable)
+    expect(response_data).not_to have_resource(other_post)
+  end
+
   it 'reponds with included associations' do
     user = create(:user)
     post_hashtag = create(:post_hashtag)

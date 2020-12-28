@@ -36,13 +36,16 @@ Rails.application.routes.draw do
     resource :feed, only: :show
     resources :follows, only: [:index, :create, :destroy]
     resource :inbox, only: :show, controller: :inbox, as: :main_inbox
-    resources :inboxes
     resources :levels, only: :index
     resources :referrals, only: [:index, :show, :create, :destroy]
     resources :subscriptions, only: [:index, :create, :update, :destroy]
     resources :tickets, only: :create
 
     resources :hashtags, only: [:index, :show] do
+      resources :posts, only: :index
+    end
+
+    resources :inboxes do
       resources :posts, only: :index
     end
 
