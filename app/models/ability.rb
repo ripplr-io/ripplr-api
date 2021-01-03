@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Ability
   include CanCan::Ability
 
@@ -33,6 +31,7 @@ class Ability
 
     can :manage, BookmarkFolder, user_id: user.id
     can :manage, Bookmark, user_id: user.id
+    can :manage, Channel, user_id: user.id
     can :manage, Comment, author: user
     can :manage, Device, user_id: user.id
     can :manage, Follow, user_id: user.id

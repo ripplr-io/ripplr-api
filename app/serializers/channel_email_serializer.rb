@@ -1,0 +1,2 @@
+class ChannelEmailSerializer < ApplicationSerializer
+end

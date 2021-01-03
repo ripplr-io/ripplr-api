@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_28_191831) do
+ActiveRecord::Schema.define(version: 2020_12_30_161613) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -80,6 +80,27 @@ ActiveRecord::Schema.define(version: 2020_12_28_191831) do
     t.index ["post_id"], name: "index_bookmarks_on_post_id"
     t.index ["user_id", "post_id"], name: "index_bookmarks_on_user_id_and_post_id", unique: true
     t.index ["user_id"], name: "index_bookmarks_on_user_id"
+  end
+
+  create_table "channel_devices", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "device_type", null: false
+    t.string "onesignal_id", null: false
+  end
+
+  create_table "channel_emails", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  end
+
+  create_table "channels", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id"
+    t.string "channelable_type"
+    t.uuid "channelable_id"
+    t.string "name", null: false
+    t.json "settings", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["channelable_type", "channelable_id"], name: "index_channels_on_channelable"
+    t.index ["user_id", "name"], name: "index_channels_on_user_id_and_name", unique: true
+    t.index ["user_id"], name: "index_channels_on_user_id"
   end
 
   create_table "comments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
