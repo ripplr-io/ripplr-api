@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :inbox_item, class: Inbox::Item do
+  factory :inbox_item do
     for_post
     inbox
 

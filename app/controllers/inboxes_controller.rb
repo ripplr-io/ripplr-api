@@ -26,7 +26,12 @@ class InboxesController < ApplicationController
 
   private
 
+  # NOTE: for new inbox_channels, ids need to be sent with null to avoid multiple entries from merging
   def inbox_params
-    params.permit(:name, :settings)
+    (params[:inbox_channels_attributes] || []).each do |inbox_channel|
+      inbox_channel[:user_id] = current_user.id
+    end
+
+    params.permit(:name, :settings, inbox_channels_attributes: [:id, :channel_id, :user_id, :_destroy])
   end
 end

@@ -22,12 +22,13 @@ Rails.application.routes.draw do
       end
     end
 
-    resource :account, only: [:show, :update, :destroy], controller: :account
-    namespace :account do
-      resource :marketing, only: :update, controller: :marketing
-      resource :onboard, only: :update, controller: :onboard
-      resource :password, only: :update, controller: :password
-      resource :profile, only: :update, controller: :profile
+    resource :account, only: [:show, :update, :destroy], controller: :account do
+      scope module: :account do
+        resource :marketing, only: :update, controller: :marketing
+        resource :onboard, only: :update, controller: :onboard
+        resource :password, only: :update, controller: :password
+        resource :profile, only: :update, controller: :profile
+      end
     end
 
     resources :bookmarks, only: [:create, :update, :destroy]
@@ -49,6 +50,8 @@ Rails.application.routes.draw do
     resources :inboxes do
       resources :posts, only: :index
     end
+
+    resources :inbox_channels, only: [:create, :update, :destroy]
 
     resources :notifications, only: :index do
       put :read, on: :member

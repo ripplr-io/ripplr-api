@@ -36,6 +36,7 @@ class Ability
     can :manage, Device, user_id: user.id
     can :manage, Follow, user_id: user.id
     can :manage, Inbox, user_id: user.id
+    can :manage, InboxChannel, user_id: user.id
     can :manage, Notification, user_id: user.id
     can :manage, Post, author: user
     can :manage, Rating, user_id: user.id

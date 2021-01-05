@@ -36,6 +36,7 @@ class User < ApplicationRecord
   has_many :push_notifications, through: :subscriptions
   has_many :push_notification_posts, through: :push_notifications, source: :post
   has_many :inboxes, dependent: :destroy
+  has_many :inbox_channels, dependent: :destroy
 
   # Bookmarks
   has_many :bookmarks, dependent: :destroy

@@ -6,15 +6,15 @@ RSpec.describe Posts::GenerateInboxItemsWorker, type: :worker do
     inbox = create(:inbox)
 
     expect { described_class.new.perform(post.id) }
-      .to change { Inbox::Item.count }.by(0)
+      .to change { InboxItem.count }.by(0)
 
     create(:subscription, user: inbox.user, subscribable: post.author, inboxes: [inbox])
 
     expect { described_class.new.perform(post.id) }
-      .to change { Inbox::Item.count }.by(1)
+      .to change { InboxItem.count }.by(1)
 
-    expect(Inbox::Item.last.inbox).to eq(inbox)
-    expect(Inbox::Item.last.inboxable).to eq(post)
+    expect(InboxItem.last.inbox).to eq(inbox)
+    expect(InboxItem.last.inboxable).to eq(post)
   end
 
   it 'filters topics' do
@@ -35,9 +35,9 @@ RSpec.describe Posts::GenerateInboxItemsWorker, type: :worker do
     other_post = create(:post, author: author, topic: other_topic)
 
     expect { described_class.new.perform(post.id) }
-      .to change { Inbox::Item.count }.by(1)
+      .to change { InboxItem.count }.by(1)
 
     expect { described_class.new.perform(other_post.id) }
-      .to change { Inbox::Item.count }.by(0)
+      .to change { InboxItem.count }.by(0)
   end
 end

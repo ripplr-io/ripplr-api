@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_30_161613) do
+ActiveRecord::Schema.define(version: 2021_01_03_164837) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -151,6 +151,19 @@ ActiveRecord::Schema.define(version: 2020_12_30_161613) do
     t.index ["name"], name: "index_hashtags_on_name", unique: true
   end
 
+  create_table "inbox_channels", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "inbox_id"
+    t.uuid "channel_id"
+    t.uuid "user_id"
+    t.json "settings"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["channel_id"], name: "index_inbox_channels_on_channel_id"
+    t.index ["inbox_id", "channel_id"], name: "index_inbox_channels_on_inbox_id_and_channel_id", unique: true
+    t.index ["inbox_id"], name: "index_inbox_channels_on_inbox_id"
+    t.index ["user_id"], name: "index_inbox_channels_on_user_id"
+  end
+
   create_table "inbox_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "inbox_id"
     t.string "inboxable_type"
@@ -168,6 +181,7 @@ ActiveRecord::Schema.define(version: 2020_12_30_161613) do
     t.json "settings", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id", "name"], name: "index_inboxes_on_user_id_and_name", unique: true
     t.index ["user_id"], name: "index_inboxes_on_user_id"
   end
 
