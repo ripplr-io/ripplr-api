@@ -15,6 +15,7 @@ module Inboxes
       followed_topics = @inbox.user.following_topics
 
       settings = @inbox.settings['topics']
+      return all_topics if settings.blank?
 
       case settings['value']
       when 'only'

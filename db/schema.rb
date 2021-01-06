@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_03_164837) do
+ActiveRecord::Schema.define(version: 2021_01_06_115858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -173,6 +173,18 @@ ActiveRecord::Schema.define(version: 2021_01_03_164837) do
     t.index ["inbox_id", "inboxable_id", "inboxable_type"], name: "ux_inbox_items_inbox_inboxable", unique: true
     t.index ["inbox_id"], name: "index_inbox_items_on_inbox_id"
     t.index ["inboxable_type", "inboxable_id"], name: "index_inbox_items_on_inboxable_type_and_inboxable_id"
+  end
+
+  create_table "inbox_notifications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "inbox_item_id"
+    t.uuid "inbox_channel_id"
+    t.datetime "scheduled_to"
+    t.datetime "delivered_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["inbox_channel_id"], name: "index_inbox_notifications_on_inbox_channel_id"
+    t.index ["inbox_item_id", "inbox_channel_id"], name: "index_inbox_notifications_on_inbox_item_id_and_inbox_channel_id", unique: true
+    t.index ["inbox_item_id"], name: "index_inbox_notifications_on_inbox_item_id"
   end
 
   create_table "inboxes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

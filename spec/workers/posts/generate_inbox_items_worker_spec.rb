@@ -15,6 +15,7 @@ RSpec.describe Posts::GenerateInboxItemsWorker, type: :worker do
 
     expect(InboxItem.last.inbox).to eq(inbox)
     expect(InboxItem.last.inboxable).to eq(post)
+    expect(InboxItems::GenerateInboxNotificationsWorker.jobs.size).to eq(1)
   end
 
   it 'filters topics' do

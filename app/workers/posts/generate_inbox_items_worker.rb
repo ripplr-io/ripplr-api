@@ -7,7 +7,8 @@ module Posts
       post.candidate_inboxes.each do |inbox|
         next unless Inboxes::FilterService.new(inbox).allowed_topic?(post.topic)
 
-        inbox.inbox_items.create(inboxable: post)
+        inbox_item = inbox.inbox_items.create(inboxable: post)
+        InboxItems::GenerateInboxNotificationsWorker.perform_async(inbox_item.id)
       end
     end
   end
