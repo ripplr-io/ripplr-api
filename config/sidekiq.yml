@@ -8,5 +8,9 @@
 
 :schedule:
   hourly_push_notifications:
-    cron: '* 0 * * * *'   # Every hour at 00 minutes
+    cron: '0 0 * * * *'   # Every hour at 00 minutes, 00 seconds
     class: PushNotifications::HourlyDeliverWorker
+
+  hourly_inbox_notifications:
+    cron: '0 0 * * * *'   # Every hour at 00 minutes, 00 seconds
+    class: InboxNotifications::DeliverManagerHourlyWorker
