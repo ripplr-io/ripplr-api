@@ -20,9 +20,10 @@ jobs:
 
       - name: Publish Image
         id: pubish_image
-        uses: ripplr-io/docr-docker-publish@v1
+        uses: KudMath/docr-docker-publish@dockerfile_path-input
         with:
           image_path: ripplr/ripplr-api
+          dockerfile_path: Dockerfile
 
       - name: Remove Old Images
         uses: ripplr-io/docr-image-remove@v1
