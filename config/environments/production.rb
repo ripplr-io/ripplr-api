@@ -56,11 +56,14 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "ripplr_api_production"
 
   config.action_mailer.perform_caching = false
-  config.action_mailer.delivery_method = :mailgun
-  config.action_mailer.mailgun_settings = {
-    api_key: Rails.application.credentials[:mailgun_api_key],
-    domain: 'mg.ripplr.io',
-    api_host: 'api.eu.mailgun.net'
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    user_name: 'apikey',
+    password: Rails.application.credentials[:sendgrid_token],
+    domain: 'ripplr.io',
+    address: 'smtp.sendgrid.net',
+    port: 587,
+    authentication: :plain
   }
   config.action_mailer.default_url_options = { host: Rails.application.credentials[:host] }
   Rails.application.routes.default_url_options = { host: Rails.application.credentials[:host] }
