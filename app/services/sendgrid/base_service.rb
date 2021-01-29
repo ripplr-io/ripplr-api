@@ -1,3 +1,4 @@
+# TODO: Split into BaseService and SubscriptionService
 module Sendgrid
   class BaseService
     LEAD_LIST_ID = '78c7009a-78f2-46ac-95d0-a5b8d2578c33'.freeze

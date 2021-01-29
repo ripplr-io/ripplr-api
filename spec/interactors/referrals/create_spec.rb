@@ -7,7 +7,7 @@ RSpec.describe Referrals::Create, type: :interactor do
     expect { described_class.call(resource: referral) }
       .to change { Referral.count }.by(1)
 
-    expect(Sidekiq::Queues['mailers'].size).to eq 1
+    expect(Referrals::InviteMailer.jobs.size).to eq(1)
     expect(Prizes::ReferralCreatedWorker.jobs.size).to eq(1)
     expect(Mixpanel::TrackReferralCreatedWorker.jobs.size).to eq(1)
     expect(Alerts::ReferralCreatedWorker.jobs.size).to eq(1)

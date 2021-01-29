@@ -5,7 +5,7 @@ module Referrals
     def call
       context.fail! unless context.resource.save
 
-      ReferralMailer.with(referral: context.resource).invite.deliver_later
+      Referrals::InviteMailer.perform_async(context.resource.id)
       Prizes::ReferralCreatedWorker.perform_async(context.resource.id)
       Mixpanel::TrackReferralCreatedWorker.perform_async(context.resource.id)
       Alerts::ReferralCreatedWorker.perform_async(context.resource.id)
