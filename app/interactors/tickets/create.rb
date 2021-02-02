@@ -3,7 +3,7 @@ module Tickets
     def call
       context.fail! unless context.resource.save
 
-      SupportMailer.new_ticket(context.resource).deliver_later
+      Support::NewTicketMailer.perform_async(context.resource.id)
     end
   end
 end

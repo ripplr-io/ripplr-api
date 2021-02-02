@@ -19,7 +19,6 @@ RSpec.describe :reports_create, type: :request do
     post post_reports_path(mock_post), params: { reason: 'reason', body: 'body' }, headers: auth_headers_for(user)
 
     expect(response).to have_http_status(:no_content)
-    # FIXME: Add this expectation
-    # expect(Sidekiq::Queues['mailers'].size).to eq 1
+    expect(Support::NewReportMailer.jobs.size).to eq(1)
   end
 end

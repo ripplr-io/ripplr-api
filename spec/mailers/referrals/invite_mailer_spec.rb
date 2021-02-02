@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Referrals::InviteMailer, type: :mailer do
-  it 'renders the email' do
+  it 'triggers the email api request' do
     referral = create(:referral)
     mailer.perform(referral.id)
 

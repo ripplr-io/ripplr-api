@@ -12,7 +12,7 @@ RSpec.describe :auth_passwords_update, type: :request do
 
   it 'responds with the resource' do
     user = create(:user, password: '123456')
-    token = user.send_reset_password_instructions
+    token = user.send(:set_reset_password_token)
 
     put auth_password_path, params: {
       password: 'password',

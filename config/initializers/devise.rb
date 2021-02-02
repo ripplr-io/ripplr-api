@@ -27,7 +27,7 @@ Devise.setup do |config|
   config.mailer_sender = 'support@ripplr.io'
 
   # Configure the class responsible to send e-mails.
-  config.mailer = 'AccountMailer'
+  config.mailer = 'DeviseProxyMailer'
 
   # Configure the parent class responsible to send e-mails.
   # config.parent_mailer = 'ActionMailer::Base'

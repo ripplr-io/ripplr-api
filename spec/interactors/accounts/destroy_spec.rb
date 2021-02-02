@@ -6,7 +6,7 @@ RSpec.describe Accounts::Destroy, type: :interactor do
 
     described_class.call(resource: user, comment: 'comment')
 
-    expect(Sidekiq::Queues['mailers'].size).to eq 1
+    expect(Support::AccountDeletedMailer.jobs.size).to eq(1)
     expect(Users::AnonymizeWorker.jobs.size).to eq(1)
     expect(User.count).to eq 0
   end

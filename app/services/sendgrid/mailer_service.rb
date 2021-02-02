@@ -15,6 +15,21 @@ module Sendgrid
       @mail.add_personalization personalization
     end
 
+    def add_attachment(name: nil, file: nil)
+      raise 'Name can\'t be blank' if name.blank?
+      raise 'File can\'t be blank' if file.blank?
+
+      attachment = SendGrid::Attachment.new
+      attachment.filename = name
+      attachment.content = file
+
+      @mail.add_attachment attachment
+    end
+
+    def reply_to=(email)
+      @mail.reply_to = SendGrid::Email.new(email: email)
+    end
+
     def deliver
       raise 'Personalizations can\'t be blank' if @mail.personalizations.blank?
 

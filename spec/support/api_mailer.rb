@@ -9,22 +9,30 @@ module PersonalizationTestMethods
 end
 
 module MailerTestMethods
-  def sengrid_mail
+  def sendgrid_mail
     mail.instance_variable_get(:@mail)
   end
 
   def from
-    sengrid_mail.from['email']
+    sendgrid_mail.from['email']
   end
 
   def template
-    sengrid_mail.template_id
+    sendgrid_mail.template_id
+  end
+
+  def reply_to
+    sendgrid_mail.reply_to['email']
   end
 
   def personalizations
-    sengrid_mail.personalizations.map do |personalization|
+    sendgrid_mail.personalizations.map do |personalization|
       personalization.extend(PersonalizationTestMethods)
     end
+  end
+
+  def attachments
+    sendgrid_mail.attachments
   end
 end
 

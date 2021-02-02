@@ -50,6 +50,48 @@ RSpec.describe Sendgrid::MailerService, type: :service do
     end
   end
 
+  context '#add_attachment' do
+    let(:file) { File.open('spec/factories/resources/ticket_screenshot.png') }
+
+    it 'adds the attachment' do
+      instance = described_class.new('template', 'from@example.com')
+      instance.add_attachment(name: 'Name', file: file)
+
+      attachments = instance.instance_variable_get(:@mail).attachments
+      expect(attachments).not_to be_empty
+
+      attachment = attachments.last
+      expect(attachment['filename']).to eq 'Name'
+      expect(attachment['content']).not_to eq nil
+    end
+
+    context 'name is blank' do
+      it 'raises an error' do
+        instance = described_class.new('template', 'from@example.com')
+        expect { instance.add_attachment(name: nil, file: file) }
+          .to raise_error('Name can\'t be blank')
+      end
+    end
+
+    context 'file is blank' do
+      it 'raises an error' do
+        instance = described_class.new('template', 'from@example.com')
+        expect { instance.add_attachment(name: 'Name', file: nil) }
+          .to raise_error('File can\'t be blank')
+      end
+    end
+  end
+
+  context '#reply_to=' do
+    it 'sets the reply_to value' do
+      instance = described_class.new('template', 'from@example.com')
+      instance.reply_to = 'reply_to@example.com'
+
+      reply_to = instance.instance_variable_get(:@mail).reply_to
+      expect(reply_to['email']).to eq 'reply_to@example.com'
+    end
+  end
+
   context '#deliver' do
     it 'makes the api request' do
       instance = described_class.new('template', 'from@example.com')

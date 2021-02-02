@@ -8,7 +8,7 @@ class ReportsController < ApplicationController
     report.post = Post.find_by(id: params[:post_id])
     return render_errors(report.errors) unless report.valid?
 
-    SupportMailer.new_report(current_user, report.post, report_params).deliver_later
+    Support::NewReportMailer.perform_async(current_user.id, report.post.id, report.reason, report.body)
     head :no_content
   end
 
