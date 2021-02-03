@@ -24,7 +24,6 @@ gem 'onesignal-ruby', github: 'mikamai/onesignal-ruby', branch: 'develop'
 gem 'paranoia'
 gem 'pg'
 gem 'pg_search'
-gem 'premailer-rails'
 gem 'puma', '~> 4.1'
 gem 'rack-cors'
 gem 'rails', '~> 6.1.0'
@@ -47,12 +46,10 @@ group :development, :test do
 end
 
 group :development do
-  gem 'letter_opener_web'
   gem 'listen', '~> 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'rails-erd'
   gem 'webmock'
 end
 

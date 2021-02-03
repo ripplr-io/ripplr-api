@@ -37,11 +37,6 @@ Edit credentials
 dcrun rails credentials:edit --environment=development
 ```
 
-Generate the ERD
-```bash
-dcrun rake erd filename='doc/erd'
-```
-
 Better logs
 ```bash
 docker-compose up -d # Sart services in daemon mode

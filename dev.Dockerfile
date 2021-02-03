@@ -3,8 +3,6 @@ FROM ruby:2.7.1
 RUN apt-get update -qq
 RUN apt-get install -y build-essential
 
-# rails-erd
-RUN apt-get install -y graphviz
 # rails-credentials
 RUN apt-get install -y nano
 # simplecov
