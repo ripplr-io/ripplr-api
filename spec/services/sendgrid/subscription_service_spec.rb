@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Sendgrid::BaseService, type: :service do
+RSpec.describe Sendgrid::SubscriptionService, type: :service do
   context '#create_lead' do
     it 'upserts 1 contact with the email' do
       instance = described_class.new

@@ -1,8 +1,8 @@
 module Sendgrid
-  class MailerService
+  class MailerService < BaseService
     def initialize(template, from)
-      @sg = SendGrid::API.new(api_key: Rails.application.credentials[:sendgrid_token])
       @mail = build_mail(template, from)
+      super()
     end
 
     def add_personalization(to: nil, data: nil)
