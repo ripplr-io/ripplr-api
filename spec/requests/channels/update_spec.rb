@@ -29,7 +29,7 @@ RSpec.describe :channels_update, type: :request do
     patch channel_path(channel),
       params: channel.as_json(only: [:name]).merge(
         settings: channel.settings.to_json,
-        channel_device: channel.channelable.as_json(only: [:onesignal_id, :device_type])
+        channelable: channel.channelable.as_json(only: [:onesignal_id]).merge(type: 'channel_device')
       ),
       headers: auth_headers_for(user)
 

@@ -27,7 +27,7 @@ RSpec.describe :inboxes_update, type: :request do
     inbox = create(:inbox, user: user)
 
     patch inbox_path(inbox),
-      params: inbox.as_json(only: [:name]).merge(settings: inbox.settings.to_json),
+      params: inbox.as_json(only: [:name, :description]).merge(settings: inbox.settings.to_json),
       headers: auth_headers_for(user)
 
     expect(response).to have_http_status(:ok)

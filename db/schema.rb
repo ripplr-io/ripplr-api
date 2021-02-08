@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_06_115858) do
+ActiveRecord::Schema.define(version: 2021_02_08_112235) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -83,7 +83,6 @@ ActiveRecord::Schema.define(version: 2021_01_06_115858) do
   end
 
   create_table "channel_devices", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "device_type", null: false
     t.string "onesignal_id", null: false
   end
 
@@ -170,6 +169,7 @@ ActiveRecord::Schema.define(version: 2021_01_06_115858) do
     t.uuid "inboxable_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "archived_at"
     t.index ["inbox_id", "inboxable_id", "inboxable_type"], name: "ux_inbox_items_inbox_inboxable", unique: true
     t.index ["inbox_id"], name: "index_inbox_items_on_inbox_id"
     t.index ["inboxable_type", "inboxable_id"], name: "index_inbox_items_on_inboxable_type_and_inboxable_id"
@@ -193,6 +193,7 @@ ActiveRecord::Schema.define(version: 2021_01_06_115858) do
     t.json "settings", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "description"
     t.index ["user_id", "name"], name: "index_inboxes_on_user_id_and_name", unique: true
     t.index ["user_id"], name: "index_inboxes_on_user_id"
   end

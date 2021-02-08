@@ -25,7 +25,7 @@ RSpec.describe :inboxes_create, type: :request do
     mock_inbox = build(:inbox)
 
     post inboxes_path,
-      params: mock_inbox.as_json(only: [:name]).merge(
+      params: mock_inbox.as_json(only: [:name, :description]).merge(
         settings: mock_inbox.settings.to_json,
         inbox_channels_attributes: [
           { channel_id: channel.id }

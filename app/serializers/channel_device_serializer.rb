@@ -1,3 +1,3 @@
 class ChannelDeviceSerializer < ApplicationSerializer
-  attributes :onesignal_id, :device_type
+  attributes :onesignal_id
 end

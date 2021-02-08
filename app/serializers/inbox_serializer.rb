@@ -1,3 +1,3 @@
 class InboxSerializer < ApplicationSerializer
-  attributes :name, :settings
+  attributes :name, :settings, :description
 end

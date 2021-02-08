@@ -32,6 +32,6 @@ class InboxesController < ApplicationController
       inbox_channel[:user_id] = current_user.id
     end
 
-    params.permit(:name, :settings, inbox_channels_attributes: [:id, :channel_id, :user_id, :_destroy])
+    params.permit(:name, :description, :settings, inbox_channels_attributes: [:id, :channel_id, :user_id, :_destroy])
   end
 end

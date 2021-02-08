@@ -17,7 +17,7 @@ RSpec.describe :channels_create, type: :request do
     post channels_path,
       params: mock_channel.as_json(only: [:name]).merge(
         settings: mock_channel.settings.to_json,
-        channel_device: mock_device.as_json(only: [:onesignal_id, :device_type])
+        channelable: mock_device.as_json(only: [:onesignal_id]).merge(type: 'channel_device')
       ),
       headers: auth_headers_for(user)
 
