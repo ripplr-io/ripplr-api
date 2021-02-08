@@ -2,7 +2,6 @@ require 'open-uri'
 
 module Posts
   class Create < ApplicationInteractor
-    before :check_limit_reached
     before :attach_image_from_url
 
     def call
@@ -16,17 +15,6 @@ module Posts
     end
 
     private
-
-    def check_limit_reached
-      return unless above_level_limit?
-
-      context.resource.errors.add(:max_posts, 'limit reached')
-      context.fail!
-    end
-
-    def above_level_limit?
-      context.resource.author.posts_today >= context.resource.author.level.subscriptions
-    end
 
     def attach_image_from_url
       return if context.image_url.blank?

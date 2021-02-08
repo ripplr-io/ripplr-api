@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_08_112235) do
+ActiveRecord::Schema.define(version: 2021_02_08_121710) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -151,9 +151,9 @@ ActiveRecord::Schema.define(version: 2021_02_08_112235) do
   end
 
   create_table "inbox_channels", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id"
     t.uuid "inbox_id"
     t.uuid "channel_id"
-    t.uuid "user_id"
     t.json "settings"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -207,6 +207,7 @@ ActiveRecord::Schema.define(version: 2021_02_08_112235) do
     t.integer "subscriptions", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "inboxes", null: false
   end
 
   create_table "notifications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

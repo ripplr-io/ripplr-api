@@ -3,6 +3,8 @@ class InboxesController < ApplicationController
 
   load_and_authorize_resource
 
+  serializer include: [:inbox_channels]
+
   def index
     read_resource(@inboxes)
   end
@@ -12,7 +14,7 @@ class InboxesController < ApplicationController
   end
 
   def create
-    create_resource(@inbox)
+    create_resource(@inbox, interactor: Inboxes::Create)
   end
 
   def update

@@ -6,4 +6,5 @@ class Level < ApplicationRecord
   validates :posts, presence: true
   validates :referrals, presence: true
   validates :subscriptions, presence: true
+  validates :inboxes, presence: true
 end

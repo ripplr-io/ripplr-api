@@ -23,17 +23,4 @@ RSpec.describe Posts::Create, type: :interactor do
 
     expect(Post.last.image.attached?).to be true
   end
-
-  context 'level limit reached' do
-    it 'does not create the post' do
-      level = create(:level, posts: 2)
-      user = create(:user, level: level)
-      create_list(:post, 2, author: user)
-
-      post = build(:post, author: user)
-
-      expect { described_class.call(resource: post) }
-        .to change { Post.count }.by(0)
-    end
-  end
 end

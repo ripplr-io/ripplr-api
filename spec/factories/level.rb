@@ -6,5 +6,6 @@ FactoryBot.define do
     posts { Faker::Number.within(range: 3..256) }
     referrals { posts }
     subscriptions { posts }
+    inboxes { posts }
   end
 end
