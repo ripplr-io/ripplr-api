@@ -25,9 +25,15 @@ class SubscriptionsController < ApplicationController
   private
 
   def subscription_params
-    params.permit(:subscribable_id, :inbox_ids).merge(
+    params.permit(:subscribable_id).merge(
       settings: JSON.parse(params[:settings] || '{}'),
       subscribable_type: params[:subscribable_type]&.capitalize
-    )
+    ).merge(inbox_params)
+  end
+
+  def inbox_params
+    return {} if params[:inbox_ids].blank?
+
+    { inboxes: current_user.inboxes.where(id: params[:inbox_ids]) }
   end
 end

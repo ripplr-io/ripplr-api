@@ -24,17 +24,23 @@ RSpec.describe :subscriptions_update, type: :request do
 
   it 'responds with the resource' do
     user = create(:user)
+    inbox_a = create(:inbox, user: user)
+    inbox_b = create(:inbox, user: user)
     subscription = create(:subscription, user: user)
+    subscription.inboxes << inbox_a
 
     patch subscription_path(subscription), params: subscription.as_json(only: [
       :subscribable_id,
       :subscribable_type
     ]).merge(
-      settings: subscription.settings.to_json
+      settings: subscription.settings.to_json,
+      inbox_ids: [inbox_b.id]
     ), headers: auth_headers_for(user)
 
     expect(response).to have_http_status(:ok)
     expect(response_data).to have_resource(subscription)
     expect(response_included).to have_resource(subscription.subscribable)
+    expect(subscription.reload.inboxes).not_to include(inbox_a)
+    expect(subscription.inboxes).to include(inbox_b)
   end
 end
