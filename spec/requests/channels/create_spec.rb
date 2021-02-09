@@ -5,7 +5,7 @@ RSpec.describe :channels_create, type: :request do
     let(:subject) { post channels_path }
   end
 
-  it_behaves_like :unprocessable_request, [:name, :settings, :channelable] do
+  it_behaves_like :unprocessable_request, [:name, :channelable] do
     let(:subject) { post channels_path, headers: auth_headers_for_new_user }
   end
 

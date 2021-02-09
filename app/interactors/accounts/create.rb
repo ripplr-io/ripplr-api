@@ -2,9 +2,11 @@ module Accounts
   class Create < ApplicationInteractor
     def call
       context.resource.level = Level.first
-      context.resource.referral = Referral.find_by(id: context.referral_id)
       context.resource.build_billing
       context.resource.bookmark_folders.build(name: 'Root')
+      context.resource.channels.build(name: 'Email', channelable: Channel::Email.new)
+      context.resource.inboxes.build(name: 'Main Inbox')
+      context.resource.referral = Referral.find_by(id: context.referral_id)
 
       context.fail! unless context.resource.save
 

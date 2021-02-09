@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_08_121710) do
+ActiveRecord::Schema.define(version: 2021_02_09_112743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -94,7 +94,7 @@ ActiveRecord::Schema.define(version: 2021_02_08_121710) do
     t.string "channelable_type"
     t.uuid "channelable_id"
     t.string "name", null: false
-    t.json "settings", null: false
+    t.json "settings", default: {}, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["channelable_type", "channelable_id"], name: "index_channels_on_channelable"
@@ -151,9 +151,9 @@ ActiveRecord::Schema.define(version: 2021_02_08_121710) do
   end
 
   create_table "inbox_channels", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id"
     t.uuid "inbox_id"
     t.uuid "channel_id"
+    t.uuid "user_id"
     t.json "settings"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -190,7 +190,7 @@ ActiveRecord::Schema.define(version: 2021_02_08_121710) do
   create_table "inboxes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id"
     t.string "name", null: false
-    t.json "settings", null: false
+    t.json "settings", default: {}, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "description"

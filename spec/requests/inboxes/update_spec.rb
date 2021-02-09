@@ -12,12 +12,12 @@ RSpec.describe :inboxes_update, type: :request do
     end
   end
 
-  it_behaves_like :unprocessable_request, [:name, :settings] do
+  it_behaves_like :unprocessable_request, [:name] do
     let(:subject) do
       inbox = create(:inbox)
 
       patch inbox_path(inbox),
-        params: { name: nil, settings: nil },
+        params: { name: nil },
         headers: auth_headers_for(inbox.user)
     end
   end

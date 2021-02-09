@@ -12,12 +12,12 @@ RSpec.describe :channels_update, type: :request do
     end
   end
 
-  it_behaves_like :unprocessable_request, [:name, :settings] do
+  it_behaves_like :unprocessable_request, [:name] do
     let(:subject) do
       channel = create(:channel)
 
       patch channel_path(channel),
-        params: { name: nil, settings: nil },
+        params: { name: nil },
         headers: auth_headers_for(channel.user)
     end
   end

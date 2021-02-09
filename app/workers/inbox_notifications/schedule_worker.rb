@@ -6,6 +6,7 @@ module InboxNotifications
 
       next_slot = InboxNotifications::ScheduleService.new(inbox_notification).next_available_slot
       inbox_notification.update(scheduled_to: next_slot)
+      InboxNotifications::DeliverWorker.perform_async(inbox_notification.id)
     end
   end
 end

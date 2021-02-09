@@ -34,6 +34,8 @@ class InboxesController < ApplicationController
       inbox_channel[:user_id] = current_user.id
     end
 
-    params.permit(:name, :description, inbox_channels_attributes: [:id, :channel_id, :user_id, :_destroy]).merge(settings: JSON.parse(params[:settings] || '{}'))
+    params.permit(:name, :description, inbox_channels_attributes: [:id, :channel_id, :user_id, :_destroy]).merge(
+      settings: JSON.parse(params[:settings] || '{}')
+    )
   end
 end

@@ -3,7 +3,6 @@ FactoryBot.define do
     for_device
     user
     sequence(:name) { |n| [Faker::Lorem.word, n].join }
-    settings { Support::JsonResources.device_settings }
 
     trait :for_device do
       channelable factory: :channel_device

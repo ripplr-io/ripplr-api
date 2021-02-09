@@ -7,5 +7,6 @@ RSpec.describe InboxNotifications::ScheduleWorker, type: :worker do
     described_class.new.perform(inbox_notification.id)
 
     expect(inbox_notification.reload.scheduled_to).not_to eq(nil)
+    expect(InboxNotifications::DeliverWorker.jobs.size).to eq(1)
   end
 end

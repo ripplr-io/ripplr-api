@@ -7,10 +7,12 @@ RSpec.describe Accounts::Create, type: :interactor do
 
     expect { described_class.call(resource: user) }
       .to change { User.count }.by(1)
+      .and change { Billing.count }.by(1)
       .and change { BookmarkFolder.count }.by(1)
+      .and change { Channel.count }.by(1)
+      .and change { Inbox.count }.by(1)
 
     expect(User.last.level).to eq(level)
-    expect(User.last.billing).not_to eq(nil)
     expect(Mixpanel::TrackSignupWorker.jobs.size).to eq(1)
     expect(Sendgrid::SyncUserWorker.jobs.size).to eq(1)
   end

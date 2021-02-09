@@ -8,7 +8,7 @@ class Inbox < ApplicationRecord
   has_many :inbox_channels, dependent: :destroy
   has_many :channels, through: :inbox_channels
 
-  validates :settings, presence: true
+  validates :settings, presence: true, allow_blank: true
   validates :name, presence: true
   validates :name, uniqueness: { scope: :user_id }
 

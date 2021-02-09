@@ -5,7 +5,7 @@ RSpec.describe :inboxes_create, type: :request do
     let(:subject) { post inboxes_path }
   end
 
-  it_behaves_like :unprocessable_request, [:name, :settings] do
+  it_behaves_like :unprocessable_request, [:name] do
     let(:subject) { post inboxes_path, headers: auth_headers_for_new_user }
   end
 
