@@ -3,7 +3,7 @@ class InboxesController < ApplicationController
 
   load_and_authorize_resource
 
-  serializer include: [:inbox_channels]
+  serializer include: [:inbox_channels, 'inbox_channels.channel']
 
   def index
     read_resource(@inboxes)
@@ -34,6 +34,6 @@ class InboxesController < ApplicationController
       inbox_channel[:user_id] = current_user.id
     end
 
-    params.permit(:name, :description, :settings, inbox_channels_attributes: [:id, :channel_id, :user_id, :_destroy])
+    params.permit(:name, :description, inbox_channels_attributes: [:id, :channel_id, :user_id, :_destroy]).merge(settings: JSON.parse(params[:settings] || '{}'))
   end
 end
