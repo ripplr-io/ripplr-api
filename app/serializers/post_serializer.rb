@@ -1,6 +1,4 @@
 class PostSerializer < ApplicationSerializer
-  DEFAULT_POST_IMAGE = 'https://cdn.ripplr.io/brand/logo-black.png'.freeze
-
   belongs_to :topic
   belongs_to :author, record_type: :user, serializer: :user
   has_many :hashtags
@@ -28,6 +26,6 @@ class PostSerializer < ApplicationSerializer
   end
 
   attribute :image do |object|
-    object.image.attached? ? url_helpers.public_blob_url(object.image) : DEFAULT_POST_IMAGE
+    object.image.attached? ? url_helpers.public_blob_url(object.image) : Post::DEFAULT_IMAGE
   end
 end

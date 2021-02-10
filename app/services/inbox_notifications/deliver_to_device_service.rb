@@ -9,11 +9,10 @@ module InboxNotifications
 
     def deliver
       OneSignal.send_notification(@notification)
-      true
+      @inbox_notification.touch(:delivered_at)
     rescue OneSignal::Client::ApiError => e
       Rails.logger.error "OneSignal failed to deliver with error: #{e}"
       Raven.capture_exception e
-      false
     end
 
     private

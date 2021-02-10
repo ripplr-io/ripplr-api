@@ -21,29 +21,12 @@ RSpec.describe InboxNotifications::DeliverWorker, type: :worker do
     end
   end
 
-  context 'inbox_notification is sent' do
-    it 'sets delivered_at' do
-      inbox_notification = create(:inbox_notification, scheduled_to: Time.current - 30.minutes)
+  it 'calls the deliver service' do
+    inbox_notification = create(:inbox_notification, scheduled_to: Time.current - 30.minutes)
 
-      expect(InboxNotifications::DeliverService).to receive(:new).and_call_original
-      allow_any_instance_of(InboxNotifications::DeliverService).to receive(:deliver).and_return(true)
+    expect(InboxNotifications::DeliverService).to receive(:new).and_call_original
+    allow_any_instance_of(InboxNotifications::DeliverService).to receive(:deliver).and_return(nil)
 
-      described_class.new.perform(inbox_notification.id)
-
-      expect(inbox_notification.reload.delivered_at).not_to be nil
-    end
-  end
-
-  context 'inbox_notification fails to send' do
-    it 'does not set delivered_at' do
-      inbox_notification = create(:inbox_notification, scheduled_to: Time.current - 30.minutes)
-
-      expect(InboxNotifications::DeliverService).to receive(:new).and_call_original
-      allow_any_instance_of(InboxNotifications::DeliverService).to receive(:deliver).and_return(false)
-
-      described_class.new.perform(inbox_notification.id)
-
-      expect(inbox_notification.reload.delivered_at).to be nil
-    end
+    described_class.new.perform(inbox_notification.id)
   end
 end

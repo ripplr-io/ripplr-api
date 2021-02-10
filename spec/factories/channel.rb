@@ -5,11 +5,11 @@ FactoryBot.define do
     sequence(:name) { |n| [Faker::Lorem.word, n].join }
 
     trait :for_device do
-      channelable factory: :channel_device
+      channelable { association :channel_device, channel: instance }
     end
 
     trait :for_email do
-      channelable factory: :channel_email
+      channelable { association :channel_email, channel: instance }
     end
   end
 end

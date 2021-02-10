@@ -3,6 +3,8 @@ class Post < ApplicationRecord
   include Inboxable
   include PgSearch::Model
 
+  DEFAULT_IMAGE = 'https://cdn.ripplr.io/brand/logo-black.png'.freeze
+
   belongs_to :topic
   belongs_to :author, class_name: 'User'
   has_one_attached :image

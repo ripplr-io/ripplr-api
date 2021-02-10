@@ -19,26 +19,26 @@ RSpec.describe InboxNotifications::DeliverToDeviceService, type: :service do
 
   describe '#deliver' do
     context 'success' do
-      it 'returns true' do
+      it 'sets delivered_at' do
         inbox_notification = create(:inbox_notification)
-        service = described_class.new(inbox_notification)
 
         stub_request(:post, /onesignal.com/).to_return(status: 200, body: '{}')
         stub_request(:get, /onesignal.com/).to_return(status: 200, body: '{}')
 
-        expect(service.deliver).to be true
+        described_class.new(inbox_notification).deliver
+
+        expect(inbox_notification.reload.delivered_at).not_to eq nil
       end
     end
 
     context 'failure' do
-      it 'returns false' do
+      it 'raises an error' do
         inbox_notification = create(:inbox_notification)
-        service = described_class.new(inbox_notification)
 
         stub_request(:post, /onesignal.com/).to_return(status: 400, body: '{}')
-
         expect(Rails.logger).to receive(:error)
-        expect(service.deliver).to be false
+
+        described_class.new(inbox_notification).deliver
       end
     end
   end

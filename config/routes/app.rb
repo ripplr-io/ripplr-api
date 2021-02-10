@@ -6,6 +6,18 @@ direct :app_post do |post|
   "#{app_url}/p/#{post.id}"
 end
 
+direct :app_topic do |topic|
+  "#{app_url}/t/#{topic.slug}"
+end
+
+direct :app_inbox do |inbox|
+  "#{app_url}/inbox/#{inbox.id}"
+end
+
+direct :app_profile do |user|
+  "#{app_url}/u/#{user.slug}"
+end
+
 direct :app_password_reset do |token|
   "#{app_url}/auth/password-reset?reset_password_token=#{token}"
 end
