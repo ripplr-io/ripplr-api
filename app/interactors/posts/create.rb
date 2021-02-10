@@ -8,7 +8,7 @@ module Posts
       context.fail! unless context.resource.save
 
       Posts::GenerateInboxItemsWorker.perform_async(context.resource.id)
-      Posts::PushNotifications::GenerateWorker.perform_async(context.resource.id) # TODO: Remove after Subscriptions 2.0
+      # Posts::PushNotifications::GenerateWorker.perform_async(context.resource.id) # TODO: Remove after Inboxes
       Posts::BroadcastCreationWorker.perform_async(context.resource.id)
       Mixpanel::TrackPostCreatedWorker.perform_async(context.resource.id)
       Prizes::Onboarding::FirstPostWorker.perform_async(context.resource.author.id)

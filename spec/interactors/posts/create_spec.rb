@@ -7,7 +7,7 @@ RSpec.describe Posts::Create, type: :interactor do
       .to change { Post.count }.by(1)
 
     expect(Posts::GenerateInboxItemsWorker.jobs.size).to eq(1)
-    expect(Posts::PushNotifications::GenerateWorker.jobs.size).to eq(1)
+    # expect(Posts::PushNotifications::GenerateWorker.jobs.size).to eq(1)
     expect(Posts::BroadcastCreationWorker.jobs.size).to eq(1)
     expect(Mixpanel::TrackPostCreatedWorker.jobs.size).to eq(1)
     expect(Prizes::Onboarding::FirstPostWorker.jobs.size).to eq(1)

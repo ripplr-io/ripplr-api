@@ -1,3 +1,4 @@
+# TODO: Remove after the Inboxes are shipped
 module Posts
   module PushNotifications
     class GenerateForDeviceWorker < ApplicationWorker

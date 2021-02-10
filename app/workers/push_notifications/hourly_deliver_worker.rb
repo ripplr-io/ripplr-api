@@ -1,3 +1,4 @@
+# TODO: Remove after the Inboxes are shipped
 module PushNotifications
   class HourlyDeliverWorker < ApplicationWorker
     def perform
