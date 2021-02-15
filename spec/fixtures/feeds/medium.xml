@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"
+  xmlns:cc="http://cyber.law.harvard.edu/rss/creativeCommonsRssModule.html">
+  <channel>
+    <title><![CDATA[Stories by Guilherme Graca on Medium]]></title>
+    <description><![CDATA[Stories by Guilherme Graca on Medium]]></description>
+    <link>https://medium.com/@ggraca?source=rss-8e93697e29f3------2</link>
+    <image>
+      <url>https://cdn-images-1.medium.com/fit/c/150/150/1*70gmv747fB5SEVEL4-DLvA.jpeg</url>
+      <title>Stories by Guilherme Graca on Medium</title>
+      <link>https://medium.com/@ggraca?source=rss-8e93697e29f3------2</link>
+    </image>
+    <generator>Medium</generator>
+    <lastBuildDate>Thu, 11 Feb 2021 09:01:27 GMT</lastBuildDate>
+    <atom:link href="https://medium.com/feed/@ggraca" rel="self" type="application/rss+xml"/>
+    <webMaster><![CDATA[yourfriends@medium.com]]></webMaster>
+    <atom:link href="http://medium.superfeedr.com" rel="hub"/>
+    <item>
+      <title><![CDATA[How to use DigitalOcean’s Container Registry for Continuous Deployment]]></title>
+      <link>https://medium.com/@ggraca/how-to-use-digitaloceans-container-registry-for-continuous-deployment-7e1bc3d19e0a?source=rss-8e93697e29f3------2</link>
+      <guid isPermaLink="false">https://medium.com/p/7e1bc3d19e0a</guid>
+      <category><![CDATA[digitalocean]]></category>
+      <category><![CDATA[docker]]></category>
+      <category><![CDATA[containers]]></category>
+      <category><![CDATA[github-actions]]></category>
+      <category><![CDATA[container-registry]]></category>
+      <dc:creator><![CDATA[Guilherme Graca]]></dc:creator>
+      <pubDate>Sat, 05 Dec 2020 17:38:17 GMT</pubDate>
+      <atom:updated>2020-12-05T17:38:17.894Z</atom:updated>
+      <content:encoded><![CDATA[<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*5fEC0ohfWCo-rYsVCpW8Fw.jpeg" /></figure><p>At <a href="https://ripplr.io/">Ripplr</a>, we iterate fast and ship fast. When a feature is ready for the public, it doesn’t stick around waiting for the next official <em>release</em>, we just merge it.</p><p>We can do this with great confidence and little risk because our deployment pipeline ensures that the tests pass and that the new version is healthy before it’s made available to users. If the worst happens — we have a 1-click rollback that only takes a few seconds to perform.</p><p>All this flexibility is only possible thanks to containerization and automatic image versioning. Our images are all tagged based on the commit SHA.</p><h4>Tagging Images in Github Actions:</h4><p>To tag images, we use two marketplace actions:</p><ul><li><a href="https://github.com/digitalocean/action-doctl">action-doctl</a> — To install doctl and authenticate with DigitalOcean</li><li><a href="https://github.com/ripplr-io/docr-docker-publish">docr-docker-publish</a> — To build, tag and upload the images to DigitalOcean’s Container Registry.</li></ul><iframe src="" width="0" height="0" frameborder="0" scrolling="no"><a href="https://medium.com/media/bdabf65a2eff05c63b05ec4d20ddf06d/href">https://medium.com/media/bdabf65a2eff05c63b05ec4d20ddf06d/href</a></iframe><h4>Removing older tags from the Container Registry:</h4><p>We also remove older images as part of our deployment. It’s improbable that we’ll need something older than the last 10 versions. We do this using <a href="https://github.com/ripplr-io/docr-image-remove">docr-image-remove</a>.</p><iframe src="" width="0" height="0" frameborder="0" scrolling="no"><a href="https://medium.com/media/16f18db15fd842ef1cd1a9bf6d3ae751/href">https://medium.com/media/16f18db15fd842ef1cd1a9bf6d3ae751/href</a></iframe><h4>Using the new image version:</h4><p>If you need to perform some tasks with the new image, <a href="https://github.com/ripplr-io/docr-docker-publish">docr-docker-publish</a> also generates some outputs that we can use on later jobs.</p><p>This is what the whole job would look like:</p><iframe src="" width="0" height="0" frameborder="0" scrolling="no"><a href="https://medium.com/media/d2a038bdfb0b3b32f0971b61e228206a/href">https://medium.com/media/d2a038bdfb0b3b32f0971b61e228206a/href</a></iframe><p>We currently only use this flow in our deploy phase but we expect to extend it to other sections like CI as well as generating staging environments on the fly. Hopefully, these snippets help other devs with a similar stack to ours.</p><img src="https://medium.com/_/stat?event=post.clientViewed&referrerSource=full_rss&postId=7e1bc3d19e0a" width="1" height="1" alt="">]]></content:encoded>
+    </item>
+    <item>
+      <title><![CDATA[Ripplr Development #2]]></title>
+      <link>https://medium.com/@ggraca/ripplr-development-2-a8fd62355e15?source=rss-8e93697e29f3------2</link>
+      <guid isPermaLink="false">https://medium.com/p/a8fd62355e15</guid>
+      <dc:creator><![CDATA[Guilherme Graca]]></dc:creator>
+      <pubDate>Mon, 30 Nov 2020 18:47:08 GMT</pubDate>
+      <atom:updated>2020-11-30T18:47:08.154Z</atom:updated>
+      <content:encoded><![CDATA[<figure><img alt="" src="https://cdn-images-1.medium.com/max/854/1*6yAcPD3VR7AqxsRi67idjg.png" /></figure><p>Our beta program started 2 weeks ago and we now have around 30 registered accounts. We continue to onboard users daily but we already found some takeaways.</p><p><strong>Improving the app</strong></p><p>Even though we had a working app and we tested it the best we could, problems eventually showed up — this was where we spent most of our time these two weeks.</p><p>Our feedback feature has been vital for finding, understanding and fixing edge-cases. We also received some exciting feature requests, but we’re adding these to the backlog for future prioritization.</p><p><strong>Improving the first experience</strong></p><p>We kept a continuous chat with most people we invited and the feedback has been great. However, actions speed louder than words and we noticed that a lot of people were not coming back or not interacting as much as we wanted.</p><p>While the number of Signups keeps increasing steadily, new Posts and new Subscriptions remain low. These numbers are critical for us to understand supply and demand in our platform.</p><p>We’ll be working on improving the first experience (to get users to perform some key actions right after signup) and removing blockers that are preventing users from subscribing.</p><p>To stay up to date with this series you can subscribe to <a href="https://ripplr.io/u/ggraca">ggraca</a> on <a href="https://ripplr.io/">Ripplr</a>. Or subscribe to our <a href="https://ripplr.io/">newsletter</a> if you haven’t received an invite yet.</p><img src="https://medium.com/_/stat?event=post.clientViewed&referrerSource=full_rss&postId=a8fd62355e15" width="1" height="1" alt="">]]></content:encoded>
+    </item>
+  </channel>
+</rss>
