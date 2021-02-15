@@ -10,6 +10,7 @@ data.each do |seed_level|
     level.posts = seed_level['posts']
     level.referrals = seed_level['referrals']
     level.subscriptions = seed_level['subscriptions']
+    level.inboxes = seed_level['inboxes']
   end
 end
 
