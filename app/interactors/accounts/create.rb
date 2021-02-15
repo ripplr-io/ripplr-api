@@ -17,6 +17,8 @@ module Accounts
         Prizes::ReferralAcceptedWorker.perform_async(context.resource.referral.id)
         Alerts::ReferralAcceptedWorker.perform_async(context.resource.referral.id)
         Prizes::Onboarding::FirstReferralWorker.perform_async(context.resource.referral.inviter.id)
+      else
+        Slack::NotifyService.new.ping("New user signed up: #{context.resource.name} <#{context.resource.email}>", '#marketing')
       end
 
       Mixpanel::TrackSignupWorker.perform_async(context.resource.id)
