@@ -4,7 +4,7 @@ class Topic < ApplicationRecord
   include PgSearch::Model
 
   has_many :posts, dependent: :restrict_with_error
-  has_many :automated_publishers, dependent: :restrict_with_error
+  has_many :content_sources, dependent: :restrict_with_error
 
   validates :name, presence: true
   validates :avatar, presence: true

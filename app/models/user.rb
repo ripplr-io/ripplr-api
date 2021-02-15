@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_one_attached :avatar
 
   has_one :billing, dependent: :destroy
-  has_many :automated_publishers, dependent: :destroy
+  has_many :content_sources, dependent: :destroy
   has_many :channels, dependent: :destroy
   has_many :comments, inverse_of: :author, foreign_key: :author_id, dependent: :destroy
   has_many :devices, dependent: :destroy

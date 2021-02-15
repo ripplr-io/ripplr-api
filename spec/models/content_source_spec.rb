@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe AutomatedPublisher, type: :model do
-  subject(:automated_publisher) { build(:automated_publisher) }
+RSpec.describe ContentSource, type: :model do
+  subject(:content_source) { build(:content_source) }
 
   it { is_expected.to be_valid }
 

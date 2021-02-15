@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_11_114530) do
+ActiveRecord::Schema.define(version: 2021_02_11_114531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -126,6 +126,16 @@ ActiveRecord::Schema.define(version: 2021_02_11_114530) do
     t.index ["comment_id"], name: "index_comments_on_comment_id"
     t.index ["deleted_at"], name: "index_comments_on_deleted_at"
     t.index ["post_id"], name: "index_comments_on_post_id"
+  end
+
+  create_table "content_sources", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id"
+    t.uuid "topic_id"
+    t.string "feed_url", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["topic_id"], name: "index_content_sources_on_topic_id"
+    t.index ["user_id"], name: "index_content_sources_on_user_id"
   end
 
   create_table "devices", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

@@ -1,4 +1,4 @@
-module AutomatedPublishers
+module ContentSources
   class PublishWorker < ApplicationWorker
     def perform(user_id, topic_id, url)
       user = User.find_by(id: user_id)
@@ -23,7 +23,7 @@ module AutomatedPublishers
 
     def log_errors(interactor)
       error_messages = interactor.resource.errors.full_messages
-      Rails.logger.info "AutomatedPublishers::PublishWorker failed: #{error_messages}"
+      Rails.logger.info "ContentSources::PublishWorker failed: #{error_messages}"
     end
   end
 end

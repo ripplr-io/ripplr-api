@@ -1,4 +1,4 @@
-class AutomatedPublisher < ApplicationRecord
+class ContentSource < ApplicationRecord
   belongs_to :topic
   belongs_to :user
 

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe AutomatedPublishers::PublishWorker, type: :worker do
+RSpec.describe ContentSources::PublishWorker, type: :worker do
   context 'valid preview' do
     it 'creates a post' do
       user = create(:user)

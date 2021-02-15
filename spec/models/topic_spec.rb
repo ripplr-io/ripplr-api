@@ -8,7 +8,7 @@ RSpec.describe Topic, type: :model do
   it_behaves_like :followable
 
   it { is_expected.to have_many(:posts) }
-  it { is_expected.to have_many(:automated_publishers) }
+  it { is_expected.to have_many(:content_sources) }
 
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_presence_of(:avatar) }
