@@ -16,18 +16,8 @@
       "description": null
     },
     {
-      "name": "Fashion",
-      "avatar": "ri-t-shirt-line",
-      "description": null
-    },
-    {
       "name": "Finance",
       "avatar": "ri-coins-line",
-      "description": null
-    },
-    {
-      "name": "Food",
-      "avatar": "ri-restaurant-fill",
       "description": null
     },
     {
@@ -41,8 +31,13 @@
       "description": null
     },
     {
-      "name": "Miscellaneous",
-      "avatar": "ri-apps-line",
+      "name": "Management",
+      "avatar": "ri-line-chart-line",
+      "description": null
+    },
+    {
+      "name": "Marketing",
+      "avatar": "ri-alarm-warning-line",
       "description": null
     },
     {
@@ -56,6 +51,11 @@
       "description": null
     },
     {
+      "name": "Other",
+      "avatar": "ri-apps-line",
+      "description": null
+    },
+    {
       "name": "Politics",
       "avatar": "ri-open-arm-line",
       "description": null
@@ -66,8 +66,18 @@
       "description": null
     },
     {
+      "name": "Psychology",
+      "avatar": "ri-psychotherapy-line",
+      "description": null
+    },
+    {
       "name": "Science",
       "avatar": "ri-flask-line",
+      "description": null
+    },
+    {
+      "name": "Self-Improvement",
+      "avatar": "ri-user-search-line",
       "description": null
     },
     {
