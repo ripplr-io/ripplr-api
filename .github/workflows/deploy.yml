@@ -20,7 +20,7 @@ jobs:
 
       - name: Publish Image
         id: pubish_image
-        uses: ripplr-io/docr-docker-publish@v1
+        uses: ripplr-io/docr-docker-publish@fix/all-tags-argument
         with:
           image_path: ripplr/ripplr-api
 
