@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :subscription do
     for_user
     user
-    settings { Support::JsonResources.subscription_settings }
+    settings { '{}' }
 
     trait :for_user do
       subscribable factory: :user

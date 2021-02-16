@@ -7,8 +7,8 @@ FactoryBot.define do
     trait :with_screenshots do
       after :create do |ticket|
         ticket.screenshots.attach(
-          io: File.open('spec/factories/resources/ticket_screenshot.png'),
-          filename: 'ticket_screenshot.png'
+          io: File.open('spec/fixtures/logo.png'),
+          filename: 'logo.png'
         )
       end
     end

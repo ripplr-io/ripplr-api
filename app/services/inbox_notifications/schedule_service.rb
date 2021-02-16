@@ -12,7 +12,7 @@ module InboxNotifications
       slots = slots_from_settings(@settings['availability'])
 
       Time.use_zone(timezone) do
-        PushNotifications::SettingsSlotsService.new(slots).next_available_slot
+        SettingsSlotsService.new(slots).next_available_slot
       end
     end
 

@@ -10,9 +10,6 @@ if Rails.env.development?
       puts 'Creating admin user 👷'
       user = create(:user, email: 'admin@ripplr.io', password: '123456', level: level)
 
-      puts '- with devices 💻💻💻'
-      create_list(:device, 3, user: user)
-
       puts '- with tickets 🎟🎟🎟'
       create_list(:ticket, 3, user: user)
 

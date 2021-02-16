@@ -36,7 +36,6 @@ Rails.application.routes.draw do
     resources :devices, only: [:index, :create, :update, :destroy]
     resource :feed, only: :show
     resources :follows, only: [:index, :create, :destroy]
-    resource :inbox, only: :show, controller: :inbox, as: :main_inbox
     resources :levels, only: :index
     resources :referrals, only: [:index, :show, :create, :destroy]
     resources :subscriptions, only: [:index, :create, :update, :destroy]

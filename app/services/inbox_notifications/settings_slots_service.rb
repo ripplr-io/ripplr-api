@@ -1,4 +1,4 @@
-module PushNotifications
+module InboxNotifications
   class SettingsSlotsService
     def initialize(slots)
       @slots = slots

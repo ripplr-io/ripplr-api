@@ -30,7 +30,6 @@ RSpec.describe User, type: :model do
   it { is_expected.to have_many(:subscriptions) }
   it { is_expected.to have_many(:subscribing_users).through(:subscriptions).source(:user) }
   it { is_expected.to have_many(:push_notifications).through(:subscriptions) }
-  it { is_expected.to have_many(:push_notification_posts).through(:push_notifications).source(:post) }
   it { is_expected.to have_many(:inboxes) }
   it { is_expected.to have_many(:bookmark_folders) }
   it { is_expected.to have_many(:bookmarks) }

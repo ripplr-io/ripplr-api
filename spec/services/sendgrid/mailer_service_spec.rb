@@ -51,7 +51,7 @@ RSpec.describe Sendgrid::MailerService, type: :service do
   end
 
   context '#add_attachment' do
-    let(:file) { File.open('spec/factories/resources/ticket_screenshot.png') }
+    let(:file) { File.open('spec/fixtures/logo.png') }
 
     it 'adds the attachment' do
       instance = described_class.new('template', 'from@example.com')

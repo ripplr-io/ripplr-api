@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe PushNotifications::SettingsSlotsService, type: :service do
+RSpec.describe InboxNotifications::SettingsSlotsService, type: :service do
   context '#next_available_slot' do
     context 'without slots' do
       it 'returns nil' do
