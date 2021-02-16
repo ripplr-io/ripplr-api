@@ -13,7 +13,6 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :post_hashtags, dependent: :destroy
   has_many :hashtags, through: :post_hashtags
-  has_many :push_notifications, dependent: :destroy
 
   # Followers
   has_many :topic_followers, through: :topic, source: :followers

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_11_114531) do
+ActiveRecord::Schema.define(version: 2021_02_16_104550) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -283,23 +283,6 @@ ActiveRecord::Schema.define(version: 2021_02_11_114531) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["prizable_type", "prizable_id"], name: "index_prizes_on_prizable_type_and_prizable_id"
     t.index ["user_id"], name: "index_prizes_on_user_id"
-  end
-
-  create_table "push_notifications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "device_id"
-    t.uuid "subscription_id"
-    t.uuid "post_id"
-    t.string "title", null: false
-    t.text "body", null: false
-    t.string "thumbnail", null: false
-    t.datetime "scheduled_to"
-    t.datetime "delivered_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["device_id"], name: "index_push_notifications_on_device_id"
-    t.index ["post_id", "device_id"], name: "index_push_notifications_on_post_id_and_device_id", unique: true
-    t.index ["post_id"], name: "index_push_notifications_on_post_id"
-    t.index ["subscription_id"], name: "index_push_notifications_on_subscription_id"
   end
 
   create_table "ratings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

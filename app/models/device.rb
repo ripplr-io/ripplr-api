@@ -7,8 +7,6 @@ class Device < ApplicationRecord
 
   belongs_to :user
 
-  has_many :push_notifications, dependent: :destroy
-
   validates :device_type, presence: true
   validates :onesignal_id, presence: true
   validates :settings, presence: true

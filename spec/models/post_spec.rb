@@ -14,7 +14,6 @@ RSpec.describe Post, type: :model do
   it { is_expected.to have_many(:comments) }
   it { is_expected.to have_many(:post_hashtags) }
   it { is_expected.to have_many(:hashtags).through(:post_hashtags) }
-  it { is_expected.to have_many(:push_notifications) }
   it { is_expected.to have_many(:bookmarks) }
   it { is_expected.to have_many(:topic_followers).through(:topic).source(:followers) }
   it { is_expected.to have_many(:author_followers).through(:author).source(:followers) }
