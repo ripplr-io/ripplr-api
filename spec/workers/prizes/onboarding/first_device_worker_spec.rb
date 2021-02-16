@@ -1,9 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe Prizes::Onboarding::FirstDeviceWorker, type: :worker do
+  context 'the user has no channels' do
+    it 'does not create a new prize' do
+      user = create(:user)
+
+      expect { described_class.new.perform(user.id) }
+        .to change { Prize.count }.by(0)
+    end
+  end
+
   context 'the user has no devices' do
     it 'does not create a new prize' do
       user = create(:user)
+      create(:channel, :for_email, user: user)
 
       expect { described_class.new.perform(user.id) }
         .to change { Prize.count }.by(0)
@@ -13,7 +23,7 @@ RSpec.describe Prizes::Onboarding::FirstDeviceWorker, type: :worker do
   context 'the user has devices' do
     it 'creates a new prize' do
       user = create(:user)
-      create(:device, user: user)
+      create(:channel, :for_device, user: user)
 
       expect { described_class.new.perform(user.id) }
         .to change { Prize.count }.by(1)
@@ -28,7 +38,7 @@ RSpec.describe Prizes::Onboarding::FirstDeviceWorker, type: :worker do
 
     it 'is idempotent' do
       user = create(:user)
-      create(:device, user: user)
+      create(:channel, :for_device, user: user)
 
       expect { described_class.new.perform(user.id) }
         .to change { Prize.count }.by(1)

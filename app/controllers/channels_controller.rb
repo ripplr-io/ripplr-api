@@ -10,7 +10,7 @@ class ChannelsController < ApplicationController
 
   def create
     @channel.channelable = build_channelable
-    create_resource(@channel, interactor: Devices::Create) # TODO: Rename it to Channels::Create
+    create_resource(@channel, interactor: Channels::Create)
   end
 
   def update

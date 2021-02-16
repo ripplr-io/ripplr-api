@@ -33,7 +33,6 @@ class Ability
     can :manage, Bookmark, user_id: user.id
     can :manage, Channel, user_id: user.id
     can :manage, Comment, author: user
-    can :manage, Device, user_id: user.id
     can :manage, Follow, user_id: user.id
     can :manage, Inbox, user_id: user.id
     can :manage, InboxChannel, user_id: user.id

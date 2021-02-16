@@ -33,7 +33,6 @@ Rails.application.routes.draw do
     resources :bookmarks, only: [:create, :update, :destroy]
     resources :bookmark_folders, path: :folders
     resources :channels, only: [:index, :create, :update, :destroy]
-    resources :devices, only: [:index, :create, :update, :destroy]
     resource :feed, only: :show
     resources :follows, only: [:index, :create, :destroy]
     resources :levels, only: :index

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_16_104550) do
+ActiveRecord::Schema.define(version: 2021_02_16_142139) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -126,18 +126,6 @@ ActiveRecord::Schema.define(version: 2021_02_16_104550) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["topic_id"], name: "index_content_sources_on_topic_id"
     t.index ["user_id"], name: "index_content_sources_on_user_id"
-  end
-
-  create_table "devices", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id"
-    t.string "name", null: false
-    t.string "device_type", null: false
-    t.string "onesignal_id", null: false
-    t.json "settings", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id", "name"], name: "index_devices_on_user_id_and_name", unique: true
-    t.index ["user_id"], name: "index_devices_on_user_id"
   end
 
   create_table "follows", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

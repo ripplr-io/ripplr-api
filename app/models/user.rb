@@ -9,14 +9,17 @@ class User < ApplicationRecord
 
   has_one :billing, dependent: :destroy
   has_many :content_sources, dependent: :destroy
-  has_many :channels, dependent: :destroy
   has_many :comments, inverse_of: :author, foreign_key: :author_id, dependent: :destroy
-  has_many :devices, dependent: :destroy
   has_many :notifications, dependent: :destroy
   has_many :posts, inverse_of: :author, foreign_key: :author_id, dependent: :destroy
   has_many :prizes, dependent: :destroy
   has_many :tickets, dependent: :destroy
   has_many :access_tokens, foreign_key: :resource_owner_id, class_name: 'Doorkeeper::AccessToken', dependent: :destroy
+
+  # Channels
+  has_many :channels, dependent: :destroy
+  has_many :channel_devices, through: :channels, source: :channelable, source_type: 'Channel::Device'
+  has_many :channel_emails, through: :channels, source: :channelable, source_type: 'Channel::Email'
 
   # Ratings
   has_many :ratings, dependent: :destroy

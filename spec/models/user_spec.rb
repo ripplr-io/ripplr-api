@@ -13,11 +13,13 @@ RSpec.describe User, type: :model do
 
   it { is_expected.to have_many(:content_sources) }
   it { is_expected.to have_many(:comments).inverse_of(:author).with_foreign_key(:author_id) }
-  it { is_expected.to have_many(:devices) }
   it { is_expected.to have_many(:notifications) }
   it { is_expected.to have_many(:posts).inverse_of(:author).with_foreign_key(:author_id) }
   it { is_expected.to have_many(:prizes) }
   it { is_expected.to have_many(:tickets) }
+  it { is_expected.to have_many(:channels) }
+  it { is_expected.to have_many(:channel_devices).through(:channels).source(:channelable) }
+  it { is_expected.to have_many(:channel_emails).through(:channels).source(:channelable) }
   it { is_expected.to have_many(:ratings) }
   it { is_expected.to have_many(:received_ratings).through(:posts).source(:ratings) }
   it { is_expected.to have_many(:follows) }
