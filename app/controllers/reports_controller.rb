@@ -1,7 +1,8 @@
+# TODO: Move to support/reports
 class ReportsController < ApplicationController
   include JsonApi::Crudable
 
-  authorize_resource class: :report
+  authorize_resource class: :support
 
   def create
     report = ReportForm.new(report_params)

@@ -67,6 +67,10 @@ Rails.application.routes.draw do
 
     get :search, to: 'search#index'
 
+    namespace :support do
+      resource :content_suggestions, only: :create
+    end
+
     resources :topics, only: :index do
       resources :posts, only: :index
     end

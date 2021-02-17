@@ -23,6 +23,7 @@ class Ability
 
   def authenticated_access(user)
     can :read, Follow # TODO: Move this to public after removing /follows default to current_user
+    can :manage, :support
     can :manage, :account
     can :manage, :report
     can :manage, :search
