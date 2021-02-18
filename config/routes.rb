@@ -47,6 +47,7 @@ Rails.application.routes.draw do
     resources :inboxes do
       resources :posts, only: :index # TODO: Remove once replaced with the line below
       resources :inbox_items, only: :index
+      resources :subscription_inboxes, only: :index
     end
 
     resources :inbox_items, only: [] do

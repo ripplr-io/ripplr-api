@@ -43,6 +43,7 @@ class Ability
     can :manage, Rating, user_id: user.id
     can :manage, Referral, inviter: user
     can :manage, Subscription, user_id: user.id
+    can :manage, SubscriptionInbox, inbox: { user_id: user.id }
     can :manage, Ticket, user_id: user.id
   end
 end
