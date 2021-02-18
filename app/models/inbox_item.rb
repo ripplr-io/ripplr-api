@@ -6,6 +6,7 @@ class InboxItem < ApplicationRecord
 
   validates :inboxable_id, uniqueness: { scope: [:inboxable_type, :inbox_id] }
 
-  # TODO: Add endpoints to change this value (/inbox_item/:id/archive)
-  scope :not_archived, -> { where(archived_at: nil) }
+  scope :archived, lambda { |value=true|
+    value ? where.not(archived_at: nil) : where(archived_at: nil)
+  }
 end

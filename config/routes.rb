@@ -45,7 +45,14 @@ Rails.application.routes.draw do
     end
 
     resources :inboxes do
-      resources :posts, only: :index
+      resources :posts, only: :index # TODO: Remove once replaced with the line below
+      resources :inbox_items, only: :index
+    end
+
+    resources :inbox_items, only: [] do
+      scope module: :inbox_items do
+        resource :archive, only: :update, controller: :archive
+      end
     end
 
     resources :inbox_channels, only: [:create, :update, :destroy]
