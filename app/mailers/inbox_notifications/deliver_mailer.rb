@@ -26,7 +26,7 @@ module InboxNotifications
 
       mail.deliver
 
-      @inbox_notification.touch(:delivered_at)
+      @inbox_notification.update(delivered_at: Time.current)
     end
 
     private

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_16_142139) do
+ActiveRecord::Schema.define(version: 2021_02_18_134814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -192,6 +192,9 @@ ActiveRecord::Schema.define(version: 2021_02_16_142139) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "description"
+    t.integer "inbox_items_count", default: 0, null: false
+    t.integer "inbox_items_archived_count", default: 0, null: false
+    t.integer "subscription_inboxes_count", default: 0, null: false
     t.index ["user_id", "name"], name: "index_inboxes_on_user_id_and_name", unique: true
     t.index ["user_id"], name: "index_inboxes_on_user_id"
   end

@@ -12,7 +12,7 @@ module Accounts
 
       # FIXME: Move this to a ReferralAcceptWorker?
       if context.resource.referral.present?
-        context.resource.referral.touch(:accepted_at)
+        context.resource.referral.update(accepted_at: Time.current)
         Notifications::ReferralAccepted.create(user: context.resource.referral.inviter, referral: context.resource.referral)
         Prizes::ReferralAcceptedWorker.perform_async(context.resource.referral.id)
         Alerts::ReferralAcceptedWorker.perform_async(context.resource.referral.id)

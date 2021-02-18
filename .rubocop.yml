@@ -53,9 +53,6 @@ Style/SymbolArray:
   EnforcedStyle: brackets
 
 # Disabled cops
-Rails/SkipsModelValidations:
-  Enabled: false
-
 Style/Documentation:
   Enabled: false
 
@@ -64,3 +61,7 @@ Style/FrozenStringLiteralComment:
 
 Style/BlockComments:
   Enabled: false
+
+# Notes
+# Rails/SkipsModelValidations: This bot was re-enabled because methods like touch don't work well
+# with counter-culture (and other gems that rely on callbacks)

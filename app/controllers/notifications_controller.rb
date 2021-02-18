@@ -11,10 +11,18 @@ class NotificationsController < ApplicationController
   end
 
   def read
-    @notification.touch(:read_at)
+    mark_as_read(@notification)
   end
 
   def read_all
-    @notifications.touch_all(:read_at)
+    @notifications.each do |notification|
+      mark_as_read(notification)
+    end
+  end
+
+  private
+
+  def mark_as_read(notification)
+    notification.update(read_at: Time.current)
   end
 end
