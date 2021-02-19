@@ -4,7 +4,7 @@ class InboxItemsController < ApplicationController
   load_resource :inbox
   load_and_authorize_resource through: [:inbox]
 
-  serializer include: [:inboxable]
+  serializer include: [:inboxable, 'inboxable.author', 'inboxable.topic', 'inboxable.hashtags', 'inboxable.bookmark']
 
   def index
     @inbox_items = @inbox_items.archived(false) if hide_archived?
