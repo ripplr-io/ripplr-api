@@ -47,5 +47,21 @@ RSpec.describe :inbox_items_index, type: :request do
         expect(response_data).to have_resource(item_archived)
       end
     end
+
+    context 'with include_archived eq false' do
+      it 'shows items not archived' do
+        inbox = create(:inbox)
+        item_not_archived = create(:inbox_item, inbox: inbox, archived_at: nil)
+        item_archived = create(:inbox_item, inbox: inbox, archived_at: Time.current)
+
+        get inbox_inbox_items_path(inbox),
+          params: { include_archived: false },
+          headers: auth_headers_for(inbox.user)
+
+        expect(response).to have_http_status(:ok)
+        expect(response_data).to have_resource(item_not_archived)
+        expect(response_data).not_to have_resource(item_archived)
+      end
+    end
   end
 end

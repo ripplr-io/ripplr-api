@@ -7,7 +7,7 @@ class InboxItemsController < ApplicationController
   serializer include: [:inboxable, 'inboxable.author', 'inboxable.topic', 'inboxable.hashtags', 'inboxable.bookmark']
 
   def index
-    @inbox_items = @inbox_items.archived(false) if hide_archived?
+    @inbox_items = @inbox_items.archived(false) unless include_archived?
     @inbox_items = @inbox_items
       .includes(:inboxable)
       .order(created_at: :desc)
@@ -19,7 +19,7 @@ class InboxItemsController < ApplicationController
 
   private
 
-  def hide_archived?
-    !params[:include_archived]
+  def include_archived?
+    params[:include_archived] == 'true'
   end
 end
