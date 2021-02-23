@@ -1,3 +1,5 @@
+# NOTE: Custom Fields expect an ID instead of a name. Passing a name should be
+# implemented in the future: https://github.com/sendgrid/sendgrid-ruby/issues/391
 module Sendgrid
   class ContactService < BaseService
     def create_lead(email)
@@ -7,7 +9,9 @@ module Sendgrid
     end
 
     def sync_user(user)
-      contacts = [{ email: user.email, custom_fields: { is_user: 'true' }}]
+      contacts = [{ email: user.email, custom_fields: {
+        'e3_T': 'true' # is_user field
+      }}]
 
       upsert_contacts(contacts)
     end
