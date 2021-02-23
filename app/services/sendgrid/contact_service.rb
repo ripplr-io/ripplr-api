@@ -7,7 +7,7 @@ module Sendgrid
     end
 
     def sync_user(user)
-      contacts = [{ email: user.email, is_user: 'true' }]
+      contacts = [{ email: user.email, custom_fields: { is_user: 'true' }}]
 
       upsert_contacts(contacts)
     end
