@@ -1,29 +1,33 @@
 module ContentSources
   class PublishWorker < ApplicationWorker
-    def perform(user_id, topic_id, url)
-      user = User.find_by(id: user_id)
-      topic = Topic.find_by(id: topic_id)
-      return if user.blank? || topic.blank?
+    MAX_TITLE_LENGTH = 160
+    MAX_BODY_LENGTH = 256
 
-      data = Posts::PreviewService.new(url).data
-      return if user.posts.find_by(url: data[:url]).present?
+    def perform(content_source_id, url, feed_data = {})
+      content_source = ContentSource.find_by(id: content_source_id)
+      return if content_source.blank? || url.blank?
+      return if content_source.user.posts.where(url: url).any?
 
-      post = user.posts.build(
-        url: data[:url],
-        title: data[:title],
-        body: data[:body],
-        topic: topic
-      )
+      @url = url
+      feed_data.symbolize_keys!
 
-      interactor = Posts::Create.call(resource: post, image_url: data[:image] || Post::DEFAULT_IMAGE)
-      log_errors(interactor) unless interactor.success?
+      post = content_source.user.posts.build({
+        topic: content_source.topic,
+        url: @url,
+        title: (feed_data[:title] || meta_data[:title] || '').truncate(MAX_TITLE_LENGTH),
+        body: (feed_data[:body] || meta_data[:body] || '').truncate(MAX_BODY_LENGTH)
+      })
+
+      image_url = feed_data[:image] || meta_data[:image] || Post::DEFAULT_IMAGE
+
+      interactor = Posts::Create.call(resource: post, image_url: image_url)
+      log_resource_interaction(interactor)
     end
 
     private
 
-    def log_errors(interactor)
-      error_messages = interactor.resource.errors.full_messages
-      Rails.logger.info "ContentSources::PublishWorker failed: #{error_messages}"
+    def meta_data
+      @_meta_data ||= Posts::PreviewService.new(@url).data
     end
   end
 end

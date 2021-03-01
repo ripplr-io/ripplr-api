@@ -1,8 +1,8 @@
 module ContentSources
   class ScheduleWorker < ApplicationWorker
     def perform
-      ContentSource.all.each do |ap|
-        ContentSources::UpdateWorker.perform_async(ap.id)
+      ContentSource.all.each do |cs|
+        ContentSources::UpdateWorker.perform_async(cs.id)
       end
     end
   end
