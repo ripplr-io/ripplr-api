@@ -6,7 +6,7 @@ module Mixpanel
       follow = Follow.find_by(id: follow_id)
       return if follow.blank?
 
-      Mixpanel::BaseService.new(follow.user.id).track(EVENT_NAME, {
+      Mixpanel::BaseService.new(follow.user).track(EVENT_NAME, {
         'Followable type' => follow.followable_type
       })
     end

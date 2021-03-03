@@ -17,6 +17,15 @@ RSpec.describe Sendgrid::ContactService, type: :service do
 
       instance.sync_user(create(:user))
     end
+
+    context 'user is bot' do
+      it 'returns early' do
+        instance = described_class.new
+        expect(instance).not_to receive(:upsert_contacts)
+
+        instance.sync_user(create(:content_source).user)
+      end
+    end
   end
 
   context '#upsert_contacts' do

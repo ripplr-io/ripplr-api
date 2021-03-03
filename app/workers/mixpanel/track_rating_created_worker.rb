@@ -6,7 +6,7 @@ module Mixpanel
       rating = Rating.find_by(id: rating_id)
       return if rating.blank?
 
-      Mixpanel::BaseService.new(rating.user.id).track(EVENT_NAME)
+      Mixpanel::BaseService.new(rating.user).track(EVENT_NAME)
     end
   end
 end

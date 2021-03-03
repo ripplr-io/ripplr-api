@@ -6,7 +6,7 @@ module Mixpanel
       bookmark = Bookmark.find_by(id: bookmark_id)
       return if bookmark.blank?
 
-      Mixpanel::BaseService.new(bookmark.user.id).track(EVENT_NAME)
+      Mixpanel::BaseService.new(bookmark.user).track(EVENT_NAME)
     end
   end
 end

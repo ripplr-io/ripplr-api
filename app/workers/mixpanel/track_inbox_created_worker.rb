@@ -6,7 +6,7 @@ module Mixpanel
       inbox = Inbox.find_by(id: inbox_id)
       return if inbox.blank?
 
-      Mixpanel::BaseService.new(inbox.user.id).track(EVENT_NAME)
+      Mixpanel::BaseService.new(inbox.user).track(EVENT_NAME)
     end
   end
 end

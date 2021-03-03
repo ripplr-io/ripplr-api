@@ -9,6 +9,8 @@ module Sendgrid
     end
 
     def sync_user(user)
+      return if user.bot?
+
       contacts = [{ email: user.email, custom_fields: {
         'e3_T': 'true' # is_user field
       }}]

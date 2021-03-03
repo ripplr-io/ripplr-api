@@ -3,7 +3,10 @@ module Mixpanel
     EVENT_NAME = 'Login'.freeze
 
     def perform(user_id, ip, browser, platform)
-      service = Mixpanel::BaseService.new(user_id)
+      user = User.find_by(id: user_id)
+      return if user.blank?
+
+      service = Mixpanel::BaseService.new(user)
 
       browser_options = {
         '$browser' => browser,

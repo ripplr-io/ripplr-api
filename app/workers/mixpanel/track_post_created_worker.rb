@@ -6,7 +6,7 @@ module Mixpanel
       post = Post.find_by(id: post_id)
       return if post.blank?
 
-      Mixpanel::BaseService.new(post.author.id).track(EVENT_NAME)
+      Mixpanel::BaseService.new(post.author).track(EVENT_NAME)
     end
   end
 end

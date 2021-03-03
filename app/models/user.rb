@@ -90,4 +90,9 @@ class User < ApplicationRecord
       created_at: Time.current.beginning_of_day..Time.current.end_of_day
     ).count
   end
+
+  # FIXME: Move this to the queries or decorators folder
+  def bot?
+    content_sources.any?
+  end
 end

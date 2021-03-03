@@ -11,6 +11,16 @@ RSpec.describe Sendgrid::SubscriptionService, type: :service do
       expect(instance).to receive(:unsubscribe)
       instance.sync_user(create(:user, subscribed_to_marketing: false))
     end
+
+    context 'user is bot' do
+      it 'returns early' do
+        instance = described_class.new
+        expect(instance).not_to receive(:subscribe)
+        expect(instance).not_to receive(:unsubscribe)
+
+        instance.sync_user(create(:content_source).user)
+      end
+    end
   end
 
   context '#unsubscribe' do

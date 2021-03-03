@@ -4,10 +4,7 @@ class UserSerializer < ApplicationSerializer
   attribute :postsCount, &:posts_count
   attribute :followersCount, &:followers_count
   attribute :pointsSum, &:total_points
-
-  attributes :bot do |object|
-    object.content_sources.any?
-  end
+  attribute :bot, &:bot?
 
   attribute :followingCount do |object|
     object.following_users_count + object.following_topics_count + object.following_hashtags_count

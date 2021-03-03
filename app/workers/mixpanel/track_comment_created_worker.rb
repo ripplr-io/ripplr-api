@@ -6,7 +6,7 @@ module Mixpanel
       comment = Comment.find_by(id: comment_id)
       return if comment.blank?
 
-      Mixpanel::BaseService.new(comment.author.id).track(EVENT_NAME)
+      Mixpanel::BaseService.new(comment.author).track(EVENT_NAME)
     end
   end
 end

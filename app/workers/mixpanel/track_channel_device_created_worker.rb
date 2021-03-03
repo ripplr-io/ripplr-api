@@ -6,7 +6,7 @@ module Mixpanel
       channel_device = Channel::Device.find_by(id: channel_device_id)
       return if channel_device.blank?
 
-      Mixpanel::BaseService.new(channel_device.channel.user.id).track(EVENT_NAME)
+      Mixpanel::BaseService.new(channel_device.channel.user).track(EVENT_NAME)
     end
   end
 end

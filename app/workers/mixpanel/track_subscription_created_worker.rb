@@ -6,7 +6,7 @@ module Mixpanel
       subscription = Subscription.find_by(id: subscription_id)
       return if subscription.blank?
 
-      Mixpanel::BaseService.new(subscription.user.id).track(EVENT_NAME)
+      Mixpanel::BaseService.new(subscription.user).track(EVENT_NAME)
     end
   end
 end

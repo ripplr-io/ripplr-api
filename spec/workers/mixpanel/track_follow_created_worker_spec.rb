@@ -5,7 +5,7 @@ RSpec.describe Mixpanel::TrackFollowCreatedWorker, type: :worker do
     it 'calls the mixpanel service' do
       follow = create(:follow, followable: create(:user))
 
-      expect(Mixpanel::BaseService).to receive(:new).with(follow.user.id).and_call_original
+      expect(Mixpanel::BaseService).to receive(:new).with(follow.user).and_call_original
       expect_any_instance_of(Mixpanel::BaseService).to receive(:track).with(
         'Follow Created',
         { 'Followable type' => 'User' }
@@ -19,7 +19,7 @@ RSpec.describe Mixpanel::TrackFollowCreatedWorker, type: :worker do
     it 'calls the mixpanel service' do
       follow = create(:follow, followable: create(:topic))
 
-      expect(Mixpanel::BaseService).to receive(:new).with(follow.user.id).and_call_original
+      expect(Mixpanel::BaseService).to receive(:new).with(follow.user).and_call_original
       expect_any_instance_of(Mixpanel::BaseService).to receive(:track).with(
         'Follow Created',
         { 'Followable type' => 'Topic' }
@@ -33,7 +33,7 @@ RSpec.describe Mixpanel::TrackFollowCreatedWorker, type: :worker do
     it 'calls the mixpanel service' do
       follow = create(:follow, followable: create(:hashtag))
 
-      expect(Mixpanel::BaseService).to receive(:new).with(follow.user.id).and_call_original
+      expect(Mixpanel::BaseService).to receive(:new).with(follow.user).and_call_original
       expect_any_instance_of(Mixpanel::BaseService).to receive(:track).with(
         'Follow Created',
         { 'Followable type' => 'Hashtag' }
