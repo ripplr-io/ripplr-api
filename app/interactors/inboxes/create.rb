@@ -6,6 +6,7 @@ module Inboxes
       context.fail! unless context.resource.save
 
       Mixpanel::TrackInboxCreatedWorker.perform_async(context.resource.id)
+      Prizes::Onboarding::FirstInboxWorker.perform_async(context.resource.user.id)
     end
 
     private

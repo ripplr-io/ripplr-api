@@ -6,6 +6,8 @@ class InboxesController < ApplicationController
   serializer include: [:inbox_channels, 'inbox_channels.channel']
 
   def index
+    @inboxes = @inboxes.order(created_at: :asc)
+
     read_resource(@inboxes)
   end
 

@@ -8,7 +8,7 @@ module InboxItems
 
     def update
       @inbox_item.assign_attributes(archive_params)
-      update_resource(@inbox_item)
+      update_resource(@inbox_item, interactor: InboxItems::UpdateArchive)
     end
 
     private
