@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Accounts::Create, type: :interactor do
   it 'creates the account' do
     level = create(:level)
-    user = build(:user, level: nil, billing: nil)
+    user = build(:user, level: nil, billing: nil, bookmark_folders: [])
 
     expect { described_class.call(resource: user) }
       .to change { User.count }.by(1)
@@ -20,7 +20,7 @@ RSpec.describe Accounts::Create, type: :interactor do
   it 'creates a referral accepted notification' do
     level = create(:level)
     referral = create(:referral)
-    user = build(:user, level: nil, billing: nil)
+    user = build(:user, level: nil, billing: nil, bookmark_folders: [])
 
     expect { described_class.call(resource: user, referral_id: referral.id) }
       .to change { User.count }.by(1)

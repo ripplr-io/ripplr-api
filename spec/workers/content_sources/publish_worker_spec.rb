@@ -15,8 +15,8 @@ RSpec.describe ContentSources::PublishWorker, type: :worker do
       expect(Posts::PreviewService).not_to receive(:new)
 
       # Mock Image Download
-      file = File.open('spec/fixtures/logo.png')
-      allow_any_instance_of(URI::HTTPS).to receive(:open).and_return(file)
+      file = file_fixture('logo.png')
+      allow_any_instance_of(URI::HTTPS).to receive(:open).and_return(file.open)
 
       expect { described_class.new.perform(content_source.id, url, feed_data) }
         .to change { Post.count }.by(1)
@@ -46,8 +46,8 @@ RSpec.describe ContentSources::PublishWorker, type: :worker do
       allow(Posts::PreviewService).to receive(:new).with(url).and_return(preview_mock)
 
       # Mock Image Download
-      file = File.open('spec/fixtures/logo.png')
-      allow_any_instance_of(URI::HTTPS).to receive(:open).and_return(file)
+      file = file_fixture('logo.png')
+      allow_any_instance_of(URI::HTTPS).to receive(:open).and_return(file.open)
 
       expect { described_class.new.perform(content_source.id, url, feed_data) }
         .to change { Post.count }.by(1)

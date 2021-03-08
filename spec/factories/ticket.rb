@@ -5,11 +5,10 @@ FactoryBot.define do
     body { Faker::Lorem.paragraph }
 
     trait :with_screenshots do
-      after :create do |ticket|
-        ticket.screenshots.attach(
-          io: File.open('spec/fixtures/logo.png'),
-          filename: 'logo.png'
-        )
+      screenshots do
+        [
+          Rack::Test::UploadedFile.new('spec/fixtures/logo.png', 'image/png')
+        ]
       end
     end
   end

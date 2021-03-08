@@ -8,8 +8,10 @@ FactoryBot.define do
     billing { association :billing, user: instance }
     level
 
-    after :create do |user|
-      create :bookmark_folder, user: user, name: 'Root'
+    bookmark_folders do
+      [
+        build(:bookmark_folder, user: instance, name: 'Root')
+      ]
     end
   end
 end

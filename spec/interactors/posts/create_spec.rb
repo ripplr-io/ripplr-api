@@ -13,8 +13,8 @@ RSpec.describe Posts::Create, type: :interactor do
   end
 
   it 'creates the post with an image_url' do
-    file = File.open('spec/fixtures/logo.png')
-    allow_any_instance_of(URI::HTTPS).to receive(:open).and_return(file)
+    file = file_fixture('logo.png')
+    allow_any_instance_of(URI::HTTPS).to receive(:open).and_return(file.open)
     post = build(:post)
 
     expect { described_class.call(resource: post, image_url: 'https://ripplr.io/logo.png') }

@@ -1,8 +1,15 @@
 FactoryBot.define do
   factory :subscription do
-    for_user
     user
     settings { '{}' }
+
+    inboxes do
+      [
+        user.inboxes.first || build(:inbox, user: user)
+      ]
+    end
+
+    for_user
 
     trait :for_user do
       subscribable factory: :user
