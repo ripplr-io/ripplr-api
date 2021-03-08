@@ -61,4 +61,48 @@ RSpec.describe :posts_index, type: :request do
     expect(response_included).to have_resource(post.hashtags.first)
     expect(response_included).to have_resource(bookmark)
   end
+
+  context 'order' do
+    context 'sort_by is blank' do
+      it 'orders chronologically' do
+        topic = create(:topic)
+        old_post = create(:post, topic: topic, created_at: Time.current - 1.day)
+        new_post = create(:post, topic: topic, created_at: Time.current)
+
+        get topic_posts_path(topic)
+
+        expect(response).to have_http_status(:ok)
+        expect(response_data.first).to be_resource(new_post)
+        expect(response_data.second).to be_resource(old_post)
+      end
+    end
+
+    context 'sort_by eq created_at' do
+      it 'orders chronologically' do
+        topic = create(:topic)
+        old_post = create(:post, topic: topic, created_at: Time.current - 1.day)
+        new_post = create(:post, topic: topic, created_at: Time.current)
+
+        get topic_posts_path(topic), params: { sort_by: :created_at }
+
+        expect(response).to have_http_status(:ok)
+        expect(response_data.first).to be_resource(new_post)
+        expect(response_data.second).to be_resource(old_post)
+      end
+    end
+
+    context 'sort_by eq popularity' do
+      it 'orders by popularity' do
+        topic = create(:topic)
+        popular_post = create(:post, topic: topic, ratings_points_total: 100)
+        unpopular_post = create(:post, topic: topic, ratings_points_total: 10)
+
+        get topic_posts_path(topic), params: { sort_by: :popularity }
+
+        expect(response).to have_http_status(:ok)
+        expect(response_data.first).to be_resource(popular_post)
+        expect(response_data.second).to be_resource(unpopular_post)
+      end
+    end
+  end
 end

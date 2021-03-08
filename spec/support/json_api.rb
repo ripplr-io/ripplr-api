@@ -31,6 +31,15 @@ module JsonApiMatchers
     end
   end
 
+  # NOTE: variable actual is meant to be document[:data][:index] or document[:include][:index]
+  matcher :be_resource do |expected|
+    match do |actual|
+      return false if expected.nil? || actual.nil?
+
+      actual[:id] == expected.id
+    end
+  end
+
   # NOTE: variable actual is meant to be document[:errors]
   matcher :have_error do |expected|
     match do |actual|

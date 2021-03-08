@@ -10,8 +10,15 @@ class PostsController < ApplicationController
   serializer include: [:author, :topic, :hashtags, :bookmark]
 
   def index
+    @posts =
+      case params[:sort_by]
+      when 'popularity'
+        @posts.order_by_popularity
+      else
+        @posts.order_chronologically
+      end
+
     @posts = @posts
-      .order(created_at: :desc)
       .page(params[:page])
       .per(params[:per_page])
 

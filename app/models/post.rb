@@ -27,6 +27,9 @@ class Post < ApplicationRecord
   validates :url, presence: true
   validates :body, presence: true
 
+  scope :order_by_popularity, -> { order(ratings_points_total: :desc) }
+  scope :order_chronologically, -> { order(created_at: :desc) }
+
   acts_as_paranoid
   counter_culture :topic, touch: true
   counter_culture :author, touch: true
