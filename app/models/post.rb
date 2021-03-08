@@ -27,8 +27,9 @@ class Post < ApplicationRecord
   validates :url, presence: true
   validates :body, presence: true
 
-  scope :order_by_popularity, -> { order(ratings_points_total: :desc) }
   scope :order_chronologically, -> { order(created_at: :desc) }
+  scope :order_by_rating, -> { order(ratings_points_total: :desc) }
+  scope :order_by_popularity, -> { where(created_at: (Time.current - 1.week)..Time.current).order_by_rating }
 
   acts_as_paranoid
   counter_culture :topic, touch: true

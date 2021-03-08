@@ -91,17 +91,33 @@ RSpec.describe :posts_index, type: :request do
       end
     end
 
+    context 'sort_by eq rating' do
+      it 'orders by rating' do
+        topic = create(:topic)
+        popular_post = create(:post, topic: topic, ratings_points_total: 100)
+        unpopular_post = create(:post, topic: topic, ratings_points_total: 10)
+
+        get topic_posts_path(topic), params: { sort_by: :rating }
+
+        expect(response).to have_http_status(:ok)
+        expect(response_data.first).to be_resource(popular_post)
+        expect(response_data.second).to be_resource(unpopular_post)
+      end
+    end
+
     context 'sort_by eq popularity' do
       it 'orders by popularity' do
         topic = create(:topic)
         popular_post = create(:post, topic: topic, ratings_points_total: 100)
         unpopular_post = create(:post, topic: topic, ratings_points_total: 10)
+        old_post = create(:post, topic: topic, ratings_points_total: 50, created_at: Time.current - 2.weeks)
 
         get topic_posts_path(topic), params: { sort_by: :popularity }
 
         expect(response).to have_http_status(:ok)
         expect(response_data.first).to be_resource(popular_post)
         expect(response_data.second).to be_resource(unpopular_post)
+        expect(response_data).not_to have_resource(old_post)
       end
     end
   end

@@ -14,6 +14,8 @@ class PostsController < ApplicationController
       case params[:sort_by]
       when 'popularity'
         @posts.order_by_popularity
+      when 'rating'
+        @posts.order_by_rating
       else
         @posts.order_chronologically
       end
