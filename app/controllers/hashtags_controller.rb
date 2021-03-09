@@ -6,6 +6,8 @@ class HashtagsController < ApplicationController
 
   def index
     @hashtags = Hashtag.search(params[:query])
+      .page(params[:page])
+      .per(params[:per_page])
     read_resource(@hashtags)
   end
 

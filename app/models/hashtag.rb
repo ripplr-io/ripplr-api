@@ -9,5 +9,8 @@ class Hashtag < ApplicationRecord
 
   pg_search_scope :search,
     using: { tsearch: { prefix: true, any_word: true } },
-    against: :name
+    against: :name,
+    order_within_rank: 'posts_count DESC'
+
+  paginates_per 5
 end
