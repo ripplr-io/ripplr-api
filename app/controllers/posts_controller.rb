@@ -4,9 +4,10 @@ class PostsController < ApplicationController
   load_resource :user
   load_resource :topic
   load_resource :hashtag, find_by: :name
-  load_and_authorize_resource through: [:user, :topic, :hashtag], shallow: true
+  load_resource :community
+  load_and_authorize_resource through: [:user, :topic, :hashtag, :community], shallow: true
 
-  serializer include: [:author, :topic, :hashtags, :bookmark]
+  serializer include: [:author, :topic, :hashtags, :bookmark, :communities]
 
   def index
     @posts =
@@ -46,7 +47,18 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.permit(:title, :body, :url, :topic_id).merge(hashtag_params).merge(image_params)
+    params.permit(:title, :body).merge(image_params).merge(hashtag_params)
+  end
+
+  def create_params
+    post_params.merge(params.permit(:url, :topic_id)).merge(community_params)
+  end
+
+  def image_params
+    return {} if params[:image_file].blank?
+    return {} if params[:image_file] == 'undefined' # FIXME: in the frontend
+
+    { image: params[:image_file] }
   end
 
   def hashtag_params
@@ -59,11 +71,10 @@ class PostsController < ApplicationController
     { hashtags: hashtags }
   end
 
-  def image_params
-    return {} if params[:image_file].blank?
-    return {} if params[:image_file] == 'undefined' # FIXME: in the frontend
+  def community_params
+    return {} if params[:community_ids].blank?
 
-    { image: params[:image_file] }
+    { communities: Community.where(id: JSON.parse(params[:community_ids])) }
   end
 
   def create_context

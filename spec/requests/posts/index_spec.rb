@@ -36,6 +36,17 @@ RSpec.describe :posts_index, type: :request do
     expect(response_data).not_to have_resource(other_post)
   end
 
+  it 'responds with the community resources' do
+    community_post = create(:community_post)
+    other_post = create(:post)
+
+    get community_posts_path(community_post.community)
+
+    expect(response).to have_http_status(:ok)
+    expect(response_data).to have_resource(community_post.post)
+    expect(response_data).not_to have_resource(other_post)
+  end
+
   it 'reponds with included associations' do
     user = create(:user)
     post_hashtag = create(:post_hashtag)

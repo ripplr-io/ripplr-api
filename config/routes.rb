@@ -40,6 +40,10 @@ Rails.application.routes.draw do
     resources :subscriptions, only: [:index, :create, :update, :destroy]
     resources :tickets, only: :create
 
+    resources :communities, only: [:create, :update, :destroy] do
+      resources :posts, only: :index
+    end
+
     resources :hashtags, only: [:index, :show] do
       resources :posts, only: :index
     end

@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_one :billing, dependent: :destroy
   has_many :content_sources, dependent: :destroy
   has_many :comments, inverse_of: :author, foreign_key: :author_id, dependent: :destroy
+  has_many :communities, inverse_of: :owner, foreign_key: :owner_id, dependent: :restrict_with_error
   has_many :notifications, dependent: :destroy
   has_many :posts, inverse_of: :author, foreign_key: :author_id, dependent: :destroy
   has_many :prizes, dependent: :destroy

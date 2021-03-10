@@ -14,6 +14,7 @@ class Ability
     can :show, Referral
 
     can :read, Comment
+    can :read, Community
     can :read, Hashtag
     can :read, Level
     can :read, Post
@@ -33,15 +34,16 @@ class Ability
     can :manage, BookmarkFolder, user_id: user.id
     can :manage, Bookmark, user_id: user.id
     can :manage, Channel, user_id: user.id
-    can :manage, Comment, author: user
+    can :manage, Comment, author_id: user.id
+    can :manage, Community, owner_id: user.id
     can :manage, Follow, user_id: user.id
     can :manage, Inbox, user_id: user.id
     can :manage, InboxItem, inbox: { user_id: user.id }
     can :manage, InboxChannel, user_id: user.id
     can :manage, Notification, user_id: user.id
-    can :manage, Post, author: user
+    can :manage, Post, author_id: user.id
     can :manage, Rating, user_id: user.id
-    can :manage, Referral, inviter: user
+    can :manage, Referral, inviter_id: user.id
     can :manage, Subscription, user_id: user.id
     can :manage, SubscriptionInbox, inbox: { user_id: user.id }
     can :manage, Ticket, user_id: user.id

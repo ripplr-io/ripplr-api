@@ -2,6 +2,7 @@ class PostSerializer < ApplicationSerializer
   belongs_to :topic
   belongs_to :author, record_type: :user, serializer: :user
   has_many :hashtags
+  has_many :communities
 
   attributes :title, :body, :image, :url, :created_at
 

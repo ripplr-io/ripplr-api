@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_18_134814) do
+ActiveRecord::Schema.define(version: 2021_03_10_151143) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -116,6 +116,37 @@ ActiveRecord::Schema.define(version: 2021_02_18_134814) do
     t.index ["comment_id"], name: "index_comments_on_comment_id"
     t.index ["deleted_at"], name: "index_comments_on_deleted_at"
     t.index ["post_id"], name: "index_comments_on_post_id"
+  end
+
+  create_table "communities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "owner_id"
+    t.string "name", limit: 20, null: false
+    t.string "slug", limit: 255, null: false
+    t.text "description", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["owner_id"], name: "index_communities_on_owner_id"
+    t.index ["slug"], name: "index_communities_on_slug", unique: true
+  end
+
+  create_table "community_posts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "community_id"
+    t.uuid "post_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["community_id", "post_id"], name: "index_community_posts_on_community_id_and_post_id", unique: true
+    t.index ["community_id"], name: "index_community_posts_on_community_id"
+    t.index ["post_id"], name: "index_community_posts_on_post_id"
+  end
+
+  create_table "community_topics", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "community_id"
+    t.uuid "topic_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["community_id", "topic_id"], name: "index_community_topics_on_community_id_and_topic_id", unique: true
+    t.index ["community_id"], name: "index_community_topics_on_community_id"
+    t.index ["topic_id"], name: "index_community_topics_on_topic_id"
   end
 
   create_table "content_sources", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -381,6 +412,7 @@ ActiveRecord::Schema.define(version: 2021_02_18_134814) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "users", column: "author_id"
+  add_foreign_key "communities", "users", column: "owner_id"
   add_foreign_key "oauth_access_tokens", "users", column: "resource_owner_id"
   add_foreign_key "posts", "users", column: "author_id"
   add_foreign_key "referrals", "users", column: "invitee_id"

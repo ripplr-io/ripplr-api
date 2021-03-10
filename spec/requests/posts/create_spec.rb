@@ -10,26 +10,77 @@ RSpec.describe :posts_create, type: :request do
   end
 
   it 'responds with the resource' do
-    user = create(:user)
-    mock_post = build(:post, topic: create(:topic))
+    attributes = attributes_for(:post)
+      .slice(:title, :body, :url)
+      .merge(topic_id: create(:topic).id)
 
     post posts_path,
-      params: mock_post.as_json(only: [:title, :body, :url, :topic_id]).merge(hashtags: ['hashtag'].to_json),
-      headers: auth_headers_for(user)
+      params: attributes,
+      headers: auth_headers_for_new_user
 
     expect(response).to have_http_status(:created)
     expect(response_data).to have_resource(Post.last)
   end
 
-  it 'sets the image from file' do
-    image = Rack::Test::UploadedFile.new(file_fixture('logo.png'))
-    user = create(:user)
-    mock_post = build(:post, topic: create(:topic))
+  context 'image' do
+    it 'sets the image from file' do
+      image = Rack::Test::UploadedFile.new(file_fixture('logo.png'))
 
-    post posts_path,
-      params: mock_post.as_json(only: [:title, :body, :url, :topic_id]).merge(image_file: image),
-      headers: auth_headers_for(user)
+      attributes = attributes_for(:post)
+        .slice(:title, :body, :url)
+        .merge(topic_id: create(:topic).id)
+        .merge(image_file: image)
 
-    expect(Post.last.image.present?).to eq true
+      post posts_path,
+        params: attributes,
+        headers: auth_headers_for_new_user
+
+      expect(response).to have_http_status(:created)
+      expect(Post.last.image.present?).to eq true
+    end
+  end
+
+  context 'communities' do
+    it 'sets the correct communities' do
+      community = create(:community)
+      other_community = create(:community)
+
+      attributes = attributes_for(:post)
+        .slice(:title, :body, :url)
+        .merge(topic_id: create(:topic).id)
+        .merge(community_ids: [community.id].to_json)
+
+      post posts_path,
+        params: attributes,
+        headers: auth_headers_for_new_user
+
+      expect(response).to have_http_status(:created)
+      expect(Post.last.communities).to include(community)
+      expect(Post.last.communities).not_to include(other_community)
+    end
+  end
+
+  context 'hashtags' do
+    it 'sets the correct hashtags' do
+      hashtag = create(:hashtag)
+      other_hashtag = create(:hashtag)
+
+      attributes = attributes_for(:post)
+        .slice(:title, :body, :url)
+        .merge(topic_id: create(:topic).id)
+        .merge(hashtags: [hashtag.name, 'newtag'].to_json)
+
+      post posts_path,
+        params: attributes,
+        headers: auth_headers_for_new_user
+
+      expect(response).to have_http_status(:created)
+      expect(Post.last.hashtags).to include(hashtag)
+      expect(Post.last.hashtags).not_to include(other_hashtag)
+
+      new_tag = Hashtag.find_by(name: 'newtag')
+      expect(new_tag).not_to eq(nil)
+      expect(Post.last.hashtags).to include(new_tag)
+    end
   end
 end

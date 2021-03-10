@@ -11,6 +11,12 @@ class Post < ApplicationRecord
 
   has_many :bookmarks, dependent: :destroy
   has_many :comments, dependent: :destroy
+
+  # Communities
+  has_many :community_posts, dependent: :destroy
+  has_many :communities, through: :community_posts
+
+  # Hashtags
   has_many :post_hashtags, dependent: :destroy
   has_many :hashtags, through: :post_hashtags
 

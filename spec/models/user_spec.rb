@@ -13,6 +13,7 @@ RSpec.describe User, type: :model do
 
   it { is_expected.to have_many(:content_sources) }
   it { is_expected.to have_many(:comments).inverse_of(:author).with_foreign_key(:author_id) }
+  it { is_expected.to have_many(:communities).inverse_of(:owner).with_foreign_key(:owner_id) }
   it { is_expected.to have_many(:notifications) }
   it { is_expected.to have_many(:posts).inverse_of(:author).with_foreign_key(:author_id) }
   it { is_expected.to have_many(:prizes) }
