@@ -14,5 +14,9 @@ FactoryBot.define do
     trait :for_hashtag do
       followable factory: :hashtag
     end
+
+    trait :for_community do
+      followable factory: :community
+    end
   end
 end

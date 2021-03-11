@@ -27,9 +27,11 @@ RSpec.describe User, type: :model do
   it { is_expected.to have_many(:following_hashtags).through(:follows).source(:followable) }
   it { is_expected.to have_many(:following_topics).through(:follows).source(:followable) }
   it { is_expected.to have_many(:following_users).through(:follows).source(:followable) }
+  it { is_expected.to have_many(:following_communities).through(:follows).source(:followable) }
   it { is_expected.to have_many(:following_hashtag_posts).through(:following_hashtags).source(:posts) }
   it { is_expected.to have_many(:following_topic_posts).through(:following_topics).source(:posts) }
   it { is_expected.to have_many(:following_user_posts).through(:following_users).source(:posts) }
+  it { is_expected.to have_many(:following_community_posts).through(:following_communities).source(:posts) }
   it { is_expected.to have_many(:subscriptions) }
   it { is_expected.to have_many(:subscribing_users).through(:subscriptions).source(:user) }
   it { is_expected.to have_many(:inboxes) }

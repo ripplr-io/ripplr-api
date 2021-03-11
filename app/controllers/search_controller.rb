@@ -6,6 +6,7 @@ class SearchController < ApplicationController
     search.add_posts_filter(current_user.following_user_post_ids) if filter_by?('user')
     search.add_posts_filter(current_user.following_topic_post_ids) if filter_by?('topic')
     search.add_posts_filter(current_user.following_hashtag_post_ids) if filter_by?('hashtag')
+    search.add_posts_filter(current_user.following_community_post_ids) if filter_by?('community')
 
     results =
       if params[:vertical] == 'everything'
@@ -29,7 +30,7 @@ class SearchController < ApplicationController
         options = {}
 
         # FIXME: We should use named serializers if we want to specify included associations
-        options[:include] = [:author, :topic, :hashtags, :bookmark] if object.class.to_s == 'Post'
+        options[:include] = [:author, :topic, :hashtags, :bookmark, :communities] if object.class.to_s == 'Post'
 
         DynamicSerializer.new(object, options)
       end

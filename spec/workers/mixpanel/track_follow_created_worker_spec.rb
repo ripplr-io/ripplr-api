@@ -42,4 +42,18 @@ RSpec.describe Mixpanel::TrackFollowCreatedWorker, type: :worker do
       described_class.new.perform(follow.id)
     end
   end
+
+  context 'Followable is a community' do
+    it 'calls the mixpanel service' do
+      follow = create(:follow, followable: create(:community))
+
+      expect(Mixpanel::BaseService).to receive(:new).with(follow.user).and_call_original
+      expect_any_instance_of(Mixpanel::BaseService).to receive(:track).with(
+        'Follow Created',
+        { 'Followable type' => 'Community' }
+      )
+
+      described_class.new.perform(follow.id)
+    end
+  end
 end

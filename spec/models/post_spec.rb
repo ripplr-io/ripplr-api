@@ -18,6 +18,7 @@ RSpec.describe Post, type: :model do
   it { is_expected.to have_many(:topic_followers).through(:topic).source(:followers) }
   it { is_expected.to have_many(:author_followers).through(:author).source(:followers) }
   it { is_expected.to have_many(:hashtag_followers).through(:hashtags).source(:followers) }
+  it { is_expected.to have_many(:community_followers).through(:communities).source(:followers) }
   it { is_expected.to have_many(:subscriptions).through(:author).source(:received_subscriptions) }
   it { is_expected.to have_many(:candidate_inboxes).through(:subscriptions).source(:inboxes) }
 

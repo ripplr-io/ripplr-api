@@ -24,6 +24,7 @@ class Post < ApplicationRecord
   has_many :topic_followers, through: :topic, source: :followers
   has_many :author_followers, through: :author, source: :followers
   has_many :hashtag_followers, through: :hashtags, source: :followers
+  has_many :community_followers, through: :communities, source: :followers
 
   # Subscriptions
   has_many :subscriptions, through: :author, source: :received_subscriptions
@@ -55,6 +56,12 @@ class Post < ApplicationRecord
 
   def followers
     authors = User.where(id: author_id)
-    topic_followers.union(author_followers).union(hashtag_followers).union(authors)
+
+    authors
+      .union(topic_followers)
+      .union(author_followers)
+      .union(hashtag_followers)
+      .union(community_followers)
+      .distinct
   end
 end

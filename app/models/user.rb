@@ -31,9 +31,11 @@ class User < ApplicationRecord
   has_many :following_hashtags, through: :follows, source: :followable, source_type: 'Hashtag'
   has_many :following_topics, through: :follows, source: :followable, source_type: 'Topic'
   has_many :following_users, through: :follows, source: :followable, source_type: 'User'
+  has_many :following_communities, through: :follows, source: :followable, source_type: 'Community'
   has_many :following_hashtag_posts, through: :following_hashtags, source: :posts
   has_many :following_topic_posts, through: :following_topics, source: :posts
   has_many :following_user_posts, through: :following_users, source: :posts
+  has_many :following_community_posts, through: :following_communities, source: :posts
 
   # Subscriptions
   has_many :subscriptions, dependent: :destroy
@@ -72,8 +74,12 @@ class User < ApplicationRecord
     }
 
   def following_posts
-    all_posts = following_hashtag_posts.union(following_topic_posts).union(following_user_posts).union(posts)
-    all_posts.distinct
+    posts
+      .union(following_hashtag_posts)
+      .union(following_topic_posts)
+      .union(following_user_posts)
+      .union(following_community_posts)
+      .distinct
   end
 
   def root_bookmark_folder

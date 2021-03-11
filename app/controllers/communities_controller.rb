@@ -3,6 +3,10 @@ class CommunitiesController < ApplicationController
 
   load_and_authorize_resource
 
+  def show
+    read_resource(@community)
+  end
+
   def create
     create_resource(@community)
   end

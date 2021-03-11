@@ -5,6 +5,8 @@ RSpec.describe Community, type: :model do
 
   it { is_expected.to be_valid }
 
+  it_behaves_like :followable
+
   it { is_expected.to belong_to(:owner) }
 
   it { is_expected.to have_many(:community_topics) }

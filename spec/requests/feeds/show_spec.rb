@@ -11,10 +11,12 @@ RSpec.describe :feeds_show, type: :request do
     user_follow = create(:follow, :for_user, user: user)
     topic_follow = create(:follow, :for_topic, user: user)
     hashtag_follow = create(:follow, :for_hashtag, user: user)
+    community_follow = create(:follow, :for_community, user: user)
 
     followed_user_post = create(:post, author: user_follow.followable)
     followed_topic_post = create(:post, topic: topic_follow.followable)
-    followed_post_hashtag = create(:post_hashtag, hashtag: hashtag_follow.followable)
+    followed_hashtag_post = create(:post_hashtag, hashtag: hashtag_follow.followable)
+    followed_community_post = create(:community_post, community: community_follow.followable)
 
     other_post_a = create(:post)
     other_post_b = create(:post)
@@ -24,7 +26,8 @@ RSpec.describe :feeds_show, type: :request do
     expect(response).to have_http_status(:ok)
     expect(response_data).to have_resource(followed_user_post)
     expect(response_data).to have_resource(followed_topic_post)
-    expect(response_data).to have_resource(followed_post_hashtag.post)
+    expect(response_data).to have_resource(followed_hashtag_post.post)
+    expect(response_data).to have_resource(followed_community_post.post)
     expect(response_data).not_to have_resource(other_post_a)
     expect(response_data).not_to have_resource(other_post_b)
   end

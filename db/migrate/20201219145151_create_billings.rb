@@ -13,7 +13,5 @@ class CreateBillings < ActiveRecord::Migration[6.0]
     end
 
     add_index :billings, :deleted_at
-
-    User.all.each(&:create_billing)
   end
 end

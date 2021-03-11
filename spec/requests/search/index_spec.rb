@@ -14,6 +14,7 @@ RSpec.describe :search_index, type: :request do
     expect(response_data[:topics]).to be_empty
     expect(response_data[:users]).to be_empty
     expect(response_data[:hashtags]).to be_empty
+    expect(response_data[:communities]).to be_empty
     expect(response_data[:posts]).to be_empty
   end
 

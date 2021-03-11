@@ -24,6 +24,7 @@ RSpec.describe Search::SearchService, type: :service do
       expect(results[:topics]).to be_empty
       expect(results[:users]).to be_empty
       expect(results[:hashtags]).to be_empty
+      expect(results[:communities]).to be_empty
       expect(results[:posts]).to be_empty
     end
 
@@ -32,6 +33,7 @@ RSpec.describe Search::SearchService, type: :service do
         create(:user, name: "query#{index}")
         create(:topic, name: "query#{index}")
         create(:hashtag, name: "query#{index}")
+        create(:community, name: "query#{index}")
         create(:post, title: "query#{index}")
       end
 
@@ -40,6 +42,7 @@ RSpec.describe Search::SearchService, type: :service do
       expect(results[:topics].size).to be(4)
       expect(results[:users].size).to be(4)
       expect(results[:hashtags].size).to be(4)
+      expect(results[:communities].size).to be(4)
       expect(results[:posts].size).to be(5)
     end
 
@@ -63,6 +66,7 @@ RSpec.describe Search::SearchService, type: :service do
       create(:user, name: 'query')
       create(:topic, name: 'query')
       create(:hashtag, name: 'query')
+      create(:community, name: 'query')
       create(:post, title: 'query')
 
       service = described_class.new('que', 1, 10)
@@ -71,16 +75,19 @@ RSpec.describe Search::SearchService, type: :service do
       topic_results = service.individual_results('topics')
       user_results = service.individual_results('users')
       hashtag_results = service.individual_results('hashtags')
+      community_results = service.individual_results('communities')
       post_results = service.individual_results('posts')
 
       expect(other_results[:topics]).to be_empty
       expect(other_results[:users]).to be_empty
       expect(other_results[:hashtags]).to be_empty
+      expect(other_results[:communities]).to be_empty
       expect(other_results[:posts]).to be_empty
 
       expect(topic_results[:topics]).not_to be_empty
       expect(user_results[:users]).not_to be_empty
       expect(hashtag_results[:hashtags]).not_to be_empty
+      expect(community_results[:communities]).not_to be_empty
       expect(post_results[:posts]).not_to be_empty
     end
 
@@ -89,6 +96,7 @@ RSpec.describe Search::SearchService, type: :service do
         create(:user, name: "query#{index}")
         create(:topic, name: "query#{index}")
         create(:hashtag, name: "query#{index}")
+        create(:community, name: "query#{index}")
         create(:post, title: "query#{index}")
       end
 
@@ -97,11 +105,12 @@ RSpec.describe Search::SearchService, type: :service do
       topic_results = service.individual_results('topics')
       user_results = service.individual_results('users')
       hashtag_results = service.individual_results('hashtags')
+      community_results = service.individual_results('communities')
       post_results = service.individual_results('posts')
 
       expect(topic_results[:topics].size).to eq(1)
       expect(user_results[:users].size).to eq(1)
-      expect(hashtag_results[:hashtags].size).to eq(1)
+      expect(community_results[:communities].size).to eq(1)
       expect(post_results[:posts].size).to eq(1)
     end
   end
