@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Level, type: :model do
-  subject(:level) { build(:level) }
+  subject { build(:level) }
 
   it { is_expected.to be_valid }
 

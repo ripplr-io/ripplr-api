@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ContentSource, type: :model do
-  subject(:content_source) { build(:content_source) }
+  subject { build(:content_source) }
 
   it { is_expected.to be_valid }
 

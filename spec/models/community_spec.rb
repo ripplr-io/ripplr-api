@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Community, type: :model do
-  subject(:community) { build(:community) }
+  subject { build(:community) }
 
   it { is_expected.to be_valid }
 

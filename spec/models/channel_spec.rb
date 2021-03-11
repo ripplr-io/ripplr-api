@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Channel, type: :model do
-  subject(:channel) { build(:channel) }
+  subject { build(:channel) }
 
   it { is_expected.to be_valid }
 

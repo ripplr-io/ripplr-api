@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
-  subject(:post) { build(:post) }
+  subject { build(:post) }
 
   it { is_expected.to be_valid }
 

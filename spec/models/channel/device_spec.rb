@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Channel::Device, type: :model do
-  subject(:channel_device) { build(:channel_device) }
+  subject { build(:channel_device) }
 
   it { is_expected.to be_valid }
 

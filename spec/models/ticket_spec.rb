@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Ticket, type: :model do
-  subject(:ticket) { build(:ticket) }
+  subject { build(:ticket) }
 
   it { is_expected.to be_valid }
 

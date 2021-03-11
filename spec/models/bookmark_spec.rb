@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Bookmark, type: :model do
-  subject(:bookmark) { build(:bookmark) }
+  subject { build(:bookmark) }
 
   it { is_expected.to be_valid }
 

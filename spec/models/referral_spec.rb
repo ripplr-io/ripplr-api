@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Referral, type: :model do
-  subject(:referral) { build(:referral) }
+  subject { build(:referral) }
 
   it { is_expected.to be_valid }
 

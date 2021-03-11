@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe InboxNotification, type: :model do
-  subject(:inbox_notification) { build(:inbox_notification) }
+  subject { build(:inbox_notification) }
 
   it { is_expected.to be_valid }
 

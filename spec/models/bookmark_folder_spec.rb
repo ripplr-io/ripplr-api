@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe BookmarkFolder, type: :model do
-  subject(:bookmark_folder) { build(:bookmark_folder) }
+  subject { build(:bookmark_folder) }
 
   it { is_expected.to be_valid }
 

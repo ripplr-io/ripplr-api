@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Rating, type: :model do
-  subject(:rating) { build(:rating) }
+  subject { build(:rating) }
 
   it { is_expected.to be_valid }
 

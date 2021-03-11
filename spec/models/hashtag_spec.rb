@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Hashtag, type: :model do
-  subject(:hashtag) { build(:hashtag) }
+  subject { build(:hashtag) }
 
   it { is_expected.to be_valid }
 

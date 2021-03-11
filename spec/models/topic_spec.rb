@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Topic, type: :model do
-  subject(:topic) { build(:topic) }
+  subject { build(:topic) }
 
   it { is_expected.to be_valid }
 

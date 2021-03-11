@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Prize, type: :model do
-  subject(:prize) { build(:prize) }
+  subject { build(:prize) }
 
   it { is_expected.to be_valid }
 

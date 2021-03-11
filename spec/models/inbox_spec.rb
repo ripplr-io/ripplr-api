@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Inbox, type: :model do
-  subject(:inbox) { build(:inbox) }
+  subject { build(:inbox) }
 
   it { is_expected.to be_valid }
 

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
-  subject(:comment) { build(:comment) }
+  subject { build(:comment) }
 
   it { is_expected.to be_valid }
 

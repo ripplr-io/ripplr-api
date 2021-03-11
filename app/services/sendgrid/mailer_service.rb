@@ -33,7 +33,6 @@ module Sendgrid
     def deliver
       raise 'Personalizations can\'t be blank' if @mail.personalizations.blank?
 
-      @sg = SendGrid::API.new(api_key: Rails.application.credentials[:sendgrid_token])
       response = @sg.client.mail._('send').post(request_body: @mail.to_json)
 
       Raven.capture_message(response.body) unless response.status_code == :ok

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe InboxChannel, type: :model do
-  subject(:inbox_channel) { build(:inbox_channel) }
+  subject { build(:inbox_channel) }
 
   it { is_expected.to be_valid }
 
