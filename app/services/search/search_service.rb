@@ -50,10 +50,12 @@ module Search
     end
 
     def post_results
-      posts = Post.search(@query)
+      posts = Post.search(@query).includes(:author, :hashtags, :topic, :communities)
+
       @post_filters.each do |filter|
         posts = posts.where(id: filter)
       end
+
       posts
     end
   end
