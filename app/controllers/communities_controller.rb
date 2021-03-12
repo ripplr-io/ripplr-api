@@ -1,14 +1,24 @@
 class CommunitiesController < ApplicationController
   include JsonApi::Crudable
 
-  load_and_authorize_resource
+  load_resource :topic
+  load_and_authorize_resource through: [:topic], shallow: true
+
+  def index
+    @communities = @communities
+      .order(posts_count: :desc)
+      .page(params[:page])
+      .per(params[:per_page])
+
+    read_resource(@communities)
+  end
 
   def show
     read_resource(@community)
   end
 
   def create
-    create_resource(@community)
+    create_resource(@community, interactor: Communities::Create)
   end
 
   def update

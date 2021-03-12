@@ -30,6 +30,10 @@ Rails.application.routes.draw do
       end
     end
 
+    namespace :explore do
+      resources :communities, only: :index
+    end
+
     resources :bookmarks, only: [:create, :update, :destroy]
     resources :bookmark_folders, path: :folders
     resources :channels, only: [:index, :create, :update, :destroy]
@@ -84,6 +88,7 @@ Rails.application.routes.draw do
 
     resources :topics, only: :index do
       resources :posts, only: :index
+      resources :communities, only: :index
     end
 
     resource :track, only: :create, controller: :track
