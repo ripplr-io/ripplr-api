@@ -4,7 +4,7 @@ class Community < ApplicationRecord
   include PgSearch::Model
 
   belongs_to :owner, class_name: 'User'
-  has_one_attached :image
+  has_one_attached :avatar
 
   has_many :community_topics, dependent: :destroy
   has_many :topics, through: :community_topics

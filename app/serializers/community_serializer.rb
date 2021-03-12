@@ -7,7 +7,7 @@ class CommunitySerializer < ApplicationSerializer
   attribute :postsCount, &:posts_count
   attribute :followersCount, &:followers_count
 
-  attribute :image do |object|
-    url_helpers.public_blob_url(object.image) if object.image.attached?
+  attribute :avatar do |object|
+    url_helpers.public_blob_url(object.avatar) if object.avatar.attached?
   end
 end

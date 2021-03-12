@@ -38,7 +38,11 @@ class CommunitiesController < ApplicationController
     { topics: Topic.where(id: JSON.parse(params[:topic_ids])) }
   end
 
+  def avatar_params
+    { avatar: params[:avatar_file] } if params[:avatar_file].present?
+  end
+
   def community_params
-    params.permit(:name, :description, :image).merge(topic_params)
+    params.permit(:name, :description).merge(topic_params).merge(avatar_params)
   end
 end
