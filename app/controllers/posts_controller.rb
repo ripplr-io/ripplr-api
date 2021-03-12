@@ -1,10 +1,10 @@
 class PostsController < ApplicationController
   include JsonApi::Crudable
 
-  load_resource :user
-  load_resource :topic
-  load_resource :hashtag, find_by: :name
-  load_resource :community
+  load_resource :user, only: :index
+  load_resource :topic, only: :index
+  load_resource :hashtag, only: :index, find_by: :name
+  load_resource :community, only: :index
   load_and_authorize_resource through: [:user, :topic, :hashtag, :community], shallow: true
 
   serializer include: [:author, :topic, :hashtags, :bookmark, :communities]
@@ -36,7 +36,9 @@ class PostsController < ApplicationController
   end
 
   def update
-    @post.assign_attributes(post_params)
+    # TODO: This (create_params) is a temporary solution to allow people to set communities right
+    # after the feature was lauched and should be removed in the future
+    @post.assign_attributes(create_params)
     update_resource(@post)
   end
 
