@@ -6,6 +6,7 @@ module Ratings
       context.fail! unless context.resource.save
 
       Users::UpdateLevelWorker.perform_async(context.resource.ratable.author.id)
+      Posts::UpdateTrendingScoreWorker.perform_async(context.resource.ratable.id)
       Mixpanel::TrackRatingCreatedWorker.perform_async(context.resource.id)
       Prizes::Onboarding::FirstRatingWorker.perform_async(context.resource.user.id)
     end

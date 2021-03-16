@@ -8,6 +8,7 @@ RSpec.describe Ratings::Create, type: :interactor do
       .to change { Rating.count }.by(1)
 
     expect(Users::UpdateLevelWorker.jobs.size).to eq(1)
+    expect(Posts::UpdateTrendingScoreWorker.jobs.size).to eq(1)
     expect(Mixpanel::TrackRatingCreatedWorker.jobs.size).to eq(1)
     expect(Prizes::Onboarding::FirstRatingWorker.jobs.size).to eq(1)
   end

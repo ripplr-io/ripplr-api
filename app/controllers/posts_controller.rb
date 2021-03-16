@@ -13,7 +13,7 @@ class PostsController < ApplicationController
     @posts =
       case params[:sort_by]
       when 'popularity'
-        @posts.order_by_popularity
+        @posts.order_by_trending
       when 'rating'
         @posts.order_by_rating
       else

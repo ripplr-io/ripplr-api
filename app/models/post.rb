@@ -36,7 +36,7 @@ class Post < ApplicationRecord
 
   scope :order_chronologically, -> { order(created_at: :desc) }
   scope :order_by_rating, -> { order(ratings_points_total: :desc) }
-  scope :order_by_popularity, -> { where(created_at: (Time.current - 1.week)..Time.current).order_by_rating }
+  scope :order_by_trending, -> { order(trending_score: :desc) }
 
   acts_as_paranoid
   counter_culture :topic, touch: true
