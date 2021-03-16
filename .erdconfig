@@ -1,0 +1,11 @@
+attributes:
+  - foreign_key
+  - inheritance
+disconnected: true
+filename: docs/erd
+filetype: pdf
+indirect: true
+markup: true
+notation: simple
+orientation: horizontal
+title: Ripplr API Entity Relationship Diagram
