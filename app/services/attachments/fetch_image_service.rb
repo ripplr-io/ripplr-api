@@ -1,3 +1,5 @@
+require 'open-uri'
+
 module Attachments
   class FetchImageService
     def initialize(url)
