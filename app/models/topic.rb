@@ -6,7 +6,6 @@ class Topic < ApplicationRecord
   has_many :posts, dependent: :restrict_with_error
   has_many :community_topics, dependent: :restrict_with_error
   has_many :communities, through: :community_topics
-  has_many :content_sources, dependent: :restrict_with_error
 
   validates :name, presence: true
   validates :avatar, presence: true

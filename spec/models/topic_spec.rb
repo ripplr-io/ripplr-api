@@ -10,7 +10,6 @@ RSpec.describe Topic, type: :model do
   it { is_expected.to have_many(:posts) }
   it { is_expected.to have_many(:community_topics) }
   it { is_expected.to have_many(:communities).through(:community_topics) }
-  it { is_expected.to have_many(:content_sources) }
 
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_presence_of(:avatar) }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_17_110532) do
+ActiveRecord::Schema.define(version: 2021_03_17_172705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -153,13 +153,11 @@ ActiveRecord::Schema.define(version: 2021_03_17_110532) do
 
   create_table "content_sources", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id"
-    t.uuid "topic_id"
     t.string "feed_url", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.uuid "community_id"
     t.index ["community_id"], name: "index_content_sources_on_community_id"
-    t.index ["topic_id"], name: "index_content_sources_on_topic_id"
     t.index ["user_id"], name: "index_content_sources_on_user_id"
   end
 
