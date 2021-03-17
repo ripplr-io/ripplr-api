@@ -10,18 +10,19 @@ module ContentSources
 
       @url = url
       feed_data.symbolize_keys!
+      image_url = feed_data[:image] || meta_data[:image] || Post::DEFAULT_IMAGE
 
       post = content_source.user.posts.build({
         topic: content_source.community.topics.first,
         communities: [content_source.community],
         url: @url,
         title: (feed_data[:title] || meta_data[:title] || '').truncate(MAX_TITLE_LENGTH),
-        body: (feed_data[:body] || meta_data[:body] || '').truncate(MAX_BODY_LENGTH)
+        body: (feed_data[:body] || meta_data[:body] || '').truncate(MAX_BODY_LENGTH),
+        image_url: image_url
       })
 
-      image_url = feed_data[:image] || meta_data[:image] || Post::DEFAULT_IMAGE
 
-      interactor = Posts::Create.call(resource: post, image_url: image_url)
+      interactor = Posts::Create.call(resource: post)
       log_resource_interaction(interactor)
     end
 
