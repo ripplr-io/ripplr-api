@@ -12,7 +12,8 @@ module ContentSources
       feed_data.symbolize_keys!
 
       post = content_source.user.posts.build({
-        topic: content_source.topic,
+        topic: content_source.community.topics.first || content_source.topic,
+        communities: [content_source.community],
         url: @url,
         title: (feed_data[:title] || meta_data[:title] || '').truncate(MAX_TITLE_LENGTH),
         body: (feed_data[:body] || meta_data[:body] || '').truncate(MAX_BODY_LENGTH)

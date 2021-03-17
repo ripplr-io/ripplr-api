@@ -8,6 +8,7 @@ class Community < ApplicationRecord
 
   has_many :community_topics, dependent: :destroy
   has_many :topics, through: :community_topics
+  has_many :content_sources, dependent: :restrict_with_error
 
   has_many :community_posts, dependent: :destroy
   has_many :posts, through: :community_posts

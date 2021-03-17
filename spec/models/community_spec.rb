@@ -13,6 +13,7 @@ RSpec.describe Community, type: :model do
   it { is_expected.to have_many(:topics).through(:community_topics) }
   it { is_expected.to have_many(:community_posts) }
   it { is_expected.to have_many(:posts).through(:community_posts) }
+  it { is_expected.to have_many(:content_sources) }
 
   it { is_expected.to validate_presence_of(:community_topics) }
   it { is_expected.to validate_presence_of(:name) }
