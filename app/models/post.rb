@@ -5,6 +5,8 @@ class Post < ApplicationRecord
 
   DEFAULT_IMAGE = 'https://cdn.ripplr.io/brand/logo-black.png'.freeze
 
+  attribute :image_url, :string
+
   belongs_to :topic
   belongs_to :author, class_name: 'User'
   has_one_attached :image

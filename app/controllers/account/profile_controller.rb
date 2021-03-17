@@ -2,6 +2,8 @@ module Account
   class ProfileController < ApplicationController
     include JsonApi::Crudable
 
+    before_action :rename_params
+
     authorize_resource class: :account
 
     serializer class: AccountSerializer, include: [:level]
@@ -13,12 +15,13 @@ module Account
 
     private
 
-    def avatar_params
-      { avatar: params[:avatar_file] } if params[:avatar_file].present?
+    # FIXME: Remove after this has been renamed in the frontend
+    def rename_params
+      params[:avatar] = params.delete(:avatar_file)
     end
 
     def profile_params
-      params.permit(:name, :slug, :bio).merge(avatar_params)
+      params.permit(:name, :slug, :bio, :avatar)
     end
   end
 end

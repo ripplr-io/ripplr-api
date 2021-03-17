@@ -1,6 +1,8 @@
 class PostsController < ApplicationController
   include JsonApi::Crudable
 
+  before_action :rename_params
+
   load_resource :user, only: :index
   load_resource :topic, only: :index
   load_resource :hashtag, only: :index, find_by: :name
@@ -32,7 +34,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    create_resource(@post, interactor: Posts::Create, context: create_context)
+    create_resource(@post, interactor: Posts::Create)
   end
 
   def update
@@ -48,19 +50,20 @@ class PostsController < ApplicationController
 
   private
 
+  # FIXME: This can be removed once the names change in the frontend
+  def rename_params
+    params[:image_url] = params.delete(:image)
+
+    image_file = params.delete(:image_file)
+    params[:image] = image_file if image_file != 'undefined' # FIXME: remove this case in the frontend
+  end
+
   def post_params
-    params.permit(:title, :body).merge(image_params).merge(hashtag_params)
+    params.permit(:title, :body, :image, :image_url).merge(hashtag_params)
   end
 
   def create_params
     post_params.merge(params.permit(:url, :topic_id)).merge(community_params)
-  end
-
-  def image_params
-    return {} if params[:image_file].blank?
-    return {} if params[:image_file] == 'undefined' # FIXME: in the frontend
-
-    { image: params[:image_file] }
   end
 
   def hashtag_params
@@ -77,9 +80,5 @@ class PostsController < ApplicationController
     return {} if params[:community_ids].blank?
 
     { communities: Community.where(id: JSON.parse(params[:community_ids])) }
-  end
-
-  def create_context
-    { image_url: params[:image] }
   end
 end

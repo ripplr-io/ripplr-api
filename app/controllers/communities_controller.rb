@@ -1,6 +1,8 @@
 class CommunitiesController < ApplicationController
   include JsonApi::Crudable
 
+  before_action :rename_params
+
   load_resource :topic
   load_and_authorize_resource through: [:topic], shallow: true
 
@@ -32,17 +34,18 @@ class CommunitiesController < ApplicationController
 
   private
 
+  # FIXME: Remove after this has been renamed in the frontend
+  def rename_params
+    params[:avatar] = params.delete(:avatar_file)
+  end
+
   def topic_params
     return {} if params[:topic_ids].blank?
 
     { topics: Topic.where(id: JSON.parse(params[:topic_ids])) }
   end
 
-  def avatar_params
-    { avatar: params[:avatar_file] } if params[:avatar_file].present?
-  end
-
   def community_params
-    params.permit(:name, :description).merge(topic_params).merge(avatar_params)
+    params.permit(:name, :description, :avatar).merge(topic_params)
   end
 end

@@ -35,4 +35,17 @@ RSpec.describe Accounts::Create, type: :interactor do
     expect(Alerts::ReferralAcceptedWorker.jobs.size).to eq(1)
     expect(Prizes::Onboarding::FirstReferralWorker.jobs.size).to eq(1)
   end
+
+  it 'creates the account with an image_url' do
+    file = file_fixture('logo.png')
+    allow_any_instance_of(URI::HTTPS).to receive(:open).and_return(file.open)
+
+    create(:level)
+    user = build(:user, bookmark_folders: [], avatar: nil, avatar_url: 'https://ripplr.io/logo.png')
+
+    expect { described_class.call(resource: user) }
+      .to change { User.count }.by(1)
+
+    expect(User.last.avatar.attached?).to be true
+  end
 end

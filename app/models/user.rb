@@ -4,6 +4,8 @@ class User < ApplicationRecord
   include Subscribable
   include PgSearch::Model
 
+  attribute :avatar_url, :string
+
   belongs_to :level
   has_one_attached :avatar
 

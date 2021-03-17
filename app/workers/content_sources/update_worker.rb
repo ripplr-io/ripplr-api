@@ -2,6 +2,8 @@ module ContentSources
   class UpdateWorker < ApplicationWorker
     MAX_RESULTS = 3
 
+    sidekiq_options retry: false
+
     def perform(content_source_id)
       @content_source = ContentSource.find_by(id: content_source_id)
       return if @content_source.blank?

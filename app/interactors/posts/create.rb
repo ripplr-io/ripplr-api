@@ -1,5 +1,3 @@
-require 'open-uri'
-
 module Posts
   class Create < ApplicationInteractor
     before :attach_image_from_url
@@ -17,13 +15,11 @@ module Posts
     private
 
     def attach_image_from_url
-      return if context.image_url.blank?
+      return if context.resource.image_url.blank?
       return if context.resource.image.attached?
 
-      uri = URI.parse(context.image_url)
-      file = uri.open
-      filename = File.basename(uri.path)
-      context.resource.image.attach(io: file, filename: filename)
+      image_data = Attachments::FetchImageService.new(context.resource.image_url).call
+      context.resource.image.attach(image_data)
     end
   end
 end
