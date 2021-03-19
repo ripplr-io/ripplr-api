@@ -23,6 +23,7 @@ jobs:
         uses: ripplr-io/docr-docker-publish@feature/add-dockerfile-path
         with:
           image_path: ripplr/ripplr-api
+          dockerfile: ./docker/dev.Dockerfile
 
       - name: Remove Old Images
         uses: ripplr-io/docr-image-remove@v1
