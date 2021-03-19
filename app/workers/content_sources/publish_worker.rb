@@ -21,7 +21,6 @@ module ContentSources
         image_url: image_url
       })
 
-
       interactor = Posts::Create.call(resource: post)
       log_resource_interaction(interactor)
     end
