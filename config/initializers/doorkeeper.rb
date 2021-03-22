@@ -15,9 +15,9 @@ Doorkeeper.configure do
 
   resource_owner_from_credentials do |routes|
     user = User.find_for_database_authentication(email: params[:email])
-    if user&.valid_for_authentication? { user.valid_password?(params[:password]) } && user&.active_for_authentication?
-      user
-    end
+    next unless user&.valid_password?(params[:password])
+
+    user
   end
 
   # If you didn't skip applications controller from Doorkeeper routes in your application routes.rb
@@ -158,6 +158,17 @@ Doorkeeper.configure do
   # This option should be a percentage(i.e. (0,100])
   #
   # token_reuse_limit 100
+
+  # This is discouraged. Spec says that password grants always require a client.
+  #
+  # See https://github.com/doorkeeper-gem/doorkeeper/issues/1412#issuecomment-632750422
+  # and https://github.com/doorkeeper-gem/doorkeeper/pull/1420
+  #
+  # Since many applications use this unsafe behavior in the wild, this is kept as a
+  # not-recommended option. You should be aware that you are not following the OAuth
+  # spec, and understand the security implications of doing so.
+  #
+  skip_client_authentication_for_password_grant true
 
   # Only allow one valid access token obtained via client credentials
   # per client. If a new access token is obtained before the old one
@@ -418,15 +429,19 @@ Doorkeeper.configure do
   #   Rails.logger.info(context.pre_auth.inspect)
   # end
   #
-  # after_successful_authorization do |controller, context|
-  #   controller.session[:logout_urls] <<
-  #     Doorkeeper::Application
-  #       .find_by(controller.request.params.slice(:redirect_uri))
-  #       .logout_uri
-  #
-  #   Rails.logger.info(context.auth.inspect)
-  #   Rails.logger.info(context.issued_token)
-  # end
+  after_successful_authorization do |controller, context|
+    browser = controller.send(:browser)
+    request = controller.send(:request)
+
+    Mixpanel::TrackLoginWorker.perform_async(
+      context.auth.token.resource_owner_id,
+      # TODO: Fix request IP based on:
+      # https://stackoverflow.com/questions/19317255/rails-how-to-obtain-visitors-ip-address
+      request.remote_ip,
+      browser.name,
+      browser.platform.name
+    )
+  end
 
   # Under some circumstances you might want to have applications auto-approved,
   # so that the user skips the authorization step.
