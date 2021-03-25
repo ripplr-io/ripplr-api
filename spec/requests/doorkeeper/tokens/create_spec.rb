@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe :doorkeeper__tokens_create, type: :request do
+RSpec.describe :doorkeeper_tokens_create, type: :request do
   context 'with email and password' do
     it 'logs in the user' do
       user = create(:user, password: '123456')

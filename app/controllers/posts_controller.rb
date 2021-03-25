@@ -55,7 +55,8 @@ class PostsController < ApplicationController
     params[:image_url] = params.delete(:image)
 
     image_file = params.delete(:image_file)
-    params[:image] = image_file if image_file != 'undefined' # FIXME: remove this case in the frontend
+    # FIXME: make sure the frontend only sends an image_file when it expects to make changes to it
+    params[:image] = image_file if image_file.present? && image_file != 'undefined'
   end
 
   def post_params
