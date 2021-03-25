@@ -2,12 +2,11 @@ class FollowsController < ApplicationController
   include JsonApi::Crudable
 
   load_resource :user
-  load_and_authorize_resource through: :user, shallow: true
+  load_and_authorize_resource through: [:user, :current_user], shallow: true
 
   serializer include: [:followable]
 
   def index
-    @follows = current_user.follows if @user.blank?
     read_resource(@follows)
   end
 

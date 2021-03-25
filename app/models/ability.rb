@@ -15,6 +15,7 @@ class Ability
 
     can :read, Comment
     can :read, Community
+    can :read, Follow
     can :read, Hashtag
     can :read, Level
     can :read, Post
@@ -23,7 +24,6 @@ class Ability
   end
 
   def authenticated_access(user)
-    can :read, Follow # TODO: Move this to public after removing /follows default to current_user
     can :manage, :support
     can :manage, :account
     can :manage, :report
