@@ -18,7 +18,7 @@ RSpec.describe InboxNotifications::DeliverMailer, type: :mailer do
   it 'delivers the correct data' do
     author = create(:user, name: 'Author')
     topic = create(:topic, name: 'Topic')
-    post = create(:post, author: author, topic: topic, title: 'Title', body: 'Body', url: 'google.com')
+    post = create(:post, author: author, topic: topic, title: 'Title', body: 'Body', url: 'http://google.com')
 
     user = create(:user)
     inbox = create(:inbox, user: user, name: 'Inbox')
@@ -40,7 +40,7 @@ RSpec.describe InboxNotifications::DeliverMailer, type: :mailer do
     expect(personalization.data['post_title']).to eq 'Title'
     expect(personalization.data['post_image']).to eq Post::DEFAULT_IMAGE
     expect(personalization.data['post_body']).to eq 'Body'
-    expect(personalization.data['post_url']).to eq 'google.com'
+    expect(personalization.data['post_url']).to eq 'http://google.com'
     expect(personalization.data['post_ripplr_url']).to eq "http://localhost:8080/p/#{post.id}"
   end
 

@@ -88,19 +88,16 @@ class User < ApplicationRecord
     bookmark_folders.find_by(name: 'Root')
   end
 
-  # FIXME: Move this to the queries or decorators folder
   def total_points
     received_ratings.sum(:points) + prizes.sum(:points)
   end
 
-  # FIXME: Move this to the queries or decorators folder
   def posts_today
     posts.where(
       created_at: Time.current.beginning_of_day..Time.current.end_of_day
     ).count
   end
 
-  # FIXME: Move this to the queries or decorators folder
   def bot?
     content_sources.any?
   end

@@ -5,8 +5,8 @@ RSpec.describe ContentSources::UpdateWorker, type: :worker do
     content_source = create(:content_source)
 
     fetch_mock = double(data: [
-      { url: 'medium/p/post1' },
-      { url: 'medium/p/post2' }
+      { url: 'http://medium.com/p/post1' },
+      { url: 'http://medium.com/p/post2' }
     ])
 
     allow(Feedjira::FetchUrlsService).to receive(:new).with(content_source.feed_url).and_return(fetch_mock)
@@ -20,10 +20,10 @@ RSpec.describe ContentSources::UpdateWorker, type: :worker do
     content_source = create(:content_source)
 
     fetch_mock = double(data: [
-      { url: 'medium/p/post1' },
-      { url: 'medium/p/post2' },
-      { url: 'medium/p/post3' },
-      { url: 'medium/p/post4' }
+      { url: 'http://medium.com/p/post1' },
+      { url: 'http://medium.com/p/post2' },
+      { url: 'http://medium.com/p/post3' },
+      { url: 'http://medium.com/p/post4' }
     ])
 
     allow(Feedjira::FetchUrlsService).to receive(:new).with(content_source.feed_url).and_return(fetch_mock)
@@ -35,11 +35,11 @@ RSpec.describe ContentSources::UpdateWorker, type: :worker do
 
   it 'skips urls already created by that content_source' do
     content_source = create(:content_source)
-    create(:post, url: 'medium/p/post2', author: content_source.user)
+    create(:post, url: 'http://medium.com/p/post2', author: content_source.user)
 
     fetch_mock = double(data: [
-      { url: 'medium/p/post1' },
-      { url: 'medium/p/post2' }
+      { url: 'http://medium.com/p/post1' },
+      { url: 'http://medium.com/p/post2' }
     ])
 
     allow(Feedjira::FetchUrlsService).to receive(:new).with(content_source.feed_url).and_return(fetch_mock)

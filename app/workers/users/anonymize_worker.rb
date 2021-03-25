@@ -5,9 +5,9 @@ module Users
       return if user.blank?
 
       user.update!({
-        email: "#{user.id}@disabled.com",
+        email: "del_#{user.id}@ripplr.io",
         password: SecureRandom.hex,
-        name: 'Disabled Account',
+        name: 'Deleted Account',
         bio: nil,
         avatar: nil,
         timezone: 'UTC',

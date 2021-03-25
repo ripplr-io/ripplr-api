@@ -3,6 +3,7 @@ class Notification < ApplicationRecord
 
   validates :data, presence: true
 
+  # TODO: move to interactor
   after_commit :broadcast, on: :create
 
   private

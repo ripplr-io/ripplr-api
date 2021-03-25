@@ -4,7 +4,7 @@ RSpec.describe ContentSources::PublishWorker, type: :worker do
   context 'with complete feed_data' do
     it 'creates a post' do
       content_source = create(:content_source)
-      url = 'youtube.com/post/id'
+      url = 'http://youtube.com/post/id'
       feed_data = {
         title: 'Title',
         body: 'Body',
@@ -31,7 +31,7 @@ RSpec.describe ContentSources::PublishWorker, type: :worker do
   context 'with missing feed_data' do
     it 'uses meta_data for the missing fields' do
       content_source = create(:content_source)
-      url = 'youtube.com/post/id'
+      url = 'http://youtube.com/post/id'
       feed_data = {
         title: 'Title'
       }
@@ -62,7 +62,7 @@ RSpec.describe ContentSources::PublishWorker, type: :worker do
   context 'existing post' do
     it 'exits without creating the post' do
       content_source = create(:content_source)
-      url = 'youtube.com/post/id'
+      url = 'http://youtube.com/post/id'
       create(:post, author: content_source.user, url: url)
 
       expect { described_class.new.perform(content_source.id, url) }

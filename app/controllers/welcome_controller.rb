@@ -6,7 +6,10 @@ class WelcomeController < ApplicationController
   end
 
   def subscribe
-    Sendgrid::CreateLeadWorker.perform_async(params[:email])
-    render json: { status: :success }, status: :ok
+    lead = LeadForm.new(email: params[:email])
+    return render_errors(lead.errors) unless lead.valid?
+
+    Sendgrid::CreateLeadWorker.perform_async(lead.email)
+    head :no_content
   end
 end

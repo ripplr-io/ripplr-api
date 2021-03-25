@@ -15,6 +15,6 @@ RSpec.describe Users::AnonymizeWorker, type: :worker do
 
     described_class.new.perform(user.id)
 
-    expect(user.reload.name).to eq('Disabled Account')
+    expect(user.reload.name).to eq('Deleted Account')
   end
 end

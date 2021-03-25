@@ -2,6 +2,7 @@ module Communities
   class Create < ApplicationInteractor
     REQUIRED_POINTS = 1000
 
+    # TODO: move to validator
     before :validate_user_points
 
     def call

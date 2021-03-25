@@ -7,9 +7,9 @@ class Comment < ApplicationRecord
 
   has_many :comments, dependent: :destroy
 
-  validates :body, presence: true
+  transforms_with Comments::CopyParentPostTransformer
 
-  before_validation :copy_parent_post
+  validates :body, presence: true
 
   acts_as_paranoid
   counter_culture :comment, column_name: :replies_count, touch: true
@@ -18,10 +18,4 @@ class Comment < ApplicationRecord
     column_names: {
       Comment.where(comment: nil) => :comments_count
     }
-
-  private
-
-  def copy_parent_post
-    self.post = comment.post if comment.present?
-  end
 end

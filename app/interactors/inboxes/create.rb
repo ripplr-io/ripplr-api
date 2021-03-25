@@ -1,5 +1,6 @@
 module Inboxes
   class Create < ApplicationInteractor
+    # TODO: move to validator
     before :check_limit_reached
 
     def call

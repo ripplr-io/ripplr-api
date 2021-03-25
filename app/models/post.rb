@@ -33,7 +33,7 @@ class Post < ApplicationRecord
   has_many :candidate_inboxes, through: :subscriptions, source: :inboxes
 
   validates :title, presence: true
-  validates :url, presence: true
+  validates :url, presence: true, url: true
   validates :body, presence: true
 
   scope :order_chronologically, -> { order(created_at: :desc) }
