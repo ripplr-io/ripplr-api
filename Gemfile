@@ -19,9 +19,12 @@ gem 'interactor'
 gem 'jsonapi-serializer'
 gem 'kaminari'
 gem 'lograge'
-gem 'metainspector', '~> 5.9.0'
+gem 'metainspector'
+# TODO: Remove after rails updates the dependency:
+# https://github.com/rails/rails/issues/41757
+gem 'mimemagic', '~> 0.3.7'
 gem 'mixpanel-ruby'
-gem 'onesignal-ruby', github: 'mikamai/onesignal-ruby', branch: 'develop'
+gem 'onesignal-ruby', github: 'jongirard/onesignal-ruby', branch: 'develop'
 gem 'paranoia'
 gem 'pg'
 gem 'pg_search'
@@ -33,8 +36,7 @@ gem 'sentry-raven'
 gem 'sendgrid-ruby'
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
-# FIXME: https://github.com/skylightio/skylight-ruby/issues/161
-gem 'skylight', '~> 5.0.0.beta4'
+gem 'skylight'
 gem 'slack-notifier'
 gem 'stripe'
 
@@ -49,7 +51,6 @@ end
 group :development do
   gem 'rails-erd'
   gem 'listen', '~> 3.2'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'webmock'
