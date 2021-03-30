@@ -1,11 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe :follows_index, type: :request do
-  it_behaves_like :unauthenticated_request do
-    let(:subject) { get follows_path }
+  it 'responds with all follows' do
+    follows = create_list(:follow, 2)
+
+    get follows_path
+
+    expect(response).to have_http_status(:ok)
+    expect(response_data).to have_resource(follows.first)
+    expect(response_data).to have_resource(follows.second)
   end
 
-  it 'responds with the current user follows' do
+  it 'responds with the current_user follows' do
     user = create(:user)
     user_follow = create(:follow, user: user)
     other_follow = create(:follow)
@@ -23,7 +29,7 @@ RSpec.describe :follows_index, type: :request do
     user_follow = create(:follow, user: user)
     other_follow = create(:follow)
 
-    get user_follows_path(user), headers: auth_headers_for(user)
+    get user_follows_path(user)
 
     expect(response).to have_http_status(:ok)
     expect(response_data).to have_resource(user_follow)
