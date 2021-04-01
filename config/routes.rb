@@ -108,4 +108,5 @@ Rails.application.routes.draw do
 
   draw :app
   draw :active_storage
+  draw :linkpreview
 end

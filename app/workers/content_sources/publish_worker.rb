@@ -28,7 +28,7 @@ module ContentSources
     private
 
     def meta_data
-      @_meta_data ||= Posts::PreviewService.new(@url).data
+      @_meta_data ||= Linkpreview::FetchPreviewService.new(@url).call
     end
   end
 end

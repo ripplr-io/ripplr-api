@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Posts::PreviewService, type: :service do
+RSpec.describe Linkpreview::FetchPreviewService, type: :service do
   describe '#data' do
     context 'valid URL' do
       it 'returns data' do
@@ -14,7 +14,7 @@ RSpec.describe Posts::PreviewService, type: :service do
           </html>
         ))
 
-        data = described_class.new('github.com').data
+        data = described_class.new('github.com').call
 
         expect(data[:title]).to eq 'Github'
         expect(data[:body]).to eq '#1 Open Source Repositories'
@@ -25,7 +25,7 @@ RSpec.describe Posts::PreviewService, type: :service do
 
     context 'invalid URL' do
       it 'responds with not found' do
-        data = described_class.new(nil).data
+        data = described_class.new(nil).call
 
         expect(data[:url]).to eq ''
       end

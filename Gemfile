@@ -19,10 +19,6 @@ gem 'interactor'
 gem 'jsonapi-serializer'
 gem 'kaminari'
 gem 'lograge'
-gem 'metainspector'
-# TODO: Remove after rails updates the dependency:
-# https://github.com/rails/rails/issues/41757
-gem 'mimemagic', '~> 0.3.7'
 gem 'mixpanel-ruby'
 gem 'onesignal-ruby', github: 'jongirard/onesignal-ruby', branch: 'develop'
 gem 'paranoia'
