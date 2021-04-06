@@ -14,5 +14,9 @@ RSpec.describe Topic, type: :model do
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_presence_of(:avatar) }
 
-  it { is_expected.to validate_uniqueness_of(:slug) }
+  context 'creation' do
+    subject { create(:topic) }
+
+    it { is_expected.to validate_uniqueness_of(:slug) }
+  end
 end

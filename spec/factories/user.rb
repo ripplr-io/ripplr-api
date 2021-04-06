@@ -4,7 +4,6 @@ FactoryBot.define do
     password { Faker::Internet.password }
     name { Faker::Name.name }
     bio { Faker::GreekPhilosophers.quote }
-    slug { name.parameterize }
     billing { association :billing, user: instance }
     level
 

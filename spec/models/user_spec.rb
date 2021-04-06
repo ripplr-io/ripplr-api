@@ -47,5 +47,9 @@ RSpec.describe User, type: :model do
   it { is_expected.to validate_presence_of(:timezone) }
   it { should allow_value([true, false]).for(:subscribed_to_marketing) }
 
-  it { is_expected.to validate_uniqueness_of(:slug) }
+  context 'creation' do
+    subject { create(:user) }
+
+    it { is_expected.to validate_uniqueness_of(:slug) }
+  end
 end

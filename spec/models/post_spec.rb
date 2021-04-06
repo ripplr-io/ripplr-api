@@ -25,4 +25,10 @@ RSpec.describe Post, type: :model do
   it { is_expected.to validate_presence_of(:title) }
   it { is_expected.to validate_presence_of(:url) }
   it { is_expected.to validate_presence_of(:body) }
+
+  context 'creation' do
+    subject { create(:post) }
+
+    it { is_expected.to validate_uniqueness_of(:slug) }
+  end
 end

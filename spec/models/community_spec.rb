@@ -22,5 +22,9 @@ RSpec.describe Community, type: :model do
   it { is_expected.to validate_length_of(:name).is_at_most(20) }
   it { is_expected.to validate_length_of(:description).is_at_most(500) }
 
-  it { is_expected.to validate_uniqueness_of(:slug) }
+  context 'creation' do
+    subject { create(:community) }
+
+    it { is_expected.to validate_uniqueness_of(:slug) }
+  end
 end

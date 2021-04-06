@@ -36,6 +36,7 @@ class Post < ApplicationRecord
   validates :title, presence: true
   validates :url, presence: true, url: true
   validates :body, presence: true
+  validates :slug, presence: true, uniqueness: true
 
   scope :order_chronologically, -> { order(created_at: :desc) }
   scope :order_by_rating, -> { order(ratings_points_total: :desc) }
