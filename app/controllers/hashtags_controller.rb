@@ -1,7 +1,7 @@
 class HashtagsController < ApplicationController
   include JsonApi::Crudable
 
-  load_and_authorize_resource find_by: :name
+  load_and_authorize_resource
   skip_load_resource only: :index
 
   def index

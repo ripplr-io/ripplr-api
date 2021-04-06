@@ -1,4 +1,5 @@
 class Hashtag < ApplicationRecord
+  extend FriendlyId
   include Followable
   include PgSearch::Model
 
@@ -6,6 +7,8 @@ class Hashtag < ApplicationRecord
   has_many :posts, through: :post_hashtags
 
   validates :name, presence: true, uniqueness: true
+
+  friendly_id :name
 
   pg_search_scope :search,
     using: { tsearch: { prefix: true, any_word: true } },

@@ -1,4 +1,5 @@
 class Post < ApplicationRecord
+  extend FriendlyId
   include Ratable
   include Inboxable
   include PgSearch::Model
@@ -44,6 +45,8 @@ class Post < ApplicationRecord
   counter_culture :topic, touch: true
   counter_culture :author, touch: true
 
+  friendly_id :short_title, use: :slugged
+
   pg_search_scope :search,
     using: { tsearch: { prefix: true, any_word: true } },
     against: {
@@ -65,5 +68,14 @@ class Post < ApplicationRecord
       .union(hashtag_followers)
       .union(community_followers)
       .distinct
+  end
+
+  private
+
+  # NOTE: Used by friendly_id to always keep the full words in the slug
+  def short_title
+    return title if title.blank?
+
+    title.truncate(60, separator: /\s/, omission: '')
   end
 end

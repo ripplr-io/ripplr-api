@@ -1,11 +1,10 @@
 module Support
   class ContentSuggestionsController < ApplicationController
+    load_resource :topic
     authorize_resource class: :support
 
     def create
       content_suggestion = ContentSuggestionForm.new(content_suggestion_params)
-      content_suggestion.user = current_user
-      content_suggestion.topic = Topic.find_by(id: params[:topic_id])
       return render_errors(content_suggestion.errors) unless content_suggestion.valid?
 
       user = "#{content_suggestion.user.name} <#{content_suggestion.user.email}>"
@@ -18,7 +17,7 @@ module Support
     private
 
     def content_suggestion_params
-      params.permit(:name, :url)
+      params.permit(:name, :url).merge(user: current_user, topic: @topic)
     end
   end
 end
