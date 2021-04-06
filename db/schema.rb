@@ -292,10 +292,9 @@ ActiveRecord::Schema.define(version: 2021_04_06_140513) do
     t.integer "ratings_points_total", default: 0, null: false
     t.integer "comments_count", default: 0, null: false
     t.integer "trending_score", default: 0, null: false
-    t.string "slug", null: false
+    t.string "slug"
     t.index ["author_id"], name: "index_posts_on_author_id"
     t.index ["deleted_at"], name: "index_posts_on_deleted_at"
-    t.index ["slug"], name: "index_posts_on_slug", unique: true
     t.index ["topic_id"], name: "index_posts_on_topic_id"
     t.index ["trending_score"], name: "index_posts_on_trending_score"
   end
