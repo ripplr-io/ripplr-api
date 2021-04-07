@@ -10,16 +10,11 @@ RSpec.describe :channels_create, type: :request do
   end
 
   it 'responds with the resource (device)' do
-    user = create(:user)
-    mock_device = build(:channel_device)
-    mock_channel = mock_device.channel
+    attributes = attributes_for(:channel).slice(:name, :settings).merge(
+      channelable: attributes_for(:channel_device).slice(:onesignal_id)
+    )
 
-    post channels_path,
-      params: mock_channel.as_json(only: [:name]).merge(
-        settings: mock_channel.settings.to_json,
-        channelable: mock_device.as_json(only: [:onesignal_id]).merge(type: 'channel_device')
-      ),
-      headers: auth_headers_for(user)
+    post channels_path, params: attributes, headers: auth_headers_for_new_user
 
     expect(response).to have_http_status(:created)
     expect(response_data).to have_resource(Channel.last)

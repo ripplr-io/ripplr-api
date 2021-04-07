@@ -32,16 +32,20 @@ class ChannelsController < ApplicationController
   end
 
   def build_channelable
-    Channel::Device.new(device_params) if params.dig(:channelable, :type) == 'channel_device'
+    return Channel::Email.new if params[:channelable_type] == 'channel_email'
+
+    Channel::Device.new(device_params)
   end
 
   def channelable_params
-    device_params if @channel.channel_device? && params.dig(:channelable, :type) == 'channel_device'
+    device_params if @channel.channel_device?
 
     {}
   end
 
   def device_params
+    return {} if params[:channelable].blank?
+
     params.require(:channelable).permit(:onesignal_id)
   end
 end

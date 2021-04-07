@@ -1,5 +1,5 @@
 class Channel < ApplicationRecord
-  delegated_type :channelable, types: ['Channel::Email', 'Channel::Device'], dependent: :destroy
+  delegated_type :channelable, types: Channelable::TYPES, validate: true, dependent: :destroy
 
   belongs_to :user
 
