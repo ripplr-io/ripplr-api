@@ -435,8 +435,6 @@ Doorkeeper.configure do
 
     Mixpanel::TrackLoginWorker.perform_async(
       context.auth.token.resource_owner_id,
-      # TODO: Fix request IP based on:
-      # https://stackoverflow.com/questions/19317255/rails-how-to-obtain-visitors-ip-address
       request.remote_ip,
       browser.name,
       browser.platform.name

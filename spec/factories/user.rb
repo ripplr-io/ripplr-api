@@ -5,11 +5,12 @@ FactoryBot.define do
     name { Faker::Name.name }
     bio { Faker::GreekPhilosophers.quote }
     billing { association :billing, user: instance }
+    acquisition { association :user_acquisition, user: instance }
     level
 
     bookmark_folders do
       [
-        build(:bookmark_folder, user: instance, name: 'Root')
+        association(:bookmark_folder, user: instance, name: 'Root')
       ]
     end
   end

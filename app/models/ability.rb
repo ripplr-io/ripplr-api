@@ -11,6 +11,8 @@ class Ability
   def public_access
     can :create, :webhook
     can :manage, :welcome
+
+    can :create, User
     can :show, Referral
 
     can :read, Comment

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_06_172803) do
+ActiveRecord::Schema.define(version: 2021_04_08_141408) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -381,6 +381,16 @@ ActiveRecord::Schema.define(version: 2021_04_06_172803) do
     t.integer "posts_count", default: 0, null: false
     t.integer "followers_count", default: 0, null: false
     t.index ["slug"], name: "index_topics_on_slug", unique: true
+  end
+
+  create_table "user_acquisitions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id"
+    t.string "medium"
+    t.string "source"
+    t.string "campaign"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_user_acquisitions_on_user_id"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

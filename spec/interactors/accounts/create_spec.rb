@@ -20,9 +20,9 @@ RSpec.describe Accounts::Create, type: :interactor do
   it 'creates a referral accepted notification' do
     level = create(:level)
     referral = create(:referral)
-    user = build(:user, level: nil, billing: nil, bookmark_folders: [])
+    user = build(:user, level: nil, billing: nil, bookmark_folders: [], referral: referral)
 
-    expect { described_class.call(resource: user, referral_id: referral.id) }
+    expect { described_class.call(resource: user) }
       .to change { User.count }.by(1)
       .and change { BookmarkFolder.count }.by(1)
       .and change { Notifications::ReferralAccepted.count }.by(1)

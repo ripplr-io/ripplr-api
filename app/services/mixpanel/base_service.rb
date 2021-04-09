@@ -18,11 +18,20 @@ module Mixpanel
     def sync_user(ip: 0, browser_options: {})
       return if @user.blank?
 
-      @tracker.people.set(@user.id, {
+      default_properties = {
         '$name' => @user.name,
         '$email' => @user.email,
         '$created' => @user.created_at
-      }.merge(browser_options), ip)
+      }.merge(browser_options)
+
+      custom_properties = {
+        'Medium' => @user.acquisition.medium,
+        'Source' => @user.acquisition.source,
+        'Campaign' => @user.acquisition.campaign
+      }
+
+      properties = default_properties.merge(custom_properties)
+      @tracker.people.set(@user.id, properties, ip)
     end
 
     private
