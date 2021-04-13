@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.1'
 
+gem 'analytics-ruby'
 gem 'active_record_union'
 gem 'aws-sdk-s3', require: false
 gem 'bcrypt'

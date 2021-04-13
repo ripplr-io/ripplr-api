@@ -25,9 +25,9 @@ module Mixpanel
       }.merge(browser_options)
 
       custom_properties = {
-        'Medium' => @user.acquisition.medium,
-        'Source' => @user.acquisition.source,
-        'Campaign' => @user.acquisition.campaign
+        'Medium' => @user.acquisition&.medium,
+        'Source' => @user.acquisition&.source,
+        'Campaign' => @user.acquisition&.campaign
       }
 
       properties = default_properties.merge(custom_properties)
