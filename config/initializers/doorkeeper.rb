@@ -499,3 +499,11 @@ Doorkeeper.configure do
   #
   # realm "Doorkeeper"
 end
+
+module CustomTokenResponse
+  def body
+    super.merge(user_id: @token.resource_owner_id)
+  end
+end
+
+Doorkeeper::OAuth::TokenResponse.send :prepend, CustomTokenResponse

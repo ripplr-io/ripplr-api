@@ -8,7 +8,6 @@ module Auth
 
     def create
       @user.referral = Referral.find_by(id: params[:referral_id])
-      @user.build_acquisition(acquisition_params)
 
       result = Accounts::Create.call(resource: @user)
       return render_errors(result.resource.errors) unless result.success?
@@ -24,10 +23,6 @@ module Auth
 
     def configure_sign_up_params
       devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :subscribed_to_marketing])
-    end
-
-    def acquisition_params
-      params.permit(:medium, :source, :campaign)
     end
   end
 end
