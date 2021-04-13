@@ -11,7 +11,7 @@ RSpec.describe :doorkeeper_tokens_create, type: :request do
         password: '123456'
       }
 
-      expect(Mixpanel::TrackLoginWorker.jobs.size).to eq(1)
+      expect(Segment::TrackLoginWorker.jobs.size).to eq(1)
     end
   end
 
@@ -28,17 +28,17 @@ RSpec.describe :doorkeeper_tokens_create, type: :request do
         refresh_token: user.access_tokens.last.refresh_token
       }
 
-      expect(Mixpanel::TrackLoginWorker.jobs.size).to eq(1)
+      expect(Segment::TrackLoginWorker.jobs.size).to eq(1)
     end
   end
 
   context 'with invalid authentication' do
     it 'does not log in the user' do
       post oauth_token_path, params: { grant_type: 'password' }
-      expect(Mixpanel::TrackLoginWorker.jobs.size).to eq(0)
+      expect(Segment::TrackLoginWorker.jobs.size).to eq(0)
 
       post oauth_token_path, params: { grant_type: 'refresh_token' }
-      expect(Mixpanel::TrackLoginWorker.jobs.size).to eq(0)
+      expect(Segment::TrackLoginWorker.jobs.size).to eq(0)
     end
   end
 end

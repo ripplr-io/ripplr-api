@@ -9,7 +9,7 @@ RSpec.describe Communities::Create, type: :interactor do
       expect { described_class.call(resource: community) }
         .to change { Community.count }.by(1)
 
-      expect(Mixpanel::TrackCommunityCreatedWorker.jobs.size).to eq(1)
+      expect(Segment::TrackCommunityCreatedWorker.jobs.size).to eq(1)
     end
   end
 

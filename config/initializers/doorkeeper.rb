@@ -430,15 +430,7 @@ Doorkeeper.configure do
   # end
   #
   after_successful_authorization do |controller, context|
-    browser = controller.send(:browser)
-    request = controller.send(:request)
-
-    Mixpanel::TrackLoginWorker.perform_async(
-      context.auth.token.resource_owner_id,
-      request.remote_ip,
-      browser.name,
-      browser.platform.name
-    )
+    Segment::TrackLoginWorker.perform_async(context.auth.token.resource_owner_id)
   end
 
   # Under some circumstances you might want to have applications auto-approved,

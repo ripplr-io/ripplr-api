@@ -8,7 +8,7 @@ module Communities
     def call
       context.fail! unless context.resource.save
 
-      Mixpanel::TrackCommunityCreatedWorker.perform_async(context.resource.id)
+      Segment::TrackCommunityCreatedWorker.perform_async(context.resource.id)
     end
 
     private

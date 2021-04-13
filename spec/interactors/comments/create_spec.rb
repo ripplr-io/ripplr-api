@@ -8,6 +8,6 @@ RSpec.describe Comments::Create, type: :interactor do
       .to change { Comment.count }.by(1)
 
     expect(Comments::GenerateNotificationsWorker.jobs.size).to eq(1)
-    expect(Mixpanel::TrackCommentCreatedWorker.jobs.size).to eq(1)
+    expect(Segment::TrackCommentCreatedWorker.jobs.size).to eq(1)
   end
 end

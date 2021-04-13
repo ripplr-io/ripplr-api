@@ -12,7 +12,7 @@ RSpec.describe :track_create, type: :request do
         headers: auth_headers_for_new_user
 
       expect(response).to have_http_status(:no_content)
-      expect(Mixpanel::TrackAppEventWorker.jobs.size).to eq(1)
+      expect(Segment::TrackAppEventWorker.jobs.size).to eq(1)
     end
   end
 
@@ -21,7 +21,7 @@ RSpec.describe :track_create, type: :request do
       post track_path, headers: auth_headers_for_new_user
 
       expect(response).to have_http_status(:no_content)
-      expect(Mixpanel::TrackAppEventWorker.jobs.size).to eq(0)
+      expect(Segment::TrackAppEventWorker.jobs.size).to eq(0)
     end
   end
 end

@@ -185,7 +185,6 @@ GEM
     mini_mime (1.0.3)
     mini_portile2 (2.5.0)
     minitest (5.14.4)
-    mixpanel-ruby (2.2.2)
     msgpack (1.3.3)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
@@ -385,7 +384,6 @@ DEPENDENCIES
   kaminari
   listen (~> 3.2)
   lograge
-  mixpanel-ruby
   onesignal-ruby!
   paranoia
   pg
