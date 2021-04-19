@@ -70,7 +70,7 @@ Rails.application.routes.draw do
     end
 
     resources :posts, only: [:show, :create, :update, :destroy] do
-      resources :comments
+      resources :comments, shallow: true
       resources :ratings, only: [:create], path: :rate
       resources :reports, only: :create
 
