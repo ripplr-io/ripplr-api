@@ -7,6 +7,9 @@ class FollowsController < ApplicationController
   serializer include: [:followable]
 
   def index
+    @follows = @follows
+      .includes(:followable)
+
     read_resource(@follows)
   end
 

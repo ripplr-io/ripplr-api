@@ -6,6 +6,9 @@ class SubscriptionsController < ApplicationController
   serializer include: [:subscribable, :inboxes]
 
   def index
+    @subscriptions = @subscriptions
+      .includes(:subscribable, :inboxes)
+
     read_resource(@subscriptions)
   end
 

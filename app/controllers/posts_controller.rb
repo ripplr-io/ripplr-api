@@ -23,6 +23,7 @@ class PostsController < ApplicationController
       end
 
     @posts = @posts
+      .includes(:author, :topic, :hashtags, :communities)
       .page(params[:page])
       .per(params[:per_page])
 

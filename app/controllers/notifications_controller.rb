@@ -6,7 +6,10 @@ class NotificationsController < ApplicationController
   serializer include: [:user, :author]
 
   def index
-    @notifications = @notifications.order(created_at: :desc)
+    @notifications = @notifications
+      .order(created_at: :desc)
+      .includes(:user)
+
     read_resource(@notifications)
   end
 
