@@ -6,7 +6,7 @@ module Inboxes
     def call
       context.fail! unless context.resource.save
 
-      Segment::TrackInboxCreatedWorker.perform_async(context.resource.id)
+      Trackers::TrackInboxCreatedWorker.perform_async(context.resource.id)
       Prizes::Onboarding::FirstInboxWorker.perform_async(context.resource.user.id)
     end
 

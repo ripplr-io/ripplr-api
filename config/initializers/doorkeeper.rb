@@ -430,7 +430,7 @@ Doorkeeper.configure do
   # end
   #
   after_successful_authorization do |controller, context|
-    Segment::TrackLoginWorker.perform_async(context.auth.token.resource_owner_id)
+    Trackers::TrackLoginWorker.perform_async(context.auth.token.resource_owner_id)
   end
 
   # Under some circumstances you might want to have applications auto-approved,

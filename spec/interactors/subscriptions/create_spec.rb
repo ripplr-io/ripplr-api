@@ -7,7 +7,7 @@ RSpec.describe Subscriptions::Create, type: :interactor do
     expect { described_class.call(resource: subscription) }
       .to change { Subscription.count }.by(1)
 
-    expect(Segment::TrackSubscriptionCreatedWorker.jobs.size).to eq(1)
+    expect(Trackers::TrackSubscriptionCreatedWorker.jobs.size).to eq(1)
     expect(Prizes::Onboarding::FirstSubscriptionWorker.jobs.size).to eq(1)
   end
 end

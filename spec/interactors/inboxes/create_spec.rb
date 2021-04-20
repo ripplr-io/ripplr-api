@@ -7,7 +7,7 @@ RSpec.describe Inboxes::Create, type: :interactor do
     expect { described_class.call(resource: inbox) }
       .to change { Inbox.count }.by(1)
 
-    expect(Segment::TrackInboxCreatedWorker.jobs.size).to eq(1)
+    expect(Trackers::TrackInboxCreatedWorker.jobs.size).to eq(1)
     expect(Prizes::Onboarding::FirstInboxWorker.jobs.size).to eq(1)
   end
 

@@ -12,7 +12,7 @@ RSpec.describe ContentSources::PublishWorker, type: :worker do
       }
 
       # Preview
-      expect(Linkpreview::FetchPreviewService).not_to receive(:new)
+      expect(LinkPreview).not_to receive(:fetch)
 
       # Mock Image Download
       file = file_fixture('logo.png')
@@ -37,13 +37,13 @@ RSpec.describe ContentSources::PublishWorker, type: :worker do
       }
 
       # Mock Preview Download
-      preview_mock = double(call: {
+      preview = {
         url: url,
         title: 'New Title',
         body: 'New Body',
         image: 'https://youtube.com/post/id.png'
-      })
-      allow(Linkpreview::FetchPreviewService).to receive(:new).with(url).and_return(preview_mock)
+      }
+      allow(LinkPreview).to receive(:fetch).with(url).and_return(preview)
 
       # Mock Image Download
       file = file_fixture('logo.png')

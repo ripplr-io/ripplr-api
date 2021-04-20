@@ -9,7 +9,7 @@ RSpec.describe Posts::Create, type: :interactor do
     expect(Posts::GenerateInboxItemsWorker.jobs.size).to eq(1)
     expect(Posts::BroadcastCreationWorker.jobs.size).to eq(1)
     expect(Posts::UpdateTrendingScoreWorker.jobs.size).to eq(1)
-    expect(Segment::TrackPostCreatedWorker.jobs.size).to eq(1)
+    expect(Trackers::TrackPostCreatedWorker.jobs.size).to eq(1)
     expect(Prizes::Onboarding::FirstPostWorker.jobs.size).to eq(1)
   end
 

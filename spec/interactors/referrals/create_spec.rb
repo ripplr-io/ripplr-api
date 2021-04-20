@@ -9,7 +9,7 @@ RSpec.describe Referrals::Create, type: :interactor do
 
     expect(Referrals::InviteMailer.jobs.size).to eq(1)
     expect(Prizes::ReferralCreatedWorker.jobs.size).to eq(1)
-    expect(Segment::TrackReferralCreatedWorker.jobs.size).to eq(1)
+    expect(Trackers::TrackReferralCreatedWorker.jobs.size).to eq(1)
     expect(Alerts::ReferralCreatedWorker.jobs.size).to eq(1)
   end
 

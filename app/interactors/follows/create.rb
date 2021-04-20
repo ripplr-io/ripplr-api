@@ -4,7 +4,7 @@ module Follows
       context.fail! unless context.resource.save
 
       generate_notification
-      Segment::TrackFollowCreatedWorker.perform_async(context.resource.id)
+      Trackers::TrackFollowCreatedWorker.perform_async(context.resource.id)
       Prizes::Onboarding::FirstFollowWorker.perform_async(context.resource.user.id)
     end
 

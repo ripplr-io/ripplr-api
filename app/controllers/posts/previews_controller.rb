@@ -3,7 +3,7 @@ module Posts
     authorize_resource class: Post
 
     def create
-      data = Linkpreview::FetchPreviewService.new(params[:url]).call
+      data = LinkPreview.fetch(params[:url])
       render json: { data: data }, status: :ok
     end
   end

@@ -6,8 +6,7 @@ RSpec.describe :posts_previews_create, type: :request do
   end
 
   it 'responds with data about the url' do
-    expect(Linkpreview::FetchPreviewService).to receive(:new).with('github.com').and_call_original
-    allow_any_instance_of(Linkpreview::FetchPreviewService).to receive(:call).and_return({})
+    expect(LinkPreview).to receive(:fetch).with('github.com').and_return({})
 
     post posts_previews_path(url: 'github.com'), headers: auth_headers_for_new_user
 

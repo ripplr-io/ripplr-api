@@ -22,7 +22,7 @@ module Accounts
         Slack::NotifyService.new.ping("New user signed up: #{context.resource.name} <#{context.resource.email}>", '#marketing')
       end
 
-      Segment::TrackSignupWorker.perform_async(context.resource.id)
+      Trackers::TrackSignupWorker.perform_async(context.resource.id)
       Sendgrid::SyncUserWorker.perform_async(context.resource.id)
     end
 

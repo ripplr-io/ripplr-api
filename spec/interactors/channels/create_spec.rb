@@ -15,7 +15,7 @@ RSpec.describe Channels::Create, type: :interactor do
       expect { described_class.call(resource: channel) }
         .to change { Channel::Email.count }.by(1)
 
-      expect(Segment::TrackChannelDeviceCreatedWorker.jobs.size).to eq(0)
+      expect(Trackers::TrackChannelDeviceCreatedWorker.jobs.size).to eq(0)
       expect(Prizes::Onboarding::FirstDeviceWorker.jobs.size).to eq(0)
     end
   end
@@ -27,7 +27,7 @@ RSpec.describe Channels::Create, type: :interactor do
       expect { described_class.call(resource: channel) }
         .to change { Channel::Device.count }.by(1)
 
-      expect(Segment::TrackChannelDeviceCreatedWorker.jobs.size).to eq(1)
+      expect(Trackers::TrackChannelDeviceCreatedWorker.jobs.size).to eq(1)
       expect(Prizes::Onboarding::FirstDeviceWorker.jobs.size).to eq(1)
     end
   end

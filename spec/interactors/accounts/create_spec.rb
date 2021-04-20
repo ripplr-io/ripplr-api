@@ -13,7 +13,7 @@ RSpec.describe Accounts::Create, type: :interactor do
       .and change { Inbox.count }.by(1)
 
     expect(User.last.level).to eq(level)
-    expect(Segment::TrackSignupWorker.jobs.size).to eq(1)
+    expect(Trackers::TrackSignupWorker.jobs.size).to eq(1)
     expect(Sendgrid::SyncUserWorker.jobs.size).to eq(1)
   end
 

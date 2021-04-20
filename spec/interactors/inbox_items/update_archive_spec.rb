@@ -8,6 +8,6 @@ RSpec.describe InboxItems::UpdateArchive, type: :interactor do
     described_class.call(resource: inbox_item)
 
     expect(inbox_item.reload.archived_at).not_to eq(nil)
-    expect(Segment::TrackInboxItemArchiveWorker.jobs.size).to eq(1)
+    expect(Trackers::TrackInboxItemArchiveWorker.jobs.size).to eq(1)
   end
 end

@@ -4,7 +4,7 @@ class TrackController < ApplicationController
   authorize_resource class: :tracking
 
   def create
-    Segment::TrackAppEventWorker.perform_async(current_user.id, event_name, event_data) if event_name.present?
+    Trackers::TrackAppEventWorker.perform_async(current_user.id, event_name, event_data) if event_name.present?
     head :no_content
   end
 

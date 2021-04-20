@@ -8,7 +8,7 @@ module Referrals
 
       Referrals::InviteMailer.perform_async(context.resource.id)
       Prizes::ReferralCreatedWorker.perform_async(context.resource.id)
-      Segment::TrackReferralCreatedWorker.perform_async(context.resource.id)
+      Trackers::TrackReferralCreatedWorker.perform_async(context.resource.id)
       Alerts::ReferralCreatedWorker.perform_async(context.resource.id)
     end
 
