@@ -17,7 +17,8 @@ module Account
 
     # FIXME: Remove after this has been renamed in the frontend
     def rename_params
-      params[:avatar] = params.delete(:avatar_file)
+      params.delete(:avatar)
+      params[:avatar] = params.delete(:avatar_file) if params[:avatar_file].present?
       params[:profile_attributes] = params.slice(:name, :slug, :bio, :avatar)
     end
 
