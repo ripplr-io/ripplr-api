@@ -4,7 +4,7 @@ class Profile < ApplicationRecord
 
   attribute :avatar_url, :string
 
-  delegated_type :profilable, types: Profilable::TYPES
+  delegated_type :profilable, types: Profilable::TYPES, touch: true
 
   has_one_attached :avatar
 
