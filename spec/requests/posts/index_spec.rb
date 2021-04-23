@@ -6,7 +6,7 @@ RSpec.describe :posts_index, type: :request do
     user_post = create(:post, author: user)
     other_post = create(:post)
 
-    get user_posts_path(user)
+    get user_posts_path(user.profile)
 
     expect(response).to have_http_status(:ok)
     expect(response_data).to have_resource(user_post)

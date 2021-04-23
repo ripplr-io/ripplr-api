@@ -92,7 +92,7 @@ Rails.application.routes.draw do
 
     resource :track, only: :create, controller: :track
 
-    resources :users, only: :show do
+    resources :users, only: :show, controller: :profiles do
       resources :followers, only: :index
       resources :follows, only: :index
       resources :posts, only: :index

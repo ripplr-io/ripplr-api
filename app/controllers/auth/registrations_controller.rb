@@ -3,7 +3,10 @@ module Auth
     alias create_params sign_up_params
 
     wrap_parameters :user
+
+    before_action :rename_params
     before_action :configure_sign_up_params
+
     load_and_authorize_resource :user, parent: false
 
     def create
@@ -21,8 +24,15 @@ module Auth
 
     protected
 
+    def rename_params
+      params[:user] ||= {}
+      params[:user][:profile_attributes] = {
+        name: params[:name]
+      }
+    end
+
     def configure_sign_up_params
-      devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :subscribed_to_marketing])
+      devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :subscribed_to_marketing, profile_attributes: [:name]])
     end
   end
 end

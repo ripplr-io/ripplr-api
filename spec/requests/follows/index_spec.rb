@@ -24,12 +24,12 @@ RSpec.describe :follows_index, type: :request do
     expect(response_included).to have_resource(user_follow.followable)
   end
 
-  it 'responds with the user follows' do
+  it 'responds with the profile follows' do
     user = create(:user)
     user_follow = create(:follow, user: user)
     other_follow = create(:follow)
 
-    get user_follows_path(user)
+    get user_follows_path(user.profile)
 
     expect(response).to have_http_status(:ok)
     expect(response_data).to have_resource(user_follow)

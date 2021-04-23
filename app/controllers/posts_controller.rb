@@ -3,11 +3,11 @@ class PostsController < ApplicationController
 
   before_action :rename_params
 
-  load_resource :user, only: :index
+  load_resource :profile, only: :index
   load_resource :topic, only: :index
   load_resource :hashtag, only: :index, find_by: :name
   load_resource :community, only: :index
-  load_and_authorize_resource through: [:user, :topic, :hashtag, :community], shallow: true
+  load_and_authorize_resource through: [:profile, :topic, :hashtag, :community], shallow: true
 
   serializer include: [:author, :topic, :hashtags, :bookmark, :communities]
 
@@ -53,6 +53,7 @@ class PostsController < ApplicationController
 
   # FIXME: This can be removed once the names change in the frontend
   def rename_params
+    params[:profile_id] = params[:user_id]
     params[:image_url] = params.delete(:image)
 
     image_file = params.delete(:image_file)

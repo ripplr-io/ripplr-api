@@ -5,7 +5,7 @@ RSpec.describe :account_profile_update, type: :request do
     let(:subject) { patch account_profile_path }
   end
 
-  it_behaves_like :unprocessable_request, [:name] do
+  it_behaves_like :unprocessable_request, ['profile.name'] do
     let(:subject) do
       patch account_profile_path,
         params: { name: nil },
@@ -17,7 +17,7 @@ RSpec.describe :account_profile_update, type: :request do
     user = create(:user)
 
     patch account_profile_path,
-      params: user.as_json(only: [:name, :slug, :bio]),
+      params: attributes_for(:profile).slice(:name, :slug, :bio),
       headers: auth_headers_for(user)
 
     expect(response).to have_http_status(:ok)
@@ -32,6 +32,6 @@ RSpec.describe :account_profile_update, type: :request do
       params: { avatar_file: avatar },
       headers: auth_headers_for(user)
 
-    expect(user.reload.avatar.present?).to eq true
+    expect(user.reload.profile.avatar.present?).to eq true
   end
 end

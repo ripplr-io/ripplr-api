@@ -1,8 +1,10 @@
 class FollowsController < ApplicationController
   include JsonApi::Crudable
 
-  load_resource :user
-  load_and_authorize_resource through: [:user, :current_user], shallow: true
+  before_action :rename_params
+
+  load_resource :profile
+  load_and_authorize_resource through: [:profile, :current_user], shallow: true
 
   serializer include: [:followable]
 
@@ -22,6 +24,11 @@ class FollowsController < ApplicationController
   end
 
   private
+
+  # FIXME: This can be removed once the names change in the frontend
+  def rename_params
+    params[:profile_id] = params[:user_id]
+  end
 
   def follow_params
     params.permit(:followable_id).merge(

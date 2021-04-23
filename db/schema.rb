@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_19_123021) do
+ActiveRecord::Schema.define(version: 2021_04_22_163908) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -312,6 +312,18 @@ ActiveRecord::Schema.define(version: 2021_04_19_123021) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["prizable_type", "prizable_id"], name: "index_prizes_on_prizable_type_and_prizable_id"
     t.index ["user_id"], name: "index_prizes_on_user_id"
+  end
+
+  create_table "profiles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "profilable_type"
+    t.uuid "profilable_id"
+    t.string "name", null: false
+    t.text "bio"
+    t.string "slug", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["profilable_type", "profilable_id"], name: "index_profiles_on_profilable"
+    t.index ["slug"], name: "index_profiles_on_slug", unique: true
   end
 
   create_table "ratings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

@@ -6,7 +6,7 @@ RSpec.describe :followers_index, type: :request do
     follow = create(:follow, followable: user)
     other_follow = create(:follow)
 
-    get user_followers_path(user), headers: auth_headers_for(user)
+    get user_followers_path(user.profile), headers: auth_headers_for(user)
 
     expect(response).to have_http_status(:ok)
     expect(response_data).to have_resource(follow.user)

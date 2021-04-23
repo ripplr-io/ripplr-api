@@ -11,7 +11,8 @@ module ContentBots
         name: @name,
         avatar_url: @avatar_url,
         email: generate_email,
-        password: generate_password
+        password: generate_password,
+        profile_attributes: { name: @name }
       )
 
       Accounts::Create.call(resource: bot)

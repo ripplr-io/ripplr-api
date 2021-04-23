@@ -4,7 +4,8 @@ module Accounts
 
     def call
       context.resource.level = Level.first
-      context.resource.build_billing
+      context.resource.billing ||= Billing.new
+      context.resource.profile ||= Profile.new
       context.resource.bookmark_folders.build(name: 'Root')
       context.resource.channels.build(name: 'Email', channelable: Channel::Email.new)
       context.resource.inboxes.build(name: 'Main Inbox')

@@ -2,9 +2,11 @@ class User < ApplicationRecord
   extend FriendlyId
   include Followable
   include Subscribable
+  include Profilable
   include PgSearch::Model
 
   attribute :avatar_url, :string
+  accepts_nested_attributes_for :profile, update_only: true
 
   belongs_to :level
   has_one_attached :avatar

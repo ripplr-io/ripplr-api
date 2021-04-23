@@ -21,6 +21,7 @@ class Ability
     can :read, Hashtag
     can :read, Level
     can :read, Post
+    can :read, Profile
     can :read, Topic
     can :read, User
   end
@@ -44,6 +45,7 @@ class Ability
     can :manage, InboxChannel, user_id: user.id
     can :manage, Notification, user_id: user.id
     can :manage, Post, author_id: user.id
+    can :manage, Profile, profilable_id: user.id, profilable_type: 'User'
     can :manage, Rating, user_id: user.id
     can :manage, Referral, inviter_id: user.id
     can :manage, Subscription, user_id: user.id

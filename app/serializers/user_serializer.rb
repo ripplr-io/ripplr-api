@@ -1,5 +1,5 @@
 class UserSerializer < ApplicationSerializer
-  attributes :slug, :name, :bio, :supporter
+  attributes :supporter
 
   attribute :postsCount, &:posts_count
   attribute :followersCount, &:followers_count
@@ -11,6 +11,18 @@ class UserSerializer < ApplicationSerializer
   end
 
   attribute :avatar do |object|
-    url_helpers.public_blob_url(object.avatar) if object.avatar.attached?
+    url_helpers.public_blob_url(object.profile.avatar) if object.profile.avatar.attached?
+  end
+
+  attribute :slug do |object|
+    object.profile.slug
+  end
+
+  attribute :name do |object|
+    object.profile.name
+  end
+
+  attribute :bio do |object|
+    object.profile.bio
   end
 end
