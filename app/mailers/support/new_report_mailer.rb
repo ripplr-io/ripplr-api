@@ -10,7 +10,7 @@ module Support
       mail.add_personalization(
         to: 'support@ripplr.io',
         data: {
-          user_name: user.name,
+          user_name: user.profile.name,
           user_email: user.email,
           reported_at: Time.current.to_i,
           report_reason: reason,

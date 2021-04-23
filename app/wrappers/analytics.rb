@@ -5,7 +5,7 @@ class Analytics
         user_id: user.id,
         traits: {
           email: user.email,
-          name: user.name,
+          name: user.profile.name,
           createdAt: user.created_at
         }
       )

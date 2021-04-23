@@ -12,8 +12,8 @@ module InboxNotifications
         data: {
           inbox_name: inbox.name,
           inbox_url: app_inbox_url(inbox),
-          author_name: post.author.name,
-          author_url: app_profile_url(post.author),
+          author_name: post.author.profile.name,
+          author_url: app_profile_url(post.author.profile),
           topic_name: post.topic.name,
           topic_url: app_topic_url(post.topic),
           post_title: post.title,

@@ -24,7 +24,7 @@ RSpec.describe Analytics, type: :wrapper do
 
       expect(client).to receive(:identify).with(hash_including(traits: {
         email: user.email,
-        name: user.name,
+        name: user.profile.name,
         createdAt: user.created_at
       }))
 

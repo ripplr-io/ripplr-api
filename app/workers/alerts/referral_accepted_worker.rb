@@ -4,7 +4,7 @@ module Alerts
       referral = Referral.find_by(id: referral_id)
       return if referral.blank? || referral.invitee.blank?
 
-      message = "#{referral.invitee.name} accepted #{referral.inviter.name}'s invite."
+      message = "#{referral.invitee.profile.name} accepted #{referral.inviter.profile.name}'s invite."
       Slack::NotifyService.new.ping(message, '#marketing')
     end
   end

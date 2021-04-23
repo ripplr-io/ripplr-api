@@ -20,7 +20,7 @@ module Accounts
         Alerts::ReferralAcceptedWorker.perform_async(context.resource.referral.id)
         Prizes::Onboarding::FirstReferralWorker.perform_async(context.resource.referral.inviter.id)
       else
-        Slack::NotifyService.new.ping("New user signed up: #{context.resource.name} <#{context.resource.email}>", '#marketing')
+        Slack::NotifyService.new.ping("New user signed up: #{context.resource.profile.name} <#{context.resource.email}>", '#marketing')
       end
 
       Trackers::TrackSignupWorker.perform_async(context.resource.id)

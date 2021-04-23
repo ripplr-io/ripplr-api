@@ -32,7 +32,7 @@ module Stripe
     def create_stripe_customer
       customer = Stripe::Customer.create({
         email: current_user.email,
-        name: current_user.name,
+        name: current_user.profile.name,
         metadata: { user_id: current_user.id }
       })
 

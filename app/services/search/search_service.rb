@@ -46,7 +46,7 @@ module Search
     end
 
     def user_results
-      User.search(@query)
+      Profile.search(@query)
     end
 
     def post_results

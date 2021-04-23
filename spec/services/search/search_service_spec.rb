@@ -30,7 +30,7 @@ RSpec.describe Search::SearchService, type: :service do
 
     it 'limits the results to 4 except on posts' do
       5.times do |index|
-        create(:user, name: "query#{index}")
+        create(:user, profile: build(:profile, name: "query#{index}"))
         create(:topic, name: "query#{index}")
         create(:hashtag, name: "query#{index}")
         create(:community, name: "query#{index}")
@@ -63,7 +63,7 @@ RSpec.describe Search::SearchService, type: :service do
 
   describe '#individual_results' do
     it 'returns individual results' do
-      create(:user, name: 'query')
+      create(:user, profile: build(:profile, name: 'query'))
       create(:topic, name: 'query')
       create(:hashtag, name: 'query')
       create(:community, name: 'query')
@@ -93,7 +93,7 @@ RSpec.describe Search::SearchService, type: :service do
 
     it 'returns paginated results' do
       2.times do |index|
-        create(:user, name: "query#{index}")
+        create(:user, profile: build(:profile, name: "query#{index}"))
         create(:topic, name: "query#{index}")
         create(:hashtag, name: "query#{index}")
         create(:community, name: "query#{index}")

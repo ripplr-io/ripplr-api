@@ -7,12 +7,19 @@ module Users
       user.update!({
         email: "del_#{user.id}@ripplr.io",
         password: SecureRandom.hex,
-        name: 'Deleted Account',
-        bio: nil,
         avatar: nil,
         timezone: 'UTC',
         country: nil,
         supporter: false
+      })
+
+      profile = Profile.only_deleted.find_by(profilable_id: user.id, profilable_type: 'User')
+      return if profile.blank?
+
+      profile.update_columns({
+        name: 'Deleted Account',
+        slug: profile.id,
+        bio: ''
       })
     end
   end

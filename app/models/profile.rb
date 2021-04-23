@@ -11,6 +11,7 @@ class Profile < ApplicationRecord
   validates :name, presence: true
   validates :slug, presence: true, uniqueness: true
 
+  acts_as_paranoid
   friendly_id :name, use: :slugged
 
   pg_search_scope :search,

@@ -1,9 +1,7 @@
 class User < ApplicationRecord
-  extend FriendlyId
   include Followable
   include Subscribable
   include Profilable
-  include PgSearch::Model
 
   attribute :avatar_url, :string
   accepts_nested_attributes_for :profile, update_only: true
@@ -57,25 +55,14 @@ class User < ApplicationRecord
   has_one :referral, inverse_of: :invitee, foreign_key: :invitee_id, dependent: :nullify
   has_one :referee, through: :referral, source: :inviter
 
-  validates :name, presence: true
-  validates :slug, presence: true, uniqueness: true
   validates :timezone, presence: true # TODO: Add inclusion
   validates :subscribed_to_marketing, inclusion: { in: [true, false] }
 
   acts_as_paranoid
-  friendly_id :name, use: :slugged
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
-
-  pg_search_scope :search,
-    using: { tsearch: { prefix: true, any_word: true } },
-    against: {
-      slug: 'A',
-      name: 'B',
-      bio: 'C'
-    }
 
   def following_posts
     posts

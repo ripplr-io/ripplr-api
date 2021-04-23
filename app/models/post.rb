@@ -10,6 +10,7 @@ class Post < ApplicationRecord
 
   belongs_to :topic
   belongs_to :author, class_name: 'User'
+  has_one :author_profile, through: :author, source: :profile
   has_one_attached :image
 
   has_many :bookmarks, dependent: :destroy
@@ -55,7 +56,7 @@ class Post < ApplicationRecord
       body: 'B'
     },
     associated_against: {
-      author: :name,
+      author_profile: :name,
       topic: :name,
       hashtags: :name
     }

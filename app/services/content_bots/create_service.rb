@@ -8,7 +8,6 @@ module ContentBots
 
     def call
       bot = User.new(
-        name: @name,
         avatar_url: @avatar_url,
         email: generate_email,
         password: generate_password,

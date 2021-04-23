@@ -12,7 +12,7 @@ RSpec.describe Support::NewTicketMailer, type: :mailer do
 
     personalization = mailer.personalizations.first
     expect(personalization.to).to eq 'support@ripplr.io'
-    expect(personalization.data['user_name']).to eq ticket.user.name
+    expect(personalization.data['user_name']).to eq ticket.user.profile.name
     expect(personalization.data['user_email']).to eq ticket.user.email
     expect(personalization.data['reported_at']).to eq ticket.created_at.to_i
     expect(personalization.data['ticket_title']).to eq ticket.title

@@ -13,7 +13,7 @@ module Accounts
 
     def mailer_data(user)
       {
-        user_name: user.name,
+        user_name: user.profile.name,
         user_email: user.email,
         posts_total: user.posts.count,
         points_total: user.total_points,

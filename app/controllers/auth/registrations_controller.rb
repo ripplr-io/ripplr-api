@@ -32,7 +32,7 @@ module Auth
     end
 
     def configure_sign_up_params
-      devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :subscribed_to_marketing, profile_attributes: [:name]])
+      devise_parameter_sanitizer.permit(:sign_up, keys: [:subscribed_to_marketing, profile_attributes: [:name]])
     end
   end
 end

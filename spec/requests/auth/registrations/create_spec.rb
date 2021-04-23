@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe :auth_registrations_create, type: :request do
-  it_behaves_like :unprocessable_request, [:email, :name, :password] do
+  it_behaves_like :unprocessable_request, [:email, :password, 'profile.name'] do
     let(:subject) { post auth_register_path }
   end
 
   context 'without extra params' do
     it 'responds with the resource' do
       create(:level)
-      attributes = attributes_for(:user).slice(:name, :email, :password)
+      attributes = attributes_for(:user).slice(:email, :password).merge(name: 'Name')
 
       post auth_register_path, params: attributes, as: :json
 
@@ -25,7 +25,8 @@ RSpec.describe :auth_registrations_create, type: :request do
       referral = create(:referral)
 
       attributes = attributes_for(:user)
-        .slice(:name, :email, :password)
+        .slice(:email, :password)
+        .merge(name: 'Name')
         .merge(referral_id: referral.id)
 
       post auth_register_path, params: attributes, as: :json

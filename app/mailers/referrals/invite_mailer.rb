@@ -9,7 +9,7 @@ module Referrals
       mail.add_personalization(
         to: referral.email,
         data: {
-          inviter_name: referral.inviter.name,
+          inviter_name: referral.inviter.profile.name,
           sign_up_url: app_sign_up_url(referral.id)
         }
       )

@@ -11,7 +11,7 @@ RSpec.describe Support::NewReportMailer, type: :mailer do
 
     personalization = mailer.personalizations.first
     expect(personalization.to).to eq 'support@ripplr.io'
-    expect(personalization.data['user_name']).to eq user.name
+    expect(personalization.data['user_name']).to eq user.profile.name
     expect(personalization.data['user_email']).to eq user.email
     expect(personalization.data['reported_at']).not_to eq nil
     expect(personalization.data['report_reason']).to eq 'Reason'

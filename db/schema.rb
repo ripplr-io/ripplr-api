@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_22_163908) do
+ActiveRecord::Schema.define(version: 2021_04_23_125403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -322,6 +322,8 @@ ActiveRecord::Schema.define(version: 2021_04_22_163908) do
     t.string "slug", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_profiles_on_deleted_at"
     t.index ["profilable_type", "profilable_id"], name: "index_profiles_on_profilable"
     t.index ["slug"], name: "index_profiles_on_slug", unique: true
   end
@@ -404,9 +406,6 @@ ActiveRecord::Schema.define(version: 2021_04_22_163908) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "name", null: false
-    t.text "bio"
-    t.string "slug", null: false
     t.string "timezone", default: "UTC", null: false
     t.string "country"
     t.datetime "onboarded_at"
@@ -426,7 +425,6 @@ ActiveRecord::Schema.define(version: 2021_04_22_163908) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["level_id"], name: "index_users_on_level_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["slug"], name: "index_users_on_slug", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

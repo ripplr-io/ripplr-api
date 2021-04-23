@@ -9,7 +9,7 @@ module Support
       mail.add_personalization(
         to: 'support@ripplr.io',
         data: {
-          user_name: ticket.user.name,
+          user_name: ticket.user.profile.name,
           user_email: ticket.user.email,
           reported_at: ticket.created_at.to_i,
           ticket_title: ticket.title,
