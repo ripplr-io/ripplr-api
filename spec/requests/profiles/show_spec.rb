@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe :users_show, type: :request do
+RSpec.describe :profiles_show, type: :request do
   it 'responds with the resource' do
-    user = create(:user)
+    profile = create(:profile)
 
-    get user_path(user.profile)
+    get user_path(profile)
 
     expect(response).to have_http_status(:ok)
-    expect(response_data).to have_resource(user)
+    expect(response_data).to have_resource(profile.user)
   end
 
   it 'responds with not found' do

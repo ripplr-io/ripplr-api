@@ -2,8 +2,6 @@ class Profile < ApplicationRecord
   extend FriendlyId
   include PgSearch::Model
 
-  attribute :avatar_url, :string
-
   delegated_type :profilable, types: Profilable::TYPES, touch: true
 
   has_one_attached :avatar

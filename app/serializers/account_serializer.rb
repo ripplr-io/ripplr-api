@@ -9,8 +9,7 @@ class AccountSerializer < UserSerializer
     {
       email: object.email,
       country: object.country,
-      timezone: object.timezone,
-      postsToday: object.posts_today
+      timezone: object.timezone
     }
   end
 

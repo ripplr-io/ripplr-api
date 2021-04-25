@@ -7,7 +7,6 @@ module Users
       user.update!({
         email: "del_#{user.id}@ripplr.io",
         password: SecureRandom.hex,
-        avatar: nil,
         timezone: 'UTC',
         country: nil,
         supporter: false

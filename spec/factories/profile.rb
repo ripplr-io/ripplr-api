@@ -5,7 +5,9 @@ FactoryBot.define do
     for_user
 
     trait :for_user do
-      profilable { association :user, profile: instance }
+      after :build do |object|
+        object.profilable ||= build(:user, profile: object)
+      end
     end
   end
 end

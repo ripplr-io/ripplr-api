@@ -3,11 +3,9 @@ class User < ApplicationRecord
   include Subscribable
   include Profilable
 
-  attribute :avatar_url, :string
   accepts_nested_attributes_for :profile, update_only: true
 
   belongs_to :level
-  has_one_attached :avatar
 
   has_one :billing, dependent: :destroy
   has_many :content_sources, dependent: :destroy
@@ -55,6 +53,8 @@ class User < ApplicationRecord
   has_one :referral, inverse_of: :invitee, foreign_key: :invitee_id, dependent: :nullify
   has_one :referee, through: :referral, source: :inviter
 
+  transforms_with Users::EnsureBookmarkFolderTransformer
+
   validates :timezone, presence: true # TODO: Add inclusion
   validates :subscribed_to_marketing, inclusion: { in: [true, false] }
 
@@ -79,12 +79,6 @@ class User < ApplicationRecord
 
   def total_points
     received_ratings.sum(:points) + prizes.sum(:points)
-  end
-
-  def posts_today
-    posts.where(
-      created_at: Time.current.beginning_of_day..Time.current.end_of_day
-    ).count
   end
 
   def bot?

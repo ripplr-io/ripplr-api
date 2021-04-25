@@ -25,15 +25,15 @@ RSpec.describe :follows_index, type: :request do
   end
 
   it 'responds with the profile follows' do
-    user = create(:user)
-    user_follow = create(:follow, user: user)
+    profile = create(:profile)
+    profile_follow = create(:follow, user: profile.user)
     other_follow = create(:follow)
 
-    get user_follows_path(user.profile)
+    get user_follows_path(profile)
 
     expect(response).to have_http_status(:ok)
-    expect(response_data).to have_resource(user_follow)
+    expect(response_data).to have_resource(profile_follow)
     expect(response_data).not_to have_resource(other_follow)
-    expect(response_included).to have_resource(user_follow.followable)
+    expect(response_included).to have_resource(profile_follow.followable)
   end
 end

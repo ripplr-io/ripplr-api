@@ -10,7 +10,7 @@ RSpec.describe Users::AnonymizeWorker, type: :worker do
   end
 
   it 'anonymizes destroyed users' do
-    user = create(:user, profile: build(:profile, name: 'Name'))
+    user = create(:user)
     profile = user.profile
     user.destroy
 

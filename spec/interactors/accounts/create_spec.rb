@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Accounts::Create, type: :interactor do
   it 'creates the account' do
     level = create(:level)
-    user = build(:user, level: nil, billing: nil, bookmark_folders: [])
+    user = build(:user, level: nil, billing: nil)
 
     expect { described_class.call(resource: user) }
       .to change { User.count }.by(1)
@@ -23,7 +23,7 @@ RSpec.describe Accounts::Create, type: :interactor do
   it 'creates a referral accepted notification' do
     level = create(:level)
     referral = create(:referral)
-    user = build(:user, level: nil, billing: nil, bookmark_folders: [], referral: referral)
+    user = build(:user, level: nil, billing: nil, referral: referral)
 
     expect { described_class.call(resource: user) }
       .to change { User.count }.by(1)
@@ -35,18 +35,5 @@ RSpec.describe Accounts::Create, type: :interactor do
     expect(Prizes::ReferralAcceptedWorker.jobs.size).to eq(1)
     expect(Alerts::ReferralAcceptedWorker.jobs.size).to eq(1)
     expect(Prizes::Onboarding::FirstReferralWorker.jobs.size).to eq(1)
-  end
-
-  it 'creates the account with an image_url' do
-    file = file_fixture('logo.png')
-    allow_any_instance_of(URI::HTTPS).to receive(:open).and_return(file.open)
-
-    create(:level)
-    user = build(:user, bookmark_folders: [], avatar: nil, avatar_url: 'https://ripplr.io/logo.png')
-
-    expect { described_class.call(resource: user) }
-      .to change { User.count }.by(1)
-
-    expect(User.last.avatar.attached?).to be true
   end
 end

@@ -10,7 +10,7 @@ RSpec.describe Profile, type: :model do
   it { is_expected.to validate_presence_of(:name) }
 
   context 'creation' do
-    subject { create(:user).profile }
+    subject { create(:profile) }
 
     it { is_expected.to validate_uniqueness_of(:slug) }
   end

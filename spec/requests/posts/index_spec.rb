@@ -2,14 +2,14 @@ require 'rails_helper'
 
 RSpec.describe :posts_index, type: :request do
   it 'responds with the user resources' do
-    user = create(:user)
-    user_post = create(:post, author: user)
+    profile = create(:profile)
+    profile_post = create(:post, author: profile.user)
     other_post = create(:post)
 
-    get user_posts_path(user.profile)
+    get user_posts_path(profile)
 
     expect(response).to have_http_status(:ok)
-    expect(response_data).to have_resource(user_post)
+    expect(response_data).to have_resource(profile_post)
     expect(response_data).not_to have_resource(other_post)
   end
 
