@@ -1,6 +1,6 @@
 class ProfileChannel < ApplicationCable::Channel
   def subscribed
-    user = User.find_by(id: params[:room])
-    stream_for user if user.present?
+    profile = Profile.find_by(id: params[:room])
+    stream_for profile if profile.present?
   end
 end

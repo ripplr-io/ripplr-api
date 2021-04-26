@@ -13,12 +13,12 @@ RSpec.describe ProfileChannel, type: :channel do
 
   it 'subscribes to a stream when a room is provided' do
     user = create(:user)
-    user_with_profile = create(:user)
+    profile = create(:profile)
     stub_connection current_user: user
 
-    subscribe(room: user_with_profile.id)
+    subscribe(room: profile.id)
 
     expect(subscription).to be_confirmed
-    expect(subscription).to have_stream_for(user_with_profile)
+    expect(subscription).to have_stream_for(profile)
   end
 end

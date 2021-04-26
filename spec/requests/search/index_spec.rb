@@ -1,14 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe :search_index, type: :request do
-  it_behaves_like :unauthenticated_request do
-    let(:subject) { get search_path }
-  end
-
   it 'responds with data' do
-    user = create(:user)
-
-    get search_path, headers: auth_headers_for(user)
+    get search_path
 
     expect(response).to have_http_status(:ok)
     expect(response_data[:topics]).to be_empty
@@ -19,10 +13,9 @@ RSpec.describe :search_index, type: :request do
   end
 
   it 'serializes the resource' do
-    user = create(:user)
     topic = create(:topic, name: 'Business')
 
-    get search_path(query: 'Busi', vertical: 'everything'), headers: auth_headers_for(user)
+    get search_path(query: 'Busi', vertical: 'everything')
 
     expect(response).to have_http_status(:ok)
     expect(response_data[:topics]).not_to be_empty
@@ -30,34 +23,36 @@ RSpec.describe :search_index, type: :request do
   end
 
   it 'instantiates a search service' do
-    user = create(:user)
-
     expect(Search::SearchService).to receive(:new).with('query', '1', '10').and_call_original
 
-    get search_path(query: 'query', page: '1', per_page: '10'), headers: auth_headers_for(user)
-  end
-
-  it 'sets the search filters' do
-    user = create(:user)
-
-    expect_any_instance_of(Search::SearchService).to receive(:add_posts_filter).twice.and_call_original
-
-    get search_path(user: 'following', topic: 'following'), headers: auth_headers_for(user)
+    get search_path(query: 'query', page: '1', per_page: '10')
   end
 
   it 'gets the grouped_results' do
-    user = create(:user)
-
     expect_any_instance_of(Search::SearchService).to receive(:grouped_results).and_call_original
 
-    get search_path(vertical: 'everything'), headers: auth_headers_for(user)
+    get search_path(vertical: 'everything')
   end
 
   it 'gets the individual_results' do
-    user = create(:user)
-
     expect_any_instance_of(Search::SearchService).to receive(:individual_results).and_call_original
 
-    get search_path(vertical: 'posts'), headers: auth_headers_for(user)
+    get search_path(vertical: 'posts')
+  end
+
+  context 'user authenticated' do
+    it 'sets the search filters' do
+      expect_any_instance_of(Search::SearchService).to receive(:add_posts_filter).twice.and_call_original
+
+      get search_path(user: 'following', topic: 'following'), headers: auth_headers_for_new_user
+    end
+  end
+
+  context 'user not authenticated' do
+    it 'sets the search filters' do
+      expect_any_instance_of(Search::SearchService).not_to receive(:add_posts_filter).and_call_original
+
+      get search_path(user: 'following', topic: 'following')
+    end
   end
 end

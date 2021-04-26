@@ -11,6 +11,7 @@ class Ability
   def public_access
     can :create, :webhook
     can :manage, :welcome
+    can :read, :search
 
     can :create, User
     can :show, Referral
@@ -30,7 +31,6 @@ class Ability
     can :manage, :support
     can :manage, :account
     can :manage, :report
-    can :manage, :search
     can :manage, :tracking
     can :manage, :stripe
 

@@ -8,7 +8,7 @@ module Explore
       @communities = @communities.where.not(id: current_user.following_communities.ids) if current_user.present?
 
       @communities = @communities
-        .order(posts_count: :desc)
+        .order(followers_count: :desc)
         .page(params[:page])
         .per(params[:per_page])
 
