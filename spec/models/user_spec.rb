@@ -5,9 +5,6 @@ RSpec.describe User, type: :model do
 
   it { is_expected.to be_valid }
 
-  it_behaves_like :followable
-  it_behaves_like :subscribable
-
   it { is_expected.to belong_to(:level) }
   it { is_expected.to have_one(:billing) }
 

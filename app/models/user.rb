@@ -1,6 +1,4 @@
 class User < ApplicationRecord
-  include Followable
-  include Subscribable
   include Profilable
 
   accepts_nested_attributes_for :profile, update_only: true

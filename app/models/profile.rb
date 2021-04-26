@@ -2,6 +2,7 @@ class Profile < ApplicationRecord
   extend FriendlyId
   include PgSearch::Model
   include Followable
+  include Subscribable
 
   delegated_type :profilable, types: Profilable::TYPES, touch: true
 

@@ -25,13 +25,14 @@ class Post < ApplicationRecord
   has_many :hashtags, through: :post_hashtags
 
   # Followers
+  has_one :author_profile, through: :author, source: :profile
+  has_many :author_followers, through: :author_profile, source: :followers
   has_many :topic_followers, through: :topic, source: :followers
-  has_many :author_followers, through: :author, source: :followers
   has_many :hashtag_followers, through: :hashtags, source: :followers
   has_many :community_followers, through: :communities, source: :followers
 
   # Subscriptions
-  has_many :subscriptions, through: :author, source: :received_subscriptions
+  has_many :subscriptions, through: :author_profile, source: :received_subscriptions
   has_many :candidate_inboxes, through: :subscriptions, source: :inboxes
 
   validates :title, presence: true

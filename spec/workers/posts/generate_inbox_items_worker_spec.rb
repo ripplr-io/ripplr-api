@@ -8,7 +8,7 @@ RSpec.describe Posts::GenerateInboxItemsWorker, type: :worker do
     expect { described_class.new.perform(post.id) }
       .to change { InboxItem.count }.by(0)
 
-    create(:subscription, user: inbox.user, subscribable: post.author, inboxes: [inbox])
+    create(:subscription, user: inbox.user, subscribable: post.author.profile, inboxes: [inbox])
 
     expect { described_class.new.perform(post.id) }
       .to change { InboxItem.count }.by(1)
@@ -30,7 +30,7 @@ RSpec.describe Posts::GenerateInboxItemsWorker, type: :worker do
     }.as_json)
 
     author = create(:user)
-    create(:subscription, user: inbox.user, subscribable: author, inboxes: [inbox])
+    create(:subscription, user: inbox.user, subscribable: author.profile, inboxes: [inbox])
 
     post = create(:post, author: author, topic: topic)
     other_post = create(:post, author: author, topic: other_topic)

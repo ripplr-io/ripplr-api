@@ -5,6 +5,9 @@ RSpec.describe Profile, type: :model do
 
   it { is_expected.to be_valid }
 
+  it_behaves_like :followable
+  it_behaves_like :subscribable
+
   it { is_expected.to belong_to(:profilable) }
 
   it { is_expected.to validate_presence_of(:name) }
