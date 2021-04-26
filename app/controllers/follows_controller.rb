@@ -9,7 +9,7 @@ class FollowsController < ApplicationController
   serializer include: [:followable]
 
   def index
-    @follows = @follows.where.not(followable_type: 'User')
+    @follows = @follows
       .includes(:followable)
 
     read_resource(@follows)

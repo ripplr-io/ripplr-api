@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe :followers_index, type: :request do
   it 'responds with the user followers' do
     profile = create(:profile)
-    follow = create(:follow, followable: profile.user)
+    follow = create(:follow, followable: profile)
     other_follow = create(:follow)
 
     get user_followers_path(profile)

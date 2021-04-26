@@ -25,10 +25,6 @@ class Profile < ApplicationRecord
     user.posts
   end
 
-  def user_followers
-    user.followers
-  end
-
   def follows
     user.follows
   end

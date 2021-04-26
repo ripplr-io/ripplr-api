@@ -4,7 +4,6 @@ class UserSerializer < ApplicationSerializer
   attributes :supporter
 
   attribute :postsCount, &:posts_count
-  attribute :followersCount, &:followers_count
   attribute :pointsSum, &:total_points
   attribute :bot, &:bot?
 
