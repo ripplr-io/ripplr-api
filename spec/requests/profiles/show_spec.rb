@@ -7,7 +7,7 @@ RSpec.describe :profiles_show, type: :request do
     get user_path(profile)
 
     expect(response).to have_http_status(:ok)
-    expect(response_data).to have_resource(profile.user)
+    expect(response_data).to have_resource(profile)
   end
 
   it 'responds with not found' do

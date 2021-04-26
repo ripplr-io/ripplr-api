@@ -1,6 +1,5 @@
 class ProfileSerializer < ApplicationSerializer
-  set_id :user_id
-  set_type :user
+  belongs_to :user
 
   attributes :name, :slug, :bio
 
@@ -29,6 +28,6 @@ class ProfileSerializer < ApplicationSerializer
   end
 
   attribute :followingCount do |object|
-    [object.user.following_users_count, object.user.following_topics_count, object.user.following_hashtags_count].sum
+    [object.user.following_profiles_count, object.user.following_topics_count, object.user.following_hashtags_count].sum
   end
 end

@@ -1,4 +1,6 @@
 class UserSerializer < ApplicationSerializer
+  has_one :profile
+
   attributes :supporter
 
   attribute :postsCount, &:posts_count
@@ -7,7 +9,7 @@ class UserSerializer < ApplicationSerializer
   attribute :bot, &:bot?
 
   attribute :followingCount do |object|
-    object.following_users_count + object.following_topics_count + object.following_hashtags_count
+    object.following_profiles_count + object.following_topics_count + object.following_hashtags_count
   end
 
   attribute :avatar do |object|

@@ -7,6 +7,10 @@ FactoryBot.define do
       followable factory: :user
     end
 
+    trait :for_profile do
+      followable factory: :profile
+    end
+
     trait :for_topic do
       followable factory: :topic
     end

@@ -1,6 +1,7 @@
 class Profile < ApplicationRecord
   extend FriendlyId
   include PgSearch::Model
+  include Followable
 
   delegated_type :profilable, types: Profilable::TYPES, touch: true
 
@@ -24,7 +25,7 @@ class Profile < ApplicationRecord
     user.posts
   end
 
-  def followers
+  def user_followers
     user.followers
   end
 

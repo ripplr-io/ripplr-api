@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_23_125403) do
+ActiveRecord::Schema.define(version: 2021_04_25_131919) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -323,6 +323,7 @@ ActiveRecord::Schema.define(version: 2021_04_23_125403) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "deleted_at"
+    t.integer "followers_count", default: 0, null: false
     t.index ["deleted_at"], name: "index_profiles_on_deleted_at"
     t.index ["profilable_type", "profilable_id"], name: "index_profiles_on_profilable"
     t.index ["slug"], name: "index_profiles_on_slug", unique: true
@@ -421,6 +422,7 @@ ActiveRecord::Schema.define(version: 2021_04_23_125403) do
     t.datetime "onboarding_started_at"
     t.datetime "onboarding_finished_at"
     t.integer "following_communities_count", default: 0, null: false
+    t.integer "following_profiles_count", default: 0, null: false
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["level_id"], name: "index_users_on_level_id"

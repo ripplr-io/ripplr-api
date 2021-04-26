@@ -11,7 +11,7 @@ RSpec.describe :follows_create, type: :request do
 
   it 'responds with the resource' do
     user = create(:user)
-    followable = create(:user)
+    followable = create(:profile)
     mock_follow = build(:follow, followable: followable)
 
     post follows_path,

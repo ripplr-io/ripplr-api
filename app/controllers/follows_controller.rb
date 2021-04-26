@@ -9,7 +9,7 @@ class FollowsController < ApplicationController
   serializer include: [:followable]
 
   def index
-    @follows = @follows
+    @follows = @follows.where.not(followable_type: 'User')
       .includes(:followable)
 
     read_resource(@follows)
@@ -28,11 +28,10 @@ class FollowsController < ApplicationController
   # FIXME: This can be removed once the names change in the frontend
   def rename_params
     params[:profile_id] = params[:user_id]
+    params[:followable_type] = params[:followable_type]&.capitalize
   end
 
   def follow_params
-    params.permit(:followable_id).merge(
-      followable_type: params[:followable_type]&.capitalize
-    )
+    params.permit(:followable_id, :followable_type)
   end
 end
