@@ -26,7 +26,7 @@ RSpec.describe :posts_update, type: :request do
     comment = create(:comment)
 
     patch comment_path(comment),
-      params: attributes_for(:post).slice(:body),
+      params: attributes_for(:comment).slice(:body),
       headers: auth_headers_for(comment.author)
 
     expect(response).to have_http_status(:ok)
