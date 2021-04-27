@@ -12,14 +12,14 @@ RSpec.describe User, type: :model do
   it { is_expected.to have_many(:comments).inverse_of(:author).with_foreign_key(:author_id) }
   it { is_expected.to have_many(:communities).inverse_of(:owner).with_foreign_key(:owner_id) }
   it { is_expected.to have_many(:notifications) }
-  it { is_expected.to have_many(:posts).inverse_of(:author).with_foreign_key(:author_id) }
   it { is_expected.to have_many(:prizes) }
   it { is_expected.to have_many(:tickets) }
   it { is_expected.to have_many(:channels) }
   it { is_expected.to have_many(:channel_devices).through(:channels).source(:channelable) }
   it { is_expected.to have_many(:channel_emails).through(:channels).source(:channelable) }
   it { is_expected.to have_many(:ratings) }
-  it { is_expected.to have_many(:received_ratings).through(:posts).source(:ratings) }
+  it { is_expected.to have_many(:profile_posts).through(:profile).source(:posts) }
+  it { is_expected.to have_many(:received_ratings).through(:profile_posts).source(:ratings) }
 
   it { is_expected.to have_many(:follows) }
   it { is_expected.to have_many(:following_hashtags).through(:follows).source(:followable) }
@@ -30,8 +30,7 @@ RSpec.describe User, type: :model do
   it { is_expected.to have_many(:following_hashtag_posts).through(:following_hashtags).source(:posts) }
   it { is_expected.to have_many(:following_topic_posts).through(:following_topics).source(:posts) }
   it { is_expected.to have_many(:following_community_posts).through(:following_communities).source(:posts) }
-  it { is_expected.to have_many(:following_profile_users).through(:following_profiles).source(:profilable) }
-  it { is_expected.to have_many(:following_profile_posts).through(:following_profile_users).source(:posts) }
+  it { is_expected.to have_many(:following_profile_posts).through(:following_profiles).source(:posts) }
 
   it { is_expected.to have_many(:subscriptions) }
   it { is_expected.to have_many(:subscribing_users).through(:subscriptions).source(:user) }

@@ -14,7 +14,7 @@ RSpec.describe :posts_destroy, type: :request do
 
   it 'responds with the resource' do
     user = create(:user)
-    mock_post = create(:post, author: user)
+    mock_post = create(:post, author: user.profile)
 
     delete post_path(mock_post), headers: auth_headers_for(user)
 

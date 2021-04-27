@@ -1,8 +1,7 @@
 FactoryBot.define do
   factory :post do
-    author factory: :user
+    author factory: :profile
     topic
-    profile { author&.profile }
 
     title { Faker::Games::LeagueOfLegends.quote }
     url { Faker::Internet.url }

@@ -40,7 +40,7 @@ module InboxNotifications
     end
 
     def title
-      "#{post.author.profile.name} has shared a new post"
+      "#{post.author.name} has shared a new post"
     end
   end
 end

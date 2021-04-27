@@ -9,12 +9,12 @@ RSpec.describe Comments::GenerateNotificationsWorker, type: :worker do
         .to change { Notifications::NewComment.count }.by(1)
         .and change { Notifications::NewReply.count }.by(0)
 
-      expect(Notifications::NewComment.last.user).to eq(comment.post.author)
+      expect(Notifications::NewComment.last.user).to eq(comment.post.author.user)
     end
 
     it 'does not notify the resource author' do
       post = create(:post)
-      comment = create(:comment, post: post, author: post.author)
+      comment = create(:comment, post: post, author: post.author.user)
 
       expect { described_class.new.perform(comment.id) }
         .to change { Notifications::NewComment.count }.by(0)

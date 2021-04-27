@@ -3,6 +3,7 @@ class ProfileSerializer < ApplicationSerializer
 
   attributes :name, :slug, :bio
   attribute :followersCount, &:followers_count
+  attribute :postsCount, &:posts_count
 
   attribute :avatar do |object|
     url_helpers.public_blob_url(object.avatar) if object.avatar.attached?
@@ -10,10 +11,6 @@ class ProfileSerializer < ApplicationSerializer
 
   attribute :supporter do |object|
     object.user.supporter
-  end
-
-  attribute :postsCount do |object|
-    object.user.posts_count
   end
 
   attribute :pointsSum do |object|

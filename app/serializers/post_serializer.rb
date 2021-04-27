@@ -1,6 +1,6 @@
 class PostSerializer < ApplicationSerializer
   belongs_to :topic
-  belongs_to :author, record_type: :user, serializer: :user
+  belongs_to :author, record_type: :profile, serializer: :profile, id_method_name: :profile_id
   has_many :hashtags
   has_many :communities
 

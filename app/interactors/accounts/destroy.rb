@@ -15,7 +15,7 @@ module Accounts
       {
         user_name: user.profile.name,
         user_email: user.email,
-        posts_total: user.posts.count,
+        posts_total: user.profile.posts.count,
         points_total: user.total_points,
         joined_at: user.created_at.to_i,
         rates_received_total: user.received_ratings.count,

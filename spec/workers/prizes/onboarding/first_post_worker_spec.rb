@@ -13,7 +13,7 @@ RSpec.describe Prizes::Onboarding::FirstPostWorker, type: :worker do
   context 'the user has posts' do
     it 'creates a new prize' do
       user = create(:user)
-      create(:post, author: user)
+      create(:post, author: user.profile)
 
       expect { described_class.new.perform(user.id) }
         .to change { Prize.count }.by(1)
@@ -28,7 +28,7 @@ RSpec.describe Prizes::Onboarding::FirstPostWorker, type: :worker do
 
     it 'is idempotent' do
       user = create(:user)
-      create(:post, author: user)
+      create(:post, author: user.profile)
 
       expect { described_class.new.perform(user.id) }
         .to change { Prize.count }.by(1)

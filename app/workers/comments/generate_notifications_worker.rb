@@ -12,9 +12,9 @@ module Comments
 
     def generate_new_comment_notification
       return if @comment.comment.present?
-      return if @comment.author == @comment.post.author
+      return if @comment.author == @comment.post.author.user
 
-      Notifications::NewComment.create(user: @comment.post.author, comment: @comment)
+      Notifications::NewComment.create(user: @comment.post.author.user, comment: @comment)
     end
 
     def generate_new_reply_notifications

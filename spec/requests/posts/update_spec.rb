@@ -18,7 +18,7 @@ RSpec.describe :posts_update, type: :request do
 
       patch post_path(post),
         params: { title: nil, body: nil },
-        headers: auth_headers_for(post.author)
+        headers: auth_headers_for(post.author.user)
     end
   end
 
@@ -27,7 +27,7 @@ RSpec.describe :posts_update, type: :request do
 
     patch post_path(post),
       params: attributes_for(:post).slice(:title, :body),
-      headers: auth_headers_for(post.author)
+      headers: auth_headers_for(post.author.user)
 
     expect(response).to have_http_status(:ok)
     expect(response_data).to have_resource(post)
@@ -40,7 +40,7 @@ RSpec.describe :posts_update, type: :request do
 
       patch post_path(post),
         params: { image_file: image },
-        headers: auth_headers_for(post.author)
+        headers: auth_headers_for(post.author.user)
 
       expect(post.reload.image.present?).to eq true
     end

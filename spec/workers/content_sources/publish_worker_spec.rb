@@ -63,7 +63,7 @@ RSpec.describe ContentSources::PublishWorker, type: :worker do
     it 'exits without creating the post' do
       content_source = create(:content_source)
       url = 'http://youtube.com/post/id'
-      create(:post, author: content_source.user, url: url)
+      create(:post, author: content_source.user.profile, url: url)
 
       expect { described_class.new.perform(content_source.id, url) }
         .to change { Post.count }.by(0)

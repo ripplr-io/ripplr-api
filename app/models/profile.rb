@@ -8,6 +8,8 @@ class Profile < ApplicationRecord
 
   has_one_attached :avatar
 
+  has_many :posts, inverse_of: :author, foreign_key: :profile_id, dependent: :destroy
+
   validates :name, presence: true
   validates :slug, presence: true, uniqueness: true
 
@@ -21,10 +23,6 @@ class Profile < ApplicationRecord
       name: 'B',
       bio: 'C'
     }
-
-  def posts
-    user.posts
-  end
 
   def follows
     user.follows

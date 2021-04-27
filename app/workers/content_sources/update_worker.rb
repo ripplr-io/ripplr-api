@@ -21,7 +21,7 @@ module ContentSources
     private
 
     def url_published?(url)
-      @content_source.user.posts.where(url: url).any?
+      @content_source.user.profile.posts.where(url: url).any?
     end
   end
 end

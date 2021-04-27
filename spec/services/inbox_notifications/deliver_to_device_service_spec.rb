@@ -6,7 +6,7 @@ RSpec.describe InboxNotifications::DeliverToDeviceService, type: :service do
     service = described_class.new(inbox_notification)
     notification = service.instance_variable_get(:@notification)
 
-    expected_title = "#{inbox_notification.inbox_item.inboxable.author.profile.name} has shared a new post"
+    expected_title = "#{inbox_notification.inbox_item.inboxable.author.name} has shared a new post"
     expected_body = inbox_notification.inbox_item.inboxable.body
     expected_onesignal_id = inbox_notification.inbox_channel.channel.channel_device.onesignal_id
 

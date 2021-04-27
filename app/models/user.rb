@@ -10,7 +10,6 @@ class User < ApplicationRecord
   has_many :comments, inverse_of: :author, foreign_key: :author_id, dependent: :destroy
   has_many :communities, inverse_of: :owner, foreign_key: :owner_id, dependent: :restrict_with_error
   has_many :notifications, dependent: :destroy
-  has_many :posts, inverse_of: :author, foreign_key: :author_id, dependent: :destroy
   has_many :prizes, dependent: :destroy
   has_many :tickets, dependent: :destroy
   has_many :access_tokens, foreign_key: :resource_owner_id, class_name: 'Doorkeeper::AccessToken', dependent: :destroy
@@ -22,7 +21,8 @@ class User < ApplicationRecord
 
   # Ratings
   has_many :ratings, dependent: :destroy
-  has_many :received_ratings, through: :posts, source: :ratings
+  has_many :profile_posts, through: :profile, source: :posts
+  has_many :received_ratings, through: :profile_posts, source: :ratings
 
   # Follows
   has_many :follows, dependent: :destroy
@@ -33,8 +33,7 @@ class User < ApplicationRecord
   has_many :following_hashtag_posts, through: :following_hashtags, source: :posts
   has_many :following_topic_posts, through: :following_topics, source: :posts
   has_many :following_community_posts, through: :following_communities, source: :posts
-  has_many :following_profile_users, through: :following_profiles, source: :profilable, source_type: 'User'
-  has_many :following_profile_posts, through: :following_profile_users, source: :posts
+  has_many :following_profile_posts, through: :following_profiles, source: :posts
 
   # Subscriptions
   has_many :subscriptions, dependent: :destroy
@@ -64,7 +63,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
 
   def following_posts
-    posts
+    profile.posts
       .union(following_hashtag_posts)
       .union(following_topic_posts)
       .union(following_profile_posts)

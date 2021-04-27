@@ -44,7 +44,7 @@ class Ability
     can :manage, InboxItem, inbox: { user_id: user.id }
     can :manage, InboxChannel, user_id: user.id
     can :manage, Notification, user_id: user.id
-    can :manage, Post, author_id: user.id
+    can :manage, Post, profile_id: user.profile.id
     can :manage, Profile, profilable_id: user.id, profilable_type: 'User'
     can :manage, Rating, user_id: user.id
     can :manage, Referral, inviter_id: user.id

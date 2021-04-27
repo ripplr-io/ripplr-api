@@ -16,7 +16,7 @@ RSpec.describe InboxNotifications::DeliverMailer, type: :mailer do
   end
 
   it 'delivers the correct data' do
-    author = create(:user, profile: build(:profile, name: 'Author'))
+    author = create(:profile, name: 'Author')
     topic = create(:topic, name: 'Topic')
     post = create(:post, author: author, topic: topic, title: 'Title', body: 'Body', url: 'http://google.com')
 

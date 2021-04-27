@@ -10,17 +10,16 @@ RSpec.describe Post, type: :model do
 
   it { is_expected.to belong_to(:topic) }
   it { is_expected.to belong_to(:author) }
-  it { is_expected.to belong_to(:profile) }
 
   it { is_expected.to have_many(:comments) }
   it { is_expected.to have_many(:post_hashtags) }
   it { is_expected.to have_many(:hashtags).through(:post_hashtags) }
   it { is_expected.to have_many(:bookmarks) }
-  it { is_expected.to have_many(:author_followers).through(:profile).source(:followers) }
+  it { is_expected.to have_many(:author_followers).through(:author).source(:followers) }
   it { is_expected.to have_many(:topic_followers).through(:topic).source(:followers) }
   it { is_expected.to have_many(:hashtag_followers).through(:hashtags).source(:followers) }
   it { is_expected.to have_many(:community_followers).through(:communities).source(:followers) }
-  it { is_expected.to have_many(:subscriptions).through(:profile).source(:received_subscriptions) }
+  it { is_expected.to have_many(:subscriptions).through(:author).source(:received_subscriptions) }
   it { is_expected.to have_many(:candidate_inboxes).through(:subscriptions).source(:inboxes) }
 
   it { is_expected.to validate_presence_of(:title) }

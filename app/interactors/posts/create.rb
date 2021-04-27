@@ -3,8 +3,6 @@ module Posts
     before :attach_image_from_url
 
     def call
-      context.resource.profile ||= context.resource.author.profile
-
       context.fail! unless context.resource.save
 
       Posts::GenerateInboxItemsWorker.perform_async(context.resource.id)

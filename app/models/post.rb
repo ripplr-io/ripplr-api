@@ -9,8 +9,7 @@ class Post < ApplicationRecord
   attribute :image_url, :string
 
   belongs_to :topic
-  belongs_to :author, class_name: 'User'
-  belongs_to :profile
+  belongs_to :author, class_name: 'Profile', foreign_key: 'profile_id'
   has_one_attached :image
 
   has_many :bookmarks, dependent: :destroy
@@ -25,13 +24,13 @@ class Post < ApplicationRecord
   has_many :hashtags, through: :post_hashtags
 
   # Followers
-  has_many :author_followers, through: :profile, source: :followers
+  has_many :author_followers, through: :author, source: :followers
   has_many :topic_followers, through: :topic, source: :followers
   has_many :hashtag_followers, through: :hashtags, source: :followers
   has_many :community_followers, through: :communities, source: :followers
 
   # Subscriptions
-  has_many :subscriptions, through: :profile, source: :received_subscriptions
+  has_many :subscriptions, through: :author, source: :received_subscriptions
   has_many :candidate_inboxes, through: :subscriptions, source: :inboxes
 
   validates :title, presence: true
@@ -46,7 +45,6 @@ class Post < ApplicationRecord
   acts_as_paranoid
   counter_culture :topic, touch: true
   counter_culture :author, touch: true
-  counter_culture :profile, touch: true
 
   friendly_id :short_title, use: :slugged
 
@@ -57,7 +55,7 @@ class Post < ApplicationRecord
       body: 'B'
     },
     associated_against: {
-      profile: :name,
+      author: :name,
       topic: :name,
       hashtags: :name
     }

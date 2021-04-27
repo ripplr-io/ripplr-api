@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe :posts_index, type: :request do
   it 'responds with the user resources' do
     profile = create(:profile)
-    profile_post = create(:post, author: profile.user)
+    profile_post = create(:post, author: profile)
     other_post = create(:post)
 
     get user_posts_path(profile)

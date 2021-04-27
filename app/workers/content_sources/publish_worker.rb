@@ -6,13 +6,13 @@ module ContentSources
     def perform(content_source_id, url, feed_data = {})
       content_source = ContentSource.find_by(id: content_source_id)
       return if content_source.blank? || url.blank?
-      return if content_source.user.posts.where(url: url).any?
+      return if content_source.user.profile.posts.where(url: url).any?
 
       @url = url
       feed_data.symbolize_keys!
       image_url = feed_data[:image] || meta_data[:image] || Post::DEFAULT_IMAGE
 
-      post = content_source.user.posts.build({
+      post = content_source.user.profile.posts.build({
         topic: content_source.community.topics.first,
         communities: [content_source.community],
         url: @url,

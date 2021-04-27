@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Follows::Create, type: :interactor do
   it 'creates the follow' do
-    follow = build(:follow, followable: create(:user))
+    follow = build(:follow, followable: create(:profile))
 
     expect { described_class.call(resource: follow) }
       .to change { Follow.count }.by(1)

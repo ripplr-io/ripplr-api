@@ -13,7 +13,7 @@ RSpec.describe :feeds_show, type: :request do
     hashtag_follow = create(:follow, :for_hashtag, user: user)
     community_follow = create(:follow, :for_community, user: user)
 
-    followed_profile_post = create(:post, author: profile_follow.followable.user)
+    followed_profile_post = create(:post, author: profile_follow.followable)
     followed_topic_post = create(:post, topic: topic_follow.followable)
     followed_hashtag_post = create(:post_hashtag, hashtag: hashtag_follow.followable)
     followed_community_post = create(:community_post, community: community_follow.followable)

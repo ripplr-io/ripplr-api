@@ -35,7 +35,7 @@ RSpec.describe ContentSources::UpdateWorker, type: :worker do
 
   it 'skips urls already created by that content_source' do
     content_source = create(:content_source)
-    create(:post, url: 'http://medium.com/p/post2', author: content_source.user)
+    create(:post, url: 'http://medium.com/p/post2', author: content_source.user.profile)
 
     fetch_mock = double(data: [
       { url: 'http://medium.com/p/post1' },
