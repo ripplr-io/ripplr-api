@@ -6,7 +6,7 @@ module Trackers
       post = Post.find_by(id: post_id)
       return if post.blank?
 
-      Analytics.track(post.author, EVENT_NAME)
+      Analytics.track(post.author.user, EVENT_NAME)
     end
   end
 end

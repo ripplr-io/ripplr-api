@@ -6,7 +6,7 @@ module Trackers
       comment = Comment.find_by(id: comment_id)
       return if comment.blank?
 
-      Analytics.track(comment.author, EVENT_NAME)
+      Analytics.track(comment.profile.user, EVENT_NAME)
     end
   end
 end

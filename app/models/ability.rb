@@ -37,7 +37,7 @@ class Ability
     can :manage, BookmarkFolder, user_id: user.id
     can :manage, Bookmark, user_id: user.id
     can :manage, Channel, user_id: user.id
-    can :manage, Comment, author_id: user.id
+    can :manage, Comment, profile_id: user.profile.id
     can :manage, Community, owner_id: user.id
     can :manage, Follow, user_id: user.id
     can :manage, Inbox, user_id: user.id

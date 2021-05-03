@@ -10,6 +10,9 @@ RSpec.describe Profile, type: :model do
 
   it { is_expected.to belong_to(:profilable) }
 
+  it { is_expected.to have_many(:comments).inverse_of(:profile).with_foreign_key(:profile_id) }
+  it { is_expected.to have_many(:posts).inverse_of(:author).with_foreign_key(:profile_id) }
+
   it { is_expected.to validate_presence_of(:name) }
 
   context 'creation' do

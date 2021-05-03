@@ -12,8 +12,8 @@ module Notifications
       self.data = {
         type: type.split('::').last.underscore,
         id: @comment.id,
-        post_id: @comment.post_id,
-        author_id: @comment.author_id
+        post_id: @comment.post.id,
+        author_id: @comment.profile.id
       }
     end
   end

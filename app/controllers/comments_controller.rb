@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
   load_resource :post
   load_and_authorize_resource through: :post, shallow: true
 
-  serializer include: [:author]
+  serializer include: [:profile]
 
   def index
     @comments = @comments

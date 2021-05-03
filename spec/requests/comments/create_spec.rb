@@ -25,7 +25,7 @@ RSpec.describe :comments_create, type: :request do
 
     expect(response).to have_http_status(:created)
     expect(response_data).to have_resource(Comment.last)
-    expect(response_included).to have_resource(Comment.last.author)
+    expect(response_included).to have_resource(Comment.last.profile)
   end
 
   it 'responds with the reply' do
@@ -39,6 +39,6 @@ RSpec.describe :comments_create, type: :request do
 
     expect(response).to have_http_status(:created)
     expect(response_data).to have_resource(Comment.last)
-    expect(response_included).to have_resource(Comment.last.author)
+    expect(response_included).to have_resource(Comment.last.profile)
   end
 end

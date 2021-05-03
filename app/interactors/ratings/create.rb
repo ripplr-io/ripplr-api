@@ -5,7 +5,7 @@ module Ratings
     def call
       context.fail! unless context.resource.save
 
-      Users::UpdateLevelWorker.perform_async(context.resource.ratable.author.id)
+      Users::UpdateLevelWorker.perform_async(context.resource.ratable.author.user.id)
       Posts::UpdateTrendingScoreWorker.perform_async(context.resource.ratable.id)
       Trackers::TrackRatingCreatedWorker.perform_async(context.resource.id)
       Prizes::Onboarding::FirstRatingWorker.perform_async(context.resource.user.id)

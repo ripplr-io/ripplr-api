@@ -2,6 +2,7 @@ class Comment < ApplicationRecord
   include Ratable
 
   belongs_to :author, class_name: 'User'
+  belongs_to :profile
   belongs_to :post
   belongs_to :comment, optional: true
 

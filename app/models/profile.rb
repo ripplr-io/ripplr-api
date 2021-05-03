@@ -8,6 +8,7 @@ class Profile < ApplicationRecord
 
   has_one_attached :avatar
 
+  has_many :comments, inverse_of: :profile, foreign_key: :profile_id, dependent: :destroy
   has_many :posts, inverse_of: :author, foreign_key: :profile_id, dependent: :destroy
 
   validates :name, presence: true

@@ -12,7 +12,7 @@ module Comments
 
     def generate_new_comment_notification
       return if @comment.comment.present?
-      return if @comment.author == @comment.post.author.user
+      return if @comment.profile == @comment.post.author
 
       Notifications::NewComment.create(user: @comment.post.author.user, comment: @comment)
     end
@@ -21,18 +21,19 @@ module Comments
       return if @comment.comment.blank?
 
       # Users that replied to the comment
-      comment_follower_ids = @comment.comment.comments.pluck(:author_id)
+      comment_follower_ids = @comment.comment.comments.pluck(:profile_id)
 
       # Comment author
-      comment_follower_ids << @comment.comment.author_id
+      comment_follower_ids << @comment.comment.profile_id
 
       # Remove author of the new reply
-      comment_follower_ids.delete(@comment.author_id)
+      comment_follower_ids.delete(@comment.profile_id)
 
       # Remove duplicates
       comment_follower_ids.uniq!
 
-      comment_follower_ids.each do |user_id|
+      user_ids = Profile.where(id: comment_follower_ids).pluck(:profilable_id)
+      user_ids.each do |user_id|
         Notifications::NewReply.create(user_id: user_id, comment: @comment)
       end
     end

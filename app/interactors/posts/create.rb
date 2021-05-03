@@ -9,7 +9,7 @@ module Posts
       Posts::BroadcastCreationWorker.perform_async(context.resource.id)
       Posts::UpdateTrendingScoreWorker.perform_async(context.resource.id)
       Trackers::TrackPostCreatedWorker.perform_async(context.resource.id)
-      Prizes::Onboarding::FirstPostWorker.perform_async(context.resource.author.id)
+      Prizes::Onboarding::FirstPostWorker.perform_async(context.resource.author.user.id)
     end
 
     private

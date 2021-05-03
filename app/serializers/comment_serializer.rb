@@ -1,5 +1,5 @@
 class CommentSerializer < ApplicationSerializer
-  belongs_to :author, serializer: :user
+  belongs_to :profile, key: :author
   belongs_to :post
   belongs_to :comment
 

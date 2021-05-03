@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_27_233657) do
+ActiveRecord::Schema.define(version: 2021_05_03_142543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -112,10 +112,12 @@ ActiveRecord::Schema.define(version: 2021_04_27_233657) do
     t.datetime "deleted_at"
     t.integer "ratings_points_total", default: 0, null: false
     t.integer "replies_count", default: 0, null: false
+    t.uuid "profile_id"
     t.index ["author_id"], name: "index_comments_on_author_id"
     t.index ["comment_id"], name: "index_comments_on_comment_id"
     t.index ["deleted_at"], name: "index_comments_on_deleted_at"
     t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["profile_id"], name: "index_comments_on_profile_id"
   end
 
   create_table "communities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
