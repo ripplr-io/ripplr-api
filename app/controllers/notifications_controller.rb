@@ -3,12 +3,12 @@ class NotificationsController < ApplicationController
 
   load_and_authorize_resource
 
-  serializer include: [:user, :author]
+  serializer include: [:profile, :author]
 
   def index
     @notifications = @notifications
       .order(created_at: :desc)
-      .includes(:user)
+      .includes(user: :profile)
 
     read_resource(@notifications)
   end

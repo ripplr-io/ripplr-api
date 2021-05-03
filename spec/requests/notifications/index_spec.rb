@@ -15,7 +15,7 @@ RSpec.describe :notifications_index, type: :request do
     expect(response).to have_http_status(:ok)
     expect(response_data).to have_resource(user_notification)
     expect(response_data).not_to have_resource(other_notification)
-    expect(response_included).to have_resource(user_notification.user)
-    expect(response_included).to have_resource(user_notification.comment.author)
+    expect(response_included).to have_resource(user_notification.profile)
+    expect(response_included).to have_resource(user_notification.comment.author.profile)
   end
 end

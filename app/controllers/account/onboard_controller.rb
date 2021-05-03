@@ -4,7 +4,7 @@ module Account
 
     authorize_resource class: :account
 
-    serializer class: AccountSerializer, include: [:level]
+    serializer class: AccountSerializer, include: [:profile, :level]
 
     def update
       params[:status] == 'finished' ? finish_onboarding : start_onboarding

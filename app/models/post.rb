@@ -61,9 +61,9 @@ class Post < ApplicationRecord
     }
 
   def followers
-    authors = User.where(id: author_id)
+    owners = User.where(id: author.user.id)
 
-    authors
+    owners
       .union(topic_followers)
       .union(author_followers)
       .union(hashtag_followers)

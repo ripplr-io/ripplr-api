@@ -3,12 +3,12 @@ require 'rails_helper'
 RSpec.describe Trackers::TrackFollowCreatedWorker, type: :worker do
   context 'Followable is a user' do
     it 'calls the service' do
-      follow = create(:follow, followable: create(:user))
+      follow = create(:follow, followable: create(:profile))
 
       expect(Analytics).to receive(:track).with(
         follow.user,
         'Follow Created',
-        { 'Followable type' => 'User' }
+        { 'Followable type' => 'Profile' }
       )
 
       described_class.new.perform(follow.id)

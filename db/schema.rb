@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_26_223538) do
+ActiveRecord::Schema.define(version: 2021_04_27_233657) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -286,7 +286,6 @@ ActiveRecord::Schema.define(version: 2021_04_26_223538) do
     t.string "url", null: false
     t.string "body", null: false
     t.uuid "topic_id"
-    t.uuid "author_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "deleted_at"
@@ -295,7 +294,6 @@ ActiveRecord::Schema.define(version: 2021_04_26_223538) do
     t.integer "trending_score", default: 0, null: false
     t.string "slug", null: false
     t.uuid "profile_id"
-    t.index ["author_id"], name: "index_posts_on_author_id"
     t.index ["deleted_at"], name: "index_posts_on_deleted_at"
     t.index ["profile_id"], name: "index_posts_on_profile_id"
     t.index ["slug"], name: "index_posts_on_slug", unique: true
@@ -416,9 +414,6 @@ ActiveRecord::Schema.define(version: 2021_04_26_223538) do
     t.boolean "supporter", default: false, null: false
     t.uuid "level_id"
     t.datetime "deleted_at"
-    t.integer "posts_count", default: 0, null: false
-    t.integer "followers_count", default: 0, null: false
-    t.integer "following_users_count", default: 0, null: false
     t.integer "following_topics_count", default: 0, null: false
     t.integer "following_hashtags_count", default: 0, null: false
     t.boolean "subscribed_to_marketing", default: false, null: false
@@ -437,7 +432,6 @@ ActiveRecord::Schema.define(version: 2021_04_26_223538) do
   add_foreign_key "comments", "users", column: "author_id"
   add_foreign_key "communities", "users", column: "owner_id"
   add_foreign_key "oauth_access_tokens", "users", column: "resource_owner_id"
-  add_foreign_key "posts", "users", column: "author_id"
   add_foreign_key "referrals", "users", column: "invitee_id"
   add_foreign_key "referrals", "users", column: "inviter_id"
 end

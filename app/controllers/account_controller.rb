@@ -5,7 +5,7 @@ class AccountController < ApplicationController
   authorize_resource class: :account
   before_action :validate_password!, only: :destroy
 
-  serializer class: AccountSerializer, include: [:level]
+  serializer class: AccountSerializer, include: [:profile, :level]
 
   def show
     read_resource(current_user)

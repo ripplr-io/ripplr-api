@@ -4,10 +4,10 @@ class FollowersController < ApplicationController
   before_action :rename_params
 
   load_resource :profile
-  load_and_authorize_resource :user, parent: false, through: :profile, through_association: :followers
+  load_and_authorize_resource :profile, parent: false, through: :profile, through_association: :follower_profiles
 
   def index
-    read_resource(@users)
+    read_resource(@profiles)
   end
 
   private

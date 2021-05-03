@@ -1,5 +1,6 @@
 class Notification < ApplicationRecord
   belongs_to :user
+  has_one :profile, through: :user
 
   validates :data, presence: true
 
@@ -11,7 +12,7 @@ class Notification < ApplicationRecord
   def broadcast
     UserChannel.broadcast_to(user, {
       type: :new_notification,
-      payload: NotificationSerializer.new(self, { include: [:user, :author] }).serializable_hash
+      payload: NotificationSerializer.new(self, { include: [:profile, :author] }).serializable_hash
     })
   end
 end

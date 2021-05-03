@@ -6,7 +6,7 @@ module Account
 
     authorize_resource class: :account
 
-    serializer class: AccountSerializer, include: [:level]
+    serializer class: AccountSerializer, include: [:profile, :level]
 
     def update
       current_user.assign_attributes(profile_params)
