@@ -18,7 +18,7 @@ RSpec.describe :posts_update, type: :request do
 
       patch comment_path(comment),
         params: { body: nil },
-        headers: auth_headers_for(comment.author)
+        headers: auth_headers_for(comment.author.user)
     end
   end
 
@@ -27,7 +27,7 @@ RSpec.describe :posts_update, type: :request do
 
     patch comment_path(comment),
       params: attributes_for(:comment).slice(:body),
-      headers: auth_headers_for(comment.author)
+      headers: auth_headers_for(comment.author.user)
 
     expect(response).to have_http_status(:ok)
     expect(response_data).to have_resource(comment)

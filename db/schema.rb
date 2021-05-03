@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_03_142543) do
+ActiveRecord::Schema.define(version: 2021_05_03_165254) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -106,14 +106,12 @@ ActiveRecord::Schema.define(version: 2021_05_03_142543) do
     t.text "body", null: false
     t.uuid "post_id"
     t.uuid "comment_id"
-    t.uuid "author_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "deleted_at"
     t.integer "ratings_points_total", default: 0, null: false
     t.integer "replies_count", default: 0, null: false
     t.uuid "profile_id"
-    t.index ["author_id"], name: "index_comments_on_author_id"
     t.index ["comment_id"], name: "index_comments_on_comment_id"
     t.index ["deleted_at"], name: "index_comments_on_deleted_at"
     t.index ["post_id"], name: "index_comments_on_post_id"
@@ -431,7 +429,6 @@ ActiveRecord::Schema.define(version: 2021_05_03_142543) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "comments", "users", column: "author_id"
   add_foreign_key "communities", "users", column: "owner_id"
   add_foreign_key "oauth_access_tokens", "users", column: "resource_owner_id"
   add_foreign_key "referrals", "users", column: "invitee_id"

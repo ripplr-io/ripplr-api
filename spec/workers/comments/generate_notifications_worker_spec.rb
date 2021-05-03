@@ -14,7 +14,7 @@ RSpec.describe Comments::GenerateNotificationsWorker, type: :worker do
 
     it 'does not notify the resource author' do
       post = create(:post)
-      comment = create(:comment, post: post, author: post.author.user)
+      comment = create(:comment, post: post, author: post.author)
 
       expect { described_class.new.perform(comment.id) }
         .to change { Notifications::NewComment.count }.by(0)
@@ -30,7 +30,7 @@ RSpec.describe Comments::GenerateNotificationsWorker, type: :worker do
         .to change { Notifications::NewComment.count }.by(0)
         .and change { Notifications::NewReply.count }.by(1)
 
-      expect(Notifications::NewReply.last.user).to eq(reply.comment.author)
+      expect(Notifications::NewReply.last.user).to eq(reply.comment.author.user)
     end
 
     it 'does not notify the resource author' do
@@ -52,7 +52,7 @@ RSpec.describe Comments::GenerateNotificationsWorker, type: :worker do
         .and change { Notifications::NewReply.count }.by(2)
 
       notification_user_ids = Notifications::NewReply.last(2).pluck(:user_id)
-      reply_user_ids = replies.pluck(:author_id)
+      reply_user_ids = replies.map(&:author).map(&:user_id)
       expect(notification_user_ids - reply_user_ids).to be_empty
     end
 
@@ -65,7 +65,7 @@ RSpec.describe Comments::GenerateNotificationsWorker, type: :worker do
         .to change { Notifications::NewComment.count }.by(0)
         .and change { Notifications::NewReply.count }.by(1)
 
-      expect(Notifications::NewReply.last.user).to eq(old_reply.author)
+      expect(Notifications::NewReply.last.user).to eq(old_reply.author.user)
     end
   end
 end

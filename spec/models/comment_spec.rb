@@ -8,7 +8,6 @@ RSpec.describe Comment, type: :model do
   it_behaves_like :ratable
 
   it { is_expected.to belong_to(:author) }
-  it { is_expected.to belong_to(:profile) }
   it { is_expected.to belong_to(:post) }
   it { is_expected.to belong_to(:comment).optional }
 

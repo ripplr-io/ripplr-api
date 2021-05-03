@@ -1,8 +1,7 @@
 class Comment < ApplicationRecord
   include Ratable
 
-  belongs_to :author, class_name: 'User'
-  belongs_to :profile
+  belongs_to :author, class_name: 'Profile', foreign_key: 'profile_id', inverse_of: :comments
   belongs_to :post
   belongs_to :comment, optional: true
 

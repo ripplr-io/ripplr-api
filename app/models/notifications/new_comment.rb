@@ -13,7 +13,7 @@ module Notifications
         type: type.split('::').last.underscore,
         id: @comment.id,
         post_id: @comment.post.id,
-        author_id: @comment.profile.id
+        author_id: @comment.author.id
       }
     end
   end

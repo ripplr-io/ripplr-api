@@ -9,7 +9,7 @@ class Post < ApplicationRecord
   attribute :image_url, :string
 
   belongs_to :topic
-  belongs_to :author, class_name: 'Profile', foreign_key: 'profile_id'
+  belongs_to :author, class_name: 'Profile', foreign_key: 'profile_id', inverse_of: :posts
   has_one_attached :image
 
   has_many :bookmarks, dependent: :destroy

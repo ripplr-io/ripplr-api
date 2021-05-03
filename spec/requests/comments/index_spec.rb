@@ -11,6 +11,6 @@ RSpec.describe :comments_index, type: :request do
     expect(response).to have_http_status(:ok)
     expect(response_data).to have_resource(post_comment)
     expect(response_data).not_to have_resource(other_comment)
-    expect(response_included).to have_resource(post_comment.profile)
+    expect(response_included).to have_resource(post_comment.author)
   end
 end
