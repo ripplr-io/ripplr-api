@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   subject { build(:user) }
 
+  it_behaves_like :profilable
+
   it { is_expected.to be_valid }
 
   it { is_expected.to belong_to(:level) }

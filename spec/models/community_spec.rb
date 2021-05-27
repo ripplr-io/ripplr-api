@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe Community, type: :model do
   subject { build(:community) }
 
-  it { is_expected.to be_valid }
-
   it_behaves_like :followable
+
+  it { is_expected.to be_valid }
 
   it { is_expected.to belong_to(:owner) }
 

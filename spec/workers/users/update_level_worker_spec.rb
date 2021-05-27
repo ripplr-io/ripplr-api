@@ -9,6 +9,7 @@ RSpec.describe Users::UpdateLevelWorker, type: :worker do
 
     expect { described_class.new.perform(user.id) }
       .to change { Notifications::NewLevel.count }.by(0)
+      .and change { Notification::NewLevel.count }.by(0)
 
     expect(user.reload.level).to eq(original_level)
   end
@@ -22,6 +23,7 @@ RSpec.describe Users::UpdateLevelWorker, type: :worker do
 
     expect { described_class.new.perform(user.id) }
       .to change { Notifications::NewLevel.count }.by(1)
+      .and change { Notification::NewLevel.count }.by(1)
 
     expect(user.reload.level).to eq(new_level)
   end

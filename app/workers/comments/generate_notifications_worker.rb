@@ -14,7 +14,11 @@ module Comments
       return if @comment.comment.present?
       return if @comment.author == @comment.post.author
 
-      Notifications::NewComment.create(user: @comment.post.author.user, comment: @comment)
+      Notifications::NewComment.create(
+        user: @comment.post.author.user,
+        comment: @comment,
+        notifiable: Notification::NewComment.new(comment: @comment)
+      )
     end
 
     def generate_new_reply_notifications
@@ -34,7 +38,11 @@ module Comments
 
       user_ids = Profile.where(id: comment_follower_ids).pluck(:profilable_id)
       user_ids.each do |user_id|
-        Notifications::NewReply.create(user_id: user_id, comment: @comment)
+        Notifications::NewReply.create(
+          user_id: user_id,
+          comment: @comment,
+          notifiable: Notification::NewReply.new(comment: @comment)
+        )
       end
     end
   end

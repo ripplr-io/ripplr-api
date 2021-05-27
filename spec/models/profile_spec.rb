@@ -3,10 +3,10 @@ require 'rails_helper'
 RSpec.describe Profile, type: :model do
   subject { build(:profile) }
 
-  it { is_expected.to be_valid }
-
   it_behaves_like :followable
   it_behaves_like :subscribable
+
+  it { is_expected.to be_valid }
 
   it { is_expected.to belong_to(:profilable) }
 

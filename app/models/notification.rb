@@ -1,4 +1,6 @@
 class Notification < ApplicationRecord
+  delegated_type :notifiable, types: Notifiable::TYPES, validate: true, dependent: :destroy, optional: true
+
   belongs_to :user
   has_one :profile, through: :user
 

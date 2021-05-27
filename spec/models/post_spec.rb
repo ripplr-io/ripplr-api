@@ -3,10 +3,10 @@ require 'rails_helper'
 RSpec.describe Post, type: :model do
   subject { build(:post) }
 
-  it { is_expected.to be_valid }
-
   it_behaves_like :inboxable
   it_behaves_like :ratable
+
+  it { is_expected.to be_valid }
 
   it { is_expected.to belong_to(:topic) }
   it { is_expected.to belong_to(:author) }
