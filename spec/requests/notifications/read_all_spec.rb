@@ -8,9 +8,9 @@ RSpec.describe :notifications_read_all, type: :request do
   it 'responds with the resource' do
     user = create(:user)
 
-    notification_a = create(:new_comment, user: user)
-    notification_b = create(:new_comment, user: user)
-    notification_other_user = create(:new_comment)
+    notification_a = create(:notification, user: user)
+    notification_b = create(:notification, user: user)
+    notification_other_user = create(:notification)
 
     post read_notifications_path, headers: auth_headers_for(user)
 

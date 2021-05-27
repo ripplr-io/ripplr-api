@@ -13,9 +13,8 @@ module Follows
     def generate_notification
       return unless context.resource.followable_type == 'Profile'
 
-      Notifications::NewFollower.create(
+      Notification.create(
         user: context.resource.followable.user,
-        follower: context.resource.user,
         notifiable: Notification::NewFollower.new(follow: context.resource)
       )
     end

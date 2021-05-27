@@ -8,7 +8,7 @@ RSpec.describe Users::UpdateLevelWorker, type: :worker do
     allow_any_instance_of(User).to receive(:total_points).and_return(20)
 
     expect { described_class.new.perform(user.id) }
-      .to change { Notifications::NewLevel.count }.by(0)
+      .to change { Notification.count }.by(0)
       .and change { Notification::NewLevel.count }.by(0)
 
     expect(user.reload.level).to eq(original_level)
@@ -22,7 +22,7 @@ RSpec.describe Users::UpdateLevelWorker, type: :worker do
     allow_any_instance_of(User).to receive(:total_points).and_return(40)
 
     expect { described_class.new.perform(user.id) }
-      .to change { Notifications::NewLevel.count }.by(1)
+      .to change { Notification.count }.by(1)
       .and change { Notification::NewLevel.count }.by(1)
 
     expect(user.reload.level).to eq(new_level)

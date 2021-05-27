@@ -7,8 +7,8 @@ RSpec.describe :notifications_index, type: :request do
 
   it 'responds with the user resources' do
     user = create(:user)
-    user_notification = create(:new_comment, user: user)
-    other_notification = create(:new_comment)
+    user_notification = create(:notification, user: user)
+    other_notification = create(:notification)
 
     get notifications_path, headers: auth_headers_for(user)
 
@@ -16,6 +16,5 @@ RSpec.describe :notifications_index, type: :request do
     expect(response_data).to have_resource(user_notification)
     expect(response_data).not_to have_resource(other_notification)
     expect(response_included).to have_resource(user_notification.profile)
-    expect(response_included).to have_resource(user_notification.comment.author)
   end
 end

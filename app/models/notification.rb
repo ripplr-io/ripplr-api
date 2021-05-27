@@ -1,10 +1,11 @@
 class Notification < ApplicationRecord
-  delegated_type :notifiable, types: Notifiable::TYPES, validate: true, dependent: :destroy, optional: true
+  # TODO: Remove after migration
+  self.inheritance_column = :_type_disabled
+
+  delegated_type :notifiable, types: Notifiable::TYPES, validate: true, dependent: :destroy
 
   belongs_to :user
   has_one :profile, through: :user
-
-  validates :data, presence: true
 
   # TODO: move to interactor
   after_commit :broadcast, on: :create

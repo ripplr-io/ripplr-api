@@ -28,7 +28,7 @@ RSpec.describe Accounts::Create, type: :interactor do
     expect { described_class.call(resource: user) }
       .to change { User.count }.by(1)
       .and change { BookmarkFolder.count }.by(1)
-      .and change { Notifications::ReferralAccepted.count }.by(1)
+      .and change { Notification.count }.by(1)
       .and change { Notification::AcceptedReferral.count }.by(1)
 
     expect(User.last.referral).to eq(referral)

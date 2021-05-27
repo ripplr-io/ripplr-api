@@ -6,7 +6,7 @@ RSpec.describe Follows::Create, type: :interactor do
 
     expect { described_class.call(resource: follow) }
       .to change { Follow.count }.by(1)
-      .and change { Notifications::NewFollower.count }.by(1)
+      .and change { Notification.count }.by(1)
       .and change { Notification::NewFollower.count }.by(1)
 
     expect(Trackers::TrackFollowCreatedWorker.jobs.size).to eq(1)

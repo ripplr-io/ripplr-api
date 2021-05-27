@@ -13,9 +13,8 @@ module Accounts
       if context.resource.referral.present?
         context.resource.referral.update(accepted_at: Time.current)
 
-        Notifications::ReferralAccepted.create(
+        Notification.create(
           user: context.resource.referral.inviter,
-          referral: context.resource.referral,
           notifiable: Notification::AcceptedReferral.new(referral: context.resource.referral)
         )
 

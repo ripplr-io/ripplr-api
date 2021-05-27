@@ -11,7 +11,7 @@ module Users
 
       return unless user.update(level: new_level)
 
-      Notifications::NewLevel.create(user: user, notifiable: Notification::NewLevel.new(level: new_level))
+      Notification.create(user: user, notifiable: Notification::NewLevel.new(level: new_level))
     end
   end
 end
