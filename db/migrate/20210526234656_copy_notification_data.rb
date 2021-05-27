@@ -1,12 +1,12 @@
 class CopyNotificationData < ActiveRecord::Migration[6.1]
   def up
     Notifications::NewComment.where(notifiable: nil).each do |notification|
-      comment = Comment.find(notification.data['id'])
+      comment = Comment.find_by(id: notification.data['id'])
       notification.update(notifiable: Notification::NewComment.new(comment: comment))
     end
 
     Notifications::NewReply.where(notifiable: nil).each do |notification|
-      comment = Comment.find(notification.data['id'])
+      comment = Comment.find_by(id: notification.data['id'])
       notification.update(notifiable: Notification::NewReply.new(comment: comment))
     end
 
@@ -16,7 +16,7 @@ class CopyNotificationData < ActiveRecord::Migration[6.1]
     end
 
     Notifications::NewFollower.where(notifiable: nil).each do |notification|
-      user = User.find(notification.data['author_id'])
+      user = User.find_by(id: notification.data['author_id'])
       follow = Follow.find_by(followable: notification.user.profile, user: user)
 
       notification.update(notifiable: Notification::NewFollower.new(follow: follow))
