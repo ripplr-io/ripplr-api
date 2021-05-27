@@ -1,7 +1,4 @@
 class Notification < ApplicationRecord
-  # TODO: Remove after migration
-  self.inheritance_column = :_type_disabled
-
   delegated_type :notifiable, types: Notifiable::TYPES, validate: true, dependent: :destroy
 
   belongs_to :user
