@@ -6,6 +6,7 @@ module Notifiable
     'Notification::NewComment',
     'Notification::NewFollower',
     'Notification::NewLevel',
+    'Notification::NewRating',
     'Notification::NewReply'
   ].freeze
 

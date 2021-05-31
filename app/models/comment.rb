@@ -7,6 +7,9 @@ class Comment < ApplicationRecord
 
   has_many :comments, dependent: :destroy
 
+  has_many :notification_new_comments, class_name: 'Notification::NewComment', dependent: :destroy
+  has_many :notification_new_replies, class_name: 'Notification::NewReply', dependent: :destroy
+
   transforms_with Comments::CopyParentPostTransformer
 
   validates :body, presence: true

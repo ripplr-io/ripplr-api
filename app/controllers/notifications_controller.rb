@@ -7,7 +7,7 @@ class NotificationsController < ApplicationController
 
   def index
     @notifications = @notifications
-      .order(created_at: :desc)
+      .order(last_activity_at: :desc)
       .includes(:notifiable, user: :profile)
 
     read_resource(@notifications)

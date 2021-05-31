@@ -9,6 +9,12 @@ class Notification < ApplicationRecord
 
   private
 
+  class << self
+    def timestamp_attributes_for_create
+      super << :last_activity_at.to_s
+    end
+  end
+
   def broadcast
     UserChannel.broadcast_to(user, {
       type: :new_notification,

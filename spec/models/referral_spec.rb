@@ -10,6 +10,8 @@ RSpec.describe Referral, type: :model do
   it { is_expected.to belong_to(:inviter) }
   it { is_expected.to belong_to(:invitee).optional }
 
+  it { is_expected.to have_many(:notification_accepted_referrals) }
+
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_presence_of(:email) }
   it { is_expected.to validate_uniqueness_of(:email).scoped_to(:inviter_id).case_insensitive }

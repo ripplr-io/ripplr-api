@@ -7,6 +7,7 @@ RSpec.describe Ratings::Create, type: :interactor do
     expect { described_class.call(resource: rating) }
       .to change { Rating.count }.by(1)
 
+    expect(Notifications::NewRatingWorker.jobs.size).to eq(1)
     expect(Users::UpdateLevelWorker.jobs.size).to eq(1)
     expect(Posts::UpdateTrendingScoreWorker.jobs.size).to eq(1)
     expect(Trackers::TrackRatingCreatedWorker.jobs.size).to eq(1)
@@ -20,6 +21,7 @@ RSpec.describe Ratings::Create, type: :interactor do
     expect { described_class.call(resource: new_rating) }
       .to change { Rating.count }.by(0)
 
+    expect(Notifications::NewRatingWorker.jobs.size).to eq(1)
     expect(Users::UpdateLevelWorker.jobs.size).to eq(1)
   end
 end

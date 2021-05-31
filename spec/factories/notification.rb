@@ -19,6 +19,10 @@ FactoryBot.define do
       notifiable { association :notification_new_follower, notification: instance }
     end
 
+    trait :for_new_rating do
+      notifiable { association :notification_new_rating, notification: instance }
+    end
+
     trait :for_accepted_referral do
       notifiable { association :notification_accepted_referral, notification: instance }
     end

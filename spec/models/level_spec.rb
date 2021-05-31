@@ -5,6 +5,8 @@ RSpec.describe Level, type: :model do
 
   it { is_expected.to be_valid }
 
+  it { is_expected.to have_many(:notification_new_levels) }
+
   it { is_expected.to validate_presence_of(:from) }
   it { is_expected.to validate_presence_of(:to) }
   it { is_expected.to validate_presence_of(:posts) }

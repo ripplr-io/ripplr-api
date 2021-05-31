@@ -2,6 +2,8 @@ class Follow < ApplicationRecord
   belongs_to :followable, polymorphic: true
   belongs_to :user
 
+  has_many :notification_new_followers, class_name: 'Notification::NewFollower', dependent: :destroy
+
   validates :followable_id, uniqueness: { scope: [:followable_type, :user_id] }
 
   counter_culture :followable, column_name: :followers_count, touch: true

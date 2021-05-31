@@ -4,6 +4,8 @@ class Referral < ApplicationRecord
   belongs_to :inviter, class_name: 'User'
   belongs_to :invitee, class_name: 'User', optional: true
 
+  has_many :notification_accepted_referrals, class_name: 'Notification::AcceptedReferral', dependent: :destroy
+
   transforms :email, strip: true, downcase: true
 
   validates :name, presence: true
