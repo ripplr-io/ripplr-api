@@ -18,7 +18,10 @@ RSpec.describe Sendgrid::SubscriptionService, type: :service do
         expect(instance).not_to receive(:subscribe)
         expect(instance).not_to receive(:unsubscribe)
 
-        instance.sync_user(create(:content_source).user)
+        user = create(:content_source).user
+        user.profile.update(bot: true)
+
+        instance.sync_user(user)
       end
     end
   end

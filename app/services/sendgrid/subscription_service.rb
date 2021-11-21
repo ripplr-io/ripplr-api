@@ -3,7 +3,7 @@ module Sendgrid
     MARKETING_GROUP_ID = '14453'.freeze
 
     def sync_user(user)
-      return if user.bot?
+      return if user.profile.bot?
 
       user.subscribed_to_marketing ? subscribe(user.email) : unsubscribe(user.email)
     end

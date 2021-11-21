@@ -77,8 +77,4 @@ class User < ApplicationRecord
   def total_points
     received_ratings.sum(:points) + prizes.sum(:points)
   end
-
-  def bot?
-    content_sources.any?
-  end
 end

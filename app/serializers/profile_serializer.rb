@@ -1,7 +1,7 @@
 class ProfileSerializer < ApplicationSerializer
   belongs_to :user
 
-  attributes :name, :slug, :bio
+  attributes :name, :slug, :bio, :bot
   attribute :followersCount, &:followers_count
   attribute :postsCount, &:posts_count
 
@@ -15,10 +15,6 @@ class ProfileSerializer < ApplicationSerializer
 
   attribute :pointsSum do |object|
     object.user.total_points
-  end
-
-  attribute :bot do |object|
-    object.user.bot?
   end
 
   attribute :followingCount do |object|
