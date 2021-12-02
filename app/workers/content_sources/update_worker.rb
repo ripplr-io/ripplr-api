@@ -4,12 +4,12 @@ module ContentSources
 
     sidekiq_options retry: false
 
-    def perform(content_source_id)
+    def perform(content_source_id, fetch_all_entries: false)
       @content_source = ContentSource.find_by(id: content_source_id)
       return if @content_source.blank?
 
       feedjira = Feedjira::FetchUrlsService.new(@content_source.feed_url)
-      entries = feedjira.data.first(MAX_RESULTS)
+      entries = fetch_all_entries ? feedjira.data : feedjira.data.first(MAX_RESULTS)
 
       entries.reverse_each do |data|
         next if url_published?(data[:url])
