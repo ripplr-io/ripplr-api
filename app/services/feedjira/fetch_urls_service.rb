@@ -10,7 +10,7 @@ module Feedjira
         {
           url: entry[:url],
           title: entry[:title],
-          body: (entry[:summary] || html_to_text(entry[:content])),
+          body: html_to_text(entry[:summary]) || html_to_text(entry[:content]),
           image: entry[:image] || entry[:media_thumbnail_url]
         }
       end
