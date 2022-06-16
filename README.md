@@ -43,3 +43,9 @@ docker-compose up -d # Sart services in daemon mode
 docker-compose logs -f web # View logs for a specific service (e.g. web, db, redis)
 docker-compose stop # Stop the dameon services
 ```
+
+# Contributing
+This project and repository is no longer maitained
+
+# License
+Ripplr is released under the [MIT License](LICENSE.md).
